@@ -1,3 +1,19 @@
+/* Calm Indigo Theme - TabRest Color System */
+:root {
+  --primary: #4338CA;
+  --primary-hover: #3730A3;
+  --secondary: #6366F1;
+  --accent: #7C3AED;
+  --background: #F5F3FF;
+  --card: #FFFFFF;
+  --text: #312E81;
+  --text-muted: #64748B;
+  --border: #E0E7FF;
+  --success: #059669;
+  --warning: #D97706;
+  --danger: #DC2626;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,8 +24,8 @@ body {
   width: 280px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 13px;
-  color: #333;
-  background: #fff;
+  color: var(--text);
+  background: var(--background);
 }
 
 .container {
@@ -22,13 +38,13 @@ header {
   align-items: center;
   margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
 }
 
 h1 {
   font-size: 16px;
   font-weight: 600;
-  color: #1a73e8;
+  color: var(--primary);
 }
 
 .icon-btn {
@@ -38,18 +54,26 @@ h1 {
   cursor: pointer;
   padding: 4px;
   border-radius: 4px;
-  color: #666;
+  color: var(--text-muted);
+  transition: background 0.15s, color 0.15s;
 }
 
 .icon-btn:hover {
-  background: #f0f0f0;
+  background: var(--border);
+  color: var(--primary);
+}
+
+.icon-btn:focus {
+  outline: 2px solid var(--secondary);
+  outline-offset: 1px;
 }
 
 .stats {
   margin-bottom: 12px;
   padding: 10px;
-  background: #f8f9fa;
+  background: var(--card);
   border-radius: 8px;
+  border: 1px solid var(--border);
 }
 
 .stat-row {
@@ -66,30 +90,30 @@ h1 {
 
 .stat-row > span:first-child {
   width: 45px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .progress-bar {
   flex: 1;
   height: 8px;
-  background: #e0e0e0;
+  background: var(--border);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: #4caf50;
+  background: var(--success);
   transition: width 0.3s, background 0.3s;
   width: 0%;
 }
 
 .progress-fill.warning {
-  background: #ff9800;
+  background: var(--warning);
 }
 
 .progress-fill.danger {
-  background: #f44336;
+  background: var(--danger);
 }
 
 .actions {
@@ -101,37 +125,46 @@ h1 {
 
 .btn {
   padding: 8px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: #fff;
+  background: var(--card);
+  color: var(--text);
   cursor: pointer;
   font-size: 13px;
-  transition: all 0.2s;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn:focus {
+  outline: 2px solid var(--secondary);
+  outline-offset: 1px;
 }
 
 .btn:hover {
-  background: #f5f5f5;
-  border-color: #ccc;
+  background: var(--border);
+  border-color: var(--secondary);
 }
 
 .btn:active {
-  background: #eee;
+  background: var(--border);
+  transform: scale(0.98);
 }
 
 .btn.primary {
-  background: #1a73e8;
-  color: #fff;
-  border-color: #1a73e8;
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
 }
 
 .btn.primary:hover {
-  background: #1557b0;
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 .quick-settings {
   padding: 10px;
-  background: #f8f9fa;
+  background: var(--card);
   border-radius: 8px;
+  border: 1px solid var(--border);
   margin-bottom: 8px;
 }
 
@@ -148,15 +181,26 @@ h1 {
 
 .setting-row label {
   font-size: 12px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .setting-row select {
   padding: 4px 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 4px;
   font-size: 12px;
-  background: #fff;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.setting-row select:hover {
+  border-color: var(--secondary);
+}
+
+.setting-row select:focus {
+  outline: 2px solid var(--secondary);
+  outline-offset: 1px;
 }
 
 footer {
@@ -166,7 +210,7 @@ footer {
 }
 
 #status-msg {
-  color: #4caf50;
+  color: var(--success);
 }
 
 .hidden {
@@ -181,7 +225,19 @@ footer {
 #tab-group-select {
   flex: 1;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 13px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+}
+
+#tab-group-select:hover {
+  border-color: var(--secondary);
+}
+
+#tab-group-select:focus {
+  outline: 2px solid var(--secondary);
+  outline-offset: 1px;
 }

@@ -1,3 +1,19 @@
+/* Calm Indigo Theme - TabRest Color System */
+:root {
+  --primary: #4338CA;
+  --primary-hover: #3730A3;
+  --secondary: #6366F1;
+  --accent: #7C3AED;
+  --background: #F5F3FF;
+  --card: #FFFFFF;
+  --text: #312E81;
+  --text-muted: #64748B;
+  --border: #E0E7FF;
+  --success: #059669;
+  --warning: #D97706;
+  --danger: #DC2626;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,8 +23,8 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 14px;
-  color: #333;
-  background: #f5f5f5;
+  color: var(--text);
+  background: var(--background);
   line-height: 1.5;
 }
 
@@ -21,21 +37,21 @@ body {
 h1 {
   font-size: 24px;
   margin-bottom: 24px;
-  color: #1a73e8;
+  color: var(--primary);
 }
 
 h2 {
   font-size: 16px;
   margin-bottom: 16px;
-  color: #333;
+  color: var(--text);
 }
 
 .card {
-  background: #fff;
+  background: var(--card);
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid var(--border);
 }
 
 .setting {
@@ -56,20 +72,32 @@ h2 {
 .setting input[type="checkbox"] {
   width: 16px;
   height: 16px;
+  accent-color: var(--primary);
 }
 
 .setting select {
   margin-left: 8px;
   padding: 6px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 4px;
   font-size: 14px;
-  background: #fff;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.setting select:hover {
+  border-color: var(--secondary);
+}
+
+.setting select:focus {
+  outline: 2px solid var(--secondary);
+  outline-offset: 1px;
 }
 
 .help {
   font-size: 12px;
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 12px;
 }
 
@@ -82,22 +110,24 @@ h2 {
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background: #f8f9fa;
+  background: var(--background);
   border-radius: 4px;
   margin-bottom: 6px;
+  border: 1px solid var(--border);
 }
 
 .domain-item button {
   background: none;
   border: none;
-  color: #f44336;
+  color: var(--danger);
   cursor: pointer;
   font-size: 18px;
   padding: 0 4px;
+  transition: color 0.15s;
 }
 
 .domain-item button:hover {
-  color: #d32f2f;
+  color: #B91C1C;
 }
 
 .add-domain {
@@ -108,14 +138,17 @@ h2 {
 .add-domain input {
   flex: 1;
   padding: 8px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 4px;
   font-size: 14px;
+  background: var(--card);
+  color: var(--text);
 }
 
 .add-domain input:focus {
-  outline: none;
-  border-color: #1a73e8;
+  outline: 2px solid var(--secondary);
+  outline-offset: 1px;
+  border-color: var(--secondary);
 }
 
 .btn {
@@ -124,23 +157,33 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  background: #1a73e8;
-  color: #fff;
-  transition: background 0.2s;
+  background: var(--primary);
+  color: #FFFFFF;
+  transition: background 0.15s;
 }
 
 .btn:hover {
-  background: #1557b0;
+  background: var(--primary-hover);
+}
+
+.btn:focus {
+  outline: 2px solid var(--secondary);
+  outline-offset: 1px;
+}
+
+.btn:active {
+  transform: scale(0.98);
 }
 
 .btn.secondary {
-  background: #f5f5f5;
-  color: #333;
-  border: 1px solid #ddd;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
 .btn.secondary:hover {
-  background: #e0e0e0;
+  background: var(--border);
+  border-color: var(--secondary);
 }
 
 .stats-display {
@@ -157,12 +200,12 @@ h2 {
   display: block;
   font-size: 24px;
   font-weight: 600;
-  color: #1a73e8;
+  color: var(--primary);
 }
 
 .stat-label {
   font-size: 12px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .shortcuts-list {
@@ -171,7 +214,7 @@ h2 {
 
 .shortcut {
   margin-bottom: 8px;
-  color: #555;
+  color: var(--text);
 }
 
 .shortcut:last-child {
@@ -183,10 +226,11 @@ kbd {
   padding: 3px 6px;
   font-family: monospace;
   font-size: 12px;
-  background: #f0f0f0;
-  border: 1px solid #ccc;
+  background: var(--background);
+  border: 1px solid var(--border);
   border-radius: 3px;
   margin-right: 8px;
+  color: var(--text);
 }
 
 .status {
@@ -194,8 +238,8 @@ kbd {
   bottom: 24px;
   right: 24px;
   padding: 12px 24px;
-  background: #4caf50;
-  color: #fff;
+  background: var(--success);
+  color: #FFFFFF;
   border-radius: 4px;
   opacity: 0;
   transition: opacity 0.3s;
