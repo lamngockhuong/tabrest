@@ -25,7 +25,10 @@ export async function discardTab(tabId) {
 
     return true;
   } catch (error) {
-    console.error(`Failed to discard tab ${tabId}:`, error);
+    // Tab closed between query and discard - expected during batch operations
+    if (!error.message?.includes('No tab with id')) {
+      console.error(`Failed to discard tab ${tabId}:`, error);
+    }
     return false;
   }
 }
