@@ -126,3 +126,6 @@ function isWhitelisted(url, settings) {
     return false;
   }
 }
+
+// Export for external use
+export { isWhitelisted as isUrlWhitelisted };

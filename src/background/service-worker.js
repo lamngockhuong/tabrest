@@ -5,7 +5,8 @@ import {
   discardTabsToLeft,
   discardTabsToRight,
   discardTabGroup,
-  discardTab
+  discardTab,
+  isUrlWhitelisted
 } from './unload-manager.js';
 import {
   initTabTracker,
@@ -14,7 +15,8 @@ import {
   checkAndUnloadInactiveTabs,
   syncAllTabs,
   cleanupStaleActivity,
-  setupTabCheckAlarm
+  setupTabCheckAlarm,
+  getTabActivityMap
 } from './tab-tracker.js';
 import {
   initMemoryMonitor,
@@ -184,7 +186,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Handle messages from popup
 async function handleMessage(message) {
-  const { command, groupId } = message;
+  const { command, groupId, tabId } = message;
 
   switch (command) {
     case 'unload-current':
@@ -199,9 +201,46 @@ async function handleMessage(message) {
       return await discardTabGroup(groupId);
     case 'get-memory-info':
       return await getMemoryInfo();
+    case 'get-tabs-with-status':
+      return await getTabsWithStatus();
+    case 'unload-tab':
+      return await discardTab(tabId);
     default:
       return null;
   }
+}
+
+// Get all tabs in current window with their status info
+async function getTabsWithStatus() {
+  const tabs = await chrome.tabs.query({ currentWindow: true });
+  const settings = await getSettings();
+  const tabActivity = getTabActivityMap();
+  const now = Date.now();
+  const unloadDelay = settings.unloadDelayMinutes * 60 * 1000;
+
+  return tabs.map(tab => {
+    const lastActive = tabActivity[tab.id] || now;
+    const elapsed = now - lastActive;
+    const timeUntilUnload = unloadDelay > 0 ? Math.max(0, unloadDelay - elapsed) : null;
+
+    // Determine protection status
+    const isWhitelisted = isUrlWhitelisted(tab.url, settings);
+    const isPinned = tab.pinned && !settings.unloadPinnedTabs;
+    const isProtected = isWhitelisted || isPinned;
+
+    return {
+      id: tab.id,
+      title: tab.title || 'New Tab',
+      url: tab.url,
+      favIconUrl: tab.favIconUrl,
+      active: tab.active,
+      discarded: tab.discarded,
+      pinned: tab.pinned,
+      isProtected,
+      isWhitelisted,
+      timeUntilUnload: tab.active || tab.discarded || isProtected ? null : timeUntilUnload
+    };
+  });
 }
 
 // Update badge with discarded tab count
