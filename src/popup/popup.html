@@ -10,80 +10,203 @@
   <div class="container">
     <header>
       <h1>TabRest</h1>
-      <button id="settings-btn" class="icon-btn" title="Settings">&#9881;</button>
+      <div class="header-actions">
+        <button id="theme-toggle" class="icon-btn" title="Toggle theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+        <button id="settings-btn" class="icon-btn" title="Settings">
+          <span data-icon="settings"></span>
+        </button>
+      </div>
     </header>
 
-    <section class="stats">
-      <div class="stat-row">
-        <span>RAM:</span>
-        <div class="progress-bar">
-          <div id="ram-bar" class="progress-fill"></div>
-        </div>
-        <span id="ram-percent">--%</span>
+    <!-- Review Prompt -->
+    <div class="review-prompt" id="review-prompt" style="display: none;">
+      <span class="review-prompt-text">Enjoying TabRest?</span>
+      <div class="review-prompt-actions">
+        <button class="review-btn review-yes" id="review-yes" title="Leave a review">
+          <span data-icon="check"></span> Yes!
+        </button>
+        <button class="review-btn review-no" id="review-no" title="Report issue">
+          <span data-icon="x"></span> Not really
+        </button>
       </div>
-      <div class="stat-row">
-        <span>Tabs:</span>
-        <span id="tab-counts">-- active | -- saved</span>
-      </div>
-      <div class="stat-row">
-        <span>Saved:</span>
-        <span id="memory-saved">~0 MB this session</span>
-      </div>
-    </section>
-
-    <section class="actions">
-      <button id="unload-current" class="btn primary">Unload This Tab</button>
-      <button id="unload-right" class="btn">Unload All Right</button>
-      <button id="unload-left" class="btn">Unload All Left</button>
-      <button id="unload-others" class="btn">Unload All Others</button>
-      <div id="tab-groups-section" class="hidden">
-        <select id="tab-group-select">
-          <option value="">Select Tab Group...</option>
-        </select>
-        <button id="unload-group" class="btn">Unload Group</button>
-      </div>
-    </section>
-
-    <section class="tab-list-section">
-      <div class="tab-list-header">
-        <span>Tabs in this window</span>
-        <button id="refresh-tabs" class="icon-btn small" title="Refresh">&#8635;</button>
-      </div>
-      <div id="tab-list" class="tab-list"></div>
-    </section>
-
-    <section class="quick-settings collapsed" id="quick-settings">
-      <button class="settings-toggle" id="settings-toggle">
-        <span>Quick Settings</span>
-        <span class="toggle-icon">&#9662;</span>
+      <button class="review-dismiss" id="review-dismiss" title="Dismiss">
+        <span data-icon="x"></span>
       </button>
-      <div class="settings-content">
-        <div class="setting-row">
-          <label>Auto-unload:</label>
-          <select id="timer-select">
-            <option value="0">Disabled</option>
-            <option value="15">15 min</option>
-            <option value="30">30 min</option>
-            <option value="60">1 hour</option>
-            <option value="120">2 hours</option>
-          </select>
-        </div>
-        <div class="setting-row">
-          <label>RAM Threshold:</label>
-          <select id="threshold-select">
-            <option value="0">Disabled</option>
-            <option value="70">70%</option>
-            <option value="80">80%</option>
-            <option value="90">90%</option>
-          </select>
+    </div>
+
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+      <div class="strip-stat">
+        <span class="strip-stat-value" id="stat-sleeping">0</span>
+        <span class="strip-stat-label">sleeping</span>
+      </div>
+      <div class="strip-divider"></div>
+      <div class="strip-stat">
+        <span class="strip-stat-value" id="stat-protected">0</span>
+        <span class="strip-stat-label">protected</span>
+      </div>
+      <div class="strip-divider"></div>
+      <div class="strip-stat">
+        <span class="strip-stat-value" id="stat-saved">—</span>
+        <span class="strip-stat-label">saved</span>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="btn btn-primary" id="unload-others">
+        <span data-icon="pause"></span>
+        <span>Unload Others</span>
+      </button>
+      <button class="btn" id="unload-current">
+        <span data-icon="moon"></span>
+        <span>Unload Current</span>
+      </button>
+    </div>
+
+    <!-- Tab Groups (if available) -->
+    <div id="tab-groups-section" class="hidden">
+      <select id="tab-group-select" class="select" style="flex: 1;">
+        <option value="">Select Tab Group...</option>
+      </select>
+      <button id="unload-group" class="btn btn-sm">Unload Group</button>
+    </div>
+
+    <!-- Tab List -->
+    <div class="section-header">
+      <span>Tabs in this window</span>
+      <button class="btn-icon" id="refresh-tabs" title="Refresh">
+        <span data-icon="refresh"></span>
+      </button>
+    </div>
+    <div class="tab-list-section">
+      <div id="tab-list" class="tab-list"></div>
+    </div>
+
+    <!-- Collapsible Settings -->
+    <div class="collapsible-section">
+      <button class="section-toggle" id="settings-toggle" aria-expanded="false">
+        <span class="section-toggle-left">
+          <span data-icon="settings"></span>
+          <span>Quick Settings</span>
+        </span>
+        <span class="section-chevron" data-icon="chevronRight"></span>
+      </button>
+      <div class="section-body" id="settings-body">
+        <div class="section-body-inner">
+          <div class="setting-row">
+            <label>Auto-unload after</label>
+            <select id="timer-select" class="select">
+              <option value="0">Disabled</option>
+              <option value="15">15 minutes</option>
+              <option value="30">30 minutes</option>
+              <option value="60">1 hour</option>
+              <option value="120">2 hours</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <label>RAM threshold</label>
+            <select id="threshold-select" class="select">
+              <option value="0">Disabled</option>
+              <option value="70">70%</option>
+              <option value="80">80%</option>
+              <option value="90">90%</option>
+            </select>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <footer>
-      <span id="status-msg"></span>
+    <!-- More Actions -->
+    <div class="collapsible-section">
+      <button class="section-toggle" id="more-toggle" aria-expanded="false">
+        <span class="section-toggle-left">
+          <span data-icon="zap"></span>
+          <span>More Actions</span>
+        </span>
+        <span class="section-chevron" data-icon="chevronRight"></span>
+      </button>
+      <div class="section-body" id="more-body">
+        <div class="section-body-inner">
+          <div class="more-actions-grid">
+            <button class="btn btn-sm" id="unload-right">
+              <span>Unload Right →</span>
+            </button>
+            <button class="btn btn-sm" id="unload-left">
+              <span>← Unload Left</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sessions -->
+    <div class="collapsible-section">
+      <button class="section-toggle" id="sessions-toggle" aria-expanded="false">
+        <span class="section-toggle-left">
+          <span data-icon="folderOpen"></span>
+          <span>Sessions</span>
+        </span>
+        <span class="section-chevron" data-icon="chevronRight"></span>
+      </button>
+      <div class="section-body" id="sessions-body">
+        <div class="section-body-inner">
+          <div class="session-save-row">
+            <input type="text" id="session-name-input" class="input" placeholder="Session name (optional)">
+            <button class="btn btn-sm" id="btn-save-session">
+              <span data-icon="plus"></span>
+              <span>Save</span>
+            </button>
+          </div>
+          <div class="session-list" id="session-list">
+            <div class="empty-state">Save your first session</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="collapsible-section">
+      <button class="section-toggle" id="stats-toggle" aria-expanded="false">
+        <span class="section-toggle-left">
+          <span data-icon="barChart"></span>
+          <span>Stats</span>
+        </span>
+        <span class="section-chevron" data-icon="chevronRight"></span>
+      </button>
+      <div class="section-body" id="stats-body">
+        <div class="section-body-inner">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-card-label">Today</span>
+              <span class="stat-card-value" id="stat-today">0</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card-label">All time</span>
+              <span class="stat-card-value" id="stat-all-time">0</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card-label">RAM saved (est.)</span>
+              <span class="stat-card-value" id="stat-ram">—</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card-label">Member since</span>
+              <span class="stat-card-value" id="stat-member-since">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="popup-footer">
+      <span>TabRest v0.0.1</span>
     </footer>
   </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="popup.js" type="module"></script>
 </body>

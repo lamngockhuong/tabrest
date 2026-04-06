@@ -1,6 +1,36 @@
 import { getSettings } from '../shared/storage.js';
 import { recordUnload } from './stats-collector.js';
 
+/**
+ * Check if tab should be protected from unloading
+ * @param {object} tab - Chrome tab object
+ * @param {object} settings - Current settings
+ * @returns {Promise<{protected: boolean, reason?: string}>}
+ */
+async function shouldProtectTab(tab, settings) {
+  // Audio protection - skip tabs playing audio
+  if (settings.protectAudioTabs && tab.audible) {
+    return { protected: true, reason: 'audio' };
+  }
+
+  // Form protection - check for unsaved form data
+  if (settings.protectFormTabs) {
+    try {
+      const response = await Promise.race([
+        chrome.tabs.sendMessage(tab.id, { action: 'checkFormData' }),
+        new Promise(resolve => setTimeout(() => resolve(null), 500))
+      ]);
+      if (response?.hasFormData) {
+        return { protected: true, reason: 'form' };
+      }
+    } catch {
+      // Content script not loaded, proceed with unload
+    }
+  }
+
+  return { protected: false };
+}
+
 // Discard a single tab by ID
 export async function discardTab(tabId) {
   try {
@@ -14,6 +44,13 @@ export async function discardTab(tabId) {
 
     // Check whitelist
     if (isWhitelisted(tab.url, settings)) return false;
+
+    // Check audio/form protection
+    const protection = await shouldProtectTab(tab, settings);
+    if (protection.protected) {
+      console.log(`Tab protected (${protection.reason}): ${tab.title}`);
+      return false;
+    }
 
     await chrome.tabs.discard(tabId);
     console.log(`Discarded tab: ${tab.title}`);

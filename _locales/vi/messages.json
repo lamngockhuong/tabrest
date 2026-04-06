@@ -1,0 +1,103 @@
+{
+  "extName": {
+    "message": "TabRest"
+  },
+  "extDescription": {
+    "message": "Cho tab nghỉ ngơi, giải phóng bộ nhớ - tự động dỡ các tab không hoạt động"
+  },
+  "sleeping": {
+    "message": "đang ngủ"
+  },
+  "protected": {
+    "message": "được bảo vệ"
+  },
+  "saved": {
+    "message": "đã tiết kiệm"
+  },
+  "unloadOthers": {
+    "message": "Dỡ tab khác"
+  },
+  "unloadCurrent": {
+    "message": "Dỡ tab hiện tại"
+  },
+  "tabsInWindow": {
+    "message": "Tab trong cửa sổ này"
+  },
+  "sessions": {
+    "message": "Phiên làm việc"
+  },
+  "stats": {
+    "message": "Thống kê"
+  },
+  "quickSettings": {
+    "message": "Cài đặt nhanh"
+  },
+  "moreActions": {
+    "message": "Thao tác khác"
+  },
+  "autoUnloadAfter": {
+    "message": "Tự động dỡ sau"
+  },
+  "ramThreshold": {
+    "message": "Ngưỡng RAM"
+  },
+  "disabled": {
+    "message": "Tắt"
+  },
+  "sessionNamePlaceholder": {
+    "message": "Tên phiên (tùy chọn)"
+  },
+  "save": {
+    "message": "Lưu"
+  },
+  "saveFirstSession": {
+    "message": "Lưu phiên đầu tiên của bạn"
+  },
+  "today": {
+    "message": "Hôm nay"
+  },
+  "allTime": {
+    "message": "Tổng cộng"
+  },
+  "ramSaved": {
+    "message": "RAM tiết kiệm (ước tính)"
+  },
+  "memberSince": {
+    "message": "Thành viên từ"
+  },
+  "enjoyingTabRest": {
+    "message": "Bạn thích TabRest không?"
+  },
+  "yes": {
+    "message": "Có!"
+  },
+  "notReally": {
+    "message": "Không hẳn"
+  },
+  "sessionSaved": {
+    "message": "Đã lưu phiên"
+  },
+  "sessionDeleted": {
+    "message": "Đã xóa phiên"
+  },
+  "tabUnloaded": {
+    "message": "Đã dỡ tab"
+  },
+  "tabsUnloaded": {
+    "message": "Đã dỡ $1 tab",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "restoredTabs": {
+    "message": "Đã khôi phục $1 tab",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "refreshed": {
+    "message": "Đã làm mới"
+  },
+  "timerUpdated": {
+    "message": "Đã cập nhật hẹn giờ"
+  },
+  "thresholdUpdated": {
+    "message": "Đã cập nhật ngưỡng"
+  }
+}

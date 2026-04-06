@@ -24,7 +24,13 @@ import {
   setupMemoryCheckAlarm,
   getMemoryInfo
 } from './memory-monitor.js';
-import { initStats } from './stats-collector.js';
+import { initStats, getStats } from './stats-collector.js';
+import {
+  getSessions,
+  saveSession,
+  deleteSession,
+  restoreSession
+} from './session-manager.js';
 import { getSettings } from '../shared/storage.js';
 import { ALARM_NAMES } from '../shared/constants.js';
 
@@ -54,6 +60,21 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   const settings = await getSettings();
   console.log('Current settings:', settings);
   updateBadge();
+
+  // Open engagement pages
+  const currentVersion = chrome.runtime.getManifest().version;
+
+  if (details.reason === 'install') {
+    // First install - show onboarding
+    chrome.tabs.create({ url: 'src/pages/onboarding.html' });
+  } else if (details.reason === 'update') {
+    // Check if we should show changelog
+    const result = await chrome.storage.local.get('tabrest_lastVersion');
+    if (result.tabrest_lastVersion !== currentVersion) {
+      await chrome.storage.local.set({ tabrest_lastVersion: currentVersion });
+      chrome.tabs.create({ url: 'src/pages/changelog.html' });
+    }
+  }
 });
 
 // Setup context menus
@@ -186,7 +207,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Handle messages from popup
 async function handleMessage(message) {
-  const { command, groupId, tabId } = message;
+  const { command, groupId, tabId, name, id, mode } = message;
 
   switch (command) {
     case 'unload-current':
@@ -205,6 +226,18 @@ async function handleMessage(message) {
       return await getTabsWithStatus();
     case 'unload-tab':
       return await discardTab(tabId);
+    // Session commands
+    case 'get-sessions':
+      return await getSessions();
+    case 'save-session':
+      return await saveSession(name);
+    case 'delete-session':
+      return await deleteSession(id);
+    case 'restore-session':
+      return await restoreSession(id, mode);
+    // Stats commands
+    case 'get-stats':
+      return await getStats();
     default:
       return null;
   }

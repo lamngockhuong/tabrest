@@ -6,6 +6,8 @@ export const SETTINGS_DEFAULTS = {
   whitelist: ['youtube.com', 'gmail.com', 'docs.google.com'],
   blacklist: [],
   unloadPinnedTabs: false,
+  protectAudioTabs: true,
+  protectFormTabs: true,
   showBadgeCount: true,
   enableTabGroups: true,
   enableStats: true

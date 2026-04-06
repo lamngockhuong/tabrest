@@ -40,30 +40,32 @@ async function loadSettings() {
   renderWhitelist();
 }
 
-// Render whitelist domains
+// Render whitelist domains (XSS-safe DOM manipulation)
 function renderWhitelist() {
   elements.whitelistContainer.innerHTML = '';
 
   for (const domain of currentSettings.whitelist || []) {
     const item = document.createElement('div');
     item.className = 'domain-item';
-    item.innerHTML = `
-      <span>${domain}</span>
-      <button data-domain="${domain}" title="Remove">&times;</button>
-    `;
-    elements.whitelistContainer.appendChild(item);
-  }
 
-  // Add remove handlers
-  elements.whitelistContainer.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      const domain = e.target.dataset.domain;
+    const span = document.createElement('span');
+    span.textContent = domain; // Safe: textContent escapes HTML
+
+    const btn = document.createElement('button');
+    btn.dataset.domain = domain;
+    btn.title = 'Remove';
+    btn.innerHTML = '&times;';
+    btn.addEventListener('click', async () => {
       currentSettings.whitelist = currentSettings.whitelist.filter(d => d !== domain);
       await saveSettings(currentSettings);
       renderWhitelist();
       showStatus('Domain removed');
     });
-  });
+
+    item.appendChild(span);
+    item.appendChild(btn);
+    elements.whitelistContainer.appendChild(item);
+  }
 }
 
 // Load statistics

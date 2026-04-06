@@ -1,0 +1,140 @@
+{
+  "extName": {
+    "message": "TabRest",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Rest your tabs, free your memory - automatically unload inactive tabs",
+    "description": "Extension description"
+  },
+  "sleeping": {
+    "message": "sleeping",
+    "description": "Stats label for sleeping tabs"
+  },
+  "protected": {
+    "message": "protected",
+    "description": "Stats label for protected tabs"
+  },
+  "saved": {
+    "message": "saved",
+    "description": "Stats label for memory saved"
+  },
+  "unloadOthers": {
+    "message": "Unload Others",
+    "description": "Button text"
+  },
+  "unloadCurrent": {
+    "message": "Unload Current",
+    "description": "Button text"
+  },
+  "tabsInWindow": {
+    "message": "Tabs in this window",
+    "description": "Section header"
+  },
+  "sessions": {
+    "message": "Sessions",
+    "description": "Section header"
+  },
+  "stats": {
+    "message": "Stats",
+    "description": "Section header"
+  },
+  "quickSettings": {
+    "message": "Quick Settings",
+    "description": "Section header"
+  },
+  "moreActions": {
+    "message": "More Actions",
+    "description": "Section header"
+  },
+  "autoUnloadAfter": {
+    "message": "Auto-unload after",
+    "description": "Setting label"
+  },
+  "ramThreshold": {
+    "message": "RAM threshold",
+    "description": "Setting label"
+  },
+  "disabled": {
+    "message": "Disabled",
+    "description": "Option text"
+  },
+  "sessionNamePlaceholder": {
+    "message": "Session name (optional)",
+    "description": "Input placeholder"
+  },
+  "save": {
+    "message": "Save",
+    "description": "Button text"
+  },
+  "saveFirstSession": {
+    "message": "Save your first session",
+    "description": "Empty state"
+  },
+  "today": {
+    "message": "Today",
+    "description": "Stats label"
+  },
+  "allTime": {
+    "message": "All time",
+    "description": "Stats label"
+  },
+  "ramSaved": {
+    "message": "RAM saved (est.)",
+    "description": "Stats label"
+  },
+  "memberSince": {
+    "message": "Member since",
+    "description": "Stats label"
+  },
+  "enjoyingTabRest": {
+    "message": "Enjoying TabRest?",
+    "description": "Review prompt"
+  },
+  "yes": {
+    "message": "Yes!",
+    "description": "Button text"
+  },
+  "notReally": {
+    "message": "Not really",
+    "description": "Button text"
+  },
+  "sessionSaved": {
+    "message": "Session saved",
+    "description": "Toast message"
+  },
+  "sessionDeleted": {
+    "message": "Session deleted",
+    "description": "Toast message"
+  },
+  "tabUnloaded": {
+    "message": "Tab unloaded",
+    "description": "Toast message"
+  },
+  "tabsUnloaded": {
+    "message": "$1 tabs unloaded",
+    "description": "Toast message",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "Restored $1 tabs",
+    "description": "Toast message",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "Refreshed",
+    "description": "Toast message"
+  },
+  "timerUpdated": {
+    "message": "Timer updated",
+    "description": "Toast message"
+  },
+  "thresholdUpdated": {
+    "message": "Threshold updated",
+    "description": "Toast message"
+  }
+}

@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "TabRest",
+  "name": "__MSG_extName__",
   "version": "0.0.1",
-  "description": "Rest your tabs, free your memory - automatically unload inactive tabs",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "permissions": [
     "tabs",
     "storage",
@@ -46,5 +47,10 @@
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
-  }
+  },
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["src/content/form-checker.js"],
+    "run_at": "document_idle"
+  }]
 }
