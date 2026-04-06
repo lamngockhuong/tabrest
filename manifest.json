@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "TabRest",
+  "version": "0.0.1",
+  "description": "Rest your tabs, free your memory - automatically unload inactive tabs",
+  "permissions": [
+    "tabs",
+    "storage",
+    "alarms",
+    "system.memory",
+    "contextMenus",
+    "tabGroups"
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "commands": {
+    "unload-current": {
+      "suggested_key": { "default": "Alt+Shift+D" },
+      "description": "Unload current tab"
+    },
+    "unload-others": {
+      "suggested_key": { "default": "Alt+Shift+O" },
+      "description": "Unload all other tabs"
+    },
+    "unload-right": {
+      "suggested_key": { "default": "Alt+Shift+Right" },
+      "description": "Unload tabs to the right"
+    },
+    "unload-left": {
+      "suggested_key": { "default": "Alt+Shift+Left" },
+      "description": "Unload tabs to the left"
+    }
+  },
+  "options_page": "src/options/options.html",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

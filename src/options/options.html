@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="options.css">
+  <title>TabRest Settings</title>
+</head>
+<body>
+  <div class="container">
+    <h1>TabRest Settings</h1>
+
+    <section class="card">
+      <h2>Auto-Unload</h2>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="auto-startup">
+          Unload tabs on browser startup
+        </label>
+      </div>
+      <div class="setting">
+        <label for="timer">Unload inactive tabs after:</label>
+        <select id="timer">
+          <option value="0">Disabled</option>
+          <option value="15">15 minutes</option>
+          <option value="30">30 minutes</option>
+          <option value="60">1 hour</option>
+          <option value="120">2 hours</option>
+          <option value="240">4 hours</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Memory Management</h2>
+      <div class="setting">
+        <label for="threshold">Unload tabs when RAM exceeds:</label>
+        <select id="threshold">
+          <option value="0">Disabled</option>
+          <option value="60">60%</option>
+          <option value="70">70%</option>
+          <option value="80">80%</option>
+          <option value="90">90%</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Behavior</h2>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="unload-pinned">
+          Include pinned tabs
+        </label>
+      </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="show-badge">
+          Show unloaded count on icon
+        </label>
+      </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="enable-stats">
+          Track statistics
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Whitelist</h2>
+      <p class="help">Sites that will never be unloaded automatically</p>
+      <div id="whitelist-container"></div>
+      <div class="add-domain">
+        <input type="text" id="new-whitelist" placeholder="example.com">
+        <button id="add-whitelist" class="btn">Add</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Statistics</h2>
+      <div class="stats-display">
+        <div class="stat">
+          <span class="stat-value" id="total-unloaded">0</span>
+          <span class="stat-label">Tabs Unloaded</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="total-saved">0 MB</span>
+          <span class="stat-label">Memory Saved</span>
+        </div>
+      </div>
+      <button id="reset-stats" class="btn secondary">Reset Statistics</button>
+    </section>
+
+    <section class="card">
+      <h2>Keyboard Shortcuts</h2>
+      <p class="help">Configure in chrome://extensions/shortcuts</p>
+      <div class="shortcuts-list">
+        <div class="shortcut"><kbd>Alt+Shift+D</kbd> Unload current tab</div>
+        <div class="shortcut"><kbd>Alt+Shift+O</kbd> Unload other tabs</div>
+        <div class="shortcut"><kbd>Alt+Shift+Right</kbd> Unload tabs to right</div>
+        <div class="shortcut"><kbd>Alt+Shift+Left</kbd> Unload tabs to left</div>
+      </div>
+    </section>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <script src="options.js" type="module"></script>
+</body>
+</html>

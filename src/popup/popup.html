@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup.css">
+  <title>TabRest</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>TabRest</h1>
+      <button id="settings-btn" class="icon-btn" title="Settings">&#9881;</button>
+    </header>
+
+    <section class="stats">
+      <div class="stat-row">
+        <span>RAM:</span>
+        <div class="progress-bar">
+          <div id="ram-bar" class="progress-fill"></div>
+        </div>
+        <span id="ram-percent">--%</span>
+      </div>
+      <div class="stat-row">
+        <span>Tabs:</span>
+        <span id="tab-counts">-- active | -- saved</span>
+      </div>
+      <div class="stat-row">
+        <span>Saved:</span>
+        <span id="memory-saved">~0 MB this session</span>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button id="unload-current" class="btn primary">Unload This Tab</button>
+      <button id="unload-right" class="btn">Unload All Right</button>
+      <button id="unload-left" class="btn">Unload All Left</button>
+      <button id="unload-others" class="btn">Unload All Others</button>
+      <div id="tab-groups-section" class="hidden">
+        <select id="tab-group-select">
+          <option value="">Select Tab Group...</option>
+        </select>
+        <button id="unload-group" class="btn">Unload Group</button>
+      </div>
+    </section>
+
+    <section class="quick-settings">
+      <div class="setting-row">
+        <label>Auto-unload:</label>
+        <select id="timer-select">
+          <option value="0">Disabled</option>
+          <option value="15">15 min</option>
+          <option value="30">30 min</option>
+          <option value="60">1 hour</option>
+          <option value="120">2 hours</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label>RAM Threshold:</label>
+        <select id="threshold-select">
+          <option value="0">Disabled</option>
+          <option value="70">70%</option>
+          <option value="80">80%</option>
+          <option value="90">90%</option>
+        </select>
+      </div>
+    </section>
+
+    <footer>
+      <span id="status-msg"></span>
+    </footer>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
