@@ -10,7 +10,12 @@
     "alarms",
     "system.memory",
     "contextMenus",
-    "tabGroups"
+    "tabGroups",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
   ],
   "background": {
     "service_worker": "src/background/service-worker.js",

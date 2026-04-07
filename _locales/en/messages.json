@@ -292,5 +292,17 @@
   "tabGroups": {
     "message": "Tab Groups",
     "description": "Section header in popup"
+  },
+  "showDiscardedPrefix": {
+    "message": "Prepend symbol to discarded tabs",
+    "description": "Options setting"
+  },
+  "discardedPrefixLabel": {
+    "message": "Symbol:",
+    "description": "Label for prefix input"
+  },
+  "prefixHelp": {
+    "message": "Does not work on protected pages (Chrome Web Store, Google accounts, etc.)",
+    "description": "Help text for prefix setting"
   }
 }

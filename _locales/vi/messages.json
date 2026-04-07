@@ -216,5 +216,14 @@
   },
   "tabGroups": {
     "message": "Nhóm tab"
+  },
+  "showDiscardedPrefix": {
+    "message": "Thêm ký hiệu vào tab đã dỡ"
+  },
+  "discardedPrefixLabel": {
+    "message": "Ký hiệu:"
+  },
+  "prefixHelp": {
+    "message": "Không hoạt động trên các trang được bảo vệ (Chrome Web Store, tài khoản Google, v.v.)"
   }
 }

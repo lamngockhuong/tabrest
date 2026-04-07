@@ -1,3 +1,4 @@
+import { SETTINGS_DEFAULTS } from "../shared/constants.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
@@ -15,6 +16,9 @@ const elements = {
   showBadge: document.getElementById("show-badge"),
   enableStats: document.getElementById("enable-stats"),
   enableTabGroups: document.getElementById("enable-tab-groups"),
+  showDiscardedPrefix: document.getElementById("show-discarded-prefix"),
+  discardedPrefix: document.getElementById("discarded-prefix"),
+  prefixInputContainer: document.getElementById("prefix-input-container"),
   whitelistContainer: document.getElementById("whitelist-container"),
   newWhitelist: document.getElementById("new-whitelist"),
   addWhitelist: document.getElementById("add-whitelist"),
@@ -56,9 +60,16 @@ async function loadSettings() {
   elements.showBadge.checked = currentSettings.showBadgeCount;
   elements.enableStats.checked = currentSettings.enableStats;
   elements.enableTabGroups.checked = currentSettings.enableTabGroups;
+  elements.showDiscardedPrefix.checked = currentSettings.showDiscardedPrefix;
+  elements.discardedPrefix.value = currentSettings.discardedPrefix;
+  updatePrefixInputVisibility();
 
   renderWhitelist();
   renderBlacklist();
+}
+
+function updatePrefixInputVisibility() {
+  elements.prefixInputContainer.classList.toggle("hidden", !elements.showDiscardedPrefix.checked);
 }
 
 // Render domain list (XSS-safe DOM manipulation)
@@ -121,6 +132,7 @@ function setupEventListeners() {
     { el: elements.showBadge, key: "showBadgeCount", type: "checkbox" },
     { el: elements.enableStats, key: "enableStats", type: "checkbox" },
     { el: elements.enableTabGroups, key: "enableTabGroups", type: "checkbox" },
+    { el: elements.showDiscardedPrefix, key: "showDiscardedPrefix", type: "checkbox" },
   ];
 
   for (const { el, key, type } of settingsMap) {
@@ -128,8 +140,24 @@ function setupEventListeners() {
       currentSettings[key] = type === "checkbox" ? el.checked : Number.parseInt(el.value, 10);
       await saveSettings(currentSettings);
       showStatus(t("settingsSaved"));
+      if (key === "showDiscardedPrefix") {
+        updatePrefixInputVisibility();
+      }
     });
   }
+
+  // Prefix input - debounced to avoid storage spam
+  let prefixDebounce = null;
+  elements.discardedPrefix.addEventListener("input", () => {
+    clearTimeout(prefixDebounce);
+    prefixDebounce = setTimeout(async () => {
+      const value = elements.discardedPrefix.value.trim() || SETTINGS_DEFAULTS.discardedPrefix;
+      currentSettings.discardedPrefix = value;
+      elements.discardedPrefix.value = value;
+      await saveSettings(currentSettings);
+      showStatus(t("settingsSaved"));
+    }, 400);
+  });
 
   // Add whitelist domain
   elements.addWhitelist.addEventListener("click", addWhitelistDomain);

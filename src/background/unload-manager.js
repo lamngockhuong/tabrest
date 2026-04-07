@@ -62,6 +62,10 @@ export async function discardTab(tabId, options = {}) {
       }
     }
 
+    if (settings.showDiscardedPrefix && settings.discardedPrefix) {
+      await addTitlePrefix(tabId, settings.discardedPrefix);
+    }
+
     await chrome.tabs.discard(tabId);
 
     // Record stats if enabled
@@ -189,6 +193,22 @@ function isWhitelisted(url, settings) {
 // Check if URL is in blacklist (sync - settings passed in)
 function isBlacklisted(url, settings) {
   return matchesDomainList(url, settings?.blacklist);
+}
+
+async function addTitlePrefix(tabId, prefix) {
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      func: (p) => {
+        if (!document.title.startsWith(p)) {
+          document.title = p + " " + document.title;
+        }
+      },
+      args: [prefix],
+    });
+  } catch {
+    // Tab may not support script injection (chrome://, about:, etc.)
+  }
 }
 
 // Export for external use

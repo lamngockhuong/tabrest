@@ -11,6 +11,8 @@ export const SETTINGS_DEFAULTS = {
   showBadgeCount: true,
   enableTabGroups: true,
   enableStats: true,
+  showDiscardedPrefix: true,
+  discardedPrefix: "\u{1F4A4}",
 };
 
 // Chrome alarm names for periodic checks

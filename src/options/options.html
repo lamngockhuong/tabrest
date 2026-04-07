@@ -91,6 +91,17 @@
           <span data-i18n="enableTabGroups">Show tab groups in popup</span>
         </label>
       </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="show-discarded-prefix">
+          <span data-i18n="showDiscardedPrefix">Prepend symbol to discarded tabs</span>
+        </label>
+        <div class="setting-inline" id="prefix-input-container">
+          <label for="discarded-prefix" data-i18n="discardedPrefixLabel">Symbol:</label>
+          <input type="text" id="discarded-prefix" maxlength="4" class="prefix-input">
+        </div>
+        <p class="help" data-i18n="prefixHelp">Does not work on protected pages (Chrome Web Store, Google accounts, etc.)</p>
+      </div>
     </section>
 
     <section class="card">
