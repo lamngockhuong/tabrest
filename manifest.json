@@ -11,7 +11,8 @@
     "system.memory",
     "contextMenus",
     "tabGroups",
-    "scripting"
+    "scripting",
+    "idle"
   ],
   "host_permissions": [
     "http://*/*",
@@ -69,6 +70,15 @@
       ],
       "js": [
         "src/content/form-checker.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://*.youtube.com/watch*"
+      ],
+      "js": [
+        "src/content/youtube-tracker.js"
       ],
       "run_at": "document_idle"
     }

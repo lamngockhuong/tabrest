@@ -36,9 +36,13 @@ service-worker.js (orchestrator)
             └── unload-manager.js
 
 shared/
-    ├── constants.js (SETTINGS_DEFAULTS, ALARM_NAMES, STORAGE_KEYS)
+    ├── constants.js (SETTINGS_DEFAULTS, ALARM_NAMES, STORAGE_KEYS, POWER_MODE_CONFIG)
     ├── storage.js (chrome.storage wrapper with caching)
     └── utils.js (formatBytes)
+
+content/
+    ├── form-checker.js (detects unsaved forms, reports JS heap memory)
+    └── youtube-tracker.js (saves/restores YouTube playback position)
 ```
 
 ### Key Design Decisions
@@ -64,3 +68,6 @@ shared/
 | `chrome.storage.sync/local` | Settings and activity persistence      |
 | `chrome.contextMenus`       | Right-click menu                       |
 | `chrome.commands`           | Keyboard shortcuts                     |
+| `chrome.idle`               | Idle state detection                   |
+| `chrome.action`             | Toolbar icon click handling            |
+| `chrome.scripting`          | Inject title prefix for discarded tabs |

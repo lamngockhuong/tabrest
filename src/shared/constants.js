@@ -13,6 +13,41 @@ export const SETTINGS_DEFAULTS = {
   enableStats: true,
   showDiscardedPrefix: true,
   discardedPrefix: "\u{1F4A4}",
+  // Phase 1: Tab count threshold - only auto-discard when inactive tabs exceed this count (0 = disabled)
+  minTabsBeforeAutoDiscard: 6,
+  // Phase 3: Toolbar click action - what happens when clicking extension icon
+  toolbarClickAction: "popup", // "popup" | "discard-current" | "discard-others"
+  // Phase 2: YouTube timestamp - save video position before discarding (disabled by default, YouTube has built-in resume)
+  saveYouTubeTimestamp: false,
+  // Phase 4: Idle state - only auto-discard when computer is idle
+  onlyDiscardWhenIdle: false,
+  idleThresholdMinutes: 5,
+  // Phase 5: Power mode - adjust discarding aggressiveness
+  powerMode: "normal", // "battery-saver" | "normal" | "performance"
+  // Phase 6: Per-tab JS heap threshold (0 = disabled)
+  perTabJsHeapThresholdMB: 0,
+};
+
+// YouTube timestamp storage key
+export const YOUTUBE_TIMESTAMPS_KEY = "youtube_timestamps";
+
+// YouTube timestamp max age (7 days in milliseconds)
+export const YOUTUBE_TIMESTAMP_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+
+// Power mode configuration - affects delay and memory thresholds
+export const POWER_MODE_CONFIG = {
+  "battery-saver": {
+    delayMultiplier: 0.5, // 50% of normal delay
+    memoryThresholdOffset: -10, // 10% lower threshold (more aggressive)
+  },
+  normal: {
+    delayMultiplier: 1.0,
+    memoryThresholdOffset: 0,
+  },
+  performance: {
+    delayMultiplier: 2.0, // 200% of normal delay
+    memoryThresholdOffset: 10, // 10% higher threshold (less aggressive)
+  },
 };
 
 // Chrome alarm names for periodic checks
@@ -23,6 +58,15 @@ export const ALARM_NAMES = {
 
 // Timeout for form data check (content script message)
 export const FORM_CHECK_TIMEOUT_MS = 300;
+
+// Per-tab memory staleness threshold (2 minutes)
+export const MEMORY_STALE_THRESHOLD_MS = 120000;
+
+// Memory report interval from content script (30 seconds)
+export const MEMORY_REPORT_INTERVAL_MS = 30000;
+
+// Max tabs to unload per memory check cycle
+export const MAX_TABS_PER_MEMORY_CHECK = 3;
 
 // Chrome storage keys
 export const STORAGE_KEYS = {

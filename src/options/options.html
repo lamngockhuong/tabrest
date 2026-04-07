@@ -37,6 +37,29 @@
           <option value="240">4 hours</option>
         </select>
       </div>
+      <div class="setting">
+        <label for="min-tabs" data-i18n="minTabsLabel">Only auto-unload when inactive tabs exceed:</label>
+        <select id="min-tabs">
+          <option value="0" data-i18n="disabled">Disabled</option>
+          <option value="3">3 tabs</option>
+          <option value="6">6 tabs</option>
+          <option value="10">10 tabs</option>
+          <option value="15">15 tabs</option>
+          <option value="20">20 tabs</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="toolbarAction">Toolbar Action</h2>
+      <div class="setting">
+        <label for="toolbar-action" data-i18n="toolbarClickLabel">When clicking extension icon:</label>
+        <select id="toolbar-action">
+          <option value="popup" data-i18n="actionOpenPopup">Open popup</option>
+          <option value="discard-current" data-i18n="actionDiscardCurrent">Discard current tab</option>
+          <option value="discard-others" data-i18n="actionDiscardOthers">Discard other tabs</option>
+        </select>
+      </div>
     </section>
 
     <section class="card">
@@ -50,6 +73,48 @@
           <option value="80">80%</option>
           <option value="90">90%</option>
         </select>
+      </div>
+      <div class="setting">
+        <label for="per-tab-memory" data-i18n="perTabMemoryLabel">Unload tabs using more than (JS heap):</label>
+        <select id="per-tab-memory">
+          <option value="0" data-i18n="disabled">Disabled</option>
+          <option value="50">50 MB</option>
+          <option value="75">75 MB</option>
+          <option value="100">100 MB</option>
+          <option value="150">150 MB</option>
+          <option value="200">200 MB</option>
+        </select>
+        <p class="help" data-i18n="perTabMemoryHelp">Measures JavaScript memory only, not total tab memory</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="powerMode">Power Mode</h2>
+      <p class="help" data-i18n="powerModeHelp">Adjust aggressiveness based on your power situation</p>
+      <div class="setting">
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="power-mode" value="battery-saver">
+            <span class="radio-content">
+              <strong data-i18n="batterySaver">Battery Saver</strong>
+              <small data-i18n="batterySaverDesc">More aggressive, saves power</small>
+            </span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="power-mode" value="normal" checked>
+            <span class="radio-content">
+              <strong data-i18n="normalMode">Normal</strong>
+              <small data-i18n="normalModeDesc">Balanced performance</small>
+            </span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="power-mode" value="performance">
+            <span class="radio-content">
+              <strong data-i18n="performanceMode">Performance</strong>
+              <small data-i18n="performanceModeDesc">Less aggressive, keeps tabs longer</small>
+            </span>
+          </label>
+        </div>
       </div>
     </section>
 
@@ -72,6 +137,28 @@
           <input type="checkbox" id="protect-form">
           <span data-i18n="protectFormTabs">Protect tabs with unsaved forms</span>
         </label>
+      </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="save-youtube">
+          <span data-i18n="saveYouTubeTimestamp">Save YouTube playback position</span>
+        </label>
+        <p class="help" data-i18n="saveYouTubeHelp">Resume videos from saved position when tab reloads</p>
+      </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="only-discard-idle">
+          <span data-i18n="onlyDiscardWhenIdle">Only auto-unload when computer is idle</span>
+        </label>
+      </div>
+      <div class="setting setting-sub" id="idle-threshold-container">
+        <label for="idle-threshold" data-i18n="idleThreshold">Idle threshold:</label>
+        <select id="idle-threshold">
+          <option value="2">2 minutes</option>
+          <option value="5">5 minutes</option>
+          <option value="10">10 minutes</option>
+          <option value="15">15 minutes</option>
+        </select>
       </div>
       <div class="setting">
         <label>

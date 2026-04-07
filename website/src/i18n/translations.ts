@@ -83,6 +83,31 @@ export const translations = {
           title: 'Visual Indicator',
           description: 'Easily identify unloaded tabs with customizable prefix symbol in tab titles',
         },
+        {
+          icon: '🔢',
+          title: 'Tab Count Threshold',
+          description: 'Only start auto-unloading when you have more than a specified number of inactive tabs',
+        },
+        {
+          icon: '🖱️',
+          title: 'Toolbar Click Action',
+          description: 'Customize what happens when clicking the extension icon: open popup or quick-discard',
+        },
+        {
+          icon: '😴',
+          title: 'Idle State Only',
+          description: 'Only auto-unload tabs when your computer is idle, never interrupt active browsing',
+        },
+        {
+          icon: '🔋',
+          title: 'Power Mode',
+          description: 'Switch between Battery Saver, Normal, and Performance modes to adjust aggressiveness',
+        },
+        {
+          icon: '📈',
+          title: 'Per-Tab Memory',
+          description: 'Automatically unload individual tabs that consume excessive JavaScript memory',
+        },
       ],
     },
     howItWorks: {
@@ -237,6 +262,31 @@ export const translations = {
           icon: '💤',
           title: 'Chỉ báo trực quan',
           description: 'Dễ dàng nhận biết tab đã giải phóng với ký hiệu tùy chỉnh trên tiêu đề tab',
+        },
+        {
+          icon: '🔢',
+          title: 'Ngưỡng số tab',
+          description: 'Chỉ bắt đầu tự động giải phóng khi có nhiều hơn số tab không hoạt động được chỉ định',
+        },
+        {
+          icon: '🖱️',
+          title: 'Thao tác thanh công cụ',
+          description: 'Tùy chỉnh hành động khi nhấp vào icon tiện ích: mở popup hoặc giải phóng nhanh',
+        },
+        {
+          icon: '😴',
+          title: 'Chỉ khi máy nghỉ',
+          description: 'Chỉ tự động giải phóng tab khi máy tính không hoạt động, không làm gián đoạn duyệt web',
+        },
+        {
+          icon: '🔋',
+          title: 'Chế độ nguồn',
+          description: 'Chuyển đổi giữa Tiết kiệm pin, Bình thường và Hiệu suất để điều chỉnh mức độ tích cực',
+        },
+        {
+          icon: '📈',
+          title: 'Bộ nhớ từng tab',
+          description: 'Tự động giải phóng các tab tiêu thụ quá nhiều bộ nhớ JavaScript',
         },
       ],
     },

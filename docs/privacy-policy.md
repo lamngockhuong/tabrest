@@ -1,6 +1,6 @@
 # Privacy Policy for TabRest
 
-Last updated: 2026-04-06
+Last updated: 2026-04-08
 
 ## Data Collection
 
@@ -13,6 +13,7 @@ All data is stored locally on your device using Chrome's storage API:
 - **Extension settings** (sync storage) - Syncs with your Chrome account if signed in
 - **Tab activity timestamps** (local storage only) - Used to track inactive tabs
 - **Usage statistics** (local storage only) - Tabs unloaded count and estimated memory saved
+- **YouTube timestamps** (local storage only) - Video playback positions, auto-deleted after 7 days
 
 ## Permissions Explained
 
@@ -24,6 +25,8 @@ All data is stored locally on your device using Chrome's storage API:
 | `system.memory` | Required to monitor RAM usage for threshold triggers |
 | `contextMenus`  | Required for right-click context menu options        |
 | `tabGroups`     | Required for tab group unload features               |
+| `scripting`     | Required to add visual indicator to discarded tabs   |
+| `idle`          | Required for idle-state-only auto-unload feature     |
 
 ## Third Parties
 

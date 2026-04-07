@@ -43,6 +43,36 @@ Giải phóng bộ nhớ ngay khi Chrome khởi động:
 - **Hành vi**: Giải phóng tất cả tab trừ tab đang hoạt động khi trình duyệt khởi động
 - **Hữu ích cho**: Khôi phục nhiều tab từ phiên trước
 
+### Ngưỡng số tab
+
+Chỉ bắt đầu tự động giải phóng khi có đủ tab không hoạt động:
+
+- **Phạm vi**: 3-20 tab
+- **Mặc định**: 6 tab
+- **Tắt**: Đặt về 0 để luôn tự động giải phóng
+
+**Trường hợp sử dụng**: Ngăn giải phóng quá mức khi bạn chỉ mở vài tab.
+
+### Chỉ khi máy nghỉ
+
+Chỉ tự động giải phóng tab khi máy tính không hoạt động:
+
+- **Mặc định**: Tắt
+- **Ngưỡng**: 2-15 phút không hoạt động
+- **Phát hiện**: Sử dụng API idle của Chrome (phát hiện hoạt động chuột/bàn phím)
+
+**Trường hợp sử dụng**: Không bao giờ làm gián đoạn phiên duyệt web đang hoạt động.
+
+### Ngưỡng bộ nhớ từng tab
+
+Tự động giải phóng các tab tiêu thụ quá nhiều bộ nhớ:
+
+- **Phạm vi**: 50-200 MB (JavaScript heap)
+- **Mặc định**: Tắt
+- **Lưu ý**: Chỉ đo bộ nhớ JS, không phải tổng bộ nhớ tab
+
+**Trường hợp sử dụng**: Nhắm mục tiêu các tab nặng bộ nhớ cụ thể thay vì theo thời gian.
+
 ## Điều khiển thủ công
 
 Điều khiển giải phóng tab theo yêu cầu từ popup:
@@ -55,6 +85,33 @@ Giải phóng bộ nhớ ngay khi Chrome khởi động:
 | **Giải phóng bên phải** | Giải phóng tất cả tab bên phải tab hiện tại |
 
 Truy cập qua biểu tượng TabRest trên thanh công cụ hoặc [phím tắt](/vi/docs/keyboard-shortcuts).
+
+### Thao tác thanh công cụ
+
+Tùy chỉnh hành động khi nhấp vào biểu tượng tiện ích:
+
+| Tùy chọn | Hành vi |
+|----------|---------|
+| **Mở popup** | Mặc định - hiển thị danh sách tab và cài đặt nhanh |
+| **Giải phóng tab hiện tại** | Giải phóng tab hiện tại ngay lập tức |
+| **Giải phóng các tab khác** | Giải phóng tất cả tab khác ngay lập tức |
+
+**Trường hợp sử dụng**: Người dùng nâng cao muốn giải phóng một click mà không mở popup.
+
+## Chế độ nguồn
+
+Điều chỉnh mức độ tích cực tự động giải phóng dựa trên tình huống:
+
+| Chế độ | Hệ số thời gian | Điều chỉnh bộ nhớ |
+|--------|-----------------|-------------------|
+| **Tiết kiệm pin** | 0.5x (nhanh hơn) | -10% (ngưỡng thấp hơn) |
+| **Bình thường** | 1.0x (mặc định) | 0% |
+| **Hiệu suất** | 2.0x (chậm hơn) | +10% (ngưỡng cao hơn) |
+
+**Ví dụ**: Nếu hẹn giờ đặt 30 phút:
+- Tiết kiệm pin: 15 phút
+- Bình thường: 30 phút
+- Hiệu suất: 60 phút
 
 ## Bảo vệ tab
 

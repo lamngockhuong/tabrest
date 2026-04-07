@@ -2,8 +2,11 @@ import { ALARM_NAMES, FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
 import {
   checkMemoryAndUnload,
+  checkPerTabMemory,
   getMemoryInfo,
   initMemoryMonitor,
+  removeTabMemory,
+  reportTabMemory,
   setupMemoryCheckAlarm,
 } from "./memory-monitor.js";
 import { deleteSession, getSessions, restoreSession, saveSession } from "./session-manager.js";
@@ -29,6 +32,31 @@ import {
   isUrlWhitelisted,
 } from "./unload-manager.js";
 
+// Configure toolbar action based on user preference
+async function configureToolbarAction() {
+  const settings = await getSettings();
+  if (settings.toolbarClickAction === "popup") {
+    chrome.action.setPopup({ popup: "src/popup/popup.html" });
+  } else {
+    // Disable popup to enable onClicked event
+    chrome.action.setPopup({ popup: "" });
+  }
+}
+
+// Handle toolbar click (only fires when popup is empty)
+chrome.action.onClicked.addListener(async (tab) => {
+  const settings = await getSettings();
+  switch (settings.toolbarClickAction) {
+    case "discard-current":
+      await discardCurrentTab();
+      break;
+    case "discard-others":
+      await discardOtherTabs();
+      break;
+  }
+  updateBadge();
+});
+
 // Browser startup - initialize trackers and auto-unload
 chrome.runtime.onStartup.addListener(async () => {
   await initTabTracker();
@@ -36,6 +64,7 @@ chrome.runtime.onStartup.addListener(async () => {
   await initStats();
   await syncAllTabs();
   await cleanupStaleActivity();
+  await configureToolbarAction();
   await discardAllTabsOnStartup();
   updateBadge();
 });
@@ -46,6 +75,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   await initMemoryMonitor();
   await initStats();
   await syncAllTabs();
+  await configureToolbarAction();
   setupContextMenus();
   updateBadge();
 
@@ -155,9 +185,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
   }
 });
 
-// Tab removed - clean up activity entry and update badge
+// Tab removed - clean up activity entry, memory entry, and update badge
 chrome.tabs.onRemoved.addListener((tabId) => {
   removeTabActivity(tabId);
+  removeTabMemory(tabId);
   updateBadge();
 });
 
@@ -167,22 +198,31 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
     const count = await checkAndUnloadInactiveTabs();
     if (count > 0) updateBadge();
   } else if (alarm.name === ALARM_NAMES.MEMORY_CHECK) {
-    const count = await checkMemoryAndUnload();
-    if (count > 0) updateBadge();
+    const systemCount = await checkMemoryAndUnload();
+    const perTabCount = await checkPerTabMemory();
+    if (systemCount + perTabCount > 0) updateBadge();
   }
 });
 
-// Settings changed - reconfigure alarms and badge
+// Settings changed - reconfigure alarms, toolbar action, and badge
 chrome.storage.onChanged.addListener(async (changes, area) => {
   if (area === "sync" && changes.settings) {
     await setupTabCheckAlarm();
     await setupMemoryCheckAlarm();
+    await configureToolbarAction();
     updateBadge();
   }
 });
 
-// Message handler for popup commands
-chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+// Message handler for popup commands and content script reports
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  // Handle per-tab memory reports from content script
+  if (message.action === "reportTabMemory" && sender.tab?.id) {
+    reportTabMemory(sender.tab.id, message.heapMB);
+    sendResponse({ received: true });
+    return true;
+  }
+
   handleMessage(message).then((result) => {
     sendResponse(result);
     updateBadge();

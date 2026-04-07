@@ -225,5 +225,65 @@
   },
   "prefixHelp": {
     "message": "Không hoạt động trên các trang được bảo vệ (Chrome Web Store, tài khoản Google, v.v.)"
+  },
+  "minTabsLabel": {
+    "message": "Chỉ tự động dỡ khi số tab không hoạt động vượt quá:"
+  },
+  "toolbarAction": {
+    "message": "Thao tác thanh công cụ"
+  },
+  "toolbarClickLabel": {
+    "message": "Khi nhấp vào biểu tượng tiện ích:"
+  },
+  "actionOpenPopup": {
+    "message": "Mở popup"
+  },
+  "actionDiscardCurrent": {
+    "message": "Dỡ tab hiện tại"
+  },
+  "actionDiscardOthers": {
+    "message": "Dỡ các tab khác"
+  },
+  "saveYouTubeTimestamp": {
+    "message": "Lưu vị trí phát YouTube"
+  },
+  "saveYouTubeHelp": {
+    "message": "Tiếp tục video từ vị trí đã lưu khi tab tải lại"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "Chỉ tự động dỡ khi máy tính không hoạt động"
+  },
+  "idleThreshold": {
+    "message": "Ngưỡng không hoạt động:"
+  },
+  "perTabMemoryLabel": {
+    "message": "Dỡ tab sử dụng hơn (JS heap):"
+  },
+  "perTabMemoryHelp": {
+    "message": "Chỉ đo bộ nhớ JavaScript, không phải tổng bộ nhớ tab"
+  },
+  "powerMode": {
+    "message": "Chế độ nguồn"
+  },
+  "powerModeHelp": {
+    "message": "Điều chỉnh mức độ tích cực dựa trên tình trạng nguồn điện"
+  },
+  "batterySaver": {
+    "message": "Tiết kiệm pin"
+  },
+  "batterySaverDesc": {
+    "message": "Tích cực hơn, tiết kiệm năng lượng"
+  },
+  "normalMode": {
+    "message": "Bình thường"
+  },
+  "normalModeDesc": {
+    "message": "Cân bằng hiệu suất"
+  },
+  "performanceMode": {
+    "message": "Hiệu suất"
+  },
+  "performanceModeDesc": {
+    "message": "Ít tích cực hơn, giữ tab lâu hơn"
   }
 }

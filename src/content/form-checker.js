@@ -74,3 +74,40 @@ document.addEventListener(
   },
   true,
 );
+
+// Phase 6: Report JS heap memory usage to background
+// Guard against duplicate intervals on SPA navigation
+let memoryReporterId = null;
+
+function reportMemoryUsage() {
+  // performance.memory is only available in Chrome with the flag or in certain contexts
+  if (!performance.memory) return;
+
+  const heapMB = Math.round(performance.memory.usedJSHeapSize / (1024 * 1024));
+
+  chrome.runtime
+    .sendMessage({
+      action: "reportTabMemory",
+      heapMB,
+    })
+    .catch(() => {
+      // Ignore if background not ready
+    });
+}
+
+// Start memory reporting with duplicate guard
+function startMemoryReporting() {
+  if (memoryReporterId) return; // Already running
+  memoryReporterId = setInterval(reportMemoryUsage, 30000);
+  reportMemoryUsage(); // Report once immediately
+}
+
+// Clean up interval on page unload to prevent memory leaks
+window.addEventListener("beforeunload", () => {
+  if (memoryReporterId) {
+    clearInterval(memoryReporterId);
+    memoryReporterId = null;
+  }
+});
+
+startMemoryReporting();

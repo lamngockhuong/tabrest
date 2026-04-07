@@ -1,4 +1,4 @@
-import { ALARM_NAMES } from "../shared/constants.js";
+import { ALARM_NAMES, MAX_TABS_PER_MEMORY_CHECK, MEMORY_STALE_THRESHOLD_MS, POWER_MODE_CONFIG } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
 import { getLRUSortedTabs } from "./tab-tracker.js";
 import { discardTab } from "./unload-manager.js";
@@ -57,7 +57,11 @@ export async function checkMemoryAndUnload() {
 
   const usagePercent = calculateMemoryUsagePercent(memoryInfo);
 
-  if (usagePercent < settings.memoryThresholdPercent) {
+  // Phase 5: Apply power mode offset to threshold
+  const powerConfig = POWER_MODE_CONFIG[settings.powerMode] || POWER_MODE_CONFIG.normal;
+  const effectiveThreshold = settings.memoryThresholdPercent + powerConfig.memoryThresholdOffset;
+
+  if (usagePercent < effectiveThreshold) {
     return 0; // Under threshold
   }
 
@@ -65,14 +69,58 @@ export async function checkMemoryAndUnload() {
   const lruTabs = getLRUSortedTabs();
   let unloadedCount = 0;
 
-  // Unload up to 3 tabs per check to gradually reduce memory
-  const maxUnload = 3;
-
   for (const tabId of lruTabs) {
-    if (unloadedCount >= maxUnload) break;
+    if (unloadedCount >= MAX_TABS_PER_MEMORY_CHECK) break;
 
     if (await discardTab(tabId, { settings })) {
       unloadedCount++;
+    }
+  }
+
+  return unloadedCount;
+}
+
+// Per-tab memory tracking map: tabId -> { heapMB, lastUpdate }
+const tabMemoryMap = new Map();
+
+// Handle memory report from content script
+export function reportTabMemory(tabId, heapMB) {
+  tabMemoryMap.set(tabId, {
+    heapMB,
+    lastUpdate: Date.now(),
+  });
+}
+
+// Clean up memory entry when tab closes
+export function removeTabMemory(tabId) {
+  tabMemoryMap.delete(tabId);
+}
+
+// Get tab memory (returns null if stale or not available)
+export function getTabMemory(tabId) {
+  const data = tabMemoryMap.get(tabId);
+  if (data && Date.now() - data.lastUpdate < MEMORY_STALE_THRESHOLD_MS) {
+    return data.heapMB;
+  }
+  return null;
+}
+
+// Phase 6: Check individual tab memory and unload heavy tabs
+export async function checkPerTabMemory() {
+  const settings = await getSettings();
+  if (settings.perTabJsHeapThresholdMB <= 0) return 0;
+
+  const tabs = await chrome.tabs.query({});
+  let unloadedCount = 0;
+
+  for (const tab of tabs) {
+    if (tab.active || tab.discarded) continue;
+
+    const heapMB = getTabMemory(tab.id);
+    if (heapMB && heapMB > settings.perTabJsHeapThresholdMB) {
+      if (await discardTab(tab.id, { settings })) {
+        unloadedCount++;
+      }
     }
   }
 

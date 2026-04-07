@@ -10,6 +10,14 @@ const elements = {
   autoStartup: document.getElementById("auto-startup"),
   timer: document.getElementById("timer"),
   threshold: document.getElementById("threshold"),
+  minTabs: document.getElementById("min-tabs"),
+  toolbarAction: document.getElementById("toolbar-action"),
+  saveYouTube: document.getElementById("save-youtube"),
+  onlyDiscardIdle: document.getElementById("only-discard-idle"),
+  idleThreshold: document.getElementById("idle-threshold"),
+  idleThresholdContainer: document.getElementById("idle-threshold-container"),
+  perTabMemory: document.getElementById("per-tab-memory"),
+  powerModeRadios: document.querySelectorAll('input[name="power-mode"]'),
   unloadPinned: document.getElementById("unload-pinned"),
   protectAudio: document.getElementById("protect-audio"),
   protectForm: document.getElementById("protect-form"),
@@ -54,6 +62,18 @@ async function loadSettings() {
   elements.autoStartup.checked = currentSettings.autoUnloadOnStartup;
   elements.timer.value = currentSettings.unloadDelayMinutes;
   elements.threshold.value = currentSettings.memoryThresholdPercent;
+  elements.perTabMemory.value = currentSettings.perTabJsHeapThresholdMB;
+  elements.minTabs.value = currentSettings.minTabsBeforeAutoDiscard;
+
+  // Set power mode radio
+  for (const radio of elements.powerModeRadios) {
+    radio.checked = radio.value === currentSettings.powerMode;
+  }
+  elements.toolbarAction.value = currentSettings.toolbarClickAction;
+  elements.saveYouTube.checked = currentSettings.saveYouTubeTimestamp;
+  elements.onlyDiscardIdle.checked = currentSettings.onlyDiscardWhenIdle;
+  elements.idleThreshold.value = currentSettings.idleThresholdMinutes;
+  updateIdleThresholdVisibility();
   elements.unloadPinned.checked = currentSettings.unloadPinnedTabs;
   elements.protectAudio.checked = currentSettings.protectAudioTabs;
   elements.protectForm.checked = currentSettings.protectFormTabs;
@@ -70,6 +90,10 @@ async function loadSettings() {
 
 function updatePrefixInputVisibility() {
   elements.prefixInputContainer.classList.toggle("hidden", !elements.showDiscardedPrefix.checked);
+}
+
+function updateIdleThresholdVisibility() {
+  elements.idleThresholdContainer.classList.toggle("hidden", !elements.onlyDiscardIdle.checked);
 }
 
 // Render domain list (XSS-safe DOM manipulation)
@@ -126,6 +150,12 @@ function setupEventListeners() {
     { el: elements.autoStartup, key: "autoUnloadOnStartup", type: "checkbox" },
     { el: elements.timer, key: "unloadDelayMinutes", type: "number" },
     { el: elements.threshold, key: "memoryThresholdPercent", type: "number" },
+    { el: elements.perTabMemory, key: "perTabJsHeapThresholdMB", type: "number" },
+    { el: elements.minTabs, key: "minTabsBeforeAutoDiscard", type: "number" },
+    { el: elements.toolbarAction, key: "toolbarClickAction", type: "string" },
+    { el: elements.saveYouTube, key: "saveYouTubeTimestamp", type: "checkbox" },
+    { el: elements.onlyDiscardIdle, key: "onlyDiscardWhenIdle", type: "checkbox" },
+    { el: elements.idleThreshold, key: "idleThresholdMinutes", type: "number" },
     { el: elements.unloadPinned, key: "unloadPinnedTabs", type: "checkbox" },
     { el: elements.protectAudio, key: "protectAudioTabs", type: "checkbox" },
     { el: elements.protectForm, key: "protectFormTabs", type: "checkbox" },
@@ -137,11 +167,31 @@ function setupEventListeners() {
 
   for (const { el, key, type } of settingsMap) {
     el.addEventListener("change", async () => {
-      currentSettings[key] = type === "checkbox" ? el.checked : Number.parseInt(el.value, 10);
+      if (type === "checkbox") {
+        currentSettings[key] = el.checked;
+      } else if (type === "string") {
+        currentSettings[key] = el.value;
+      } else {
+        currentSettings[key] = Number.parseInt(el.value, 10);
+      }
       await saveSettings(currentSettings);
       showStatus(t("settingsSaved"));
       if (key === "showDiscardedPrefix") {
         updatePrefixInputVisibility();
+      }
+      if (key === "onlyDiscardWhenIdle") {
+        updateIdleThresholdVisibility();
+      }
+    });
+  }
+
+  // Power mode radios
+  for (const radio of elements.powerModeRadios) {
+    radio.addEventListener("change", async () => {
+      if (radio.checked) {
+        currentSettings.powerMode = radio.value;
+        await saveSettings(currentSettings);
+        showStatus(t("settingsSaved"));
       }
     });
   }

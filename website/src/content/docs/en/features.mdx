@@ -43,6 +43,36 @@ Free memory immediately when Chrome starts:
 - **Behavior**: Unloads all tabs except the active one on browser launch
 - **Useful for**: Restoring many tabs from a previous session
 
+### Tab Count Threshold
+
+Only start auto-unloading when you have enough inactive tabs:
+
+- **Range**: 3-20 tabs
+- **Default**: 6 tabs
+- **Disabled**: Set to 0 to always auto-unload
+
+**Use case**: Prevents aggressive unloading when you only have a few tabs open.
+
+### Idle State Only
+
+Only auto-unload tabs when your computer is idle:
+
+- **Default**: Disabled
+- **Threshold**: 2-15 minutes of inactivity
+- **Detection**: Uses Chrome's idle API (detects mouse/keyboard activity)
+
+**Use case**: Never interrupt your active browsing session.
+
+### Per-Tab Memory Threshold
+
+Automatically unload individual tabs that consume excessive memory:
+
+- **Range**: 50-200 MB (JavaScript heap)
+- **Default**: Disabled
+- **Note**: Only measures JS memory, not total tab memory
+
+**Use case**: Target memory-heavy tabs specifically rather than by age.
+
 ## Manual Controls
 
 Control tab unloading on-demand from the popup:
@@ -55,6 +85,33 @@ Control tab unloading on-demand from the popup:
 | **Unload Right** | Unload all tabs to the right of current |
 
 Access via the TabRest icon in the toolbar or [keyboard shortcuts](/docs/keyboard-shortcuts).
+
+### Toolbar Click Action
+
+Customize what happens when you click the extension icon:
+
+| Option | Behavior |
+|--------|----------|
+| **Open popup** | Default - shows tab list and quick settings |
+| **Discard current** | Immediately unload current tab |
+| **Discard others** | Immediately unload all other tabs |
+
+**Use case**: Power users who want one-click discard without opening popup.
+
+## Power Mode
+
+Adjust auto-unload aggressiveness based on your situation:
+
+| Mode | Timer Multiplier | Memory Offset |
+|------|------------------|---------------|
+| **Battery Saver** | 0.5x (faster) | -10% (lower threshold) |
+| **Normal** | 1.0x (default) | 0% |
+| **Performance** | 2.0x (slower) | +10% (higher threshold) |
+
+**Example**: If your timer is set to 30 minutes:
+- Battery Saver: 15 minutes
+- Normal: 30 minutes
+- Performance: 60 minutes
 
 ## Tab Protection
 

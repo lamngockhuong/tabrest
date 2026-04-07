@@ -62,6 +62,15 @@ export async function discardTab(tabId, options = {}) {
       }
     }
 
+    // Save YouTube timestamp before discarding
+    if (settings.saveYouTubeTimestamp && tab.url?.includes("youtube.com/watch")) {
+      try {
+        await chrome.tabs.sendMessage(tabId, { action: "saveYouTubeTimestamp" });
+      } catch {
+        // Content script not loaded, proceed without saving
+      }
+    }
+
     if (settings.showDiscardedPrefix && settings.discardedPrefix) {
       await addTitlePrefix(tabId, settings.discardedPrefix);
     }

@@ -1,4 +1,4 @@
-import { ALARM_NAMES } from "../shared/constants.js";
+import { ALARM_NAMES, POWER_MODE_CONFIG } from "../shared/constants.js";
 import { getSettings, getTabActivity, saveTabActivity } from "../shared/storage.js";
 import { discardTab, isUrlBlacklisted } from "./unload-manager.js";
 
@@ -54,11 +54,35 @@ export async function checkAndUnloadInactiveTabs() {
   const settings = await getSettings();
   if (settings.unloadDelayMinutes <= 0) return 0;
 
-  const cutoffTime = Date.now() - settings.unloadDelayMinutes * 60 * 1000;
+  // Phase 4: Check idle state - skip if user is active and idle-only mode is enabled
+  if (settings.onlyDiscardWhenIdle) {
+    try {
+      const idleSeconds = settings.idleThresholdMinutes * 60;
+      const state = await chrome.idle.queryState(idleSeconds);
+      if (state === "active") {
+        return 0; // User is active, skip discarding
+      }
+    } catch {
+      // Idle API not available, proceed without idle check
+    }
+  }
+
+  // Phase 5: Apply power mode multiplier to delay
+  const powerConfig = POWER_MODE_CONFIG[settings.powerMode] || POWER_MODE_CONFIG.normal;
+  const effectiveDelay = settings.unloadDelayMinutes * powerConfig.delayMultiplier;
+  const cutoffTime = Date.now() - effectiveDelay * 60 * 1000;
   const tabs = await chrome.tabs.query({});
 
   // Build Map for O(1) lookup instead of O(n) find per iteration
   const tabMap = new Map(tabs.map((t) => [t.id, t]));
+
+  // Phase 1: Check tab count threshold - skip if not enough inactive tabs
+  if (settings.minTabsBeforeAutoDiscard > 0) {
+    const eligibleCount = tabs.filter((t) => !t.active && !t.discarded).length;
+    if (eligibleCount <= settings.minTabsBeforeAutoDiscard) {
+      return 0;
+    }
+  }
 
   let unloadedCount = 0;
 

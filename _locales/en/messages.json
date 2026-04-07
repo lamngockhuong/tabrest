@@ -304,5 +304,85 @@
   "prefixHelp": {
     "message": "Does not work on protected pages (Chrome Web Store, Google accounts, etc.)",
     "description": "Help text for prefix setting"
+  },
+  "minTabsLabel": {
+    "message": "Only auto-unload when inactive tabs exceed:",
+    "description": "Tab count threshold setting label"
+  },
+  "toolbarAction": {
+    "message": "Toolbar Action",
+    "description": "Section header for toolbar action settings"
+  },
+  "toolbarClickLabel": {
+    "message": "When clicking extension icon:",
+    "description": "Toolbar click action setting label"
+  },
+  "actionOpenPopup": {
+    "message": "Open popup",
+    "description": "Toolbar action option"
+  },
+  "actionDiscardCurrent": {
+    "message": "Discard current tab",
+    "description": "Toolbar action option"
+  },
+  "actionDiscardOthers": {
+    "message": "Discard other tabs",
+    "description": "Toolbar action option"
+  },
+  "saveYouTubeTimestamp": {
+    "message": "Save YouTube playback position",
+    "description": "YouTube timestamp setting"
+  },
+  "saveYouTubeHelp": {
+    "message": "Resume videos from saved position when tab reloads",
+    "description": "YouTube timestamp help text"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "Only auto-unload when computer is idle",
+    "description": "Idle state setting"
+  },
+  "idleThreshold": {
+    "message": "Idle threshold:",
+    "description": "Idle threshold setting label"
+  },
+  "perTabMemoryLabel": {
+    "message": "Unload tabs using more than (JS heap):",
+    "description": "Per-tab memory threshold setting"
+  },
+  "perTabMemoryHelp": {
+    "message": "Measures JavaScript memory only, not total tab memory",
+    "description": "Per-tab memory help text"
+  },
+  "powerMode": {
+    "message": "Power Mode",
+    "description": "Power mode section header"
+  },
+  "powerModeHelp": {
+    "message": "Adjust aggressiveness based on your power situation",
+    "description": "Power mode help text"
+  },
+  "batterySaver": {
+    "message": "Battery Saver",
+    "description": "Battery saver power mode"
+  },
+  "batterySaverDesc": {
+    "message": "More aggressive, saves power",
+    "description": "Battery saver description"
+  },
+  "normalMode": {
+    "message": "Normal",
+    "description": "Normal power mode"
+  },
+  "normalModeDesc": {
+    "message": "Balanced performance",
+    "description": "Normal mode description"
+  },
+  "performanceMode": {
+    "message": "Performance",
+    "description": "Performance power mode"
+  },
+  "performanceModeDesc": {
+    "message": "Less aggressive, keeps tabs longer",
+    "description": "Performance mode description"
   }
 }

@@ -344,3 +344,58 @@ kbd {
 .setting-inline.hidden {
   display: none;
 }
+
+.setting-sub {
+  margin-left: 24px;
+}
+
+.setting-sub.hidden {
+  display: none;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.radio-option:hover {
+  border-color: var(--secondary);
+  background: var(--background);
+}
+
+.radio-option input[type="radio"] {
+  margin-top: 3px;
+  accent-color: var(--primary);
+}
+
+.radio-option input[type="radio"]:checked + .radio-content strong {
+  color: var(--primary);
+}
+
+.radio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.radio-content strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.radio-content small {
+  font-size: 12px;
+  color: var(--text-muted);
+}
