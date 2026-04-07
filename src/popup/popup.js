@@ -93,7 +93,14 @@ function getStatusBadge(tab) {
     return '<span class="badge badge-sleeping">💤 ZZZ</span>';
   }
   if (tab.isProtected) {
-    return `<span class="badge badge-protected" title="${tab.pinned ? "Pinned" : "Whitelisted"}">🛡️</span>`;
+    const badges = {
+      pinned: { icon: "📌", title: "Pinned" },
+      whitelist: { icon: "🛡️", title: "Whitelisted" },
+      audio: { icon: "🔊", title: "Playing audio" },
+      form: { icon: "📝", title: "Unsaved form" },
+    };
+    const badge = badges[tab.protectionReason] || badges.whitelist;
+    return `<span class="badge badge-protected" title="${badge.title}">${badge.icon}</span>`;
   }
   if (tab.timeUntilUnload !== null && tab.timeUntilUnload > 0) {
     const mins = Math.ceil(tab.timeUntilUnload / 60000);
@@ -160,14 +167,20 @@ async function loadSettings() {
 // Update stats strip display
 async function updateStats() {
   // Batch all async operations
-  const [allTabs, currentWindowTabs, statsResult] = await Promise.all([
+  const [allTabs, currentWindowTabs, statsResult, settings] = await Promise.all([
     chrome.tabs.query({}),
     chrome.tabs.query({ currentWindow: true }),
     chrome.storage.local.get("stats"),
+    getSettings(),
   ]);
 
   const discardedCount = allTabs.filter((t) => t.discarded).length;
-  const protectedCount = currentWindowTabs.filter((t) => t.pinned || t.active).length;
+  const protectedCount = currentWindowTabs.filter(
+    (t) =>
+      t.active ||
+      (t.pinned && !settings.unloadPinnedTabs) ||
+      (settings.protectAudioTabs && t.audible),
+  ).length;
 
   elements.statSleeping.textContent = discardedCount;
   elements.statProtected.textContent = protectedCount;

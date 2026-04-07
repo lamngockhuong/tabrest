@@ -10,6 +10,8 @@ const elements = {
   timer: document.getElementById("timer"),
   threshold: document.getElementById("threshold"),
   unloadPinned: document.getElementById("unload-pinned"),
+  protectAudio: document.getElementById("protect-audio"),
+  protectForm: document.getElementById("protect-form"),
   showBadge: document.getElementById("show-badge"),
   enableStats: document.getElementById("enable-stats"),
   whitelistContainer: document.getElementById("whitelist-container"),
@@ -45,6 +47,8 @@ async function loadSettings() {
   elements.timer.value = currentSettings.unloadDelayMinutes;
   elements.threshold.value = currentSettings.memoryThresholdPercent;
   elements.unloadPinned.checked = currentSettings.unloadPinnedTabs;
+  elements.protectAudio.checked = currentSettings.protectAudioTabs;
+  elements.protectForm.checked = currentSettings.protectFormTabs;
   elements.showBadge.checked = currentSettings.showBadgeCount;
   elements.enableStats.checked = currentSettings.enableStats;
 
@@ -96,6 +100,8 @@ function setupEventListeners() {
     { el: elements.timer, key: "unloadDelayMinutes", type: "number" },
     { el: elements.threshold, key: "memoryThresholdPercent", type: "number" },
     { el: elements.unloadPinned, key: "unloadPinnedTabs", type: "checkbox" },
+    { el: elements.protectAudio, key: "protectAudioTabs", type: "checkbox" },
+    { el: elements.protectForm, key: "protectFormTabs", type: "checkbox" },
     { el: elements.showBadge, key: "showBadgeCount", type: "checkbox" },
     { el: elements.enableStats, key: "enableStats", type: "checkbox" },
   ];

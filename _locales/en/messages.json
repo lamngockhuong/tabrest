@@ -79,6 +79,14 @@
     "message": "All time",
     "description": "Stats label"
   },
+  "tabsUnloadedToday": {
+    "message": "Tabs unloaded today",
+    "description": "Tooltip for today stats"
+  },
+  "tabsUnloadedTotal": {
+    "message": "Total tabs unloaded",
+    "description": "Tooltip for all time stats"
+  },
   "ramSaved": {
     "message": "RAM saved (est.)",
     "description": "Stats label"
@@ -183,6 +191,14 @@
   },
   "trackStatistics": {
     "message": "Track statistics",
+    "description": "Options setting"
+  },
+  "protectAudioTabs": {
+    "message": "Protect tabs playing audio/video",
+    "description": "Options setting"
+  },
+  "protectFormTabs": {
+    "message": "Protect tabs with unsaved forms",
     "description": "Options setting"
   },
   "whitelist": {

@@ -251,10 +251,17 @@ async function getTabsWithStatus() {
     const elapsed = now - lastActive;
     const timeUntilUnload = unloadDelay > 0 ? Math.max(0, unloadDelay - elapsed) : null;
 
-    // Determine protection status
+    // Determine protection status and reason
     const isWhitelisted = isUrlWhitelisted(tab.url, settings);
     const isPinned = tab.pinned && !settings.unloadPinnedTabs;
-    const isProtected = isWhitelisted || isPinned;
+    const isAudioPlaying = settings.protectAudioTabs && tab.audible;
+    const isProtected = isWhitelisted || isPinned || isAudioPlaying;
+
+    // Determine protection reason for UI display
+    let protectionReason = null;
+    if (isPinned) protectionReason = "pinned";
+    else if (isWhitelisted) protectionReason = "whitelist";
+    else if (isAudioPlaying) protectionReason = "audio";
 
     return {
       id: tab.id,
@@ -264,8 +271,10 @@ async function getTabsWithStatus() {
       active: tab.active,
       discarded: tab.discarded,
       pinned: tab.pinned,
+      audible: tab.audible,
       isProtected,
       isWhitelisted,
+      protectionReason,
       timeUntilUnload: tab.active || tab.discarded || isProtected ? null : timeUntilUnload,
     };
   });

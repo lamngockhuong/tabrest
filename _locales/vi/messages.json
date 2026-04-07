@@ -59,6 +59,12 @@
   "allTime": {
     "message": "Tổng cộng"
   },
+  "tabsUnloadedToday": {
+    "message": "Tab đã dỡ hôm nay"
+  },
+  "tabsUnloadedTotal": {
+    "message": "Tổng tab đã dỡ"
+  },
   "ramSaved": {
     "message": "RAM tiết kiệm (ước tính)"
   },
@@ -135,6 +141,12 @@
   },
   "trackStatistics": {
     "message": "Theo dõi thống kê"
+  },
+  "protectAudioTabs": {
+    "message": "Bảo vệ tab đang phát âm thanh/video"
+  },
+  "protectFormTabs": {
+    "message": "Bảo vệ tab có biểu mẫu chưa lưu"
   },
   "whitelist": {
     "message": "Danh sách trắng"
