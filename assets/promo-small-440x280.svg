@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 280" width="440" height="280">
+  <defs>
+    <!-- TabRest Calm Indigo gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F0B1A"/>
+      <stop offset="40%" style="stop-color:#1A1528"/>
+      <stop offset="100%" style="stop-color:#312E81"/>
+    </linearGradient>
+
+    <!-- Subtle indigo glow -->
+    <radialGradient id="indigoGlow" cx="80%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#4338CA;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#4338CA;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="440" height="280" fill="url(#bgGradient)"/>
+  <rect width="440" height="280" fill="url(#indigoGlow)"/>
+
+  <!-- Left side: Content -->
+  <g transform="translate(24, 40)">
+    <!-- Logo + Name -->
+    <g>
+      <!-- TabRest Pillow Logo -->
+      <g transform="translate(0, 0) scale(0.28)">
+        <!-- Shadow -->
+        <g transform="translate(0, 12) scale(0.25)">
+          <path fill="#8B5CF6" opacity="0.35" d="M433.79 59.602c-8.94.047-20.654 3.077-34.966 9.876C295.2 62.252 170.14 77.352 86.788 103.535c-60.407-27.913-70.404-.426-42.95 36.186C10.242 239.454 24.97 340.803 60.7 413.31c-11.01 47.633 16.965 45.498 41.172 26.452 170.77 9.1 281.83-16.52 349.88-68.666 24.01 19.23 41.66-6.006 31.868-36.856 11.922-71.81-9.07-167.31-36.093-233.78 13.362-23.473 8.022-40.975-13.737-40.858z"/>
+        </g>
+        <!-- Pillow -->
+        <g transform="translate(-3, 8) scale(0.25)">
+          <path fill="#DDD6FE" d="M433.79 59.602c-8.94.047-20.654 3.077-34.966 9.876C295.2 62.252 170.14 77.352 86.788 103.535c-60.407-27.913-70.404-.426-42.95 36.186C10.242 239.454 24.97 340.803 60.7 413.31c-11.01 47.633 16.965 45.498 41.172 26.452 170.77 9.1 281.83-16.52 349.88-68.666 24.01 19.23 41.66-6.006 31.868-36.856 11.922-71.81-9.07-167.31-36.093-233.78 13.362-23.473 8.022-40.975-13.737-40.858z"/>
+          <path fill="#A78BFA" opacity="0.35" d="M76.404 137.562c52.65 61.045 53.612 200.38 21.748 283.403 7.046-90.91 2.505-223.673-21.748-283.404z"/>
+        </g>
+        <!-- Zzz -->
+        <g fill="#7C3AED" font-family="Arial Black, Arial, sans-serif" font-style="italic" font-weight="900">
+          <text x="70" y="40" font-size="30">z</text>
+          <text x="90" y="26" font-size="22">z</text>
+          <text x="106" y="14" font-size="15">z</text>
+        </g>
+      </g>
+      <text x="44" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#818CF8">TabRest</text>
+    </g>
+
+    <!-- Headline -->
+    <text x="0" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#ffffff">
+      Save up to
+    </text>
+    <text x="0" y="110" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#818CF8">
+      80% RAM
+    </text>
+
+    <!-- Subheadline -->
+    <text x="0" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#9B8FAD">
+      Rest your tabs, free your RAM
+    </text>
+
+    <!-- Features row -->
+    <g transform="translate(0, 170)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="rgba(99,102,241,0.2)"/>
+      <text x="35" y="15" font-family="system-ui, sans-serif" font-size="9" fill="#A5B4FC" text-anchor="middle">Smart RAM</text>
+
+      <rect x="78" y="0" width="60" height="22" rx="11" fill="rgba(99,102,241,0.2)"/>
+      <text x="108" y="15" font-family="system-ui, sans-serif" font-size="9" fill="#A5B4FC" text-anchor="middle">Sessions</text>
+    </g>
+  </g>
+
+  <!-- Right side: PLACEHOLDER -->
+  <g transform="translate(250, 20)">
+    <rect x="0" y="0" width="170" height="240" rx="10" fill="rgba(26,21,40,0.8)" stroke="#4338CA" stroke-width="2" stroke-dasharray="8,4"/>
+
+    <text x="85" y="110" font-family="system-ui, sans-serif" font-size="11" fill="#6366F1" text-anchor="middle">📸 SCREENSHOT</text>
+    <text x="85" y="130" font-family="system-ui, sans-serif" font-size="9" fill="#9B8FAD" text-anchor="middle">170 x 240 px</text>
+
+    <!-- Corner guides -->
+    <path d="M 12 0 L 0 0 L 0 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+    <path d="M 158 0 L 170 0 L 170 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+    <path d="M 0 228 L 0 240 L 12 240" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+    <path d="M 170 228 L 170 240 L 158 240" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+  </g>
+</svg>

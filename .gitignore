@@ -7,6 +7,9 @@ dist/
 build/
 *.zip
 
+# Generated assets
+assets/*.png
+
 # IDE
 .idea/
 .vscode/

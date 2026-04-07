@@ -84,6 +84,14 @@ pnpm run format       # Format code
 pnpm run ci           # Run full CI (validate + lint)
 ```
 
+## Promo Assets
+
+Chrome Web Store promotional images are in `assets/` as SVG sources.
+
+```bash
+./scripts/generate-promo-images.sh   # Generate PNG files
+```
+
 ## Privacy
 
 - No data collection

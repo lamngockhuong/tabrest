@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0F0B1A"/>
+      <stop offset="50%" style="stop-color:#1A1528"/>
+      <stop offset="100%" style="stop-color:#312E81"/>
+    </linearGradient>
+    <radialGradient id="indigoGlow" cx="30%" cy="80%" r="60%">
+      <stop offset="0%" style="stop-color:#4338CA;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#4338CA;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="800" fill="url(#bgGradient)"/>
+  <rect width="1280" height="800" fill="url(#indigoGlow)"/>
+
+  <!-- Top section: 3 feature placeholders -->
+  <g transform="translate(60, 50)">
+    <!-- Sessions placeholder -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="360" height="280" rx="12" fill="rgba(26,21,40,0.9)" stroke="#4338CA" stroke-width="2" stroke-dasharray="8,4"/>
+      <text x="180" y="130" font-family="system-ui, sans-serif" font-size="16" fill="#6366F1" text-anchor="middle">📸 SESSIONS</text>
+      <text x="180" y="155" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle">360 x 280 px</text>
+      <!-- Corner guides -->
+      <path d="M 12 0 L 0 0 L 0 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <path d="M 348 0 L 360 0 L 360 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <path d="M 0 268 L 0 280 L 12 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <path d="M 360 268 L 360 280 L 348 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+    </g>
+
+    <!-- Stats placeholder -->
+    <g transform="translate(380, 0)">
+      <rect x="0" y="0" width="360" height="280" rx="12" fill="rgba(26,21,40,0.9)" stroke="#4338CA" stroke-width="2" stroke-dasharray="8,4"/>
+      <text x="180" y="130" font-family="system-ui, sans-serif" font-size="16" fill="#6366F1" text-anchor="middle">📸 STATS</text>
+      <text x="180" y="155" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle">360 x 280 px</text>
+      <path d="M 12 0 L 0 0 L 0 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <path d="M 348 0 L 360 0 L 360 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <path d="M 0 268 L 0 280 L 12 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <path d="M 360 268 L 360 280 L 348 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+    </g>
+
+    <!-- Settings placeholder -->
+    <g transform="translate(760, 0)">
+      <rect x="0" y="0" width="400" height="280" rx="12" fill="rgba(26,21,40,0.9)" stroke="#4338CA" stroke-width="2" stroke-dasharray="8,4"/>
+      <text x="200" y="130" font-family="system-ui, sans-serif" font-size="16" fill="#6366F1" text-anchor="middle">📸 SETTINGS</text>
+      <text x="200" y="155" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle">400 x 280 px</text>
+      <path d="M 12 0 L 0 0 L 0 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <path d="M 388 0 L 400 0 L 400 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <path d="M 0 268 L 0 280 L 12 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <path d="M 400 268 L 400 280 L 388 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+    </g>
+  </g>
+
+  <!-- Bottom section: Text content -->
+  <g transform="translate(0, 420)">
+    <!-- Main headline - centered -->
+    <text x="640" y="120" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="700" fill="#ffffff" text-anchor="middle">
+      Make It Yours
+    </text>
+
+    <!-- Subheadline -->
+    <text x="640" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#9B8FAD" text-anchor="middle">
+      Sessions, stats, timers - customize everything
+    </text>
+
+    <!-- Feature badges - centered -->
+    <g transform="translate(400, 220)">
+      <rect x="0" y="0" width="100" height="36" rx="18" fill="rgba(99,102,241,0.2)"/>
+      <text x="50" y="24" font-family="system-ui, sans-serif" font-size="14" fill="#A5B4FC" text-anchor="middle">Sessions</text>
+
+      <rect x="115" y="0" width="80" height="36" rx="18" fill="rgba(99,102,241,0.2)"/>
+      <text x="155" y="24" font-family="system-ui, sans-serif" font-size="14" fill="#A5B4FC" text-anchor="middle">Stats</text>
+
+      <rect x="210" y="0" width="90" height="36" rx="18" fill="rgba(99,102,241,0.2)"/>
+      <text x="255" y="24" font-family="system-ui, sans-serif" font-size="14" fill="#A5B4FC" text-anchor="middle">Timers</text>
+
+      <rect x="315" y="0" width="120" height="36" rx="18" fill="rgba(99,102,241,0.2)"/>
+      <text x="375" y="24" font-family="system-ui, sans-serif" font-size="14" fill="#A5B4FC" text-anchor="middle">Whitelist</text>
+    </g>
+
+    <!-- Logo bottom right -->
+    <g transform="translate(1080, 280)">
+      <g transform="scale(0.35)">
+        <g transform="translate(0, 12) scale(0.25)">
+          <path fill="#8B5CF6" opacity="0.35" d="M433.79 59.602c-8.94.047-20.654 3.077-34.966 9.876C295.2 62.252 170.14 77.352 86.788 103.535c-60.407-27.913-70.404-.426-42.95 36.186C10.242 239.454 24.97 340.803 60.7 413.31c-11.01 47.633 16.965 45.498 41.172 26.452 170.77 9.1 281.83-16.52 349.88-68.666 24.01 19.23 41.66-6.006 31.868-36.856 11.922-71.81-9.07-167.31-36.093-233.78 13.362-23.473 8.022-40.975-13.737-40.858z"/>
+        </g>
+        <g transform="translate(-3, 8) scale(0.25)">
+          <path fill="#DDD6FE" d="M433.79 59.602c-8.94.047-20.654 3.077-34.966 9.876C295.2 62.252 170.14 77.352 86.788 103.535c-60.407-27.913-70.404-.426-42.95 36.186C10.242 239.454 24.97 340.803 60.7 413.31c-11.01 47.633 16.965 45.498 41.172 26.452 170.77 9.1 281.83-16.52 349.88-68.666 24.01 19.23 41.66-6.006 31.868-36.856 11.922-71.81-9.07-167.31-36.093-233.78 13.362-23.473 8.022-40.975-13.737-40.858z"/>
+          <path fill="#A78BFA" opacity="0.35" d="M76.404 137.562c52.65 61.045 53.612 200.38 21.748 283.403 7.046-90.91 2.505-223.673-21.748-283.404z"/>
+        </g>
+        <g fill="#7C3AED" font-family="Arial Black, Arial, sans-serif" font-style="italic" font-weight="900">
+          <text x="70" y="40" font-size="30">z</text>
+          <text x="90" y="26" font-size="22">z</text>
+          <text x="106" y="14" font-size="15">z</text>
+        </g>
+      </g>
+      <text x="55" y="30" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#818CF8">TabRest</text>
+    </g>
+  </g>
+</svg>

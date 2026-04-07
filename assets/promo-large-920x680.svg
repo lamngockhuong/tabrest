@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 680" width="920" height="680">
+  <defs>
+    <!-- TabRest Calm Indigo gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F0B1A"/>
+      <stop offset="40%" style="stop-color:#1A1528"/>
+      <stop offset="100%" style="stop-color:#312E81"/>
+    </linearGradient>
+
+    <!-- Subtle indigo glow -->
+    <radialGradient id="indigoGlow" cx="75%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#4338CA;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#4338CA;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- Decorative circles -->
+    <radialGradient id="circleGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="920" height="680" fill="url(#bgGradient)"/>
+  <rect width="920" height="680" fill="url(#indigoGlow)"/>
+
+  <!-- Decorative background circles -->
+  <circle cx="120" cy="550" r="200" fill="url(#circleGlow)" opacity="0.5"/>
+  <circle cx="800" cy="100" r="150" fill="url(#circleGlow)" opacity="0.3"/>
+
+  <!-- Left side: Marketing content -->
+  <g transform="translate(50, 140)">
+    <!-- Logo + Name -->
+    <g>
+      <!-- TabRest Pillow Logo -->
+      <g transform="translate(0, 0) scale(0.38)">
+        <!-- Shadow -->
+        <g transform="translate(0, 12) scale(0.25)">
+          <path fill="#8B5CF6" opacity="0.35" d="M433.79 59.602c-8.94.047-20.654 3.077-34.966 9.876C295.2 62.252 170.14 77.352 86.788 103.535c-60.407-27.913-70.404-.426-42.95 36.186C10.242 239.454 24.97 340.803 60.7 413.31c-11.01 47.633 16.965 45.498 41.172 26.452 170.77 9.1 281.83-16.52 349.88-68.666 24.01 19.23 41.66-6.006 31.868-36.856 11.922-71.81-9.07-167.31-36.093-233.78 13.362-23.473 8.022-40.975-13.737-40.858z"/>
+        </g>
+        <!-- Pillow -->
+        <g transform="translate(-3, 8) scale(0.25)">
+          <path fill="#DDD6FE" d="M433.79 59.602c-8.94.047-20.654 3.077-34.966 9.876C295.2 62.252 170.14 77.352 86.788 103.535c-60.407-27.913-70.404-.426-42.95 36.186C10.242 239.454 24.97 340.803 60.7 413.31c-11.01 47.633 16.965 45.498 41.172 26.452 170.77 9.1 281.83-16.52 349.88-68.666 24.01 19.23 41.66-6.006 31.868-36.856 11.922-71.81-9.07-167.31-36.093-233.78 13.362-23.473 8.022-40.975-13.737-40.858z"/>
+          <path fill="#A78BFA" opacity="0.35" d="M76.404 137.562c52.65 61.045 53.612 200.38 21.748 283.403 7.046-90.91 2.505-223.673-21.748-283.404z"/>
+        </g>
+        <!-- Zzz -->
+        <g fill="#7C3AED" font-family="Arial Black, Arial, sans-serif" font-style="italic" font-weight="900">
+          <text x="70" y="40" font-size="30">z</text>
+          <text x="90" y="26" font-size="22">z</text>
+          <text x="106" y="14" font-size="15">z</text>
+        </g>
+      </g>
+      <text x="58" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#818CF8">TabRest</text>
+    </g>
+
+    <!-- Main headline -->
+    <text x="0" y="100" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="700" fill="#ffffff">
+      Save up to
+    </text>
+    <text x="0" y="160" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="700" fill="#818CF8">
+      80% RAM
+    </text>
+
+    <!-- Subheadline -->
+    <text x="0" y="210" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#9B8FAD">
+      Rest your tabs, free your RAM
+    </text>
+
+    <!-- Feature list -->
+    <g transform="translate(0, 260)">
+      <g transform="translate(0, 0)">
+        <circle cx="10" cy="10" r="10" fill="rgba(99,102,241,0.2)"/>
+        <text x="10" y="14" font-family="system-ui, sans-serif" font-size="10" fill="#6366F1" text-anchor="middle">✓</text>
+        <text x="30" y="14" font-family="system-ui, sans-serif" font-size="14" fill="#E8E2F4">Auto-unload inactive tabs</text>
+      </g>
+
+      <g transform="translate(0, 36)">
+        <circle cx="10" cy="10" r="10" fill="rgba(99,102,241,0.2)"/>
+        <text x="10" y="14" font-family="system-ui, sans-serif" font-size="10" fill="#6366F1" text-anchor="middle">✓</text>
+        <text x="30" y="14" font-family="system-ui, sans-serif" font-size="14" fill="#E8E2F4">Smart RAM monitoring</text>
+      </g>
+
+      <g transform="translate(0, 72)">
+        <circle cx="10" cy="10" r="10" fill="rgba(99,102,241,0.2)"/>
+        <text x="10" y="14" font-family="system-ui, sans-serif" font-size="10" fill="#6366F1" text-anchor="middle">✓</text>
+        <text x="30" y="14" font-family="system-ui, sans-serif" font-size="14" fill="#E8E2F4">Save &amp; restore sessions</text>
+      </g>
+
+      <g transform="translate(0, 108)">
+        <circle cx="10" cy="10" r="10" fill="rgba(99,102,241,0.2)"/>
+        <text x="10" y="14" font-family="system-ui, sans-serif" font-size="10" fill="#6366F1" text-anchor="middle">✓</text>
+        <text x="30" y="14" font-family="system-ui, sans-serif" font-size="14" fill="#E8E2F4">100% private, no tracking</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right side: PLACEHOLDER for popup screenshot -->
+  <g transform="translate(450, 40)">
+    <rect x="0" y="0" width="420" height="600" rx="14" fill="rgba(26,21,40,0.8)" stroke="#4338CA" stroke-width="2.5" stroke-dasharray="10,5"/>
+
+    <text x="210" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#6366F1" text-anchor="middle">📸 SCREENSHOT PLACEHOLDER</text>
+    <text x="210" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Insert popup screenshot here</text>
+    <text x="210" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle" opacity="0.6">Recommended: 420 x 600 px</text>
+
+    <!-- Corner guides -->
+    <path d="M 16 0 L 0 0 L 0 16" fill="none" stroke="#818CF8" stroke-width="2"/>
+    <path d="M 404 0 L 420 0 L 420 16" fill="none" stroke="#818CF8" stroke-width="2"/>
+    <path d="M 0 584 L 0 600 L 16 600" fill="none" stroke="#818CF8" stroke-width="2"/>
+    <path d="M 420 584 L 420 600 L 404 600" fill="none" stroke="#818CF8" stroke-width="2"/>
+  </g>
+</svg>
