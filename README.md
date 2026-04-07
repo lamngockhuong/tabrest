@@ -8,6 +8,14 @@
   Rest your tabs, free your memory - a Chrome extension that automatically unloads inactive tabs.
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Manifest-V3-blue?logo=googlechrome" alt="Manifest V3">
+  <img src="https://img.shields.io/github/actions/workflow/status/lamngockhuong/tabrest/ci.yml?branch=main&logo=github" alt="CI Status">
+  <img src="https://img.shields.io/badge/code_style-biome-60a5fa?logo=biome" alt="Code Style: Biome">
+  <img src="https://img.shields.io/badge/JavaScript-ES_Modules-f7df1e?logo=javascript&logoColor=black" alt="JavaScript ES Modules">
+  <img src="https://img.shields.io/github/license/lamngockhuong/tabrest" alt="License">
+</p>
+
 ## Features
 
 - **Auto-unload inactive tabs** - Configurable timer (15min to 4hrs)
