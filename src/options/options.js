@@ -1,3 +1,4 @@
+import { localizeHtml, t } from "../shared/i18n.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import { formatBytes } from "../shared/utils.js";
@@ -27,7 +28,8 @@ async function init() {
   // Initialize theme first
   const theme = await initTheme();
   updateThemeIcon(elements.themeIcon, elements.themeToggle, theme);
-  onThemeChange((t) => updateThemeIcon(elements.themeIcon, elements.themeToggle, t));
+  onThemeChange((theme) => updateThemeIcon(elements.themeIcon, elements.themeToggle, theme));
+  localizeHtml();
 
   await loadSettings();
   await loadStats();
@@ -67,7 +69,7 @@ function renderWhitelist() {
       currentSettings.whitelist = currentSettings.whitelist.filter((d) => d !== domain);
       await saveSettings(currentSettings);
       renderWhitelist();
-      showStatus("Domain removed");
+      showStatus(t("domainRemoved"));
     });
 
     item.appendChild(span);
@@ -101,7 +103,7 @@ function setupEventListeners() {
     el.addEventListener("change", async () => {
       currentSettings[key] = type === "checkbox" ? el.checked : Number.parseInt(el.value, 10);
       await saveSettings(currentSettings);
-      showStatus("Settings saved");
+      showStatus(t("settingsSaved"));
     });
   }
 
@@ -115,7 +117,7 @@ function setupEventListeners() {
   elements.resetStats.addEventListener("click", async () => {
     await chrome.storage.local.set({ stats: { tabsUnloaded: 0, memorySaved: 0 } });
     await loadStats();
-    showStatus("Statistics reset");
+    showStatus(t("statsReset"));
   });
 
   // Theme toggle
@@ -133,12 +135,12 @@ async function addWhitelistDomain() {
 
   // Basic validation
   if (!/^[a-z0-9]+([-.][a-z0-9]+)*\.[a-z]{2,}$/i.test(domain)) {
-    showStatus("Invalid domain format");
+    showStatus(t("invalidDomain"));
     return;
   }
 
   if (currentSettings.whitelist.includes(domain)) {
-    showStatus("Domain already exists");
+    showStatus(t("domainExists"));
     return;
   }
 
@@ -146,7 +148,7 @@ async function addWhitelistDomain() {
   await saveSettings(currentSettings);
   elements.newWhitelist.value = "";
   renderWhitelist();
-  showStatus("Domain added");
+  showStatus(t("domainAdded"));
 }
 
 // Show status message

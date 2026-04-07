@@ -9,24 +9,24 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>TabRest Settings</h1>
+      <h1 data-i18n="settingsTitle">TabRest Settings</h1>
       <button id="theme-toggle" title="Toggle theme">
         <span id="theme-icon">🌙</span>
       </button>
     </div>
 
     <section class="card">
-      <h2>Auto-Unload</h2>
+      <h2 data-i18n="autoUnload">Auto-Unload</h2>
       <div class="setting">
         <label>
           <input type="checkbox" id="auto-startup">
-          Unload tabs on browser startup
+          <span data-i18n="unloadOnStartup">Unload tabs on browser startup</span>
         </label>
       </div>
       <div class="setting">
-        <label for="timer">Unload inactive tabs after:</label>
+        <label for="timer" data-i18n="unloadInactiveAfter">Unload inactive tabs after:</label>
         <select id="timer">
-          <option value="0">Disabled</option>
+          <option value="0" data-i18n="disabled">Disabled</option>
           <option value="15">15 minutes</option>
           <option value="30">30 minutes</option>
           <option value="60">1 hour</option>
@@ -37,11 +37,11 @@
     </section>
 
     <section class="card">
-      <h2>Memory Management</h2>
+      <h2 data-i18n="memoryManagement">Memory Management</h2>
       <div class="setting">
-        <label for="threshold">Unload tabs when RAM exceeds:</label>
+        <label for="threshold" data-i18n="unloadWhenRamExceeds">Unload tabs when RAM exceeds:</label>
         <select id="threshold">
-          <option value="0">Disabled</option>
+          <option value="0" data-i18n="disabled">Disabled</option>
           <option value="60">60%</option>
           <option value="70">70%</option>
           <option value="80">80%</option>
@@ -51,60 +51,60 @@
     </section>
 
     <section class="card">
-      <h2>Behavior</h2>
+      <h2 data-i18n="behavior">Behavior</h2>
       <div class="setting">
         <label>
           <input type="checkbox" id="unload-pinned">
-          Include pinned tabs
+          <span data-i18n="includePinnedTabs">Include pinned tabs</span>
         </label>
       </div>
       <div class="setting">
         <label>
           <input type="checkbox" id="show-badge">
-          Show unloaded count on icon
+          <span data-i18n="showUnloadedCount">Show unloaded count on icon</span>
         </label>
       </div>
       <div class="setting">
         <label>
           <input type="checkbox" id="enable-stats">
-          Track statistics
+          <span data-i18n="trackStatistics">Track statistics</span>
         </label>
       </div>
     </section>
 
     <section class="card">
-      <h2>Whitelist</h2>
-      <p class="help">Sites that will never be unloaded automatically</p>
+      <h2 data-i18n="whitelist">Whitelist</h2>
+      <p class="help" data-i18n="whitelistHelp">Sites that will never be unloaded automatically</p>
       <div id="whitelist-container"></div>
       <div class="add-domain">
-        <input type="text" id="new-whitelist" placeholder="example.com">
-        <button id="add-whitelist" class="btn">Add</button>
+        <input type="text" id="new-whitelist" data-i18n-placeholder="addPlaceholder" placeholder="example.com">
+        <button id="add-whitelist" class="btn" data-i18n="add">Add</button>
       </div>
     </section>
 
     <section class="card">
-      <h2>Statistics</h2>
+      <h2 data-i18n="statistics">Statistics</h2>
       <div class="stats-display">
         <div class="stat">
           <span class="stat-value" id="total-unloaded">0</span>
-          <span class="stat-label">Tabs Unloaded</span>
+          <span class="stat-label" data-i18n="tabsUnloadedLabel">Tabs Unloaded</span>
         </div>
         <div class="stat">
           <span class="stat-value" id="total-saved">0 MB</span>
-          <span class="stat-label">Memory Saved</span>
+          <span class="stat-label" data-i18n="memorySavedLabel">Memory Saved</span>
         </div>
       </div>
-      <button id="reset-stats" class="btn secondary">Reset Statistics</button>
+      <button id="reset-stats" class="btn secondary" data-i18n="resetStatistics">Reset Statistics</button>
     </section>
 
     <section class="card">
-      <h2>Keyboard Shortcuts</h2>
-      <p class="help">Configure in chrome://extensions/shortcuts</p>
+      <h2 data-i18n="keyboardShortcuts">Keyboard Shortcuts</h2>
+      <p class="help" data-i18n="shortcutsHelp">Configure in chrome://extensions/shortcuts</p>
       <div class="shortcuts-list">
-        <div class="shortcut"><kbd>Alt+Shift+D</kbd> Unload current tab</div>
-        <div class="shortcut"><kbd>Alt+Shift+O</kbd> Unload other tabs</div>
-        <div class="shortcut"><kbd>Alt+Shift+Right</kbd> Unload tabs to right</div>
-        <div class="shortcut"><kbd>Alt+Shift+Left</kbd> Unload tabs to left</div>
+        <div class="shortcut"><kbd>Alt+Shift+D</kbd> <span data-i18n="unloadCurrent">Unload current tab</span></div>
+        <div class="shortcut"><kbd>Alt+Shift+O</kbd> <span data-i18n="unloadOthers">Unload other tabs</span></div>
+        <div class="shortcut"><kbd>Alt+Shift+Right</kbd> <span data-i18n="unloadRight">Unload tabs to right</span></div>
+        <div class="shortcut"><kbd>Alt+Shift+Left</kbd> <span data-i18n="unloadLeft">Unload tabs to left</span></div>
       </div>
     </section>
 

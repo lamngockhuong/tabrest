@@ -1,3 +1,4 @@
+import { localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
@@ -255,7 +256,7 @@ async function renderSessions() {
   const sessions = await sendCommand("get-sessions");
 
   if (!sessions?.length) {
-    elements.sessionList.innerHTML = '<div class="empty-state">Save your first session</div>';
+    elements.sessionList.innerHTML = `<div class="empty-state">${t("saveFirstSession")}</div>`;
     return;
   }
 
@@ -264,9 +265,9 @@ async function renderSessions() {
       // Only render favicons from safe URLs
       const favicons = s.tabs
         .slice(0, 4)
-        .map((t) =>
-          t.favIconUrl && isSafeUrl(t.favIconUrl)
-            ? `<img src="${escapeHtml(t.favIconUrl)}" alt="">`
+        .map((tab) =>
+          tab.favIconUrl && isSafeUrl(tab.favIconUrl)
+            ? `<img src="${escapeHtml(tab.favIconUrl)}" alt="">`
             : "",
         )
         .join("");
@@ -373,7 +374,7 @@ function setupEventListeners() {
   elements.refreshTabs.addEventListener("click", async (e) => {
     e.stopPropagation();
     await Promise.all([renderTabList(), updateStats()]);
-    showToast("Refreshed");
+    showToast(t("refreshed"));
   });
 
   // Setup collapsible sections
@@ -393,7 +394,7 @@ function setupEventListeners() {
       const tabId = Number.parseInt(e.target.dataset.tabId, 10);
       await sendCommand("unload-tab", { tabId });
       await Promise.all([renderTabList(), updateStats()]);
-      showToast("Tab unloaded");
+      showToast(t("tabUnloaded"));
     } else {
       const tabId = Number.parseInt(item.dataset.tabId, 10);
       await chrome.tabs.update(tabId, { active: true });
@@ -405,9 +406,9 @@ function setupEventListeners() {
   const handleUnloadAction = async (command, data = {}) => {
     const result = await sendCommand(command, data);
     if (command === "unload-current") {
-      showToast(result ? "Tab unloaded" : "Cannot unload active tab");
+      showToast(result ? t("tabUnloaded") : t("cannotUnloadActive"));
     } else {
-      showToast(`${result || 0} tabs unloaded`);
+      showToast(t("tabsUnloaded", [result || 0]));
     }
     renderTabList();
     updateStats();
@@ -436,14 +437,14 @@ function setupEventListeners() {
     const settings = await getSettings();
     settings.unloadDelayMinutes = Number.parseInt(e.target.value, 10);
     await saveSettings(settings);
-    showToast("Timer updated");
+    showToast(t("timerUpdated"));
   });
 
   elements.thresholdSelect.addEventListener("change", async (e) => {
     const settings = await getSettings();
     settings.memoryThresholdPercent = Number.parseInt(e.target.value, 10);
     await saveSettings(settings);
-    showToast("Threshold updated");
+    showToast(t("thresholdUpdated"));
   });
 
   // Session save button
@@ -454,10 +455,10 @@ function setupEventListeners() {
 
     if (result.success) {
       elements.sessionNameInput.value = "";
-      showToast("Session saved");
+      showToast(t("sessionSaved"));
       renderSessions();
     } else {
-      showToast(result.error || "Failed to save");
+      showToast(result.error || t("failedToSave"));
     }
   });
 
@@ -469,14 +470,14 @@ function setupEventListeners() {
     if (restoreBtn) {
       const id = restoreBtn.dataset.id;
       const result = await sendCommand("restore-session", { id, mode: "open" });
-      showToast(result.success ? `Restored ${result.count} tabs` : result.error);
+      showToast(result.success ? t("restoredTabs", [result.count]) : result.error);
     }
 
     if (deleteBtn) {
       const id = deleteBtn.dataset.id;
       await sendCommand("delete-session", { id });
       renderSessions();
-      showToast("Session deleted");
+      showToast(t("sessionDeleted"));
     }
   });
 
@@ -505,10 +506,11 @@ async function init() {
   // Initialize theme first to prevent flash
   const theme = await initTheme();
   updateThemeIcon(elements.themeIcon, elements.themeToggle, theme);
-  onThemeChange((t) => updateThemeIcon(elements.themeIcon, elements.themeToggle, t));
+  onThemeChange((theme) => updateThemeIcon(elements.themeIcon, elements.themeToggle, theme));
 
   // Inject SVG icons
   injectIcons();
+  localizeHtml();
 
   // Run independent operations in parallel for faster popup load
   // Use allSettled to handle individual failures gracefully

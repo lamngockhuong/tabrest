@@ -136,5 +136,125 @@
   "thresholdUpdated": {
     "message": "Threshold updated",
     "description": "Toast message"
+  },
+  "cannotUnloadActive": {
+    "message": "Cannot unload active tab",
+    "description": "Toast message when trying to unload the current active tab"
+  },
+  "failedToSave": {
+    "message": "Failed to save",
+    "description": "Toast message when session save fails"
+  },
+  "settingsTitle": {
+    "message": "TabRest Settings",
+    "description": "Options page title"
+  },
+  "autoUnload": {
+    "message": "Auto-Unload",
+    "description": "Options section header"
+  },
+  "unloadOnStartup": {
+    "message": "Unload tabs on browser startup",
+    "description": "Options setting"
+  },
+  "unloadInactiveAfter": {
+    "message": "Unload inactive tabs after:",
+    "description": "Options setting label"
+  },
+  "memoryManagement": {
+    "message": "Memory Management",
+    "description": "Options section header"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "Unload tabs when RAM exceeds:",
+    "description": "Options setting label"
+  },
+  "behavior": {
+    "message": "Behavior",
+    "description": "Options section header"
+  },
+  "includePinnedTabs": {
+    "message": "Include pinned tabs",
+    "description": "Options setting"
+  },
+  "showUnloadedCount": {
+    "message": "Show unloaded count on icon",
+    "description": "Options setting"
+  },
+  "trackStatistics": {
+    "message": "Track statistics",
+    "description": "Options setting"
+  },
+  "whitelist": {
+    "message": "Whitelist",
+    "description": "Options section header"
+  },
+  "whitelistHelp": {
+    "message": "Sites that will never be unloaded automatically",
+    "description": "Options help text"
+  },
+  "addPlaceholder": {
+    "message": "example.com",
+    "description": "Input placeholder"
+  },
+  "add": {
+    "message": "Add",
+    "description": "Button text"
+  },
+  "statistics": {
+    "message": "Statistics",
+    "description": "Section header"
+  },
+  "tabsUnloadedLabel": {
+    "message": "Tabs Unloaded",
+    "description": "Stats label"
+  },
+  "memorySavedLabel": {
+    "message": "Memory Saved",
+    "description": "Stats label"
+  },
+  "resetStatistics": {
+    "message": "Reset Statistics",
+    "description": "Button text"
+  },
+  "keyboardShortcuts": {
+    "message": "Keyboard Shortcuts",
+    "description": "Section header"
+  },
+  "shortcutsHelp": {
+    "message": "Configure in chrome://extensions/shortcuts",
+    "description": "Help text"
+  },
+  "settingsSaved": {
+    "message": "Settings saved",
+    "description": "Status message"
+  },
+  "domainRemoved": {
+    "message": "Domain removed",
+    "description": "Status message"
+  },
+  "invalidDomain": {
+    "message": "Invalid domain format",
+    "description": "Error message"
+  },
+  "domainExists": {
+    "message": "Domain already exists",
+    "description": "Error message"
+  },
+  "domainAdded": {
+    "message": "Domain added",
+    "description": "Status message"
+  },
+  "statsReset": {
+    "message": "Statistics reset",
+    "description": "Status message"
+  },
+  "unloadRight": {
+    "message": "Unload tabs to right",
+    "description": "Button/shortcut text"
+  },
+  "unloadLeft": {
+    "message": "Unload tabs to left",
+    "description": "Button/shortcut text"
   }
 }

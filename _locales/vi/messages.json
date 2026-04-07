@@ -99,5 +99,95 @@
   },
   "thresholdUpdated": {
     "message": "Đã cập nhật ngưỡng"
+  },
+  "cannotUnloadActive": {
+    "message": "Không thể dỡ tab đang hoạt động"
+  },
+  "failedToSave": {
+    "message": "Lưu thất bại"
+  },
+  "settingsTitle": {
+    "message": "Cài đặt TabRest"
+  },
+  "autoUnload": {
+    "message": "Tự động dỡ"
+  },
+  "unloadOnStartup": {
+    "message": "Dỡ tab khi khởi động trình duyệt"
+  },
+  "unloadInactiveAfter": {
+    "message": "Dỡ tab không hoạt động sau:"
+  },
+  "memoryManagement": {
+    "message": "Quản lý bộ nhớ"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "Dỡ tab khi RAM vượt quá:"
+  },
+  "behavior": {
+    "message": "Hành vi"
+  },
+  "includePinnedTabs": {
+    "message": "Bao gồm tab đã ghim"
+  },
+  "showUnloadedCount": {
+    "message": "Hiện số lượng tab đã dỡ trên icon"
+  },
+  "trackStatistics": {
+    "message": "Theo dõi thống kê"
+  },
+  "whitelist": {
+    "message": "Danh sách trắng"
+  },
+  "whitelistHelp": {
+    "message": "Các trang sẽ không bao giờ bị dỡ tự động"
+  },
+  "addPlaceholder": {
+    "message": "example.com"
+  },
+  "add": {
+    "message": "Thêm"
+  },
+  "statistics": {
+    "message": "Thống kê"
+  },
+  "tabsUnloadedLabel": {
+    "message": "Tab đã dỡ"
+  },
+  "memorySavedLabel": {
+    "message": "Bộ nhớ đã tiết kiệm"
+  },
+  "resetStatistics": {
+    "message": "Đặt lại thống kê"
+  },
+  "keyboardShortcuts": {
+    "message": "Phím tắt"
+  },
+  "shortcutsHelp": {
+    "message": "Cấu hình tại chrome://extensions/shortcuts"
+  },
+  "settingsSaved": {
+    "message": "Đã lưu cài đặt"
+  },
+  "domainRemoved": {
+    "message": "Đã xóa tên miền"
+  },
+  "invalidDomain": {
+    "message": "Định dạng tên miền không hợp lệ"
+  },
+  "domainExists": {
+    "message": "Tên miền đã tồn tại"
+  },
+  "domainAdded": {
+    "message": "Đã thêm tên miền"
+  },
+  "statsReset": {
+    "message": "Đã đặt lại thống kê"
+  },
+  "unloadRight": {
+    "message": "Dỡ tab bên phải"
+  },
+  "unloadLeft": {
+    "message": "Dỡ tab bên trái"
   }
 }

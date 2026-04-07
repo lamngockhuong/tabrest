@@ -22,13 +22,13 @@
 
     <!-- Review Prompt -->
     <div class="review-prompt" id="review-prompt" style="display: none;">
-      <span class="review-prompt-text">Enjoying TabRest?</span>
+      <span class="review-prompt-text" data-i18n="enjoyingTabRest">Enjoying TabRest?</span>
       <div class="review-prompt-actions">
         <button class="review-btn review-yes" id="review-yes" title="Leave a review">
-          <span data-icon="check"></span> Yes!
+          <span data-icon="check"></span> <span data-i18n="yes">Yes!</span>
         </button>
         <button class="review-btn review-no" id="review-no" title="Report issue">
-          <span data-icon="x"></span> Not really
+          <span data-icon="x"></span> <span data-i18n="notReally">Not really</span>
         </button>
       </div>
       <button class="review-dismiss" id="review-dismiss" title="Dismiss">
@@ -40,17 +40,17 @@
     <div class="stats-strip">
       <div class="strip-stat">
         <span class="strip-stat-value" id="stat-sleeping">0</span>
-        <span class="strip-stat-label">sleeping</span>
+        <span class="strip-stat-label" data-i18n="sleeping">sleeping</span>
       </div>
       <div class="strip-divider"></div>
       <div class="strip-stat">
         <span class="strip-stat-value" id="stat-protected">0</span>
-        <span class="strip-stat-label">protected</span>
+        <span class="strip-stat-label" data-i18n="protected">protected</span>
       </div>
       <div class="strip-divider"></div>
       <div class="strip-stat">
         <span class="strip-stat-value" id="stat-saved">—</span>
-        <span class="strip-stat-label">saved</span>
+        <span class="strip-stat-label" data-i18n="saved">saved</span>
       </div>
     </div>
 
@@ -58,11 +58,11 @@
     <div class="quick-actions">
       <button class="btn btn-primary" id="unload-others">
         <span data-icon="pause"></span>
-        <span>Unload Others</span>
+        <span data-i18n="unloadOthers">Unload Others</span>
       </button>
       <button class="btn" id="unload-current">
         <span data-icon="moon"></span>
-        <span>Unload Current</span>
+        <span data-i18n="unloadCurrent">Unload Current</span>
       </button>
     </div>
 
@@ -79,7 +79,7 @@
       <div class="section-toggle" id="tabs-toggle" role="button" tabindex="0" aria-expanded="true">
         <span class="section-toggle-left">
           <span data-icon="layers"></span>
-          <span>Tabs in this window</span>
+          <span data-i18n="tabsInWindow">Tabs in this window</span>
         </span>
         <span class="section-toggle-right">
           <button class="btn-icon small" id="refresh-tabs" title="Refresh">
@@ -98,16 +98,16 @@
       <button class="section-toggle" id="settings-toggle" aria-expanded="false">
         <span class="section-toggle-left">
           <span data-icon="settings"></span>
-          <span>Quick Settings</span>
+          <span data-i18n="quickSettings">Quick Settings</span>
         </span>
         <span class="section-chevron" data-icon="chevronRight"></span>
       </button>
       <div class="section-body" id="settings-body">
         <div class="section-body-inner">
           <div class="setting-row">
-            <label>Auto-unload after</label>
+            <label data-i18n="autoUnloadAfter">Auto-unload after</label>
             <select id="timer-select" class="select">
-              <option value="0">Disabled</option>
+              <option value="0" data-i18n="disabled">Disabled</option>
               <option value="15">15 minutes</option>
               <option value="30">30 minutes</option>
               <option value="60">1 hour</option>
@@ -115,9 +115,9 @@
             </select>
           </div>
           <div class="setting-row">
-            <label>RAM threshold</label>
+            <label data-i18n="ramThreshold">RAM threshold</label>
             <select id="threshold-select" class="select">
-              <option value="0">Disabled</option>
+              <option value="0" data-i18n="disabled">Disabled</option>
               <option value="70">70%</option>
               <option value="80">80%</option>
               <option value="90">90%</option>
@@ -132,7 +132,7 @@
       <button class="section-toggle" id="more-toggle" aria-expanded="false">
         <span class="section-toggle-left">
           <span data-icon="zap"></span>
-          <span>More Actions</span>
+          <span data-i18n="moreActions">More Actions</span>
         </span>
         <span class="section-chevron" data-icon="chevronRight"></span>
       </button>
@@ -155,21 +155,21 @@
       <button class="section-toggle" id="sessions-toggle" aria-expanded="false">
         <span class="section-toggle-left">
           <span data-icon="folderOpen"></span>
-          <span>Sessions</span>
+          <span data-i18n="sessions">Sessions</span>
         </span>
         <span class="section-chevron" data-icon="chevronRight"></span>
       </button>
       <div class="section-body" id="sessions-body">
         <div class="section-body-inner">
           <div class="session-save-row">
-            <input type="text" id="session-name-input" class="input" placeholder="Session name (optional)">
+            <input type="text" id="session-name-input" class="input" data-i18n-placeholder="sessionNamePlaceholder" placeholder="Session name (optional)">
             <button class="btn btn-sm" id="btn-save-session">
               <span data-icon="plus"></span>
-              <span>Save</span>
+              <span data-i18n="save">Save</span>
             </button>
           </div>
           <div class="session-list" id="session-list">
-            <div class="empty-state">Save your first session</div>
+            <div class="empty-state" data-i18n="saveFirstSession">Save your first session</div>
           </div>
         </div>
       </div>
@@ -180,7 +180,7 @@
       <button class="section-toggle" id="stats-toggle" aria-expanded="false">
         <span class="section-toggle-left">
           <span data-icon="barChart"></span>
-          <span>Stats</span>
+          <span data-i18n="stats">Stats</span>
         </span>
         <span class="section-chevron" data-icon="chevronRight"></span>
       </button>
@@ -188,19 +188,19 @@
         <div class="section-body-inner">
           <div class="stats-grid">
             <div class="stat-card">
-              <span class="stat-card-label">Today</span>
+              <span class="stat-card-label" data-i18n="today">Today</span>
               <span class="stat-card-value" id="stat-today">0</span>
             </div>
             <div class="stat-card">
-              <span class="stat-card-label">All time</span>
+              <span class="stat-card-label" data-i18n="allTime">All time</span>
               <span class="stat-card-value" id="stat-all-time">0</span>
             </div>
             <div class="stat-card">
-              <span class="stat-card-label">RAM saved (est.)</span>
+              <span class="stat-card-label" data-i18n="ramSaved">RAM saved (est.)</span>
               <span class="stat-card-value" id="stat-ram">—</span>
             </div>
             <div class="stat-card">
-              <span class="stat-card-label">Member since</span>
+              <span class="stat-card-label" data-i18n="memberSince">Member since</span>
               <span class="stat-card-value" id="stat-member-since">—</span>
             </div>
           </div>
