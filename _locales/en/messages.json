@@ -225,6 +225,10 @@
     "message": "Configure in chrome://extensions/shortcuts",
     "description": "Help text"
   },
+  "configureIn": {
+    "message": "Configure in",
+    "description": "Prefix for shortcuts link"
+  },
   "settingsSaved": {
     "message": "Settings saved",
     "description": "Status message"

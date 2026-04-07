@@ -9,7 +9,10 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1 data-i18n="settingsTitle">TabRest Settings</h1>
+      <div class="logo-title">
+        <img src="../../icons/icon-48.png" alt="TabRest" class="header-logo">
+        <h1 data-i18n="settingsTitle">TabRest Settings</h1>
+      </div>
       <button id="theme-toggle" title="Toggle theme">
         <span id="theme-icon">🌙</span>
       </button>
@@ -99,7 +102,7 @@
 
     <section class="card">
       <h2 data-i18n="keyboardShortcuts">Keyboard Shortcuts</h2>
-      <p class="help" data-i18n="shortcutsHelp">Configure in chrome://extensions/shortcuts</p>
+      <p class="help"><span data-i18n="configureIn">Configure in</span> <a href="chrome://extensions/shortcuts" id="shortcuts-link">chrome://extensions/shortcuts</a></p>
       <div class="shortcuts-list">
         <div class="shortcut"><kbd>Alt+Shift+D</kbd> <span data-i18n="unloadCurrent">Unload current tab</span></div>
         <div class="shortcut"><kbd>Alt+Shift+O</kbd> <span data-i18n="unloadOthers">Unload other tabs</span></div>

@@ -166,6 +166,9 @@
   "shortcutsHelp": {
     "message": "Cấu hình tại chrome://extensions/shortcuts"
   },
+  "configureIn": {
+    "message": "Cấu hình tại"
+  },
   "settingsSaved": {
     "message": "Đã lưu cài đặt"
   },

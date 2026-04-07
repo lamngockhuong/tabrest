@@ -19,6 +19,7 @@ const elements = {
   totalSaved: document.getElementById("total-saved"),
   resetStats: document.getElementById("reset-stats"),
   status: document.getElementById("status"),
+  shortcutsLink: document.getElementById("shortcuts-link"),
 };
 
 let currentSettings = {};
@@ -118,6 +119,12 @@ function setupEventListeners() {
     await chrome.storage.local.set({ stats: { tabsUnloaded: 0, memorySaved: 0 } });
     await loadStats();
     showStatus(t("statsReset"));
+  });
+
+  // Open shortcuts page (chrome:// URLs require chrome.tabs.create)
+  elements.shortcutsLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
   });
 
   // Theme toggle

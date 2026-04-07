@@ -74,6 +74,17 @@ h1 {
   color: var(--primary);
 }
 
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-logo {
+  width: 24px;
+  height: 24px;
+}
+
 .icon-btn {
   background: none;
   border: none;

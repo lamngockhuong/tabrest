@@ -284,7 +284,7 @@ async function updateBadge() {
   const count = tabs.filter((t) => t.discarded).length;
 
   chrome.action.setBadgeText({ text: count > 0 ? count.toString() : "" });
-  chrome.action.setBadgeBackgroundColor({ color: "#4caf50" });
+  chrome.action.setBadgeBackgroundColor({ color: "#4338CA" });
 }
 
 console.log("TabRest service worker initialized");

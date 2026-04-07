@@ -1,6 +1,12 @@
-# TabRest
+<p align="center">
+  <img src="icons/icon-128.png" alt="TabRest Logo" width="128" height="128">
+</p>
 
-Rest your tabs, free your memory - a Chrome extension that automatically unloads inactive tabs.
+<h1 align="center">TabRest</h1>
+
+<p align="center">
+  Rest your tabs, free your memory - a Chrome extension that automatically unloads inactive tabs.
+</p>
 
 ## Features
 

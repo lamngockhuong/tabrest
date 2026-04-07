@@ -66,6 +66,17 @@ h1 {
   color: var(--primary);
 }
 
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo {
+  width: 36px;
+  height: 36px;
+}
+
 #theme-toggle {
   width: 36px;
   height: 36px;
@@ -144,6 +155,16 @@ h2 {
   font-size: 12px;
   color: var(--text-muted);
   margin-bottom: 12px;
+}
+
+.help a {
+  color: var(--primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.help a:hover {
+  text-decoration: underline;
 }
 
 #whitelist-container {
