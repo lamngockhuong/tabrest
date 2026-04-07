@@ -11,6 +11,7 @@ Rest your tabs, free your memory - a Chrome extension that automatically unloads
 - **Tab groups** - Unload entire tab groups
 - **Whitelist** - Protect sites from auto-unload
 - **Statistics** - Track tabs unloaded and memory saved
+- **Multi-language** - English and Vietnamese supported
 
 ## Keyboard Shortcuts
 
@@ -49,6 +50,7 @@ TabRest uses Chrome's native `chrome.tabs.discard()` API to unload tabs. Discard
 ```
 tabrest/
 ├── manifest.json           # Extension config (MV3)
+├── _locales/               # i18n translations (en, vi)
 ├── src/
 │   ├── background/         # Service worker modules
 │   ├── popup/              # Popup UI
