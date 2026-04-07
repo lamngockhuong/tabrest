@@ -1,25 +1,25 @@
 ---
 import { getCollection, render } from 'astro:content';
-import DocsLayout from '../../layouts/DocsLayout.astro';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
 
 export async function getStaticPaths() {
-  const docs = await getCollection('docs', ({ id }) => id.startsWith('en/'));
+  const docs = await getCollection('docs', ({ id }) => id.startsWith('vi/'));
   return docs.map(doc => ({
-    // Remove 'en/' prefix from URL slug
-    params: { slug: doc.id.replace('en/', '') },
+    // Remove 'vi/' prefix from URL slug
+    params: { slug: doc.id.replace('vi/', '') },
     props: { doc },
   }));
 }
 
 const { doc } = Astro.props;
 const { Content } = await render(doc);
-const locale = 'en';
+const locale = 'vi';
 ---
 
 <DocsLayout
   title={doc.data.title}
   description={doc.data.description}
-  currentSlug={doc.id.replace('en/', '')}
+  currentSlug={doc.id.replace('vi/', '')}
   locale={locale}
 >
   <Content />

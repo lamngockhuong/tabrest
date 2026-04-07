@@ -1,0 +1,17 @@
+---
+// Landing page - Vietnamese
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import LandingPage from '../../components/LandingPage.astro';
+import { useTranslations } from '../../i18n';
+
+const locale = 'vi';
+const t = useTranslations(locale);
+---
+
+<BaseLayout title={t.meta.title} description={t.meta.description} locale={locale}>
+  <Header locale={locale} />
+  <LandingPage locale={locale} />
+  <Footer locale={locale} />
+</BaseLayout>

@@ -1,0 +1,22 @@
+---
+// Language switcher - toggles between EN and VI
+import { languages, getLocalizedPath, getAlternateLocale, type Locale } from '../i18n';
+
+interface Props {
+  currentLocale: Locale;
+  currentPath: string;
+}
+
+const { currentLocale, currentPath } = Astro.props;
+const alternateLocale = getAlternateLocale(currentLocale);
+const alternatePath = getLocalizedPath(currentPath, alternateLocale);
+---
+
+<a
+  href={alternatePath}
+  class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-light dark:border-border-dark hover:bg-card-light dark:hover:bg-card-dark transition-colors text-sm font-medium text-text-muted dark:text-text-muted-dark"
+  aria-label={`Switch to ${languages[alternateLocale]}`}
+>
+  <span class="text-base">{alternateLocale === 'vi' ? '🇻🇳' : '🇺🇸'}</span>
+  <span class="hidden sm:inline">{languages[alternateLocale]}</span>
+</a>

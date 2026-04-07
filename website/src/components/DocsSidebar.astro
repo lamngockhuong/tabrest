@@ -1,21 +1,34 @@
 ---
 import { getCollection } from 'astro:content';
+import { useTranslations, getLocalizedPath, type Locale } from '../i18n';
 
 interface Props {
   currentSlug: string;
+  locale?: Locale;
 }
 
 const { currentSlug } = Astro.props;
+const locale = (Astro.props.locale || Astro.currentLocale || 'en') as Locale;
+const t = useTranslations(locale);
 
-// Get all docs and sort by order
-const allDocs = await getCollection('docs');
+// Get docs for current locale (filter by lang prefix once docs are restructured)
+const langPrefix = `${locale}/`;
+const allDocs = await getCollection('docs', ({ id }) => {
+  // Support both flat structure (current) and lang-prefixed structure (future)
+  if (id.includes('/')) {
+    return id.startsWith(langPrefix);
+  }
+  // Flat structure - show all for EN, none for VI until restructured
+  return locale === 'en';
+});
+
 const sortedDocs = allDocs.sort((a, b) => a.data.order - b.data.order);
 
 // Group docs by section
 const sections = {
-  'getting-started': 'Getting Started',
-  'features': 'Features',
-  'reference': 'Reference',
+  'getting-started': t.docs.sidebar.sections['getting-started'],
+  'features': t.docs.sidebar.sections['features'],
+  'reference': t.docs.sidebar.sections['reference'],
 } as const;
 
 type SectionKey = keyof typeof sections;
@@ -28,6 +41,9 @@ const groupedDocs = sortedDocs.reduce((acc, doc) => {
   acc[section].push(doc);
   return acc;
 }, {} as Record<SectionKey, typeof sortedDocs>);
+
+// Helper to get doc slug without language prefix
+const getDocSlug = (id: string) => id.replace(/^(en|vi)\//, '');
 ---
 
 <nav class="p-4 space-y-6">
@@ -42,11 +58,13 @@ const groupedDocs = sortedDocs.reduce((acc, doc) => {
         </h3>
         <ul class="space-y-1">
           {sectionDocs.map(doc => {
-            const isActive = doc.id === currentSlug;
+            const docSlug = getDocSlug(doc.id);
+            const isActive = docSlug === currentSlug || doc.id === currentSlug;
+            const href = getLocalizedPath(`/docs/${docSlug}`, locale);
             return (
               <li>
                 <a
-                  href={`/docs/${doc.id}`}
+                  href={href}
                   class={`block px-3 py-2 rounded-md text-sm transition-colors ${
                     isActive
                       ? 'bg-primary/10 dark:bg-primary-light/10 text-primary dark:text-primary-light font-medium'

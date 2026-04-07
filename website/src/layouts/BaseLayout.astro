@@ -1,23 +1,28 @@
 ---
 import '../styles/global.css';
+import { getLocalizedPath, getLocales, type Locale } from '../i18n';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
+  locale?: Locale;
 }
 
 const {
   title,
   description = 'Rest your tabs, free your memory - Chrome extension that automatically unloads inactive tabs.',
   image = '/og-image.png',
+  locale = (Astro.currentLocale || 'en') as Locale,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentPath = Astro.url.pathname;
+const locales = getLocales();
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={locale} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,12 +32,23 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- hreflang for i18n -->
+    {locales.map(lang => (
+      <link
+        rel="alternate"
+        hreflang={lang}
+        href={new URL(getLocalizedPath(currentPath, lang), Astro.site)}
+      />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL(getLocalizedPath(currentPath, 'en'), Astro.site)} />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={`${title} | TabRest`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:locale" content={locale === 'vi' ? 'vi_VN' : 'en_US'} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

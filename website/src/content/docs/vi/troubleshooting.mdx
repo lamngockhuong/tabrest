@@ -1,0 +1,299 @@
+---
+title: Khắc phục sự cố
+description: Các vấn đề và giải pháp phổ biến cho TabRest
+order: 6
+section: reference
+---
+
+# Khắc phục sự cố
+
+Giải pháp cho các vấn đề phổ biến khi sử dụng TabRest.
+
+## Tab không giải phóng được
+
+**Vấn đề**: Nhấn "Giải phóng" không có tác dụng hoặc tab từ chối giải phóng.
+
+### Nguyên nhân 1: Tab được bảo vệ
+
+TabRest bảo vệ một số tab theo mặc định. Kiểm tra xem tab có:
+
+- **Được ghim**: Tab ghim được bảo vệ (trừ khi "Giải phóng tab ghim" được bật)
+- **Đang phát audio**: Tab có audio đang hoạt động được bảo vệ (trừ khi "Bảo vệ tab audio" bị tắt)
+- **Có form chưa lưu**: Tab có trường input đã thay đổi được bảo vệ (trừ khi "Bảo vệ tab form" bị tắt)
+- **Nằm trong danh sách trắng**: Domain nằm trong danh sách trắng của bạn
+
+**Giải pháp**: Tắt bảo vệ liên quan trong Cài đặt hoặc xóa domain khỏi danh sách trắng.
+
+### Nguyên nhân 2: Tab đang hoạt động
+
+Chrome không thể giải phóng tab đang hoạt động (được focus).
+
+**Giải pháp**: Chuyển sang tab khác trước, sau đó giải phóng tab mục tiêu.
+
+### Nguyên nhân 3: Trang nội bộ Chrome
+
+Chrome ngăn tiện ích giải phóng các trang nội bộ:
+
+- Trang `chrome://` (cài đặt, tiện ích, v.v.)
+- Trang `chrome-extension://`
+- Trang Chrome Web Store
+- Trang Tab mới
+
+**Giải pháp**: Các trang này không thể giải phóng theo thiết kế. Chúng sử dụng bộ nhớ tối thiểu.
+
+### Nguyên nhân 4: Tab vừa tải
+
+Chrome có thể ngăn giải phóng tab vừa mở hoặc tải lại (< 5 giây).
+
+**Giải pháp**: Đợi vài giây và thử lại.
+
+### Nguyên nhân 5: Quyền tiện ích
+
+TabRest yêu cầu quyền `tabs` để giải phóng tab.
+
+**Giải pháp**:
+1. Vào `chrome://extensions`
+2. Tìm TabRest → **Chi tiết**
+3. Xác minh quyền bao gồm "Đọc lịch sử duyệt web"
+4. Nếu thiếu, xóa và cài lại tiện ích
+
+## Tiện ích không hoạt động
+
+**Vấn đề**: Biểu tượng TabRest không phản hồi hoặc tự động giải phóng không kích hoạt.
+
+### Kiểm tra trạng thái tiện ích
+
+1. Vào `chrome://extensions`
+2. Tìm TabRest trong danh sách
+3. Đảm bảo công tắc **BẬT** (màu xanh)
+4. Kiểm tra chỉ báo lỗi (chữ đỏ)
+
+### Tải lại tiện ích
+
+1. Vào `chrome://extensions`
+2. Tìm TabRest
+3. Nhấn **biểu tượng làm mới** (↻)
+4. Kiểm tra chức năng lại
+
+### Kiểm tra Service Worker
+
+1. Vào `chrome://extensions`
+2. Tìm TabRest → **Chi tiết**
+3. Cuộn đến **Kiểm tra views**
+4. Nhấn **service worker**
+5. Kiểm tra console để xem lỗi
+
+**Lỗi phổ biến**:
+- `Storage quota exceeded`: Xóa storage tiện ích
+- `Alarm not registered`: Tải lại tiện ích
+- `Permission denied`: Cài lại tiện ích
+
+### Cài lại tiện ích
+
+Nếu tải lại không giúp được:
+
+1. **Export cài đặt** (tùy chọn): Ghi lại danh sách trắng và cài đặt
+2. Vào `chrome://extensions`
+3. Tìm TabRest → **Xóa**
+4. Cài lại từ Chrome Web Store hoặc nguồn
+5. Khôi phục cài đặt
+
+## Phím tắt không hoạt động
+
+**Vấn đề**: Nhấn phím tắt không có tác dụng.
+
+### Xác minh phím tắt đã được đặt
+
+1. Vào `chrome://extensions/shortcuts`
+2. Tìm phần TabRest
+3. Đảm bảo phím tắt đã được gán (không trống)
+
+**Giải pháp**: Nếu trống, đặt phím tắt thủ công.
+
+### Kiểm tra xung đột
+
+Phím tắt có thể xung đột với:
+- Tiện ích khác
+- Phím tắt trình duyệt Chrome
+- Phím tắt hệ điều hành
+
+**Giải pháp**:
+1. Vào `chrome://extensions/shortcuts`
+2. Nếu phím tắt hiện "Đang được Chrome sử dụng", chọn tổ hợp khác
+3. Tắt phím tắt tiện ích xung đột
+
+### Kiểm tra trong ngữ cảnh khác
+
+Một số phím tắt không hoạt động trên:
+- Trang nội bộ Chrome (`chrome://`)
+- Trang tiện ích (`chrome-extension://`)
+- Chrome Web Store
+
+**Giải pháp**: Kiểm tra trên trang web bình thường (vd: `example.com`).
+
+### Tải lại tiện ích
+
+1. Vào `chrome://extensions`
+2. Tìm TabRest → Biểu tượng làm mới
+3. Kiểm tra phím tắt lại
+
+## Sử dụng bộ nhớ cao
+
+**Vấn đề**: Chrome vẫn dùng nhiều bộ nhớ dù có TabRest.
+
+### Xác minh tab thực sự đang giải phóng
+
+1. Mở Task Manager: `Shift+Esc` (Windows/Linux) hoặc menu Chrome → Công cụ khác → Task Manager
+2. Tìm tab đánh dấu "Đã giải phóng" hoặc có bộ nhớ rất thấp (< 1 MB)
+3. Nếu tab hiển thị bộ nhớ cao, chúng chưa được giải phóng
+
+**Giải pháp**: Kiểm tra cài đặt bảo vệ tab (ghim, audio, form, danh sách trắng).
+
+### Kiểm tra cài đặt tự động giải phóng
+
+1. Mở Cài đặt TabRest
+2. Xác minh **hẹn giờ** đã bật (không đặt "Không bao giờ")
+3. Xác minh **ngưỡng bộ nhớ** hợp lý (60-90%)
+4. Bật **giải phóng khi khởi động** để giải phóng bộ nhớ khi khởi động lại trình duyệt
+
+### Tiện ích và trang nền
+
+TabRest không thể giải phóng:
+- Trang tiện ích
+- Service worker từ tiện ích khác
+- Tiến trình riêng của Chrome
+
+**Giải pháp**: Dùng Chrome Task Manager (`Shift+Esc`) để xác định tiện ích ngốn bộ nhớ và tắt chúng.
+
+### Quá nhiều tab
+
+Nếu bạn mở hàng trăm tab:
+- Tự động giải phóng cần thời gian để xử lý tất cả tab
+- Một số tab có thể được bảo vệ hoặc vừa hoạt động
+- Cân nhắc đóng tab bạn không còn cần
+
+**Giải pháp**: Dùng "Giải phóng các tab khác" để giải phóng thủ công tất cả tab không hoạt động ngay lập tức.
+
+## Thống kê không cập nhật
+
+**Vấn đề**: Trang thống kê hiển thị 0 tab đã giải phóng hoặc số liệu cũ.
+
+### Kiểm tra công tắc thống kê
+
+1. Mở Cài đặt
+2. Đảm bảo **Bật thống kê** đang BẬT
+3. Nếu đã tắt, bật lên (thống kê sẽ bắt đầu theo dõi từ thời điểm đó)
+
+### Xác minh giải phóng đang diễn ra
+
+1. Giải phóng thủ công một tab bằng popup
+2. Mở Cài đặt → phần Thống kê
+3. Kiểm tra số đếm đã tăng chưa
+
+**Giải pháp**: Nếu thống kê vẫn không cập nhật, tải lại tiện ích.
+
+### Đặt lại thống kê
+
+Nếu thống kê bị hỏng:
+
+1. Mở Cài đặt
+2. Nhấn nút **Đặt lại thống kê**
+3. Xác nhận hành động
+4. Thống kê sẽ bắt đầu theo dõi từ số không
+
+## Danh sách trắng không hoạt động
+
+**Vấn đề**: Các trang trong danh sách trắng vẫn bị giải phóng.
+
+### Xác minh định dạng domain
+
+Mục danh sách trắng chỉ nên là tên domain:
+
+```
+✅ Đúng: github.com
+✅ Đúng: mail.google.com
+❌ Sai: https://github.com
+❌ Sai: github.com/user/repo
+```
+
+**Giải pháp**: Xóa giao thức (`https://`) và đường dẫn (`/user/repo`) khỏi các mục.
+
+### Kiểm tra chế độ danh sách đen
+
+Nếu **Chế độ danh sách đen** được bật, hành vi bị đảo ngược:
+- Danh sách trắng trở thành danh sách đen (các trang cần giải phóng)
+- Tất cả trang khác được bảo vệ
+
+**Giải pháp**: Tắt chế độ danh sách đen trong Cài đặt nếu bạn muốn hành vi danh sách trắng bình thường.
+
+### Phân biệt chữ hoa/thường
+
+Khớp domain không phân biệt chữ hoa/thường:
+- `GitHub.com` = `github.com` ✅
+
+**Giải pháp**: Dùng chữ thường để nhất quán.
+
+## Bảo vệ form không hoạt động
+
+**Vấn đề**: Tab có form chưa lưu bị giải phóng.
+
+### Kiểm tra cài đặt bảo vệ form
+
+1. Mở Cài đặt
+2. Đảm bảo **Bảo vệ tab có form chưa lưu** được bật
+
+### Xác minh phát hiện form
+
+TabRest phát hiện form với:
+- Trường `<input>` đã thay đổi (text, email, password, v.v.)
+- Trường `<textarea>` đã thay đổi
+- Dropdown `<select>` đã thay đổi
+
+**KHÔNG phát hiện**:
+- Trình soạn thảo rich text (vd: TinyMCE, CKEditor) - dùng danh sách trắng thay thế
+- Trình soạn thảo dựa trên canvas
+- Thư viện form JavaScript tùy chỉnh
+
+**Giải pháp**: Thêm các trang có form phức tạp vào danh sách trắng.
+
+### Thời điểm content script
+
+Nếu form được điền rất nhanh sau khi trang tải, TabRest có thể chưa phát hiện được.
+
+**Giải pháp**: Đợi vài giây sau khi điền form trước khi chuyển tab.
+
+## Báo cáo lỗi
+
+Nếu bạn gặp lỗi không có trong danh sách này:
+
+### Thu thập thông tin
+
+1. **Phiên bản Chrome**: `chrome://version`
+2. **Phiên bản TabRest**: `chrome://extensions` → TabRest → Chi tiết
+3. **Các bước tái tạo**: Những hành động nào kích hoạt lỗi
+4. **Hành vi mong đợi**: Điều gì nên xảy ra
+5. **Hành vi thực tế**: Điều gì thực sự xảy ra
+6. **Lỗi console**: Mở inspector service worker, kiểm tra lỗi
+
+### Báo cáo trên GitHub
+
+1. Truy cập [TabRest Issues](https://github.com/lamngockhuong/tabrest/issues)
+2. Tìm kiếm issue hiện có để tránh trùng lặp
+3. Nhấn **New Issue**
+4. Bao gồm tất cả thông tin ở trên
+5. Thêm ảnh chụp màn hình nếu hữu ích
+
+### Giải pháp khẩn cấp
+
+Nếu TabRest gây ra vấn đề nghiêm trọng:
+
+1. Tắt tiện ích: `chrome://extensions` → Tắt công tắc
+2. Báo cáo lỗi trên GitHub
+3. Đợi bản sửa hoặc cài lại từ nguồn
+
+## Nhận trợ giúp
+
+- **Tài liệu**: Đọc tất cả [trang tài liệu](/vi/docs/getting-started)
+- **FAQ**: Xem [Câu hỏi thường gặp](/vi/docs/faq)
+- **GitHub Issues**: [Báo cáo lỗi hoặc yêu cầu tính năng](https://github.com/lamngockhuong/tabrest/issues)
+- **GitHub Discussions**: [Đặt câu hỏi hoặc chia sẻ phản hồi](https://github.com/lamngockhuong/tabrest/discussions)

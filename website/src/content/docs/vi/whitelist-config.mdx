@@ -1,0 +1,216 @@
+---
+title: Cấu hình danh sách trắng
+description: Cấu hình bảo vệ trang và chế độ danh sách đen cho TabRest
+order: 4
+section: features
+---
+
+# Cấu hình danh sách trắng
+
+TabRest cho phép bạn bảo vệ các website cụ thể khỏi tự động giải phóng bằng danh sách trắng (hoặc danh sách đen ở chế độ đảo ngược).
+
+## Danh sách trắng mặc định
+
+TabRest đi kèm các trang đã cấu hình sẵn:
+
+- `youtube.com` - Bảo vệ video và playlist
+- `gmail.com` - Giữ tab email được tải
+- `docs.google.com` - Bảo vệ Google Docs, Sheets, Slides
+
+Các trang này có thể được xóa hoặc tùy chỉnh trong cài đặt.
+
+## Thêm trang vào danh sách trắng
+
+### Từ trang Tùy chọn
+
+1. Nhấn biểu tượng TabRest → nút **⚙️ Cài đặt**
+2. Cuộn đến phần **Danh sách trắng**
+3. Nhập tên domain (vd: `github.com`)
+4. Nhấn **Enter** hoặc nhấn **Thêm**
+5. Thay đổi lưu tự động
+
+### Thêm nhanh từ Popup
+
+Thêm nhanh trang hiện tại trực tiếp từ popup:
+
+1. Truy cập trang bạn muốn bảo vệ
+2. Nhấn biểu tượng TabRest trên thanh công cụ
+3. Tìm liên kết **Thêm trang hiện tại vào danh sách trắng**
+4. Nhấn để thêm domain hiện tại
+
+**Lưu ý**: Tính năng này chỉ thêm domain (vd: `example.com`), không phải URL đầy đủ.
+
+## Quy tắc khớp domain
+
+TabRest sử dụng khớp domain đơn giản:
+
+### Khớp domain chính xác
+
+```
+Danh sách trắng: github.com
+✅ Khớp: https://github.com/user/repo
+✅ Khớp: http://github.com/explore
+❌ Không khớp: https://gist.github.com
+❌ Không khớp: https://api.github.com
+```
+
+### Khớp subdomain
+
+Để bảo vệ tất cả subdomain, thêm domain gốc:
+
+```
+Danh sách trắng: google.com
+✅ Khớp: docs.google.com
+✅ Khớp: mail.google.com
+✅ Khớp: drive.google.com
+```
+
+**Hoặc** thêm subdomain cụ thể:
+
+```
+Danh sách trắng: docs.google.com
+✅ Khớp: https://docs.google.com/document/...
+❌ Không khớp: https://mail.google.com
+```
+
+### Mẫu phổ biến
+
+| Mục danh sách trắng | Bảo vệ |
+|---------------------|--------|
+| `example.com` | `example.com` và tất cả subdomain |
+| `www.example.com` | Chỉ `www.example.com` |
+| `app.example.com` | Chỉ `app.example.com` |
+
+## Xóa trang
+
+1. Mở trang **Cài đặt**
+2. Tìm domain trong danh sách trắng
+3. Nhấn nút **X** bên cạnh
+4. Thay đổi lưu tự động
+
+## Chế độ danh sách đen
+
+Đảo ngược hành vi danh sách trắng: thay vì bảo vệ các trang được liệt kê, chỉ giải phóng **các trang được liệt kê**.
+
+### Cách bật
+
+1. Mở trang **Cài đặt**
+2. Bật công tắc **Chế độ danh sách đen**
+3. Tất cả trang ngoại trừ các trang trong danh sách sẽ được bảo vệ
+
+### Trường hợp sử dụng
+
+**Chế độ danh sách trắng (mặc định)**: Bảo vệ một vài trang quan trọng, giải phóng mọi thứ khác
+
+```
+Danh sách trắng: gmail.com, docs.google.com
+→ Chỉ các trang này được bảo vệ
+→ Tất cả trang khác có thể bị giải phóng
+```
+
+**Chế độ danh sách đen**: Bảo vệ hầu hết trang, giải phóng tích cực các trang cụ thể
+
+```
+Danh sách đen: news.com, social.com
+→ Chỉ các trang này có thể bị giải phóng
+→ Tất cả trang khác được bảo vệ
+```
+
+**Khi nào dùng chế độ danh sách đen**:
+- Bạn muốn bảo vệ hầu hết trang theo mặc định
+- Bạn chỉ muốn giải phóng một vài trang ngốn bộ nhớ (vd: trang tin, mạng xã hội)
+- Bạn có danh sách ngắn các trang cần giải phóng
+
+## Danh sách trắng + Bảo vệ khác
+
+Danh sách trắng hoạt động cùng các bảo vệ tab khác:
+
+| Loại bảo vệ | Ưu tiên | Mô tả |
+|-------------|---------|-------|
+| Danh sách trắng | Cao nhất | Bảo vệ dựa trên domain |
+| Tab ghim | Cao | Bảo vệ tab ghim (có thể cấu hình) |
+| Tab audio | Cao | Bảo vệ tab đang phát media (có thể cấu hình) |
+| Tab form | Cao | Bảo vệ tab có form chưa lưu (có thể cấu hình) |
+
+**Ví dụ**: Ngay cả khi trang không nằm trong danh sách trắng, nó vẫn không bị giải phóng nếu:
+- Tab được ghim (và "Giải phóng tab ghim" bị tắt)
+- Tab đang phát audio (và "Bảo vệ tab audio" được bật)
+- Tab có dữ liệu form chưa lưu (và "Bảo vệ tab form" được bật)
+
+## Import/Export danh sách trắng
+
+Hiện tại, danh sách trắng được lưu trong Chrome sync storage và tự động đồng bộ giữa các thiết bị.
+
+**Sao lưu thủ công**:
+1. Mở `chrome://extensions`
+2. Tìm TabRest → **Chi tiết**
+3. Cuộn đến **Kiểm tra views: service worker**
+4. Trong console, chạy:
+   ```javascript
+   chrome.storage.sync.get('settings', (data) => {
+     console.log(data.settings.whitelist);
+   });
+   ```
+5. Sao chép mảng kết quả
+
+**Khôi phục thủ công**: Chỉnh sửa mảng trong UI cài đặt hoặc dùng console:
+```javascript
+chrome.storage.sync.set({
+  settings: {
+    ...existingSettings,
+    whitelist: ['github.com', 'example.com']
+  }
+});
+```
+
+## Mẹo
+
+### Quản lý danh sách trắng lớn
+
+- **Cụ thể**: Chỉ thêm trang bạn thực sự muốn giữ được tải
+- **Xem xét định kỳ**: Xóa trang bạn không còn dùng
+- **Cân nhắc chế độ danh sách đen**: Nếu danh sách trắng lớn, chuyển sang chế độ danh sách đen
+
+### Ví dụ danh sách trắng phổ biến
+
+**Quy trình phát triển**:
+```
+localhost
+127.0.0.1
+github.com
+stackoverflow.com
+```
+
+**Công cụ năng suất**:
+```
+mail.google.com
+calendar.google.com
+slack.com
+notion.so
+```
+
+**Ứng dụng giao tiếp**:
+```
+discord.com
+zoom.us
+teams.microsoft.com
+```
+
+### Hỗ trợ Wildcard
+
+TabRest hiện **không** hỗ trợ wildcard (vd: `*.google.com`). Thêm từng domain riêng:
+
+```
+✅ Thêm: mail.google.com, drive.google.com, docs.google.com
+❌ Không hỗ trợ: *.google.com
+```
+
+## Quyền riêng tư
+
+Các mục danh sách trắng:
+- Lưu cục bộ trong Chrome sync storage
+- Đồng bộ giữa các trình duyệt Chrome của bạn (nếu sync được bật)
+- Không bao giờ gửi đến server bên ngoài
+- Không bao giờ chia sẻ với bên thứ ba
+
+Xem [Chính sách bảo mật](/vi/docs/privacy-policy) để biết chi tiết.

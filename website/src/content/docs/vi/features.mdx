@@ -1,0 +1,135 @@
+---
+title: Tính năng
+description: Tổng quan đầy đủ về các tính năng quản lý bộ nhớ của TabRest
+order: 2
+section: features
+---
+
+# Tính năng
+
+TabRest cung cấp nhiều cách để quản lý tab và giải phóng bộ nhớ.
+
+## Giải phóng tự động
+
+### Giải phóng theo thời gian
+
+Tự động giải phóng tab sau thời gian không hoạt động:
+
+| Tùy chọn | Trường hợp sử dụng |
+|----------|-------------------|
+| 15 phút  | Tiết kiệm bộ nhớ tối đa |
+| 30 phút  | Chế độ cân bằng mặc định |
+| 1 giờ    | Người dùng nhẹ |
+| 2 giờ    | Giữ tab lâu hơn |
+| 4 giờ    | Tự động giải phóng tối thiểu |
+
+**Cách hoạt động**: TabRest theo dõi lần tương tác cuối cùng với mỗi tab (click, cuộn, focus). Sau thời gian cấu hình, các tab không hoạt động sẽ được giải phóng.
+
+### Giải phóng theo ngưỡng bộ nhớ
+
+Giải phóng tab khi RAM hệ thống vượt ngưỡng:
+
+- **Phạm vi**: 60-90% sử dụng bộ nhớ
+- **Mặc định**: 80%
+- **Khoảng kiểm tra**: Mỗi 30 giây
+
+Khi kích hoạt, TabRest giải phóng các tab ít sử dụng nhất (LRU) cho đến khi bộ nhớ giảm xuống dưới ngưỡng.
+
+### Giải phóng khi khởi động
+
+Giải phóng bộ nhớ ngay khi Chrome khởi động:
+
+- **Mặc định**: Bật
+- **Hành vi**: Giải phóng tất cả tab trừ tab đang hoạt động khi trình duyệt khởi động
+- **Hữu ích cho**: Khôi phục nhiều tab từ phiên trước
+
+## Điều khiển thủ công
+
+Điều khiển giải phóng tab theo yêu cầu từ popup:
+
+| Hành động | Mô tả |
+|-----------|-------|
+| **Giải phóng tab hiện tại** | Giải phóng tab đang hoạt động |
+| **Giải phóng các tab khác** | Giải phóng tất cả tab trừ tab hiện tại |
+| **Giải phóng bên trái** | Giải phóng tất cả tab bên trái tab hiện tại |
+| **Giải phóng bên phải** | Giải phóng tất cả tab bên phải tab hiện tại |
+
+Truy cập qua biểu tượng TabRest trên thanh công cụ hoặc [phím tắt](/vi/docs/keyboard-shortcuts).
+
+## Bảo vệ tab
+
+Bảo vệ các tab cụ thể khỏi tự động giải phóng:
+
+### Tab ghim
+- **Mặc định**: Được bảo vệ khỏi tự động giải phóng
+- **Có thể cấu hình**: Bật "Giải phóng tab ghim" trong cài đặt để ghi đè
+
+### Tab Audio/Video
+- **Mặc định**: Được bảo vệ khi đang phát media
+- **Phát hiện**: Kiểm tra thuộc tính `tab.audible`
+- **Có thể cấu hình**: Tắt "Bảo vệ tab đang phát audio/video" để cho phép giải phóng
+
+### Tab Form
+- **Mặc định**: Được bảo vệ khi form có dữ liệu chưa lưu
+- **Phát hiện**: Content script kiểm tra các trường input đã thay đổi
+- **Có thể cấu hình**: Tắt "Bảo vệ tab có form chưa lưu" để cho phép giải phóng
+
+### Danh sách trắng
+- **Mặc định**: YouTube, Gmail, Google Docs
+- **Tùy chỉnh**: Thêm bất kỳ trang nào để ngăn tự động giải phóng
+- **Chi tiết**: Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config)
+
+## Nhóm tab
+
+Giải phóng toàn bộ nhóm tab cùng lúc:
+
+1. **Tạo nhóm tab** trong Chrome (nhấn chuột phải tab → Thêm vào nhóm mới)
+2. **Mở popup TabRest** và nhấn tên nhóm
+3. **Tất cả tab trong nhóm giải phóng** cùng lúc
+
+**Lưu ý**: Nhóm tab là tính năng Chrome (Chrome 88+). TabRest tích hợp với các nhóm hiện có.
+
+## Thống kê
+
+Theo dõi tiết kiệm bộ nhớ theo thời gian:
+
+- **Tab đã giải phóng**: Tổng số từ khi cài đặt
+- **Bộ nhớ đã tiết kiệm**: Ước tính MB đã giải phóng (tính từ mức sử dụng bộ nhớ tab)
+- **Xem thống kê**: Mở trang cài đặt
+- **Đặt lại thống kê**: Dùng nút reset trong cài đặt
+
+**Quyền riêng tư**: Tất cả thống kê lưu cục bộ. Không có dữ liệu rời khỏi trình duyệt.
+
+## Chỉ báo huy hiệu
+
+Hiển thị số tab đã giải phóng trên biểu tượng tiện ích:
+
+- **Mặc định**: Bật
+- **Hiển thị**: Số nhỏ trên biểu tượng thanh công cụ
+- **Tắt**: Tắt "Hiện số đếm huy hiệu" trong cài đặt
+
+## Hỗ trợ đa ngôn ngữ
+
+TabRest hỗ trợ:
+
+- 🇺🇸 Tiếng Anh
+- 🇻🇳 Tiếng Việt
+
+Ngôn ngữ tự động phát hiện từ cài đặt Chrome.
+
+## Tính năng kỹ thuật
+
+### Chrome Manifest V3
+- Kiến trúc service worker hiện đại
+- Sử dụng tài nguyên hiệu quả
+- Tuân thủ tiêu chuẩn Chrome mới nhất
+
+### ES Modules
+- Module JavaScript native
+- Không cần bước build
+- Tải và thực thi nhanh
+
+### Chrome Alarms API
+- Tồn tại qua khi service worker kết thúc
+- Kiểm tra định kỳ đáng tin cậy
+- Lên lịch tiết kiệm pin

@@ -1,0 +1,81 @@
+---
+title: Bắt đầu
+description: Hướng dẫn cài đặt và cấu hình TabRest để bắt đầu tiết kiệm bộ nhớ
+order: 1
+section: getting-started
+---
+
+# Bắt đầu với TabRest
+
+TabRest là tiện ích Chrome tự động giải phóng các tab không hoạt động để giải phóng bộ nhớ. Hướng dẫn này sẽ giúp bạn bắt đầu.
+
+## Cài đặt
+
+### Từ Chrome Web Store
+
+1. Truy cập [TabRest trên Chrome Web Store](https://chrome.google.com/webstore) (sắp ra mắt)
+2. Nhấn **Thêm vào Chrome**
+3. Xác nhận yêu cầu quyền
+4. Biểu tượng TabRest sẽ xuất hiện trên thanh công cụ
+
+### Từ mã nguồn (Dành cho lập trình viên)
+
+1. Clone repository:
+   ```bash
+   git clone https://github.com/lamngockhuong/tabrest.git
+   cd tabrest
+   ```
+
+2. Mở Chrome và truy cập `chrome://extensions`
+
+3. Bật **Chế độ nhà phát triển** (nút bật/tắt ở góc trên bên phải)
+
+4. Nhấn **Tải tiện ích đã giải nén** và chọn thư mục `tabrest`
+
+5. Tiện ích đã được kích hoạt
+
+## Bước đầu tiên
+
+Sau khi cài đặt, TabRest hoạt động ngay với cài đặt mặc định:
+
+- **Hẹn giờ tự động giải phóng**: 30 phút không hoạt động
+- **Ngưỡng bộ nhớ**: 80% RAM
+- **Tab được bảo vệ**: Tab ghim, tab có audio, tab có form chưa lưu
+- **Danh sách trắng**: YouTube, Gmail, Google Docs (cấu hình sẵn)
+
+### Cấu hình nhanh
+
+1. **Mở cài đặt**: Nhấn biểu tượng TabRest → Nút ⚙️ Cài đặt
+2. **Điều chỉnh hẹn giờ**: Chọn từ 15 phút đến 4 giờ
+3. **Đặt ngưỡng bộ nhớ**: Kích hoạt khi RAM đạt 60-90%
+4. **Thêm vào danh sách trắng**: Bảo vệ các trang cụ thể khỏi tự động giải phóng
+
+### Giải phóng thủ công đầu tiên
+
+Thử giải phóng tab thủ công để xem cách hoạt động:
+
+1. Mở nhiều tab
+2. Nhấn biểu tượng TabRest trên thanh công cụ
+3. Chọn hành động:
+   - **Giải phóng tab hiện tại**: Giải phóng tab đang xem
+   - **Giải phóng các tab khác**: Giải phóng tất cả trừ tab hiện tại
+   - **Giải phóng bên trái/phải**: Giải phóng các tab ở một bên
+
+Tab đã giải phóng vẫn hiển thị trên thanh tab nhưng sẽ tải lại khi bạn nhấn vào.
+
+## Điều gì xảy ra khi tab bị giải phóng?
+
+TabRest sử dụng API `chrome.tabs.discard()` của Chrome. Tab đã giải phóng:
+
+- ✅ Vẫn hiển thị trên thanh tab với tiêu đề và favicon
+- ✅ Giữ nguyên vị trí cuộn và dữ liệu form
+- ✅ Tải lại ngay khi nhấn vào
+- ✅ Giải phóng bộ nhớ khi không hoạt động
+- ❌ Không thể chạy script nền hoặc phát media
+
+## Bước tiếp theo
+
+- Tìm hiểu về [phím tắt](/vi/docs/keyboard-shortcuts) để điều khiển nhanh hơn
+- Cấu hình [danh sách trắng](/vi/docs/whitelist-config) cho các trang quan trọng
+- Khám phá [tất cả tính năng](/vi/docs/features) bao gồm nhóm tab và thống kê
+- Xem [khắc phục sự cố](/vi/docs/troubleshooting) nếu gặp vấn đề

@@ -1,0 +1,122 @@
+---
+title: Phím tắt
+description: Điều khiển TabRest bằng phím tắt để quản lý tab nhanh hơn
+order: 3
+section: features
+---
+
+# Phím tắt
+
+TabRest cung cấp phím tắt để quản lý tab nhanh mà không cần mở popup.
+
+## Phím tắt mặc định
+
+| Phím tắt | Hành động | Mô tả |
+|----------|-----------|-------|
+| `Alt+Shift+D` | Giải phóng hiện tại | Giải phóng tab đang hoạt động |
+| `Alt+Shift+O` | Giải phóng khác | Giải phóng tất cả tab trừ tab hiện tại |
+| `Alt+Shift+→` | Giải phóng bên phải | Giải phóng tất cả tab bên phải |
+| `Alt+Shift+←` | Giải phóng bên trái | Giải phóng tất cả tab bên trái |
+
+**Lưu ý**: Trên macOS, phím tắt có thể dùng `Option` thay vì `Alt`.
+
+## Cách tùy chỉnh phím tắt
+
+Chrome cho phép bạn tùy chỉnh phím tắt tiện ích:
+
+### Hướng dẫn từng bước
+
+1. **Mở trang phím tắt**: Truy cập `chrome://extensions/shortcuts` trong trình duyệt
+
+2. **Tìm TabRest**: Cuộn đến phần TabRest
+
+3. **Chỉnh sửa phím tắt**:
+   - Nhấn biểu tượng bút chì hoặc ô phím tắt
+   - Nhấn tổ hợp phím mong muốn
+   - Nhấn ra ngoài để lưu
+
+4. **Xóa phím tắt**: Nhấn biểu tượng X để xóa phím tắt
+
+### Yêu cầu phím tắt
+
+Chrome áp dụng các quy tắc sau cho phím tắt tiện ích:
+
+- **Phải có phím bổ trợ**: Ít nhất một trong `Ctrl`, `Alt`, `Shift`, `Command` (macOS)
+- **Không thể dùng**: Phím tắt trình duyệt (vd: `Ctrl+T`, `Ctrl+W`)
+- **Khuyến nghị**: Dùng `Alt+Shift+[Phím]` để tránh xung đột với phím tắt trang web
+
+### Ví dụ phím tắt tùy chỉnh
+
+Các lựa chọn phổ biến:
+
+| Phím tắt | Hành động |
+|----------|-----------|
+| `Ctrl+Shift+D` | Giải phóng hiện tại |
+| `Alt+U` | Giải phóng khác |
+| `Ctrl+Alt+→` | Giải phóng bên phải |
+| `Ctrl+Alt+←` | Giải phóng bên trái |
+
+## Xử lý sự cố
+
+### Phím tắt không hoạt động
+
+**Vấn đề**: Nhấn phím tắt không có tác dụng.
+
+**Giải pháp**:
+
+1. **Kiểm tra trang phím tắt**: Truy cập `chrome://extensions/shortcuts` và xác minh phím tắt TabRest đã được đặt
+
+2. **Kiểm tra xung đột**: Nếu phím tắt bị xám hoặc hiện "Đang được Chrome sử dụng", chọn tổ hợp khác
+
+3. **Tải lại tiện ích**: Vào `chrome://extensions`, tìm TabRest và nhấn biểu tượng làm mới
+
+4. **Thử trong ngữ cảnh khác**: Một số phím tắt không hoạt động trên trang nội bộ Chrome (`chrome://`, `chrome-extension://`)
+
+### Xung đột phím tắt
+
+Nếu phím tắt tùy chỉnh xung đột với:
+
+- **Tiện ích khác**: Tắt phím tắt của tiện ích xung đột trong `chrome://extensions/shortcuts`
+- **Phím tắt trang web**: Phím tắt TabRest ưu tiên hơn sự kiện bàn phím trang web
+- **Phím tắt trình duyệt Chrome**: Không thể ghi đè (vd: `Ctrl+T`, `Ctrl+N`)
+
+### Khác biệt theo nền tảng
+
+| Nền tảng | Phím bổ trợ | Ví dụ |
+|----------|-------------|-------|
+| Windows/Linux | `Alt` | `Alt+Shift+D` |
+| macOS | `Option` hoặc `Alt` | `Option+Shift+D` |
+| ChromeOS | `Alt` | `Alt+Shift+D` |
+
+**Lưu ý**: Một số bàn phím macOS đánh dấu `Alt` là `Option`. Chúng là cùng một phím.
+
+## Thực hành tốt nhất
+
+### Phím tắt khuyến nghị
+
+- **Giải phóng hiện tại** (`Alt+Shift+D`): Truy cập nhanh khi bạn xong với tab
+- **Giải phóng khác** (`Alt+Shift+O`): Dọn dẹp mọi thứ ngoại trừ focus hiện tại
+- **Giải phóng bên phải** (`Alt+Shift+→`): Xóa các tab mở từ tab hiện tại
+
+### Khi nào dùng phím tắt vs Popup
+
+**Dùng phím tắt** cho:
+- Hành động đơn lẻ nhanh
+- Tích hợp quy trình làm việc
+- Quy trình làm việc nhiều bàn phím
+
+**Dùng popup** cho:
+- Xem thống kê
+- Quản lý danh sách trắng
+- Giải phóng nhóm tab
+- Điều chỉnh cài đặt
+
+## Khả năng tiếp cận
+
+Phím tắt giúp TabRest dễ tiếp cận cho:
+
+- **Người dùng nâng cao**: Nhanh hơn nhấn biểu tượng
+- **Người dùng trình đọc màn hình**: Điều hướng không cần chuột
+- **Người bị hạn chế vận động**: Giảm thiểu di chuyển con trỏ
+
+Tất cả hành động popup vẫn có thể truy cập qua điều hướng bàn phím chuẩn (`Tab`, `Enter`, `Space`).

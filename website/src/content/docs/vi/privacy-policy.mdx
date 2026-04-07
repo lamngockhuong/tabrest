@@ -1,0 +1,250 @@
+---
+title: Chính sách bảo mật
+description: Chính sách bảo mật và thực hành xử lý dữ liệu của TabRest
+order: 8
+section: reference
+---
+
+# Chính sách bảo mật
+
+**Cập nhật lần cuối**: Ngày 7 tháng 4 năm 2026
+
+TabRest cam kết bảo vệ quyền riêng tư của bạn. Chính sách này giải thích dữ liệu chúng tôi thu thập (hoặc không thu thập) và cách sử dụng.
+
+## Tóm tắt
+
+- ✅ **Không thu thập dữ liệu cá nhân**
+- ✅ **Không có server bên ngoài hoặc yêu cầu mạng**
+- ✅ **Tất cả dữ liệu lưu cục bộ trong trình duyệt**
+- ✅ **Không theo dõi, analytics, hoặc telemetry**
+- ✅ **Mã nguồn mở và có thể kiểm tra**
+
+## Thu thập dữ liệu
+
+### Chúng tôi KHÔNG thu thập
+
+TabRest **không** thu thập, lưu trữ, hoặc truyền:
+
+- ❌ Lịch sử duyệt web của bạn
+- ❌ Nội dung website hoặc mật khẩu
+- ❌ Thông tin cá nhân (tên, email, v.v.)
+- ❌ Analytics hoặc telemetry sử dụng
+- ❌ Báo cáo crash
+- ❌ Thông tin thiết bị
+- ❌ Dữ liệu vị trí
+- ❌ Bất kỳ dữ liệu nào
+
+### Chúng tôi CÓ lưu cục bộ
+
+TabRest lưu trữ dữ liệu sau **chỉ trên thiết bị của bạn**:
+
+| Loại dữ liệu | Vị trí lưu trữ | Mục đích | Đồng bộ? |
+|--------------|----------------|----------|----------|
+| Cài đặt | `chrome.storage.sync` | Tùy chọn người dùng (hẹn giờ, ngưỡng, v.v.) | Có* |
+| Danh sách trắng | `chrome.storage.sync` | Domain được bảo vệ | Có* |
+| Hoạt động tab | `chrome.storage.local` | Thời gian hoạt động cuối mỗi tab (cho LRU) | Không |
+| Thống kê | `chrome.storage.local` | Số tab đã giải phóng, bộ nhớ đã tiết kiệm | Không |
+
+*Đồng bộ qua Chrome Sync nếu bạn đã bật Chrome sync trong cài đặt trình duyệt. Chúng tôi không kiểm soát hoặc truy cập dữ liệu đồng bộ này.
+
+## Quyền Chrome
+
+TabRest yêu cầu các quyền sau:
+
+### `tabs` - "Đọc lịch sử duyệt web"
+
+**Thực tế làm gì**:
+
+- Đọc URL tab để khớp với danh sách trắng
+- Đọc trạng thái tab (ghim, audio, hoạt động)
+- Gọi `chrome.tabs.discard()` để giải phóng tab
+
+**Thực tế KHÔNG làm gì**:
+
+- Gửi lịch sử duyệt web đi đâu
+- Theo dõi trang bạn truy cập
+- Lưu lịch sử duyệt web
+
+**Tại sao Chrome hiển thị nhãn này**: Quyền `tabs` cho phép truy cập URL tab. Nhãn quyền của Chrome là chung chung và không phản ánh cách sử dụng thực tế.
+
+### `storage` - Lưu dữ liệu cục bộ
+
+**Làm gì**:
+
+- Lưu cài đặt (hẹn giờ, ngưỡng, bảo vệ)
+- Lưu mục danh sách trắng
+- Lưu hoạt động tab cho theo dõi LRU
+- Theo dõi thống kê (tab đã giải phóng, bộ nhớ đã tiết kiệm)
+
+**Tất cả dữ liệu ở trên thiết bị của bạn.** Không có storage bên ngoài hoặc dịch vụ cloud.
+
+### `alarms` - Lên lịch tác vụ định kỳ
+
+**Làm gì**:
+
+- Lên lịch kiểm tra tab định kỳ (mỗi 1 phút)
+- Lên lịch kiểm tra ngưỡng bộ nhớ (mỗi 30 giây)
+
+**Tại sao cần**: Chrome service worker kết thúc khi rảnh. Alarm đánh thức service worker để thực hiện kiểm tra.
+
+### `system.memory` - Đọc sử dụng bộ nhớ
+
+**Làm gì**:
+
+- Đọc tổng và RAM hệ thống khả dụng
+- Tính phần trăm sử dụng bộ nhớ
+- Kích hoạt giải phóng khi vượt ngưỡng
+
+**Thực tế KHÔNG làm gì**:
+
+- Truy cập bất kỳ thông tin hệ thống khác
+- Thu thập hoặc lưu dữ liệu bộ nhớ
+- Gửi dữ liệu bộ nhớ đi đâu
+
+### `contextMenus` - Thêm mục menu chuột phải
+
+**Làm gì**:
+
+- Thêm tùy chọn "Giải phóng tab" vào menu ngữ cảnh chuột phải (tính năng tương lai)
+
+### `tabGroups` - Đọc thông tin nhóm tab
+
+**Làm gì**:
+
+- Đọc tên và màu nhóm tab
+- Hiển thị nhóm trong popup
+- Giải phóng tab theo nhóm
+
+**Thực tế KHÔNG làm gì**:
+
+- Sửa đổi hoặc tạo nhóm tab
+- Chia sẻ thông tin nhóm
+
+## Dịch vụ bên thứ ba
+
+TabRest **không** sử dụng:
+
+- ❌ Dịch vụ analytics (Google Analytics, v.v.)
+- ❌ Theo dõi lỗi (Sentry, Rollbar, v.v.)
+- ❌ Mạng quảng cáo
+- ❌ CDN để tải code
+- ❌ API bên ngoài
+- ❌ Bất kỳ dịch vụ bên thứ ba nào
+
+**Tất cả code chạy cục bộ trong trình duyệt của bạn.**
+
+## Chia sẻ dữ liệu
+
+TabRest **không** chia sẻ bất kỳ dữ liệu nào với:
+
+- Công ty bên thứ ba
+- Nhà quảng cáo
+- Nhà cung cấp analytics
+- Tiện ích khác
+- Bất kỳ ai
+
+**Ngoại lệ**: Nếu bạn bật Chrome Sync, bản thân Chrome đồng bộ cài đặt và danh sách trắng giữa các thiết bị của bạn. Chúng tôi không kiểm soát hoặc truy cập dữ liệu đồng bộ này.
+
+## Chrome Sync
+
+TabRest sử dụng `chrome.storage.sync` cho cài đặt và danh sách trắng. Nếu Chrome Sync được bật trong trình duyệt:
+
+- **Những gì đồng bộ**: Chỉ cài đặt và danh sách trắng
+- **Ai kiểm soát**: Google Chrome, không phải TabRest
+- **Cách tắt**: Tắt Chrome Sync trong cài đặt Chrome
+- **Quyền riêng tư**: Tuân theo [Chính sách bảo mật Google](https://policies.google.com/privacy), không phải của chúng tôi
+
+**Chúng tôi không truy cập hoặc kiểm soát dữ liệu Chrome Sync của bạn.**
+
+## Bảo mật dữ liệu
+
+Vì TabRest:
+
+- Chỉ lưu dữ liệu cục bộ
+- Không thực hiện yêu cầu mạng
+- Không chứa thành phần server
+
+**Không có dữ liệu để bị xâm phạm.** Dữ liệu của bạn không bao giờ rời khỏi thiết bị (ngoại trừ qua Chrome Sync nếu được bật).
+
+### Tính toàn vẹn code
+
+- **Mã nguồn mở**: Mã nguồn đầy đủ có tại [github.com/lamngockhuong/tabrest](https://github.com/lamngockhuong/tabrest)
+- **Có thể kiểm tra**: Bất kỳ ai cũng có thể xem xét code
+- **Không obfuscation**: JavaScript thuần, không minification hoặc bundling
+- **Giấy phép MIT**: Tự do kiểm tra, sửa đổi, và phân phối lại
+
+## Quyền riêng tư trẻ em
+
+TabRest không thu thập bất kỳ dữ liệu nào từ bất kỳ ai, bao gồm trẻ em dưới 13 tuổi (hoặc độ tuổi tối thiểu tương đương trong khu vực pháp lý của bạn).
+
+## Lưu giữ dữ liệu
+
+- **Cài đặt & danh sách trắng**: Lưu cho đến khi bạn gỡ tiện ích hoặc xóa Chrome storage
+- **Hoạt động tab**: Lưu cho đến khi bạn gỡ tiện ích
+- **Thống kê**: Lưu cho đến khi bạn đặt lại thống kê hoặc gỡ tiện ích
+
+**Để xóa tất cả dữ liệu**:
+
+1. Vào `chrome://extensions`
+2. Tìm TabRest → **Xóa**
+3. Tất cả dữ liệu được xóa ngay lập tức
+
+## Thay đổi chính sách này
+
+Chúng tôi có thể cập nhật chính sách này theo thời gian. Thay đổi sẽ được:
+
+- Đăng trên trang này
+- Cập nhật với ngày "Cập nhật lần cuối" mới
+- Phản ánh trong GitHub repository
+
+**Thay đổi lớn** sẽ được thông báo qua:
+
+- Ghi chú phát hành GitHub
+- Mô tả cập nhật tiện ích (Chrome Web Store)
+
+## Liên hệ
+
+Câu hỏi hoặc lo ngại về quyền riêng tư?
+
+- **Email**: hi@khuong.dev
+- **GitHub Issues**: [github.com/lamngockhuong/tabrest/issues](https://github.com/lamngockhuong/tabrest/issues)
+- **GitHub Discussions**: [github.com/lamngockhuong/tabrest/discussions](https://github.com/lamngockhuong/tabrest/discussions)
+
+## Pháp lý
+
+### Khu vực pháp lý
+
+Tiện ích này được phát triển và duy trì bởi Lam Ngoc Khuong, một nhà phát triển cá nhân.
+
+### Tuân thủ
+
+TabRest tuân thủ:
+
+- Chính sách chương trình nhà phát triển Chrome Web Store
+- General Data Protection Regulation (GDPR) - bằng cách không thu thập bất kỳ dữ liệu nào
+- California Consumer Privacy Act (CCPA) - bằng cách không thu thập bất kỳ dữ liệu nào
+
+### Quyền của bạn
+
+Vì TabRest không thu thập bất kỳ dữ liệu cá nhân nào:
+
+- Không có dữ liệu để truy cập, sửa đổi, hoặc xóa
+- Không có dữ liệu để export
+- Không có hoạt động xử lý dữ liệu để phản đối
+
+Tất cả dữ liệu được lưu cục bộ trên thiết bị của bạn và hoàn toàn dưới quyền kiểm soát của bạn.
+
+## Minh bạch
+
+TabRest được xây dựng với minh bạch:
+
+- **Mã nguồn mở**: Giấy phép MIT, repository công khai
+- **Không theo dõi**: Không có code analytics hoặc telemetry
+- **Không yêu cầu bên ngoài**: Kiểm tra lưu lượng mạng, bạn sẽ không tìm thấy từ TabRest
+- **Kiến trúc đơn giản**: Vanilla JavaScript, không dependencies, dễ kiểm tra
+
+**Tự xác minh**: Clone repository và kiểm tra mã nguồn. Bạn sẽ không tìm thấy thu thập dữ liệu, không theo dõi, và không yêu cầu mạng.
+
+---
+
+**Tóm lại**: TabRest là tiện ích ưu tiên quyền riêng tư. Dữ liệu của bạn ở trên thiết bị của bạn. Chúng tôi không thu thập gì, không gửi gì, và không theo dõi gì.

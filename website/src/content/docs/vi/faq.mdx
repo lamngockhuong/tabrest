@@ -1,0 +1,309 @@
+---
+title: Câu hỏi thường gặp
+description: Các câu hỏi thường gặp về TabRest
+order: 7
+section: reference
+---
+
+# Câu hỏi thường gặp
+
+Các câu hỏi phổ biến về TabRest và giải phóng tab.
+
+## Câu hỏi chung
+
+### "Giải phóng" nghĩa là gì?
+
+**Giải phóng** có nghĩa là xóa tab khỏi bộ nhớ trong khi vẫn giữ nó hiển thị trên thanh tab. Tab xuất hiện với tiêu đề và favicon, nhưng nội dung trang không được tải cho đến khi bạn nhấn vào.
+
+Điều này khác với **đóng** tab, việc xóa hoàn toàn tab khỏi thanh tab.
+
+### Giải phóng có giống đóng tab không?
+
+Không. Khác biệt chính:
+
+| Tính năng | Tab đã giải phóng | Tab đã đóng |
+|-----------|-------------------|-------------|
+| Hiển thị trên thanh tab | ✅ Có | ❌ Không |
+| Sử dụng bộ nhớ | Rất thấp (~1 MB) | Không |
+| Cách khôi phục | Nhấn để tải lại | Mở lại từ lịch sử |
+| Giữ nguyên vị trí | ✅ Có | ❌ Không |
+| Giữ nguyên dữ liệu form | ✅ Có | ❌ Không |
+
+### TabRest tiết kiệm bao nhiêu bộ nhớ?
+
+Tiết kiệm bộ nhớ phụ thuộc vào website bạn dùng:
+
+- **Trang đơn giản**: 50-100 MB mỗi tab
+- **Ứng dụng web phức tạp**: 200-500 MB mỗi tab
+- **Trang nặng** (video, công cụ thiết kế): 500+ MB mỗi tab
+
+**Ví dụ**: Giải phóng 20 tab thông thường có thể giải phóng 2-4 GB RAM.
+
+### TabRest có hoạt động khi Chrome đóng không?
+
+Không. TabRest chỉ chạy khi Chrome mở. Tuy nhiên:
+
+- **Giải phóng khi khởi động** (bật mặc định) giải phóng tab khi Chrome khởi động lại
+- **Cài đặt được lưu** qua các phiên trình duyệt
+- **Danh sách trắng đồng bộ** đến thiết bị khác (nếu Chrome sync được bật)
+
+### TabRest có hoạt động offline không?
+
+Có. TabRest hoạt động hoàn toàn offline vì:
+
+- Tất cả logic chạy cục bộ trong trình duyệt
+- Không cần yêu cầu mạng
+- Không có server bên ngoài
+
+**Lưu ý**: Tải lại tab đã giải phóng cần kết nối internet nếu trang không được cache.
+
+## Quyền riêng tư & Bảo mật
+
+### TabRest có thu thập dữ liệu của tôi không?
+
+**Không.** TabRest không thu thập bất kỳ dữ liệu cá nhân nào.
+
+- Không theo dõi hoặc analytics
+- Không gửi dữ liệu đến server bên ngoài
+- Không telemetry hoặc báo cáo crash
+
+Xem [Chính sách bảo mật](/vi/docs/privacy-policy) để biết chi tiết.
+
+### TabRest lưu trữ dữ liệu gì?
+
+TabRest lưu cục bộ trong Chrome:
+
+| Loại dữ liệu | Storage | Mục đích |
+|--------------|---------|----------|
+| Cài đặt | `chrome.storage.sync` | Tùy chọn người dùng |
+| Danh sách trắng | `chrome.storage.sync` | Domain được bảo vệ |
+| Hoạt động tab | `chrome.storage.local` | Theo dõi LRU |
+| Thống kê | `chrome.storage.local` | Thống kê sử dụng |
+
+**Tất cả dữ liệu ở trên thiết bị của bạn** và đồng bộ qua Chrome sync (nếu được bật).
+
+### Tại sao TabRest cần quyền "Đọc lịch sử duyệt web"?
+
+Quyền này (`tabs`) cần để:
+
+- Đọc tiêu đề và URL tab (để khớp danh sách trắng)
+- Phát hiện trạng thái tab (ghim, audio, hoạt động)
+- Giải phóng tab qua `chrome.tabs.discard()`
+
+**TabRest KHÔNG**:
+- Gửi lịch sử duyệt web đi đâu
+- Theo dõi trang bạn truy cập
+- Chia sẻ dữ liệu với bên thứ ba
+
+Nhãn quyền của Chrome là chung chung và không phản ánh cách sử dụng thực tế.
+
+### TabRest có mã nguồn mở không?
+
+Có. TabRest được cấp phép MIT và [có sẵn trên GitHub](https://github.com/lamngockhuong/tabrest).
+
+Bạn có thể:
+- Kiểm tra mã nguồn
+- Báo cáo vấn đề
+- Đóng góp cải tiến
+- Fork cho mục đích riêng
+
+## Câu hỏi kỹ thuật
+
+### Chrome Manifest V3 là gì?
+
+Manifest V3 (MV3) là nền tảng tiện ích mới nhất của Chrome. Khác biệt chính so với V2:
+
+- **Service worker** thay vì background page (hiệu quả hơn)
+- **Quyền hạn chặt hơn** (bảo mật tốt hơn)
+- **Hiệu suất tốt hơn** (Chrome ưu tiên tiện ích MV3)
+
+TabRest được xây dựng với MV3 cho trình duyệt Chrome hiện đại.
+
+### TabRest có làm chậm trình duyệt không?
+
+Không. TabRest được thiết kế với tác động hiệu suất tối thiểu:
+
+- **Service worker**: Chỉ chạy khi cần, kết thúc khi rảnh
+- **Kiểm tra định kỳ**: Mỗi phút một lần (tab) và mỗi 30 giây (bộ nhớ)
+- **API hiệu quả**: Dùng API Chrome native, không tính toán nặng
+
+**Chứng minh**: Kiểm tra Chrome Task Manager (`Shift+Esc`) - TabRest thường dùng < 10 MB.
+
+### TabRest có thể giải phóng tab nhanh hơn 15 phút không?
+
+Không. Hẹn giờ tự động giải phóng tối thiểu là **15 phút**.
+
+**Lý do**:
+- Tránh làm gián đoạn quy trình làm việc đang hoạt động
+- Cho thời gian để tác vụ nền hoàn thành
+- Cân bằng tiết kiệm bộ nhớ với khả năng sử dụng
+
+**Thay thế**: Dùng nút giải phóng thủ công để giải phóng ngay lập tức.
+
+### Tại sao TabRest không thể giải phóng trang nội bộ Chrome?
+
+Mô hình bảo mật Chrome ngăn tiện ích sửa đổi:
+
+- Trang `chrome://` (cài đặt, tiện ích, v.v.)
+- Trang `chrome-extension://`
+- Trang Chrome Web Store
+
+Điều này bảo vệ chức năng cốt lõi của Chrome khỏi tiện ích độc hại.
+
+### TabRest có hoạt động trên trình duyệt Chromium khác không?
+
+TabRest nên hoạt động trên trình duyệt dựa trên Chromium hỗ trợ Manifest V3:
+
+- ✅ Google Chrome 88+
+- ✅ Microsoft Edge 88+
+- ✅ Brave 88+
+- ✅ Opera 74+
+- ❌ Firefox (API tiện ích khác)
+- ❌ Safari (API tiện ích khác)
+
+**Lưu ý**: Hỗ trợ chính thức chỉ cho Google Chrome. Trình duyệt khác có thể hoạt động nhưng chưa được test.
+
+## Câu hỏi về tính năng
+
+### TabRest có thể tự động giải phóng tab khi số tab đạt X không?
+
+Hiện tại không. TabRest kích hoạt dựa trên:
+- Thời gian từ hoạt động cuối
+- Ngưỡng bộ nhớ hệ thống
+
+**Giải pháp thay thế**: Đặt hẹn giờ thấp (15 phút) hoặc ngưỡng bộ nhớ thấp (60%) để giải phóng tích cực.
+
+### TabRest có thể chỉ giải phóng tab từ website cụ thể không?
+
+Có, dùng **chế độ danh sách đen**:
+
+1. Mở Cài đặt
+2. Bật **Chế độ danh sách đen**
+3. Thêm domain vào danh sách
+4. Chỉ các domain đó sẽ bị giải phóng; tất cả domain khác được bảo vệ
+
+Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết chi tiết.
+
+### TabRest có thể khôi phục tất cả tab đã giải phóng cùng lúc không?
+
+Không. Bạn phải nhấn từng tab đã giải phóng để tải lại.
+
+**Lý do**: Tải lại tất cả tab cùng lúc sẽ làm mất ý nghĩa tiết kiệm bộ nhớ.
+
+**Giải pháp**: Dùng "Bookmark tất cả tab" của Chrome để lưu phiên, sau đó mở lại tab khi cần.
+
+### TabRest có thể lên lịch giải phóng (vd: 9 PM mỗi ngày) không?
+
+Hiện tại không. Tự động giải phóng của TabRest là liên tục, không theo lịch.
+
+**Yêu cầu tính năng**: Giải phóng theo lịch được lên kế hoạch cho phiên bản tương lai. Theo dõi trên [GitHub Issues](https://github.com/lamngockhuong/tabrest/issues).
+
+### TabRest có thể giải phóng tab ở cửa sổ khác không?
+
+Có. TabRest hoạt động trên tất cả cửa sổ Chrome:
+
+- Tự động giải phóng kiểm tra tất cả cửa sổ
+- Giải phóng thủ công từ popup chỉ ảnh hưởng cửa sổ hiện tại
+- Phím tắt chỉ ảnh hưởng cửa sổ hiện tại
+
+### TabRest có hoạt động với tiện ích tab suspender khác không?
+
+TabRest nên hoạt động cùng các tiện ích quản lý tab khác, nhưng:
+
+- **Có thể xung đột**: Cả hai tiện ích có thể cạnh tranh giải phóng tab
+- **Tính năng trùng lặp**: Bạn có thể không cần cả hai
+
+**Khuyến nghị**: Dùng một tiện ích quản lý tab tại một thời điểm.
+
+## Xử lý sự cố
+
+### Tại sao một số tab tải lại ngay sau khi giải phóng?
+
+**Nguyên nhân có thể**:
+
+1. **Website tự động tải lại**: Một số trang dùng JavaScript để phát hiện giải phóng và buộc tải lại
+2. **Xung đột tiện ích**: Tiện ích khác có thể đang tải lại tab
+3. **Chrome sync**: Đồng bộ tab có thể khôi phục tab từ thiết bị khác
+
+**Giải pháp**: Thêm các trang này vào danh sách trắng để ngăn giải phóng.
+
+### Tại sao số đếm huy hiệu hiển thị sai?
+
+**Nguyên nhân có thể**:
+
+1. **Huy hiệu bị tắt**: Kiểm tra Cài đặt → "Hiện số đếm huy hiệu" đã bật
+2. **Service worker kết thúc**: Huy hiệu cập nhật khi service worker chạy
+3. **Lỗi tiện ích**: Tải lại tiện ích
+
+**Giải pháp**: Mở popup (điều này đánh thức service worker) và huy hiệu sẽ cập nhật.
+
+### Tôi có thể export cài đặt không?
+
+Không trực tiếp từ UI. Cài đặt được lưu trong `chrome.storage.sync` và tự động đồng bộ qua Chrome sync.
+
+**Export thủ công** (nâng cao):
+1. Vào `chrome://extensions`
+2. TabRest → **Chi tiết** → **Kiểm tra views: service worker**
+3. Trong console:
+   ```javascript
+   chrome.storage.sync.get('settings', console.log);
+   ```
+4. Sao chép kết quả
+
+### Làm sao để báo cáo lỗi?
+
+Xem [Khắc phục sự cố → Báo cáo lỗi](/vi/docs/troubleshooting#báo-cáo-lỗi) để biết hướng dẫn chi tiết.
+
+## Bắt đầu
+
+### Tôi vừa cài TabRest. Nên làm gì đầu tiên?
+
+1. **Test giải phóng thủ công**: Mở vài tab, nhấn biểu tượng TabRest → "Giải phóng các tab khác"
+2. **Kiểm tra cài đặt mặc định**: Mở trang Cài đặt, xem lại hẹn giờ và bảo vệ
+3. **Tùy chỉnh danh sách trắng**: Thêm trang quan trọng (email, docs, chat)
+4. **Học phím tắt**: Thiết lập [phím tắt](/vi/docs/keyboard-shortcuts) để điều khiển nhanh hơn
+
+### Nên dùng chế độ danh sách trắng hay danh sách đen?
+
+**Dùng chế độ danh sách trắng** (mặc định) nếu:
+- Bạn muốn bảo vệ một vài trang quan trọng
+- Hầu hết trang có thể giải phóng an toàn
+
+**Dùng chế độ danh sách đen** nếu:
+- Bạn muốn bảo vệ hầu hết trang
+- Bạn chỉ muốn giải phóng tích cực một vài trang ngốn bộ nhớ (tin tức, mạng xã hội)
+
+Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết ví dụ.
+
+### Cài đặt tốt nhất để tiết kiệm bộ nhớ tối đa là gì?
+
+**Cấu hình tích cực**:
+- **Hẹn giờ**: 15 phút (tối thiểu)
+- **Ngưỡng bộ nhớ**: 60% (tích cực)
+- **Giải phóng khi khởi động**: Bật
+- **Bảo vệ tab ghim**: Tắt
+- **Bảo vệ tab audio**: Tắt
+- **Bảo vệ tab form**: Bật (giữ bật để tránh mất dữ liệu)
+- **Danh sách trắng**: Trống hoặc tối thiểu (chỉ trang quan trọng)
+
+**Cảnh báo**: Điều này có thể làm gián đoạn quy trình làm việc. Test và điều chỉnh theo cách sử dụng của bạn.
+
+### Cài đặt tốt nhất cho người dùng thông thường là gì?
+
+**Cấu hình cân bằng** (mặc định):
+- **Hẹn giờ**: 30 phút
+- **Ngưỡng bộ nhớ**: 80%
+- **Giải phóng khi khởi động**: Bật
+- **Bảo vệ tab ghim**: Bật
+- **Bảo vệ tab audio**: Bật
+- **Bảo vệ tab form**: Bật
+- **Danh sách trắng**: YouTube, Gmail, Google Docs
+
+Điều này cung cấp tiết kiệm bộ nhớ mà không làm gián đoạn duyệt web bình thường.
+
+## Còn câu hỏi?
+
+- **Đọc tài liệu**: Khám phá tất cả [trang tài liệu](/vi/docs/getting-started)
+- **Xem khắc phục sự cố**: Truy cập [Khắc phục sự cố](/vi/docs/troubleshooting)
+- **Hỏi trên GitHub**: [Mở thảo luận](https://github.com/lamngockhuong/tabrest/discussions)
+- **Báo cáo lỗi**: [Tạo issue](https://github.com/lamngockhuong/tabrest/issues)

@@ -1,0 +1,218 @@
+---
+title: Nhóm tab
+description: Quản lý và giải phóng nhóm tab với TabRest
+order: 5
+section: features
+---
+
+# Nhóm tab
+
+TabRest tích hợp với tính năng nhóm tab native của Chrome, cho phép bạn giải phóng toàn bộ nhóm cùng lúc.
+
+## Nhóm tab là gì?
+
+Nhóm tab là tính năng Chrome (thêm từ Chrome 88) cho phép bạn tổ chức tab thành các nhóm có nhãn và mã màu.
+
+**Tạo nhóm tab**:
+1. Nhấn chuột phải vào tab → **Thêm vào nhóm mới**
+2. Chọn tên và màu
+3. Kéo tab vào nhóm
+
+**Nhóm tab Chrome**:
+- Thu gọn để tiết kiệm không gian
+- Mã màu để tổ chức trực quan
+- Có thể di chuyển cùng nhau
+- Đồng bộ giữa các thiết bị (nếu Chrome sync được bật)
+
+## Giải phóng nhóm tab
+
+TabRest thêm giải phóng theo nhóm vào popup:
+
+### Từ Popup
+
+1. Nhấn **biểu tượng TabRest** trên thanh công cụ
+2. Cuộn đến phần **Nhóm tab**
+3. Nhấn vào tên nhóm
+4. Tất cả tab trong nhóm sẽ được giải phóng
+
+**Chỉ báo trực quan**:
+- Tên và màu nhóm hiển thị trong popup
+- Số tab trong mỗi nhóm được hiển thị
+- Tab đã giải phóng đánh dấu bằng biểu tượng 💤
+
+### Tab được bảo vệ trong nhóm
+
+Ngay cả khi giải phóng nhóm, bảo vệ tab riêng lẻ vẫn áp dụng:
+
+| Loại tab | Hành vi |
+|----------|---------|
+| **Tab ghim** | Được bảo vệ (nếu "Giải phóng tab ghim" bị tắt) |
+| **Tab audio** | Được bảo vệ (nếu "Bảo vệ tab audio" được bật) |
+| **Tab form** | Được bảo vệ (nếu "Bảo vệ tab form" được bật) |
+| **Danh sách trắng** | Được bảo vệ (luôn luôn) |
+
+**Ví dụ**: Nếu bạn giải phóng nhóm có 10 tab, nhưng 2 tab có form chưa lưu, chỉ 8 tab sẽ được giải phóng.
+
+## Giải phóng tự động
+
+Giải phóng tự động của TabRest (dựa trên thời gian và ngưỡng bộ nhớ) hoạt động trên tất cả tab, bao gồm tab trong nhóm.
+
+**Không có bảo vệ nhóm đặc biệt**: Nhóm tab không ngăn giải phóng tự động. Nếu bạn muốn bảo vệ một nhóm:
+
+1. Thêm domain nhóm vào danh sách trắng
+2. Ghim tab trong nhóm
+3. Giữ tab hoạt động (tương tác thường xuyên)
+
+## Cài đặt nhóm tab
+
+TabRest có công tắc cho tính năng nhóm tab:
+
+**Bật nhóm tab** (mặc định: bật):
+- Khi bật: Phần Nhóm tab hiển thị trong popup
+- Khi tắt: Nhóm ẩn khỏi popup, nhưng giải phóng tự động vẫn hoạt động
+
+**Để tắt**:
+1. Mở trang Cài đặt
+2. Tắt công tắc **Bật nhóm tab**
+3. Thay đổi lưu tự động
+
+## Trường hợp sử dụng
+
+### Tổ chức theo dự án
+
+Tạo nhóm cho các dự án hoặc ngữ cảnh khác nhau:
+
+- **Công việc**: Email công ty, tài liệu dự án, issue tracker
+- **Cá nhân**: Mạng xã hội, ngân hàng, mua sắm
+- **Nghiên cứu**: Bài viết, tài liệu, hướng dẫn
+
+Giải phóng toàn bộ dự án khi chuyển ngữ cảnh.
+
+### Quản lý phiên
+
+Sử dụng nhóm như phiên tạm thời:
+
+1. Mở tab cho một nhiệm vụ
+2. Nhóm chúng lại
+3. Khi xong, giải phóng toàn bộ nhóm
+4. Giữ tab được nhóm cho sau
+
+Tốt hơn bookmark vì:
+- Tab vẫn mở (chỉ giải phóng)
+- Khôi phục nhanh hơn
+- Giữ nguyên vị trí cuộn và dữ liệu form
+
+### Quản lý bộ nhớ
+
+Xác định nhóm ngốn bộ nhớ:
+
+1. Tạo nhóm cho trang ngốn bộ nhớ (vd: video, công cụ thiết kế)
+2. Giải phóng nhóm khi không dùng tích cực
+3. Tải lại khi cần
+
+## Mẹo
+
+### Đặt tên nhóm
+
+Dùng tên mô tả để nhận dạng nhanh:
+
+```
+✅ Tốt: "Tài liệu Dự án X"
+✅ Tốt: "Kế hoạch Q1"
+❌ Kém: "Nhóm 1"
+❌ Kém: "Tabs"
+```
+
+### Mã màu
+
+Gán màu theo ưu tiên hoặc danh mục:
+
+- 🔴 Đỏ: Công việc khẩn cấp/đang hoạt động
+- 🟢 Xanh lá: Tham khảo/nền
+- 🔵 Xanh dương: Nhiệm vụ cá nhân
+- 🟡 Vàng: Đang chờ/xem xét
+- 🟣 Tím: Nghiên cứu/học tập
+
+### Kết hợp với danh sách trắng
+
+Với nhóm quan trọng, thêm domain vào danh sách trắng:
+
+1. Xác định tab trong nhóm
+2. Thêm domain vào danh sách trắng
+3. Nhóm vẫn được tải tự động
+
+## Hạn chế
+
+### Tính năng riêng Chrome
+
+Nhóm tab là tính năng Chrome. TabRest yêu cầu:
+
+- **Chrome 88+** để hỗ trợ nhóm tab
+- **Chrome 89+** để có màu nhóm tab trong API
+
+**Trình duyệt không có nhóm tab**: Tính năng nhóm của TabRest tự động ẩn.
+
+### Không có bảo vệ cấp nhóm
+
+TabRest không thể:
+- Bảo vệ toàn bộ nhóm khỏi tự động giải phóng (bảo vệ từng tab riêng thay thế)
+- Tạo hoặc quản lý nhóm (dùng tính năng tích hợp của Chrome)
+- Đồng bộ nhóm giữa các trình duyệt (do Chrome sync xử lý)
+
+### Hạn chế API tiện ích
+
+TabRest sử dụng API `chrome.tabGroups`, API này:
+- Không thể sửa đổi thuộc tính nhóm (tên, màu)
+- Không thể tạo hoặc xóa nhóm
+- Chỉ có thể đọc thông tin nhóm và giải phóng tab
+
+## Phím tắt
+
+TabRest không cung cấp phím tắt cho thao tác nhóm. Dùng phím tắt tích hợp của Chrome:
+
+| Hành động | Windows/Linux | macOS |
+|-----------|---------------|-------|
+| Tạo nhóm | `Ctrl+G` | `Cmd+G` |
+| Nhóm tiếp theo | `Ctrl+Shift+9` | `Cmd+Shift+9` |
+| Nhóm trước | `Ctrl+Shift+0` | `Cmd+Shift+0` |
+
+**Lưu ý**: Các phím tắt này có thể khác nhau theo phiên bản Chrome.
+
+## Xử lý sự cố
+
+### Nhóm không hiển thị trong Popup
+
+**Vấn đề**: Phần Nhóm tab trống.
+
+**Giải pháp**:
+1. **Tạo nhóm**: TabRest chỉ hiển thị nhóm đã tồn tại
+2. **Kiểm tra cài đặt**: Đảm bảo "Bật nhóm tab" được bật
+3. **Tải lại tiện ích**: Vào `chrome://extensions` → TabRest → Làm mới
+
+### Nhóm không giải phóng được
+
+**Vấn đề**: Nhấn tên nhóm không có tác dụng.
+
+**Giải pháp**:
+1. **Kiểm tra bảo vệ tab**: Một số tab có thể được bảo vệ (ghim, audio, danh sách trắng)
+2. **Xác minh tab hoạt động**: Bạn không thể giải phóng tab đang hoạt động
+3. **Kiểm tra phiên bản Chrome**: Yêu cầu Chrome 88+
+
+### Nhóm biến mất sau khi giải phóng
+
+**Vấn đề**: Nhóm thu gọn hoặc ẩn sau khi giải phóng.
+
+**Giải thích**: Đây là hành vi Chrome. Tab đã giải phóng trong nhóm thu gọn vẫn giữ thu gọn.
+
+**Giải pháp**: Nhấn nhãn nhóm để mở rộng và xem các tab đã giải phóng.
+
+## Tính năng tương lai
+
+Cải tiến dự kiến cho nhóm tab:
+
+- Bảo vệ toàn bộ nhóm khỏi tự động giải phóng
+- Lên lịch giải phóng nhóm
+- Hẹn giờ giải phóng riêng cho từng nhóm
+- Export/import cấu hình nhóm
+
+Xem [GitHub repository](https://github.com/lamngockhuong/tabrest) để yêu cầu tính năng.

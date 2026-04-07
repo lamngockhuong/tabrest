@@ -1,20 +1,32 @@
 ---
-// Fixed header with navigation and theme toggle
+// Fixed header with navigation, theme toggle, and language switcher
 import ThemeToggle from './ThemeToggle.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { useTranslations, getLocalizedPath, type Locale } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = (Astro.props.locale || Astro.currentLocale || 'en') as Locale;
+const t = useTranslations(locale);
+const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { href: '#features', label: 'Features' },
-  { href: '#how-it-works', label: 'How It Works' },
-  { href: '#faq', label: 'FAQ' },
-  { href: '/docs/getting-started', label: 'Docs' },
-  { href: 'https://github.com/lamngockhuong/tabrest', label: 'GitHub', external: true },
+  { href: '#features', label: t.header.features },
+  { href: '#how-it-works', label: t.header.howItWorks },
+  { href: '#faq', label: t.header.faq },
+  { href: getLocalizedPath('/docs/getting-started', locale), label: t.header.docs },
+  { href: 'https://github.com/lamngockhuong/tabrest', label: t.header.github, external: true },
 ];
+
+const homeLink = getLocalizedPath('/', locale);
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-2 font-bold text-xl text-primary dark:text-primary-light hover:opacity-80 transition-opacity">
+    <a href={homeLink} class="flex items-center gap-2 font-bold text-xl text-primary dark:text-primary-light hover:opacity-80 transition-opacity">
       <img src="/logo.svg" alt="TabRest" class="w-8 h-8" />
       <span>TabRest</span>
     </a>
@@ -31,11 +43,13 @@ const navLinks = [
           {link.label}
         </a>
       ))}
+      <LanguageSwitcher currentLocale={locale} currentPath={currentPath} />
       <ThemeToggle />
     </div>
 
-    <!-- Mobile Menu Button & Theme Toggle -->
+    <!-- Mobile Menu Button & Controls -->
     <div class="md:hidden flex items-center gap-2">
+      <LanguageSwitcher currentLocale={locale} currentPath={currentPath} />
       <ThemeToggle />
       <button
         id="mobile-menu-toggle"
@@ -67,7 +81,6 @@ const navLinks = [
 </header>
 
 <script is:inline>
-  // Use event delegation to avoid listener accumulation
   if (!window.__headerMenuInit) {
     window.__headerMenuInit = true;
     document.addEventListener('click', (e) => {
