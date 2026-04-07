@@ -87,20 +87,20 @@ function attachFaviconErrorHandlers(container, selector) {
 // Get status badge HTML for a tab
 function getStatusBadge(tab) {
   if (tab.active) {
-    return '<span class="badge badge-active">ACTIVE</span>';
+    return '<span class="badge badge-active">⚡ active</span>';
   }
   if (tab.discarded) {
-    return '<span class="badge badge-sleeping">💤 ZZZ</span>';
+    return '<span class="badge badge-sleeping">💤 zzz</span>';
   }
   if (tab.isProtected) {
     const badges = {
-      pinned: { icon: "📌", title: "Pinned" },
-      whitelist: { icon: "🛡️", title: "Whitelisted" },
-      audio: { icon: "🔊", title: "Playing audio" },
-      form: { icon: "📝", title: "Unsaved form" },
+      pinned: { icon: "📌", text: "pin", title: "Pinned" },
+      whitelist: { icon: "🛡️", text: "safe", title: "Whitelisted" },
+      audio: { icon: "🔊", text: "audio", title: "Playing audio" },
+      form: { icon: "📝", text: "form", title: "Unsaved form" },
     };
     const badge = badges[tab.protectionReason] || badges.whitelist;
-    return `<span class="badge badge-protected" title="${badge.title}">${badge.icon}</span>`;
+    return `<span class="badge badge-protected" title="${badge.title}">${badge.icon} ${badge.text}</span>`;
   }
   if (tab.timeUntilUnload !== null && tab.timeUntilUnload > 0) {
     const mins = Math.ceil(tab.timeUntilUnload / 60000);
@@ -193,9 +193,13 @@ async function updateStats() {
   }
 }
 
-// Load tab groups if available
+// Load tab groups if available and enabled
 async function loadTabGroups() {
   try {
+    // Check if tab groups feature is enabled
+    const settings = await getSettings();
+    if (!settings.enableTabGroups) return;
+
     const groups = await chrome.tabGroups.query({});
     if (groups.length > 0) {
       elements.tabGroupsSection.classList.remove("hidden");

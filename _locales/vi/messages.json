@@ -204,5 +204,17 @@
   },
   "unloadLeft": {
     "message": "Dỡ tab bên trái"
+  },
+  "blacklist": {
+    "message": "Danh sách đen"
+  },
+  "blacklistHelp": {
+    "message": "Các trang sẽ luôn bị dỡ tự động (kể cả khi mới hoạt động)"
+  },
+  "enableTabGroups": {
+    "message": "Hiển thị nhóm tab trong popup"
+  },
+  "tabGroups": {
+    "message": "Nhóm tab"
   }
 }

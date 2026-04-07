@@ -238,6 +238,19 @@ async function handleMessage(message) {
   }
 }
 
+// Check if tab has unsaved form data
+async function checkTabFormData(tabId) {
+  try {
+    const response = await Promise.race([
+      chrome.tabs.sendMessage(tabId, { action: "checkFormData" }),
+      new Promise((resolve) => setTimeout(() => resolve(null), 300)),
+    ]);
+    return response?.hasFormData || false;
+  } catch {
+    return false;
+  }
+}
+
 // Get all tabs in current window with their status info
 async function getTabsWithStatus() {
   const tabs = await chrome.tabs.query({ currentWindow: true });
@@ -245,6 +258,18 @@ async function getTabsWithStatus() {
   const tabActivity = getTabActivityMap();
   const now = Date.now();
   const unloadDelay = settings.unloadDelayMinutes * 60 * 1000;
+
+  // Check form data for eligible tabs in parallel (only if form protection enabled)
+  const formDataMap = new Map();
+  if (settings.protectFormTabs) {
+    const eligibleTabs = tabs.filter((t) => !t.discarded && !t.active && t.url?.startsWith("http"));
+    const formChecks = await Promise.all(
+      eligibleTabs.map(async (t) => ({ id: t.id, hasForm: await checkTabFormData(t.id) }))
+    );
+    for (const { id, hasForm } of formChecks) {
+      formDataMap.set(id, hasForm);
+    }
+  }
 
   return tabs.map((tab) => {
     const lastActive = tabActivity[tab.id] || now;
@@ -255,13 +280,15 @@ async function getTabsWithStatus() {
     const isWhitelisted = isUrlWhitelisted(tab.url, settings);
     const isPinned = tab.pinned && !settings.unloadPinnedTabs;
     const isAudioPlaying = settings.protectAudioTabs && tab.audible;
-    const isProtected = isWhitelisted || isPinned || isAudioPlaying;
+    const hasFormData = settings.protectFormTabs && formDataMap.get(tab.id);
+    const isProtected = isWhitelisted || isPinned || isAudioPlaying || hasFormData;
 
-    // Determine protection reason for UI display
+    // Determine protection reason for UI display (priority order)
     let protectionReason = null;
     if (isPinned) protectionReason = "pinned";
     else if (isWhitelisted) protectionReason = "whitelist";
     else if (isAudioPlaying) protectionReason = "audio";
+    else if (hasFormData) protectionReason = "form";
 
     return {
       id: tab.id,

@@ -62,5 +62,3 @@ export function injectIcons() {
     el.innerHTML = icon(name, size);
   });
 }
-
-export { ICONS };

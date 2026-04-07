@@ -31,15 +31,15 @@ async function shouldProtectTab(tab, settings) {
   return { protected: false };
 }
 
-// Discard a single tab by ID
-export async function discardTab(tabId) {
+// Discard a single tab by ID (accepts optional settings to avoid refetching in batch)
+export async function discardTab(tabId, settings = null) {
   try {
     const tab = await chrome.tabs.get(tabId);
 
     // Can't discard active tab or already discarded
     if (tab.active || tab.discarded) return false;
 
-    const settings = await getSettings();
+    settings = settings ?? await getSettings();
     if (tab.pinned && !settings.unloadPinnedTabs) return false;
 
     // Check whitelist
@@ -96,9 +96,10 @@ export async function discardTabsToRight() {
   const currentIndex = tabs.findIndex((t) => t.id === activeTab.id);
   const tabsToRight = tabs.slice(currentIndex + 1);
 
+  const settings = await getSettings();
   let count = 0;
   for (const tab of tabsToRight) {
-    if (await discardTab(tab.id)) count++;
+    if (await discardTab(tab.id, settings)) count++;
   }
   return count;
 }
@@ -112,9 +113,10 @@ export async function discardTabsToLeft() {
   const currentIndex = tabs.findIndex((t) => t.id === activeTab.id);
   const tabsToLeft = tabs.slice(0, currentIndex);
 
+  const settings = await getSettings();
   let count = 0;
   for (const tab of tabsToLeft) {
-    if (await discardTab(tab.id)) count++;
+    if (await discardTab(tab.id, settings)) count++;
   }
   return count;
 }
@@ -125,9 +127,10 @@ export async function discardOtherTabs() {
   if (!activeTab) return 0;
 
   const tabs = await chrome.tabs.query({ currentWindow: true });
+  const settings = await getSettings();
   let count = 0;
   for (const tab of tabs) {
-    if (tab.id !== activeTab.id && (await discardTab(tab.id))) count++;
+    if (tab.id !== activeTab.id && (await discardTab(tab.id, settings))) count++;
   }
   return count;
 }
@@ -142,21 +145,30 @@ export async function discardAllTabsOnStartup() {
 
 // Discard all tabs in a specific tab group
 export async function discardTabGroup(groupId) {
-  const tabs = await chrome.tabs.query({ groupId });
-  let count = 0;
+  const numericGroupId = Number(groupId);
+  if (!Number.isInteger(numericGroupId) || numericGroupId < 0) {
+    return 0;
+  }
 
-  for (const tab of tabs) {
-    if (await discardTab(tab.id)) count++;
+  const tabs = await chrome.tabs.query({ groupId: numericGroupId });
+  const eligibleTabIds = tabs
+    .filter((tab) => !tab.active && !tab.discarded)
+    .map((tab) => tab.id);
+
+  const settings = await getSettings();
+  let count = 0;
+  for (const tabId of eligibleTabIds) {
+    if (await discardTab(tabId, settings)) count++;
   }
   return count;
 }
 
-// Check if URL is in whitelist (sync - settings passed in)
-function isWhitelisted(url, settings) {
-  if (!url || !settings?.whitelist) return false;
+// Check if hostname matches a domain list
+function matchesDomainList(url, domainList) {
+  if (!url || !domainList?.length) return false;
   try {
     const hostname = new URL(url).hostname;
-    return settings.whitelist.some(
+    return domainList.some(
       (domain) => hostname === domain || hostname.endsWith(`.${domain}`),
     );
   } catch {
@@ -164,5 +176,15 @@ function isWhitelisted(url, settings) {
   }
 }
 
+// Check if URL is in whitelist (sync - settings passed in)
+function isWhitelisted(url, settings) {
+  return matchesDomainList(url, settings?.whitelist);
+}
+
+// Check if URL is in blacklist (sync - settings passed in)
+function isBlacklisted(url, settings) {
+  return matchesDomainList(url, settings?.blacklist);
+}
+
 // Export for external use
-export { isWhitelisted as isUrlWhitelisted };
+export { isWhitelisted as isUrlWhitelisted, isBlacklisted as isUrlBlacklisted };

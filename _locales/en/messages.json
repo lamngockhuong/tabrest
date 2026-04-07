@@ -276,5 +276,21 @@
   "unloadLeft": {
     "message": "Unload tabs to left",
     "description": "Button/shortcut text"
+  },
+  "blacklist": {
+    "message": "Blacklist",
+    "description": "Options section header"
+  },
+  "blacklistHelp": {
+    "message": "Sites that will always be unloaded automatically (even if active recently)",
+    "description": "Options help text"
+  },
+  "enableTabGroups": {
+    "message": "Show tab groups in popup",
+    "description": "Options setting"
+  },
+  "tabGroups": {
+    "message": "Tab Groups",
+    "description": "Section header in popup"
   }
 }

@@ -1,6 +1,6 @@
 import { ALARM_NAMES } from "../shared/constants.js";
 import { getSettings, getTabActivity, saveTabActivity } from "../shared/storage.js";
-import { discardTab } from "./unload-manager.js";
+import { discardTab, isUrlBlacklisted } from "./unload-manager.js";
 
 // In-memory cache of tab activity: { tabId: lastActiveTimestamp }
 let tabActivity = {};
@@ -67,12 +67,15 @@ export async function checkAndUnloadInactiveTabs() {
   for (const [tabIdStr, lastActive] of Object.entries(tabActivity)) {
     const tabId = Number.parseInt(tabIdStr, 10);
 
-    // Skip if recently active
-    if (lastActive > cutoffTime) continue;
-
     // Verify tab still exists and is eligible (O(1) lookup)
     const tab = tabMap.get(tabId);
     if (!tab || tab.active || tab.discarded) continue;
+
+    // Blacklisted tabs: unload immediately regardless of activity time
+    const blacklisted = isUrlBlacklisted(tab.url, settings);
+
+    // Skip if recently active (unless blacklisted)
+    if (!blacklisted && lastActive > cutoffTime) continue;
 
     if (await discardTab(tabId)) {
       unloadedCount++;

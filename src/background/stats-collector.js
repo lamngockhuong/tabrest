@@ -91,11 +91,6 @@ export async function recordUnload(count = 1) {
 }
 
 /**
- * Alias for recordUnload for backward compatibility
- */
-export const recordSuspension = recordUnload;
-
-/**
  * Reset all statistics
  */
 export async function resetStats() {
@@ -103,5 +98,3 @@ export async function resetStats() {
   await chrome.storage.local.set({ [STATS_KEY]: stats });
   return stats;
 }
-
-export { MB_PER_TAB, STATS_KEY };

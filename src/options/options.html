@@ -85,6 +85,12 @@
           <span data-i18n="trackStatistics">Track statistics</span>
         </label>
       </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="enable-tab-groups">
+          <span data-i18n="enableTabGroups">Show tab groups in popup</span>
+        </label>
+      </div>
     </section>
 
     <section class="card">
@@ -94,6 +100,16 @@
       <div class="add-domain">
         <input type="text" id="new-whitelist" data-i18n-placeholder="addPlaceholder" placeholder="example.com">
         <button id="add-whitelist" class="btn" data-i18n="add">Add</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="blacklist">Blacklist</h2>
+      <p class="help" data-i18n="blacklistHelp">Sites that will always be unloaded automatically</p>
+      <div id="blacklist-container"></div>
+      <div class="add-domain">
+        <input type="text" id="new-blacklist" data-i18n-placeholder="addPlaceholder" placeholder="example.com">
+        <button id="add-blacklist" class="btn" data-i18n="add">Add</button>
       </div>
     </section>
 

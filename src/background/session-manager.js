@@ -145,5 +145,3 @@ export async function restoreSession(id, mode = "open") {
 
   return { success: true, count: validTabs.length };
 }
-
-export { MAX_SESSIONS, SESSIONS_KEY };

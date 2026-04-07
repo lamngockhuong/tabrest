@@ -14,9 +14,13 @@ const elements = {
   protectForm: document.getElementById("protect-form"),
   showBadge: document.getElementById("show-badge"),
   enableStats: document.getElementById("enable-stats"),
+  enableTabGroups: document.getElementById("enable-tab-groups"),
   whitelistContainer: document.getElementById("whitelist-container"),
   newWhitelist: document.getElementById("new-whitelist"),
   addWhitelist: document.getElementById("add-whitelist"),
+  blacklistContainer: document.getElementById("blacklist-container"),
+  newBlacklist: document.getElementById("new-blacklist"),
+  addBlacklist: document.getElementById("add-blacklist"),
   totalUnloaded: document.getElementById("total-unloaded"),
   totalSaved: document.getElementById("total-saved"),
   resetStats: document.getElementById("reset-stats"),
@@ -51,15 +55,17 @@ async function loadSettings() {
   elements.protectForm.checked = currentSettings.protectFormTabs;
   elements.showBadge.checked = currentSettings.showBadgeCount;
   elements.enableStats.checked = currentSettings.enableStats;
+  elements.enableTabGroups.checked = currentSettings.enableTabGroups;
 
   renderWhitelist();
+  renderBlacklist();
 }
 
-// Render whitelist domains (XSS-safe DOM manipulation)
-function renderWhitelist() {
-  elements.whitelistContainer.innerHTML = "";
+// Render domain list (XSS-safe DOM manipulation)
+function renderDomainList(container, list, listKey) {
+  container.innerHTML = "";
 
-  for (const domain of currentSettings.whitelist || []) {
+  for (const domain of list || []) {
     const item = document.createElement("div");
     item.className = "domain-item";
 
@@ -71,16 +77,26 @@ function renderWhitelist() {
     btn.title = "Remove";
     btn.innerHTML = "&times;";
     btn.addEventListener("click", async () => {
-      currentSettings.whitelist = currentSettings.whitelist.filter((d) => d !== domain);
+      currentSettings[listKey] = currentSettings[listKey].filter((d) => d !== domain);
       await saveSettings(currentSettings);
-      renderWhitelist();
+      renderDomainList(container, currentSettings[listKey], listKey);
       showStatus(t("domainRemoved"));
     });
 
     item.appendChild(span);
     item.appendChild(btn);
-    elements.whitelistContainer.appendChild(item);
+    container.appendChild(item);
   }
+}
+
+// Render whitelist domains
+function renderWhitelist() {
+  renderDomainList(elements.whitelistContainer, currentSettings.whitelist, "whitelist");
+}
+
+// Render blacklist domains
+function renderBlacklist() {
+  renderDomainList(elements.blacklistContainer, currentSettings.blacklist, "blacklist");
 }
 
 // Load statistics
@@ -104,6 +120,7 @@ function setupEventListeners() {
     { el: elements.protectForm, key: "protectFormTabs", type: "checkbox" },
     { el: elements.showBadge, key: "showBadgeCount", type: "checkbox" },
     { el: elements.enableStats, key: "enableStats", type: "checkbox" },
+    { el: elements.enableTabGroups, key: "enableTabGroups", type: "checkbox" },
   ];
 
   for (const { el, key, type } of settingsMap) {
@@ -118,6 +135,12 @@ function setupEventListeners() {
   elements.addWhitelist.addEventListener("click", addWhitelistDomain);
   elements.newWhitelist.addEventListener("keypress", (e) => {
     if (e.key === "Enter") addWhitelistDomain();
+  });
+
+  // Add blacklist domain
+  elements.addBlacklist.addEventListener("click", addBlacklistDomain);
+  elements.newBlacklist.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") addBlacklistDomain();
   });
 
   // Reset stats
@@ -140,9 +163,9 @@ function setupEventListeners() {
   });
 }
 
-// Add domain to whitelist
-async function addWhitelistDomain() {
-  const domain = elements.newWhitelist.value.trim().toLowerCase();
+// Add domain to a list (whitelist or blacklist)
+async function addDomainToList(inputEl, listKey, renderFn) {
+  const domain = inputEl.value.trim().toLowerCase();
 
   if (!domain) return;
 
@@ -152,16 +175,26 @@ async function addWhitelistDomain() {
     return;
   }
 
-  if (currentSettings.whitelist.includes(domain)) {
+  if (currentSettings[listKey].includes(domain)) {
     showStatus(t("domainExists"));
     return;
   }
 
-  currentSettings.whitelist.push(domain);
+  currentSettings[listKey].push(domain);
   await saveSettings(currentSettings);
-  elements.newWhitelist.value = "";
-  renderWhitelist();
+  inputEl.value = "";
+  renderFn();
   showStatus(t("domainAdded"));
+}
+
+// Add domain to whitelist
+async function addWhitelistDomain() {
+  await addDomainToList(elements.newWhitelist, "whitelist", renderWhitelist);
+}
+
+// Add domain to blacklist
+async function addBlacklistDomain() {
+  await addDomainToList(elements.newBlacklist, "blacklist", renderBlacklist);
 }
 
 // Show status message

@@ -10,11 +10,11 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 });
 
 /**
- * Check if page has unsaved form data
+ * Check if page has unsaved form data (user-modified values)
  * @returns {boolean}
  */
 function checkForUnsavedData() {
-  // Check text inputs and textareas
+  // Check text inputs and textareas - only if MODIFIED from default
   const inputs = document.querySelectorAll(
     'input[type="text"], input[type="email"], input[type="password"], ' +
       'input[type="search"], input[type="tel"], input[type="url"], ' +
@@ -22,22 +22,51 @@ function checkForUnsavedData() {
   );
 
   for (const input of inputs) {
-    if (input.value && input.value.trim().length > 0) {
-      // Skip hidden inputs and readonly
-      if (input.type === "hidden" || input.readOnly || input.disabled) continue;
-      // Skip if not visible
-      if (input.offsetParent === null) continue;
+    // Skip hidden, readonly, disabled inputs
+    if (input.type === "hidden" || input.readOnly || input.disabled) continue;
+    // Skip if not visible
+    if (input.offsetParent === null) continue;
+
+    // Check if value differs from default (user has typed something)
+    const currentValue = input.value?.trim() || "";
+    const defaultValue = input.defaultValue?.trim() || "";
+    if (currentValue !== defaultValue && currentValue.length > 0) {
       return true;
     }
   }
 
-  // Check contenteditable elements
+  // Check checkboxes/radios that changed from default
+  const checkables = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+  for (const input of checkables) {
+    if (input.checked !== input.defaultChecked) {
+      return true;
+    }
+  }
+
+  // Check select elements that changed from default
+  const selects = document.querySelectorAll("select");
+  for (const select of selects) {
+    for (const option of select.options) {
+      if (option.selected !== option.defaultSelected) {
+        return true;
+      }
+    }
+  }
+
+  // Check contenteditable - track via data attribute set on input
   const editables = document.querySelectorAll('[contenteditable="true"]');
   for (const el of editables) {
-    if (el.textContent && el.textContent.trim().length > 0) {
+    if (el.dataset.tabrestModified === "true") {
       return true;
     }
   }
 
   return false;
 }
+
+// Track contenteditable modifications
+document.addEventListener("input", (e) => {
+  if (e.target.isContentEditable) {
+    e.target.dataset.tabrestModified = "true";
+  }
+}, true);
