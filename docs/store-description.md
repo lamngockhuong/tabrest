@@ -13,6 +13,7 @@ Features:
 - Auto-unload inactive tabs after customizable time (15min to 4hrs)
 - Unload tabs when memory usage exceeds threshold (60-90%)
 - Unload all tabs on browser startup
+- Visual indicator - customizable prefix (💤) on discarded tab titles
 - Keyboard shortcuts for quick actions
 - Right-click context menu integration
 - Tab groups support

@@ -23,6 +23,7 @@
 - **Startup unload** - Free memory when browser opens
 - **Manual controls** - Unload current/left/right/other tabs
 - **Tab groups** - Unload entire tab groups
+- **Visual indicator** - Customizable prefix (💤) on discarded tab titles
 - **Whitelist** - Protect sites from auto-unload
 - **Statistics** - Track tabs unloaded and memory saved
 - **Multi-language** - English and Vietnamese supported
