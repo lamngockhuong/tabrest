@@ -1,0 +1,216 @@
+---
+title: Whitelist Configuration
+description: Configure site protection and blacklist mode for TabRest
+order: 4
+section: features
+---
+
+# Whitelist Configuration
+
+TabRest allows you to protect specific websites from automatic unloading using a whitelist (or blacklist in reverse mode).
+
+## Default Whitelist
+
+TabRest ships with these sites pre-configured:
+
+- `youtube.com` - Protect videos and playlists
+- `gmail.com` - Keep email tabs loaded
+- `docs.google.com` - Protect Google Docs, Sheets, Slides
+
+These can be removed or customized in settings.
+
+## Adding Sites to Whitelist
+
+### From Options Page
+
+1. Click TabRest icon → **⚙️ Settings** button
+2. Scroll to **Whitelist** section
+3. Enter domain name (e.g., `github.com`)
+4. Press **Enter** or click **Add**
+5. Changes save automatically
+
+### Quick Add from Popup
+
+Quick-add the current site directly from the popup:
+
+1. Navigate to the site you want to protect
+2. Click TabRest icon in toolbar
+3. Look for **Add current site to whitelist** link
+4. Click to add the current domain
+
+**Note**: This feature adds the domain only (e.g., `example.com`), not the full URL.
+
+## Domain Matching Rules
+
+TabRest uses simple domain matching:
+
+### Exact Domain Match
+
+```
+Whitelist: github.com
+✅ Matches: https://github.com/user/repo
+✅ Matches: http://github.com/explore
+❌ No match: https://gist.github.com
+❌ No match: https://api.github.com
+```
+
+### Subdomain Matching
+
+To protect all subdomains, add the base domain:
+
+```
+Whitelist: google.com
+✅ Matches: docs.google.com
+✅ Matches: mail.google.com
+✅ Matches: drive.google.com
+```
+
+**Or** add specific subdomains:
+
+```
+Whitelist: docs.google.com
+✅ Matches: https://docs.google.com/document/...
+❌ No match: https://mail.google.com
+```
+
+### Common Patterns
+
+| Whitelist Entry | Protects |
+|-----------------|----------|
+| `example.com` | `example.com` and all subdomains |
+| `www.example.com` | Only `www.example.com` |
+| `app.example.com` | Only `app.example.com` |
+
+## Removing Sites
+
+1. Open **Settings** page
+2. Find the domain in the whitelist
+3. Click the **X** button next to it
+4. Changes save automatically
+
+## Blacklist Mode
+
+Reverse the whitelist behavior: instead of protecting listed sites, unload **only** listed sites.
+
+### How to Enable
+
+1. Open **Settings** page
+2. Toggle **Blacklist mode** switch
+3. All sites except those in the list will be protected
+
+### Use Cases
+
+**Whitelist mode (default)**: Protect a few important sites, unload everything else
+
+```
+Whitelist: gmail.com, docs.google.com
+→ Only these sites are protected
+→ All other sites can be unloaded
+```
+
+**Blacklist mode**: Protect most sites, aggressively unload specific ones
+
+```
+Blacklist: news.com, social.com
+→ Only these sites can be unloaded
+→ All other sites are protected
+```
+
+**When to use blacklist mode**:
+- You want to protect most sites by default
+- You only want to unload a few memory-heavy sites (e.g., news sites, social media)
+- You have a short list of sites to unload
+
+## Whitelist + Other Protections
+
+Whitelist works alongside other tab protections:
+
+| Protection Type | Priority | Description |
+|-----------------|----------|-------------|
+| Whitelist | Highest | Domain-based protection |
+| Pinned tabs | High | Protects pinned tabs (configurable) |
+| Audio tabs | High | Protects tabs playing media (configurable) |
+| Form tabs | High | Protects tabs with unsaved forms (configurable) |
+
+**Example**: Even if a site is not whitelisted, it won't be unloaded if:
+- The tab is pinned (and "Unload pinned tabs" is disabled)
+- The tab is playing audio (and "Protect audio tabs" is enabled)
+- The tab has unsaved form data (and "Protect form tabs" is enabled)
+
+## Import/Export Whitelist
+
+Currently, whitelist is stored in Chrome sync storage and syncs across devices automatically.
+
+**Manual backup**:
+1. Open `chrome://extensions`
+2. Find TabRest → **Details**
+3. Scroll to **Inspect views: service worker**
+4. In console, run:
+   ```javascript
+   chrome.storage.sync.get('settings', (data) => {
+     console.log(data.settings.whitelist);
+   });
+   ```
+5. Copy the array output
+
+**Manual restore**: Edit the array in settings UI or use console:
+```javascript
+chrome.storage.sync.set({
+  settings: {
+    ...existingSettings,
+    whitelist: ['github.com', 'example.com']
+  }
+});
+```
+
+## Tips
+
+### Managing Large Whitelists
+
+- **Be specific**: Only add sites you actively want to keep loaded
+- **Review regularly**: Remove sites you no longer use
+- **Consider blacklist mode**: If your whitelist grows large, switch to blacklist mode
+
+### Common Whitelist Examples
+
+**Development workflow**:
+```
+localhost
+127.0.0.1
+github.com
+stackoverflow.com
+```
+
+**Productivity tools**:
+```
+mail.google.com
+calendar.google.com
+slack.com
+notion.so
+```
+
+**Communication apps**:
+```
+discord.com
+zoom.us
+teams.microsoft.com
+```
+
+### Wildcard Support
+
+TabRest currently does **not** support wildcards (e.g., `*.google.com`). Add each domain separately:
+
+```
+✅ Add: mail.google.com, drive.google.com, docs.google.com
+❌ Not supported: *.google.com
+```
+
+## Privacy
+
+Whitelist entries are:
+- Stored locally in Chrome sync storage
+- Synced across your Chrome browsers (if sync is enabled)
+- Never sent to external servers
+- Never shared with third parties
+
+See [Privacy Policy](/docs/privacy-policy) for details.

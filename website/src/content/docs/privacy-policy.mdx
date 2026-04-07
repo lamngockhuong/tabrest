@@ -1,0 +1,250 @@
+---
+title: Privacy Policy
+description: TabRest's privacy policy and data handling practices
+order: 8
+section: reference
+---
+
+# Privacy Policy
+
+**Last updated**: April 7, 2026
+
+TabRest is committed to protecting your privacy. This policy explains what data we collect (or don't collect) and how it's used.
+
+## Summary
+
+- ✅ **No personal data collected**
+- ✅ **No external servers or network requests**
+- ✅ **All data stored locally in your browser**
+- ✅ **No tracking, analytics, or telemetry**
+- ✅ **Open source and auditable**
+
+## Data Collection
+
+### We Do NOT Collect
+
+TabRest does **not** collect, store, or transmit:
+
+- ❌ Your browsing history
+- ❌ Website content or passwords
+- ❌ Personal information (name, email, etc.)
+- ❌ Usage analytics or telemetry
+- ❌ Crash reports
+- ❌ Device information
+- ❌ Location data
+- ❌ Any data whatsoever
+
+### We DO Store Locally
+
+TabRest stores the following data **only on your device**:
+
+| Data Type    | Storage Location       | Purpose                                   | Synced? |
+| ------------ | ---------------------- | ----------------------------------------- | ------- |
+| Settings     | `chrome.storage.sync`  | User preferences (timer, threshold, etc.) | Yes\*   |
+| Whitelist    | `chrome.storage.sync`  | Protected domains                         | Yes\*   |
+| Tab activity | `chrome.storage.local` | Last activity time per tab (for LRU)      | No      |
+| Statistics   | `chrome.storage.local` | Tabs unloaded count, memory saved         | No      |
+
+\*Synced via Chrome Sync if you've enabled Chrome sync in your browser settings. We do not control or access this sync data.
+
+## Chrome Permissions
+
+TabRest requires these permissions:
+
+### `tabs` - "Read your browsing history"
+
+**What it actually does**:
+
+- Read tab URLs to match against whitelist
+- Read tab state (pinned, audio, active)
+- Call `chrome.tabs.discard()` to unload tabs
+
+**What it does NOT do**:
+
+- Send your browsing history anywhere
+- Track which sites you visit
+- Store your browsing history
+
+**Why Chrome shows this label**: The `tabs` permission gives access to tab URLs. Chrome's permission labels are generic and don't reflect actual usage.
+
+### `storage` - Store data locally
+
+**What it does**:
+
+- Save settings (timer, threshold, protections)
+- Save whitelist entries
+- Store tab activity for LRU tracking
+- Track statistics (tabs unloaded, memory saved)
+
+**All data stays on your device.** No external storage or cloud services.
+
+### `alarms` - Schedule periodic tasks
+
+**What it does**:
+
+- Schedule periodic tab checks (every 1 minute)
+- Schedule memory threshold checks (every 30 seconds)
+
+**Why needed**: Chrome service workers terminate when idle. Alarms wake the service worker to perform checks.
+
+### `system.memory` - Read memory usage
+
+**What it does**:
+
+- Read total and available system RAM
+- Calculate memory usage percentage
+- Trigger unloading when threshold exceeded
+
+**What it does NOT do**:
+
+- Access any other system information
+- Collect or store memory data
+- Send memory data anywhere
+
+### `contextMenus` - Add right-click menu items
+
+**What it does**:
+
+- Add "Unload tab" option to right-click context menu (future feature)
+
+### `tabGroups` - Read tab group information
+
+**What it does**:
+
+- Read tab group names and colors
+- Display groups in popup
+- Unload tabs by group
+
+**What it does NOT do**:
+
+- Modify or create tab groups
+- Share group information
+
+## Third-Party Services
+
+TabRest does **not** use:
+
+- ❌ Analytics services (Google Analytics, etc.)
+- ❌ Error tracking (Sentry, Rollbar, etc.)
+- ❌ Ad networks
+- ❌ CDNs for loading code
+- ❌ External APIs
+- ❌ Any third-party services whatsoever
+
+**All code runs locally in your browser.**
+
+## Data Sharing
+
+TabRest does **not** share any data with:
+
+- Third-party companies
+- Advertisers
+- Analytics providers
+- Other extensions
+- Anyone
+
+**Exception**: If you enable Chrome Sync, Chrome itself syncs settings and whitelist across your devices. We do not control or access this synced data.
+
+## Chrome Sync
+
+TabRest uses `chrome.storage.sync` for settings and whitelist. If Chrome Sync is enabled in your browser:
+
+- **What syncs**: Settings and whitelist only
+- **Who controls it**: Google Chrome, not TabRest
+- **How to disable**: Turn off Chrome Sync in Chrome settings
+- **Privacy**: Governed by [Google's Privacy Policy](https://policies.google.com/privacy), not ours
+
+**We do not access or control your Chrome Sync data.**
+
+## Data Security
+
+Since TabRest:
+
+- Stores data only locally
+- Makes no network requests
+- Contains no server-side components
+
+**There is no data to breach.** Your data never leaves your device (except via Chrome Sync if enabled).
+
+### Code Integrity
+
+- **Open source**: Full source code available at [github.com/lamngockhuong/tabrest](https://github.com/lamngockhuong/tabrest)
+- **Auditable**: Anyone can review the code
+- **No obfuscation**: Plain JavaScript, no minification or bundling
+- **MIT License**: Free to inspect, modify, and redistribute
+
+## Children's Privacy
+
+TabRest does not collect any data from anyone, including children under 13 (or equivalent minimum age in your jurisdiction).
+
+## Data Retention
+
+- **Settings & whitelist**: Stored until you uninstall the extension or clear Chrome storage
+- **Tab activity**: Stored until you uninstall the extension
+- **Statistics**: Stored until you reset stats or uninstall the extension
+
+**To delete all data**:
+
+1. Go to `chrome://extensions`
+2. Find TabRest → **Remove**
+3. All data is deleted immediately
+
+## Changes to This Policy
+
+We may update this policy occasionally. Changes will be:
+
+- Posted on this page
+- Updated with a new "Last updated" date
+- Reflected in the GitHub repository
+
+**Major changes** will be announced via:
+
+- GitHub release notes
+- Extension update description (Chrome Web Store)
+
+## Contact
+
+Questions or concerns about privacy?
+
+- **Email**: hi@khuong.dev
+- **GitHub Issues**: [github.com/lamngockhuong/tabrest/issues](https://github.com/lamngockhuong/tabrest/issues)
+- **GitHub Discussions**: [github.com/lamngockhuong/tabrest/discussions](https://github.com/lamngockhuong/tabrest/discussions)
+
+## Legal
+
+### Jurisdiction
+
+This extension is developed and maintained by Lam Ngoc Khuong, an individual developer.
+
+### Compliance
+
+TabRest complies with:
+
+- Chrome Web Store Developer Program Policies
+- General Data Protection Regulation (GDPR) - by not collecting any data
+- California Consumer Privacy Act (CCPA) - by not collecting any data
+
+### Your Rights
+
+Since TabRest does not collect any personal data:
+
+- There is no data to access, modify, or delete
+- There is no data to export
+- There are no data processing activities to object to
+
+All data is stored locally on your device and is under your full control.
+
+## Transparency
+
+TabRest is built with transparency:
+
+- **Open source**: MIT licensed, public repository
+- **No tracking**: No analytics or telemetry code
+- **No external requests**: Audit network traffic, you'll find none from TabRest
+- **Simple architecture**: Vanilla JavaScript, no dependencies, easy to audit
+
+**Verify yourself**: Clone the repository and inspect the source code. You'll find no data collection, no tracking, and no network requests.
+
+---
+
+**In short**: TabRest is a privacy-first extension. Your data stays on your device. We collect nothing, send nothing, and track nothing.

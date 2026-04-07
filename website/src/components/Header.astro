@@ -1,0 +1,82 @@
+---
+// Fixed header with navigation and theme toggle
+import ThemeToggle from './ThemeToggle.astro';
+
+const navLinks = [
+  { href: '#features', label: 'Features' },
+  { href: '#how-it-works', label: 'How It Works' },
+  { href: '#faq', label: 'FAQ' },
+  { href: '/docs/getting-started', label: 'Docs' },
+  { href: 'https://github.com/lamngockhuong/tabrest', label: 'GitHub', external: true },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 font-bold text-xl text-primary dark:text-primary-light hover:opacity-80 transition-opacity">
+      <img src="/logo.svg" alt="TabRest" class="w-8 h-8" />
+      <span>TabRest</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-6">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener noreferrer' : undefined}
+          class="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+      <ThemeToggle />
+    </div>
+
+    <!-- Mobile Menu Button & Theme Toggle -->
+    <div class="md:hidden flex items-center gap-2">
+      <ThemeToggle />
+      <button
+        id="mobile-menu-toggle"
+        class="p-2 rounded-lg border border-border-light dark:border-border-dark hover:bg-card-light dark:hover:bg-card-dark transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6 text-text-muted dark:text-text-muted-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark">
+    <div class="px-4 py-4 space-y-3">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener noreferrer' : undefined}
+          class="block text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  // Use event delegation to avoid listener accumulation
+  if (!window.__headerMenuInit) {
+    window.__headerMenuInit = true;
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('mobile-menu');
+      if (e.target.closest('#mobile-menu-toggle')) {
+        menu?.classList.toggle('hidden');
+      } else if (e.target.closest('#mobile-menu a')) {
+        menu?.classList.add('hidden');
+      }
+    });
+  }
+</script>

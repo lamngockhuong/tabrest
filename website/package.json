@@ -1,0 +1,20 @@
+{
+  "name": "tabrest-website",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "6.1.4",
+    "@astrojs/mdx": "5.0.3",
+    "@astrojs/sitemap": "3.7.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "4.2.2",
+    "@tailwindcss/typography": "0.5.16",
+    "@tailwindcss/vite": "4.2.1"
+  }
+}

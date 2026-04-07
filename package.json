@@ -9,7 +9,10 @@
     "lint:fix": "biome check src/ --write",
     "format": "biome format src/ --write",
     "validate:manifest": "node scripts/validate-manifest.js",
-    "ci": "pnpm run validate:manifest && pnpm run lint"
+    "ci": "pnpm run validate:manifest && pnpm run lint",
+    "website:dev": "cd website && pnpm dev",
+    "website:build": "cd website && pnpm build",
+    "website:preview": "cd website && pnpm preview"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.10"

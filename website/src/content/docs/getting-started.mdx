@@ -1,0 +1,81 @@
+---
+title: Getting Started
+description: Learn how to install and configure TabRest to start saving memory
+order: 1
+section: getting-started
+---
+
+# Getting Started with TabRest
+
+TabRest is a Chrome extension that automatically unloads inactive tabs to free up memory. This guide will help you get started.
+
+## Installation
+
+### From Chrome Web Store
+
+1. Visit the [TabRest listing on Chrome Web Store](https://chrome.google.com/webstore) (coming soon)
+2. Click **Add to Chrome**
+3. Confirm the permission request
+4. The TabRest icon will appear in your browser toolbar
+
+### From Source (Developers)
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/lamngockhuong/tabrest.git
+   cd tabrest
+   ```
+
+2. Open Chrome and navigate to `chrome://extensions`
+
+3. Enable **Developer mode** (toggle in top-right corner)
+
+4. Click **Load unpacked** and select the `tabrest` folder
+
+5. The extension is now active
+
+## First Steps
+
+After installation, TabRest works immediately with default settings:
+
+- **Auto-unload timer**: 30 minutes of inactivity
+- **Memory threshold**: 80% RAM usage
+- **Protected tabs**: Pinned tabs, tabs with audio, tabs with unsaved forms
+- **Whitelist**: YouTube, Gmail, Google Docs (pre-configured)
+
+### Quick Configuration
+
+1. **Open settings**: Click the TabRest icon → ⚙️ Settings button
+2. **Adjust timer**: Choose between 15 minutes to 4 hours
+3. **Set memory threshold**: 60-90% RAM usage trigger
+4. **Add to whitelist**: Protect specific sites from auto-unload
+
+### Your First Manual Unload
+
+Try unloading tabs manually to see how it works:
+
+1. Open several tabs
+2. Click the TabRest icon in the toolbar
+3. Choose an action:
+   - **Unload Current**: Unload the active tab
+   - **Unload Others**: Unload all tabs except current
+   - **Unload Left/Right**: Unload tabs on one side
+
+Unloaded tabs stay visible in the tab bar but reload when you click them.
+
+## What Happens When a Tab is Unloaded?
+
+TabRest uses Chrome's native `chrome.tabs.discard()` API. Unloaded tabs:
+
+- ✅ Stay visible in the tab bar with their title and favicon
+- ✅ Preserve scroll position and form data
+- ✅ Reload instantly when clicked
+- ✅ Free up memory while inactive
+- ❌ Cannot run background scripts or play media
+
+## Next Steps
+
+- Learn about [keyboard shortcuts](/docs/keyboard-shortcuts) for faster control
+- Configure [whitelist protection](/docs/whitelist-config) for important sites
+- Explore [all features](/docs/features) including tab groups and statistics
+- Check [troubleshooting](/docs/troubleshooting) if you encounter issues

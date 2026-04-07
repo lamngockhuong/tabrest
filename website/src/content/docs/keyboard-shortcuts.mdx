@@ -1,0 +1,122 @@
+---
+title: Keyboard Shortcuts
+description: Control TabRest with keyboard shortcuts for faster tab management
+order: 3
+section: features
+---
+
+# Keyboard Shortcuts
+
+TabRest provides keyboard shortcuts for quick tab management without opening the popup.
+
+## Default Shortcuts
+
+| Shortcut | Action | Description |
+|----------|--------|-------------|
+| `Alt+Shift+D` | Unload Current | Unload the active tab |
+| `Alt+Shift+O` | Unload Others | Unload all tabs except current |
+| `Alt+Shift+→` | Unload Right | Unload all tabs to the right |
+| `Alt+Shift+←` | Unload Left | Unload all tabs to the left |
+
+**Note**: On macOS, shortcuts may use `Option` instead of `Alt`.
+
+## How to Customize Shortcuts
+
+Chrome allows you to customize extension keyboard shortcuts:
+
+### Step-by-Step Guide
+
+1. **Open shortcuts page**: Navigate to `chrome://extensions/shortcuts` in your browser
+
+2. **Find TabRest**: Scroll to the TabRest section
+
+3. **Edit shortcut**:
+   - Click the pencil icon or the shortcut field
+   - Press your desired key combination
+   - Click outside the field to save
+
+4. **Clear shortcut**: Click the X icon to remove a shortcut
+
+### Shortcut Requirements
+
+Chrome enforces these rules for extension shortcuts:
+
+- **Must include modifier**: At least one of `Ctrl`, `Alt`, `Shift`, `Command` (macOS)
+- **Cannot use**: Browser reserved shortcuts (e.g., `Ctrl+T`, `Ctrl+W`)
+- **Recommended**: Use `Alt+Shift+[Key]` to avoid conflicts with webpage shortcuts
+
+### Example Custom Shortcuts
+
+Popular alternatives:
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+Shift+D` | Unload Current |
+| `Alt+U` | Unload Others |
+| `Ctrl+Alt+→` | Unload Right |
+| `Ctrl+Alt+←` | Unload Left |
+
+## Troubleshooting
+
+### Shortcuts Not Working
+
+**Issue**: Pressing the shortcut does nothing.
+
+**Solutions**:
+
+1. **Check shortcuts page**: Visit `chrome://extensions/shortcuts` and verify TabRest shortcuts are set
+
+2. **Check for conflicts**: If the shortcut is grayed out or shows "In use by Chrome", choose a different combination
+
+3. **Reload extension**: Go to `chrome://extensions`, find TabRest, and click the refresh icon
+
+4. **Test in different context**: Some shortcuts don't work on Chrome internal pages (`chrome://`, `chrome-extension://`)
+
+### Shortcut Conflicts
+
+If your custom shortcut conflicts with:
+
+- **Other extensions**: Disable the conflicting extension's shortcut in `chrome://extensions/shortcuts`
+- **Webpage shortcuts**: TabRest shortcuts take priority over webpage keyboard events
+- **Chrome browser shortcuts**: You cannot override these (e.g., `Ctrl+T`, `Ctrl+N`)
+
+### Platform Differences
+
+| Platform | Modifier Key | Example |
+|----------|--------------|---------|
+| Windows/Linux | `Alt` | `Alt+Shift+D` |
+| macOS | `Option` or `Alt` | `Option+Shift+D` |
+| ChromeOS | `Alt` | `Alt+Shift+D` |
+
+**Note**: Some macOS keyboards label `Alt` as `Option`. They are the same key.
+
+## Best Practices
+
+### Recommended Shortcuts
+
+- **Unload Current** (`Alt+Shift+D`): Quick access when you're done with a tab
+- **Unload Others** (`Alt+Shift+O`): Clean up everything except your focus
+- **Unload Right** (`Alt+Shift+→`): Clear tabs opened from the current one
+
+### When to Use Shortcuts vs Popup
+
+**Use shortcuts** for:
+- Quick single actions
+- Workflow integration
+- Keyboard-heavy workflows
+
+**Use popup** for:
+- Viewing statistics
+- Managing whitelist
+- Unloading tab groups
+- Adjusting settings
+
+## Accessibility
+
+Keyboard shortcuts make TabRest accessible for:
+
+- **Power users**: Faster than clicking the icon
+- **Screen reader users**: Navigate without mouse
+- **Reduced mobility**: Minimize pointer movement
+
+All popup actions remain accessible via standard keyboard navigation (`Tab`, `Enter`, `Space`).

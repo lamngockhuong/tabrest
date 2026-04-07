@@ -1,0 +1,309 @@
+---
+title: FAQ
+description: Frequently asked questions about TabRest
+order: 7
+section: reference
+---
+
+# Frequently Asked Questions
+
+Common questions about TabRest and tab unloading.
+
+## General Questions
+
+### What does "unload" mean?
+
+**Unload** means removing a tab from memory while keeping it visible in the tab bar. The tab appears with its title and favicon, but the page content is not loaded until you click on it.
+
+This is different from **closing** a tab, which removes it entirely from the tab bar.
+
+### Is unloading the same as closing a tab?
+
+No. Key differences:
+
+| Feature | Unloaded Tab | Closed Tab |
+|---------|--------------|------------|
+| Visible in tab bar | ✅ Yes | ❌ No |
+| Memory usage | Very low (~1 MB) | None |
+| Restore method | Click to reload | Reopen from history |
+| Preserves position | ✅ Yes | ❌ No |
+| Preserves form data | ✅ Yes | ❌ No |
+
+### How much memory does TabRest save?
+
+Memory savings depend on the websites you use:
+
+- **Simple pages**: 50-100 MB per tab
+- **Complex web apps**: 200-500 MB per tab
+- **Heavy sites** (video, design tools): 500+ MB per tab
+
+**Example**: Unloading 20 typical tabs can free 2-4 GB of RAM.
+
+### Does TabRest work when Chrome is closed?
+
+No. TabRest only runs when Chrome is open. However:
+
+- **Startup unload** (enabled by default) unloads tabs when Chrome restarts
+- **Settings persist** across browser sessions
+- **Whitelist syncs** to other devices (if Chrome sync is enabled)
+
+### Does TabRest work offline?
+
+Yes. TabRest works completely offline because:
+
+- All logic runs locally in the browser
+- No network requests required
+- No external servers involved
+
+**Note**: Reloading unloaded tabs requires an internet connection if the page is not cached.
+
+## Privacy & Security
+
+### Does TabRest collect my data?
+
+**No.** TabRest does not collect any personal data.
+
+- No tracking or analytics
+- No data sent to external servers
+- No telemetry or crash reports
+
+See [Privacy Policy](/docs/privacy-policy) for details.
+
+### What data does TabRest store?
+
+TabRest stores locally in Chrome:
+
+| Data Type | Storage | Purpose |
+|-----------|---------|---------|
+| Settings | `chrome.storage.sync` | User preferences |
+| Whitelist | `chrome.storage.sync` | Protected domains |
+| Tab activity | `chrome.storage.local` | LRU tracking |
+| Statistics | `chrome.storage.local` | Usage stats |
+
+**All data stays on your device** and syncs via Chrome sync (if enabled).
+
+### Why does TabRest need "Read your browsing history" permission?
+
+This permission (`tabs`) is required to:
+
+- Read tab titles and URLs (for whitelist matching)
+- Detect tab state (pinned, audio, active)
+- Unload tabs via `chrome.tabs.discard()`
+
+**TabRest does NOT**:
+- Send your browsing history anywhere
+- Track which sites you visit
+- Share data with third parties
+
+Chrome's permission labels are generic and don't reflect actual usage.
+
+### Is TabRest open source?
+
+Yes. TabRest is MIT licensed and [available on GitHub](https://github.com/lamngockhuong/tabrest).
+
+You can:
+- Audit the source code
+- Report issues
+- Contribute improvements
+- Fork for your own use
+
+## Technical Questions
+
+### What is Chrome Manifest V3?
+
+Manifest V3 (MV3) is Chrome's latest extension platform. Key differences from V2:
+
+- **Service workers** instead of background pages (more efficient)
+- **Stricter permissions** (better security)
+- **Better performance** (Chrome prioritizes MV3 extensions)
+
+TabRest is built with MV3 for modern Chrome browsers.
+
+### Does TabRest slow down my browser?
+
+No. TabRest is designed for minimal performance impact:
+
+- **Service worker**: Only runs when needed, terminates when idle
+- **Periodic checks**: Once per minute (tabs) and every 30 seconds (memory)
+- **Efficient APIs**: Uses native Chrome APIs, no heavy computation
+
+**Proof**: Check Chrome Task Manager (`Shift+Esc`) - TabRest typically uses < 10 MB.
+
+### Can TabRest unload tabs faster than 15 minutes?
+
+No. The minimum auto-unload timer is **15 minutes**.
+
+**Reasoning**:
+- Prevents disrupting active workflows
+- Gives time for background tasks to complete
+- Balances memory savings with usability
+
+**Alternative**: Use manual unload buttons for immediate unloading.
+
+### Why can't TabRest unload Chrome internal pages?
+
+Chrome's security model prevents extensions from modifying:
+
+- `chrome://` pages (settings, extensions, etc.)
+- `chrome-extension://` pages
+- Chrome Web Store pages
+
+This protects Chrome's core functionality from malicious extensions.
+
+### Does TabRest work on other Chromium browsers?
+
+TabRest should work on Chromium-based browsers with Manifest V3 support:
+
+- ✅ Google Chrome 88+
+- ✅ Microsoft Edge 88+
+- ✅ Brave 88+
+- ✅ Opera 74+
+- ❌ Firefox (different extension API)
+- ❌ Safari (different extension API)
+
+**Note**: Official support is for Google Chrome only. Other browsers may work but are untested.
+
+## Feature Questions
+
+### Can TabRest auto-unload tabs after X number of tabs are open?
+
+Not currently. TabRest triggers based on:
+- Time since last activity
+- System memory threshold
+
+**Workaround**: Set a low timer (15 minutes) or low memory threshold (60%) for aggressive unloading.
+
+### Can TabRest unload tabs from specific websites only?
+
+Yes, using **blacklist mode**:
+
+1. Open Settings
+2. Enable **Blacklist mode**
+3. Add domains to the list
+4. Only those domains will be unloaded; all others are protected
+
+See [Whitelist Configuration](/docs/whitelist-config) for details.
+
+### Can TabRest restore all unloaded tabs at once?
+
+No. You must click each unloaded tab individually to reload it.
+
+**Reasoning**: Reloading all tabs at once would defeat the purpose of memory savings.
+
+**Workaround**: Use Chrome's "Bookmark all tabs" to save a session, then reopen tabs as needed.
+
+### Can TabRest schedule unloading (e.g., 9 PM every day)?
+
+Not currently. TabRest's auto-unload is continuous, not scheduled.
+
+**Feature request**: Schedule-based unloading is planned for a future version. Track on [GitHub Issues](https://github.com/lamngockhuong/tabrest/issues).
+
+### Can TabRest unload tabs in other windows?
+
+Yes. TabRest works across all Chrome windows:
+
+- Auto-unload checks all windows
+- Manual unload from popup affects current window only
+- Keyboard shortcuts affect current window only
+
+### Does TabRest work with tab suspender extensions?
+
+TabRest should work alongside other tab management extensions, but:
+
+- **Conflicts possible**: Both extensions may compete to unload tabs
+- **Duplicate features**: You may not need both
+
+**Recommendation**: Use one tab management extension at a time.
+
+## Troubleshooting
+
+### Why do some tabs reload immediately after unloading?
+
+**Possible causes**:
+
+1. **Website auto-reloads**: Some sites use JavaScript to detect unload and force reload
+2. **Extension conflicts**: Another extension may be reloading tabs
+3. **Chrome sync**: Tab sync may restore tabs from another device
+
+**Solution**: Add these sites to the whitelist to prevent unloading.
+
+### Why does the badge count show wrong numbers?
+
+**Possible causes**:
+
+1. **Badge disabled**: Check Settings → "Show badge count" is enabled
+2. **Service worker terminated**: Badge updates when service worker runs
+3. **Extension bug**: Reload the extension
+
+**Solution**: Open the popup (this wakes the service worker) and the badge should update.
+
+### Can I export my settings?
+
+Not directly from the UI. Settings are stored in `chrome.storage.sync` and sync automatically via Chrome sync.
+
+**Manual export** (advanced):
+1. Go to `chrome://extensions`
+2. TabRest → **Details** → **Inspect views: service worker**
+3. In console:
+   ```javascript
+   chrome.storage.sync.get('settings', console.log);
+   ```
+4. Copy the output
+
+### How do I report a bug?
+
+See [Troubleshooting → Bug Reporting](/docs/troubleshooting#bug-reporting) for detailed instructions.
+
+## Getting Started
+
+### I just installed TabRest. What should I do first?
+
+1. **Test manual unload**: Open a few tabs, click TabRest icon → "Unload Others"
+2. **Check default settings**: Open Settings page, review timer and protections
+3. **Customize whitelist**: Add important sites (email, docs, chat apps)
+4. **Learn shortcuts**: Set up [keyboard shortcuts](/docs/keyboard-shortcuts) for faster control
+
+### Should I use whitelist or blacklist mode?
+
+**Use whitelist mode** (default) if:
+- You want to protect a few important sites
+- Most sites can be unloaded safely
+
+**Use blacklist mode** if:
+- You want to protect most sites
+- You only want to aggressively unload a few memory-heavy sites (news, social media)
+
+See [Whitelist Configuration](/docs/whitelist-config) for examples.
+
+### What are the best settings for maximum memory savings?
+
+**Aggressive configuration**:
+- **Timer**: 15 minutes (minimum)
+- **Memory threshold**: 60% (aggressive)
+- **Startup unload**: Enabled
+- **Protect pinned tabs**: Disabled
+- **Protect audio tabs**: Disabled
+- **Protect form tabs**: Enabled (keep this on to avoid data loss)
+- **Whitelist**: Empty or minimal (only critical sites)
+
+**Warning**: This may disrupt workflows. Test and adjust based on your usage.
+
+### What are the best settings for casual users?
+
+**Balanced configuration** (defaults):
+- **Timer**: 30 minutes
+- **Memory threshold**: 80%
+- **Startup unload**: Enabled
+- **Protect pinned tabs**: Enabled
+- **Protect audio tabs**: Enabled
+- **Protect form tabs**: Enabled
+- **Whitelist**: YouTube, Gmail, Google Docs
+
+This provides memory savings without disrupting normal browsing.
+
+## Still Have Questions?
+
+- **Read documentation**: Explore all [docs pages](/docs/getting-started)
+- **Check troubleshooting**: Visit [Troubleshooting](/docs/troubleshooting)
+- **Ask on GitHub**: [Open a discussion](https://github.com/lamngockhuong/tabrest/discussions)
+- **Report bugs**: [Create an issue](https://github.com/lamngockhuong/tabrest/issues)

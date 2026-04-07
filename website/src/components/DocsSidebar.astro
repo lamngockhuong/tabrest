@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentSlug: string;
+}
+
+const { currentSlug } = Astro.props;
+
+// Get all docs and sort by order
+const allDocs = await getCollection('docs');
+const sortedDocs = allDocs.sort((a, b) => a.data.order - b.data.order);
+
+// Group docs by section
+const sections = {
+  'getting-started': 'Getting Started',
+  'features': 'Features',
+  'reference': 'Reference',
+} as const;
+
+type SectionKey = keyof typeof sections;
+
+const groupedDocs = sortedDocs.reduce((acc, doc) => {
+  const section = doc.data.section as SectionKey;
+  if (!acc[section]) {
+    acc[section] = [];
+  }
+  acc[section].push(doc);
+  return acc;
+}, {} as Record<SectionKey, typeof sortedDocs>);
+---
+
+<nav class="p-4 space-y-6">
+  {Object.entries(sections).map(([key, label]) => {
+    const sectionDocs = groupedDocs[key as SectionKey] || [];
+    if (sectionDocs.length === 0) return null;
+
+    return (
+      <div>
+        <h3 class="text-sm font-semibold text-text-muted dark:text-text-muted-dark uppercase tracking-wider mb-2">
+          {label}
+        </h3>
+        <ul class="space-y-1">
+          {sectionDocs.map(doc => {
+            const isActive = doc.id === currentSlug;
+            return (
+              <li>
+                <a
+                  href={`/docs/${doc.id}`}
+                  class={`block px-3 py-2 rounded-md text-sm transition-colors ${
+                    isActive
+                      ? 'bg-primary/10 dark:bg-primary-light/10 text-primary dark:text-primary-light font-medium'
+                      : 'text-text-muted dark:text-text-muted-dark hover:bg-card-light dark:hover:bg-card-dark hover:text-primary dark:hover:text-primary-light'
+                  }`}
+                >
+                  {doc.data.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  })}
+</nav>

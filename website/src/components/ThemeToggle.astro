@@ -1,0 +1,25 @@
+---
+// Theme toggle button - switches between light and dark mode
+---
+
+<button
+  class="theme-toggle p-2 rounded-lg border border-border-light dark:border-border-dark hover:bg-card-light dark:hover:bg-card-dark transition-colors cursor-pointer"
+  aria-label="Toggle theme"
+  type="button"
+>
+  <span class="sun hidden dark:inline">☀️</span>
+  <span class="moon dark:hidden">🌙</span>
+</button>
+
+<script is:inline>
+  // Only attach once using a flag
+  if (!window.__themeToggleInit) {
+    window.__themeToggleInit = true;
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.theme-toggle')) {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      }
+    });
+  }
+</script>

@@ -1,0 +1,92 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import DocsSidebar from '../components/DocsSidebar.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  currentSlug: string;
+}
+
+const { title, description, currentSlug } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+
+  <div class="pt-16 flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="hidden lg:block w-[264px] flex-shrink-0 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto border-r border-border-light dark:border-border-dark">
+      <DocsSidebar currentSlug={currentSlug} />
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 min-w-0">
+      <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="prose prose-indigo dark:prose-invert max-w-none">
+          <slot />
+        </div>
+      </article>
+    </main>
+
+    <!-- Mobile FAB -->
+    <button
+      id="mobile-docs-toggle"
+      class="lg:hidden fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-primary dark:bg-primary-light text-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+      aria-label="Toggle sidebar"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div
+      id="mobile-docs-sidebar"
+      class="lg:hidden fixed inset-0 z-50 hidden"
+    >
+      <div
+        id="mobile-docs-backdrop"
+        class="absolute inset-0 bg-black/50"
+      ></div>
+      <aside class="absolute top-0 left-0 bottom-0 w-[264px] bg-background-light dark:bg-background-dark overflow-y-auto shadow-xl">
+        <div class="sticky top-0 bg-background-light dark:bg-background-dark border-b border-border-light dark:border-border-dark p-4 flex items-center justify-between">
+          <span class="font-semibold text-text dark:text-text-dark">Documentation</span>
+          <button
+            id="mobile-docs-close"
+            class="p-1 rounded hover:bg-card-light dark:hover:bg-card-dark transition-colors"
+            aria-label="Close sidebar"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <DocsSidebar currentSlug={currentSlug} />
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  // Use event delegation to avoid listener accumulation
+  if (!window.__docsLayoutInit) {
+    window.__docsLayoutInit = true;
+
+    const closeSidebar = () => {
+      document.getElementById('mobile-docs-sidebar')?.classList.add('hidden');
+    };
+
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.closest('#mobile-docs-toggle')) {
+        document.getElementById('mobile-docs-sidebar')?.classList.remove('hidden');
+      } else if (target.closest('#mobile-docs-close') || target.closest('#mobile-docs-backdrop')) {
+        closeSidebar();
+      } else if (target.closest('#mobile-docs-sidebar a')) {
+        closeSidebar();
+      }
+    });
+  }
+</script>

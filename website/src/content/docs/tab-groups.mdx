@@ -1,0 +1,218 @@
+---
+title: Tab Groups
+description: Manage and unload tab groups with TabRest
+order: 5
+section: features
+---
+
+# Tab Groups
+
+TabRest integrates with Chrome's native tab groups feature, allowing you to unload entire groups at once.
+
+## What Are Tab Groups?
+
+Tab groups are a Chrome feature (added in Chrome 88) that lets you organize tabs into labeled, color-coded groups.
+
+**Create a tab group**:
+1. Right-click a tab → **Add to new group**
+2. Choose a name and color
+3. Drag tabs into the group
+
+**Chrome's tab groups**:
+- Collapse to save space
+- Color-coded for visual organization
+- Can be moved together
+- Synced across devices (if Chrome sync is enabled)
+
+## Unloading Tab Groups
+
+TabRest adds group-based unloading to the popup:
+
+### From Popup
+
+1. Click the **TabRest icon** in toolbar
+2. Scroll to **Tab Groups** section
+3. Click on a group name
+4. All tabs in that group will be unloaded
+
+**Visual indicators**:
+- Group name and color shown in popup
+- Number of tabs in each group displayed
+- Unloaded tabs marked with 💤 icon
+
+### Protected Tabs in Groups
+
+Even when unloading a group, individual tab protections still apply:
+
+| Tab Type | Behavior |
+|----------|----------|
+| **Pinned tab** | Protected (if "Unload pinned tabs" disabled) |
+| **Audio tab** | Protected (if "Protect audio tabs" enabled) |
+| **Form tab** | Protected (if "Protect form tabs" enabled) |
+| **Whitelisted** | Protected (always) |
+
+**Example**: If you unload a group with 10 tabs, but 2 have unsaved forms, only 8 will unload.
+
+## Automatic Unloading
+
+TabRest's automatic unloading (timer-based and memory threshold) works across all tabs, including grouped tabs.
+
+**No special group protection**: Tab groups do not prevent automatic unloading. If you want to protect a group:
+
+1. Add group domains to whitelist
+2. Pin tabs in the group
+3. Keep tabs active (interact with them regularly)
+
+## Tab Group Settings
+
+TabRest includes a toggle for tab group features:
+
+**Enable tab groups** (default: enabled):
+- When enabled: Tab Groups section shown in popup
+- When disabled: Groups hidden from popup, but automatic unloading still works
+
+**To disable**:
+1. Open Settings page
+2. Toggle **Enable tab groups** off
+3. Changes save automatically
+
+## Use Cases
+
+### Organize by Project
+
+Create groups for different projects or contexts:
+
+- **Work**: Company email, project docs, issue tracker
+- **Personal**: Social media, banking, shopping
+- **Research**: Articles, documentation, tutorials
+
+Unload entire projects when switching context.
+
+### Session Management
+
+Use groups as temporary sessions:
+
+1. Open tabs for a task
+2. Group them together
+3. When done, unload the entire group
+4. Keep tabs grouped for later
+
+Better than bookmarks because:
+- Tabs remain open (just unloaded)
+- Faster to restore
+- Preserves scroll position and form data
+
+### Memory Management
+
+Identify memory-heavy groups:
+
+1. Create group for memory-intensive sites (e.g., video, design tools)
+2. Unload group when not actively using
+3. Reload when needed
+
+## Tips
+
+### Naming Groups
+
+Use descriptive names for quick identification:
+
+```
+✅ Good: "Project X Documentation"
+✅ Good: "Q1 Planning"
+❌ Poor: "Group 1"
+❌ Poor: "Tabs"
+```
+
+### Color Coding
+
+Assign colors by priority or category:
+
+- 🔴 Red: Urgent/active work
+- 🟢 Green: Reference/background
+- 🔵 Blue: Personal tasks
+- 🟡 Yellow: Waiting/review
+- 🟣 Purple: Research/learning
+
+### Combining with Whitelist
+
+For critical groups, add domains to whitelist:
+
+1. Identify tabs in group
+2. Add domains to whitelist
+3. Group remains loaded automatically
+
+## Limitations
+
+### Chrome-Specific Feature
+
+Tab groups are a Chrome feature. TabRest requires:
+
+- **Chrome 88+** for tab groups support
+- **Chrome 89+** for tab group colors in API
+
+**Browsers without tab groups**: TabRest's group features hidden automatically.
+
+### No Group-Level Protection
+
+TabRest cannot:
+- Protect entire groups from auto-unload (protect individual tabs instead)
+- Create or manage groups (use Chrome's built-in features)
+- Sync groups across browsers (handled by Chrome sync)
+
+### Extension API Limitations
+
+TabRest uses `chrome.tabGroups` API, which:
+- Cannot modify group properties (name, color)
+- Cannot create or delete groups
+- Can only read group information and unload tabs
+
+## Keyboard Shortcuts
+
+TabRest does not provide keyboard shortcuts for group operations. Use Chrome's built-in shortcuts:
+
+| Action | Windows/Linux | macOS |
+|--------|---------------|-------|
+| Create group | `Ctrl+G` | `Cmd+G` |
+| Next group | `Ctrl+Shift+9` | `Cmd+Shift+9` |
+| Previous group | `Ctrl+Shift+0` | `Cmd+Shift+0` |
+
+**Note**: These shortcuts may vary by Chrome version.
+
+## Troubleshooting
+
+### Groups Not Showing in Popup
+
+**Issue**: Tab Groups section is empty.
+
+**Solutions**:
+1. **Create a group**: TabRest only shows groups that exist
+2. **Check settings**: Ensure "Enable tab groups" is enabled
+3. **Reload extension**: Go to `chrome://extensions` → TabRest → Refresh
+
+### Group Won't Unload
+
+**Issue**: Clicking group name does nothing.
+
+**Solutions**:
+1. **Check tab protection**: Some tabs may be protected (pinned, audio, whitelist)
+2. **Verify active tab**: You cannot unload the currently active tab
+3. **Check Chrome version**: Requires Chrome 88+
+
+### Group Disappeared After Unload
+
+**Issue**: Group collapsed or hidden after unloading.
+
+**Explanation**: This is Chrome's behavior. Unloaded tabs in collapsed groups remain collapsed.
+
+**Solution**: Click the group label to expand and see unloaded tabs.
+
+## Future Features
+
+Planned enhancements for tab groups:
+
+- Protect entire groups from auto-unload
+- Schedule group unloading
+- Group-specific unload timers
+- Export/import group configurations
+
+See [GitHub repository](https://github.com/lamngockhuong/tabrest) for feature requests.

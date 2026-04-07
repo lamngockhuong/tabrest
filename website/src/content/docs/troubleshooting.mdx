@@ -1,0 +1,299 @@
+---
+title: Troubleshooting
+description: Common issues and solutions for TabRest
+order: 6
+section: reference
+---
+
+# Troubleshooting
+
+Solutions to common issues when using TabRest.
+
+## Tab Won't Unload
+
+**Issue**: Clicking "Unload" does nothing or a tab refuses to unload.
+
+### Cause 1: Tab is Protected
+
+TabRest protects certain tabs by default. Check if the tab is:
+
+- **Pinned**: Pinned tabs are protected (unless "Unload pinned tabs" is enabled)
+- **Playing audio**: Tabs with active audio are protected (unless "Protect audio tabs" is disabled)
+- **Has unsaved forms**: Tabs with modified input fields are protected (unless "Protect form tabs" is disabled)
+- **Whitelisted**: The domain is in your whitelist
+
+**Solution**: Disable the relevant protection in Settings or remove the domain from the whitelist.
+
+### Cause 2: Tab is Active
+
+Chrome cannot unload the currently active (focused) tab.
+
+**Solution**: Switch to a different tab first, then unload the target tab.
+
+### Cause 3: Chrome Internal Pages
+
+Chrome prevents extensions from unloading internal pages:
+
+- `chrome://` pages (settings, extensions, etc.)
+- `chrome-extension://` pages
+- Chrome Web Store pages
+- New Tab page
+
+**Solution**: These pages cannot be unloaded by design. They use minimal memory.
+
+### Cause 4: Tab Just Loaded
+
+Chrome may prevent unloading a tab that was just opened or reloaded (< 5 seconds old).
+
+**Solution**: Wait a few seconds and try again.
+
+### Cause 5: Extension Permissions
+
+TabRest requires the `tabs` permission to unload tabs.
+
+**Solution**:
+1. Go to `chrome://extensions`
+2. Find TabRest → **Details**
+3. Verify permissions include "Read your browsing history"
+4. If missing, remove and reinstall the extension
+
+## Extension Not Working
+
+**Issue**: TabRest icon shows no response or auto-unload doesn't trigger.
+
+### Check Extension Status
+
+1. Go to `chrome://extensions`
+2. Find TabRest in the list
+3. Ensure the toggle is **ON** (blue)
+4. Check for error indicators (red text)
+
+### Reload Extension
+
+1. Go to `chrome://extensions`
+2. Find TabRest
+3. Click the **refresh icon** (↻)
+4. Test functionality again
+
+### Check Service Worker
+
+1. Go to `chrome://extensions`
+2. Find TabRest → **Details**
+3. Scroll to **Inspect views**
+4. Click **service worker**
+5. Check the console for errors
+
+**Common errors**:
+- `Storage quota exceeded`: Clear extension storage
+- `Alarm not registered`: Reload extension
+- `Permission denied`: Reinstall extension
+
+### Reinstall Extension
+
+If reloading doesn't help:
+
+1. **Export settings** (optional): Note your whitelist and settings
+2. Go to `chrome://extensions`
+3. Find TabRest → **Remove**
+4. Reinstall from Chrome Web Store or source
+5. Restore settings
+
+## Keyboard Shortcuts Not Working
+
+**Issue**: Pressing shortcuts does nothing.
+
+### Verify Shortcuts Are Set
+
+1. Go to `chrome://extensions/shortcuts`
+2. Find TabRest section
+3. Ensure shortcuts are assigned (not empty)
+
+**Solution**: If empty, set the shortcuts manually.
+
+### Check for Conflicts
+
+Shortcuts may conflict with:
+- Other extensions
+- Chrome browser shortcuts
+- Operating system shortcuts
+
+**Solution**:
+1. Go to `chrome://extensions/shortcuts`
+2. If shortcut shows "In use by Chrome", choose a different combination
+3. Disable conflicting extension shortcuts
+
+### Test in Different Context
+
+Some shortcuts don't work on:
+- Chrome internal pages (`chrome://`)
+- Extension pages (`chrome-extension://`)
+- Chrome Web Store
+
+**Solution**: Test on a regular webpage (e.g., `example.com`).
+
+### Reload Extension
+
+1. Go to `chrome://extensions`
+2. Find TabRest → Refresh icon
+3. Test shortcuts again
+
+## High Memory Usage
+
+**Issue**: Chrome still uses high memory despite TabRest.
+
+### Verify Tabs Are Actually Unloading
+
+1. Open Task Manager: `Shift+Esc` (Windows/Linux) or Chrome menu → More tools → Task Manager
+2. Look for tabs marked as "Unloaded" or with very low memory (< 1 MB)
+3. If tabs show high memory, they haven't been unloaded
+
+**Solution**: Check tab protection settings (pinned, audio, forms, whitelist).
+
+### Check Auto-Unload Settings
+
+1. Open TabRest Settings
+2. Verify **timer** is enabled (not set to "Never")
+3. Verify **memory threshold** is reasonable (60-90%)
+4. Enable **startup unload** to free memory on browser restart
+
+### Extensions and Background Pages
+
+TabRest cannot unload:
+- Extension pages themselves
+- Service workers from other extensions
+- Chrome's own processes
+
+**Solution**: Use Chrome Task Manager (`Shift+Esc`) to identify memory-heavy extensions and disable them.
+
+### Too Many Tabs
+
+If you have hundreds of tabs open:
+- Auto-unload takes time to process all tabs
+- Some tabs may be protected or recently active
+- Consider closing tabs you no longer need
+
+**Solution**: Use "Unload Others" to manually unload all inactive tabs immediately.
+
+## Statistics Not Updating
+
+**Issue**: Stats page shows 0 tabs unloaded or outdated numbers.
+
+### Check Stats Toggle
+
+1. Open Settings
+2. Ensure **Enable stats** is ON
+3. If it was off, turn it on (stats will begin tracking from that point)
+
+### Verify Unloading Is Happening
+
+1. Manually unload a tab using the popup
+2. Open Settings → Stats section
+3. Check if count increased
+
+**Solution**: If stats still don't update, reload the extension.
+
+### Reset Stats
+
+If stats are corrupted:
+
+1. Open Settings
+2. Click **Reset Stats** button
+3. Confirm the action
+4. Stats will begin tracking from zero
+
+## Whitelist Not Working
+
+**Issue**: Whitelisted sites still get unloaded.
+
+### Verify Domain Format
+
+Whitelist entries should be domain names only:
+
+```
+✅ Correct: github.com
+✅ Correct: mail.google.com
+❌ Wrong: https://github.com
+❌ Wrong: github.com/user/repo
+```
+
+**Solution**: Remove protocol (`https://`) and path (`/user/repo`) from entries.
+
+### Check Blacklist Mode
+
+If **Blacklist mode** is enabled, the behavior is reversed:
+- Whitelist becomes blacklist (sites to unload)
+- All other sites are protected
+
+**Solution**: Disable blacklist mode in Settings if you want normal whitelist behavior.
+
+### Case Sensitivity
+
+Domain matching is case-insensitive:
+- `GitHub.com` = `github.com` ✅
+
+**Solution**: Use lowercase for consistency.
+
+## Form Protection Not Working
+
+**Issue**: Tabs with unsaved forms get unloaded.
+
+### Check Form Protection Setting
+
+1. Open Settings
+2. Ensure **Protect tabs with unsaved forms** is enabled
+
+### Verify Form Detection
+
+TabRest detects forms with:
+- Modified `<input>` fields (text, email, password, etc.)
+- Modified `<textarea>` fields
+- Modified `<select>` dropdowns
+
+**Does NOT detect**:
+- Rich text editors (e.g., TinyMCE, CKEditor) - use whitelist instead
+- Canvas-based editors
+- Custom JavaScript form libraries
+
+**Solution**: Add sites with complex forms to the whitelist.
+
+### Content Script Timing
+
+If a form is filled very quickly after page load, TabRest may not detect it yet.
+
+**Solution**: Wait a few seconds after filling the form before switching tabs.
+
+## Bug Reporting
+
+If you encounter a bug not listed here:
+
+### Gather Information
+
+1. **Chrome version**: `chrome://version`
+2. **TabRest version**: `chrome://extensions` → TabRest → Details
+3. **Steps to reproduce**: What actions trigger the bug
+4. **Expected behavior**: What should happen
+5. **Actual behavior**: What actually happens
+6. **Console errors**: Open service worker inspector, check for errors
+
+### Report on GitHub
+
+1. Visit [TabRest Issues](https://github.com/lamngockhuong/tabrest/issues)
+2. Search existing issues to avoid duplicates
+3. Click **New Issue**
+4. Include all information from above
+5. Add screenshots if helpful
+
+### Emergency Workaround
+
+If TabRest causes critical issues:
+
+1. Disable the extension: `chrome://extensions` → Toggle OFF
+2. Report the bug on GitHub
+3. Wait for a fix or reinstall from source
+
+## Getting Help
+
+- **Documentation**: Read all [docs pages](/docs/getting-started)
+- **FAQ**: Check [Frequently Asked Questions](/docs/faq)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/lamngockhuong/tabrest/issues)
+- **GitHub Discussions**: [Ask questions or share feedback](https://github.com/lamngockhuong/tabrest/discussions)
