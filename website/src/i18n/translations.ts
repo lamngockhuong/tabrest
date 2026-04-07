@@ -78,6 +78,11 @@ export const translations = {
           title: 'Usage Statistics',
           description: 'Track memory saved and tabs unloaded to see the real impact on your system',
         },
+        {
+          icon: '💤',
+          title: 'Visual Indicator',
+          description: 'Easily identify unloaded tabs with customizable prefix symbol in tab titles',
+        },
       ],
     },
     howItWorks: {
@@ -227,6 +232,11 @@ export const translations = {
           icon: '📊',
           title: 'Thống kê sử dụng',
           description: 'Theo dõi bộ nhớ đã tiết kiệm và số tab đã giải phóng để thấy tác động thực tế',
+        },
+        {
+          icon: '💤',
+          title: 'Chỉ báo trực quan',
+          description: 'Dễ dàng nhận biết tab đã giải phóng với ký hiệu tùy chỉnh trên tiêu đề tab',
         },
       ],
     },
