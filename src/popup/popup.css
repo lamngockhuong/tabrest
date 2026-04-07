@@ -43,6 +43,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
 }
 
 body {
@@ -267,29 +269,8 @@ footer {
   outline-offset: 1px;
 }
 
-/* Tab List Section */
-.tab-list-section {
-  margin-bottom: 12px;
-  background: var(--card);
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
-
-.tab-list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 10px;
-  border-bottom: 1px solid var(--border);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.icon-btn.small {
+.icon-btn.small,
+.btn-icon.small {
   font-size: 14px;
   padding: 2px;
 }
@@ -390,8 +371,13 @@ footer {
 }
 
 .badge-sleeping {
-  background: var(--secondary);
-  color: #fff;
+  background: rgba(99, 102, 241, 0.15);
+  color: #6366F1;
+}
+
+[data-theme="dark"] .badge-sleeping {
+  background: rgba(129, 140, 248, 0.25);
+  color: #A5B4FC;
 }
 
 .badge-protected {
@@ -595,6 +581,21 @@ footer {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.section-toggle-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.section-toggle-right .btn-icon {
+  padding: 4px;
+  font-size: 14px;
+  flex-shrink: 0;
 }
 
 .section-chevron {
@@ -613,6 +614,11 @@ footer {
 
 .section-body.open {
   max-height: 300px;
+}
+
+#tabs-body.open {
+  max-height: 220px;
+  border-top: 1px solid var(--border);
 }
 
 .section-body-inner {
@@ -754,15 +760,6 @@ footer {
   padding: 8px 0 4px;
   font-size: 10px;
   color: var(--text-muted);
-}
-
-/* Tab List Section (no header inside) */
-.tab-list-section {
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-  margin-bottom: 12px;
-  background: var(--card);
 }
 
 /* Session Save Row */
@@ -951,4 +948,22 @@ footer {
 
 .review-dismiss:hover {
   color: #fff;
+}
+
+/* Modern Slim Scrollbar (WebKit) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }

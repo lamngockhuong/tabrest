@@ -22,6 +22,8 @@ const elements = {
   tabGroupsSection: document.getElementById('tab-groups-section'),
   tabGroupSelect: document.getElementById('tab-group-select'),
   // Tab list
+  tabsToggle: document.getElementById('tabs-toggle'),
+  tabsBody: document.getElementById('tabs-body'),
   tabList: document.getElementById('tab-list'),
   refreshTabs: document.getElementById('refresh-tabs'),
   // Theme
@@ -218,8 +220,8 @@ async function renderTabList() {
           </div>
         </div>
         <div class="tab-status">
-          ${statusBadge}
           ${!tab.active && !tab.discarded && !tab.isProtected ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="Unload">💤</button>` : ''}
+          ${statusBadge}
         </div>
       </div>
     `;
@@ -353,12 +355,14 @@ function setupEventListeners() {
   });
 
   // Refresh tabs button
-  elements.refreshTabs.addEventListener('click', async () => {
+  elements.refreshTabs.addEventListener('click', async (e) => {
+    e.stopPropagation();
     await Promise.all([renderTabList(), updateStats()]);
     showToast('Refreshed');
   });
 
   // Setup collapsible sections
+  setupCollapsible('tabs-toggle', 'tabs-body');
   setupCollapsible('settings-toggle', 'settings-body');
   setupCollapsible('more-toggle', 'more-body');
   setupCollapsible('sessions-toggle', 'sessions-body');

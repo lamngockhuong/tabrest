@@ -75,14 +75,22 @@
     </div>
 
     <!-- Tab List -->
-    <div class="section-header">
-      <span>Tabs in this window</span>
-      <button class="btn-icon" id="refresh-tabs" title="Refresh">
-        <span data-icon="refresh"></span>
-      </button>
-    </div>
-    <div class="tab-list-section">
-      <div id="tab-list" class="tab-list"></div>
+    <div class="collapsible-section">
+      <div class="section-toggle" id="tabs-toggle" role="button" tabindex="0" aria-expanded="true">
+        <span class="section-toggle-left">
+          <span data-icon="layers"></span>
+          <span>Tabs in this window</span>
+        </span>
+        <span class="section-toggle-right">
+          <button class="btn-icon small" id="refresh-tabs" title="Refresh">
+            <span data-icon="refresh"></span>
+          </button>
+          <span class="section-chevron" data-icon="chevronRight"></span>
+        </span>
+      </div>
+      <div class="section-body open" id="tabs-body">
+        <div id="tab-list" class="tab-list"></div>
+      </div>
     </div>
 
     <!-- Collapsible Settings -->
