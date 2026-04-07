@@ -295,6 +295,10 @@ footer {
   background: #EEF2FF;
 }
 
+[data-theme="dark"] .tab-item.active {
+  background: rgba(129, 140, 248, 0.15);
+}
+
 .tab-item.discarded {
   opacity: 0.7;
 }

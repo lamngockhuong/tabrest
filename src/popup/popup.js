@@ -1,6 +1,6 @@
 import { injectIcons } from "../shared/icons.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
-import { initTheme, THEMES, toggleTheme } from "../shared/theme.js";
+import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import { formatBytes } from "../shared/utils.js";
 
 // DOM Elements
@@ -112,13 +112,6 @@ function showToast(message, duration = 2500) {
   toastTimer = setTimeout(() => {
     elements.toast.classList.remove("show");
   }, duration);
-}
-
-// Update theme toggle icon based on current theme
-function updateThemeIcon(theme) {
-  elements.themeIcon.textContent = theme === THEMES.DARK ? "☀️" : "🌙";
-  elements.themeToggle.title =
-    theme === THEMES.DARK ? "Switch to light mode" : "Switch to dark mode";
 }
 
 // Setup collapsible section
@@ -373,7 +366,7 @@ function setupEventListeners() {
   // Theme toggle button
   elements.themeToggle.addEventListener("click", async () => {
     const newTheme = await toggleTheme();
-    updateThemeIcon(newTheme);
+    updateThemeIcon(elements.themeIcon, elements.themeToggle, newTheme);
   });
 
   // Refresh tabs button
@@ -511,7 +504,8 @@ function setupEventListeners() {
 async function init() {
   // Initialize theme first to prevent flash
   const theme = await initTheme();
-  updateThemeIcon(theme);
+  updateThemeIcon(elements.themeIcon, elements.themeToggle, theme);
+  onThemeChange((t) => updateThemeIcon(elements.themeIcon, elements.themeToggle, t));
 
   // Inject SVG icons
   injectIcons();

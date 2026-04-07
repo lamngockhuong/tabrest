@@ -55,4 +55,34 @@ export async function toggleTheme() {
   return next;
 }
 
+/**
+ * Subscribe to theme changes from other pages/popups
+ * @param {function(string): void} callback - Called with new theme when changed externally
+ */
+export function onThemeChange(callback) {
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName === "local" && changes[THEME_KEY]) {
+      const { newValue, oldValue } = changes[THEME_KEY];
+      if (newValue === oldValue) return;
+      // Only apply if different from current DOM state (avoids redundant update on initiating page)
+      const current = document.documentElement.getAttribute("data-theme");
+      if (newValue !== current) {
+        applyTheme(newValue);
+      }
+      callback(newValue);
+    }
+  });
+}
+
+/**
+ * Update theme toggle icon and title
+ * @param {HTMLElement} iconEl - Icon element to update
+ * @param {HTMLElement} toggleEl - Toggle button element
+ * @param {string} theme - Current theme
+ */
+export function updateThemeIcon(iconEl, toggleEl, theme) {
+  iconEl.textContent = theme === THEMES.DARK ? "☀️" : "🌙";
+  toggleEl.title = theme === THEMES.DARK ? "Switch to light mode" : "Switch to dark mode";
+}
+
 export { THEME_KEY, THEMES };

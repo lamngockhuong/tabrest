@@ -1,5 +1,8 @@
 /* Calm Indigo Theme - TabRest Color System */
-:root {
+
+/* Light Theme (default) */
+:root,
+[data-theme="light"] {
   --primary: #4338CA;
   --primary-hover: #3730A3;
   --secondary: #6366F1;
@@ -12,6 +15,22 @@
   --success: #059669;
   --warning: #D97706;
   --danger: #DC2626;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --primary: #818CF8;
+  --primary-hover: #A5B4FC;
+  --secondary: #6366F1;
+  --accent: #A78BFA;
+  --background: #0F0B1A;
+  --card: #1A1528;
+  --text: #E8E2F4;
+  --text-muted: #9B8FAD;
+  --border: rgba(255, 255, 255, 0.1);
+  --success: #6EE7B7;
+  --warning: #FBBF24;
+  --danger: #F87171;
 }
 
 * {
@@ -34,10 +53,36 @@ body {
   padding: 24px;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
 h1 {
   font-size: 24px;
-  margin-bottom: 24px;
+  margin: 0;
   color: var(--primary);
+}
+
+#theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+#theme-toggle:hover {
+  background: var(--background);
+  border-color: var(--secondary);
 }
 
 h2 {

@@ -1,7 +1,10 @@
 import { getSettings, saveSettings } from "../shared/storage.js";
+import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import { formatBytes } from "../shared/utils.js";
 
 const elements = {
+  themeToggle: document.getElementById("theme-toggle"),
+  themeIcon: document.getElementById("theme-icon"),
   autoStartup: document.getElementById("auto-startup"),
   timer: document.getElementById("timer"),
   threshold: document.getElementById("threshold"),
@@ -21,6 +24,11 @@ let currentSettings = {};
 
 // Initialize options page
 async function init() {
+  // Initialize theme first
+  const theme = await initTheme();
+  updateThemeIcon(elements.themeIcon, elements.themeToggle, theme);
+  onThemeChange((t) => updateThemeIcon(elements.themeIcon, elements.themeToggle, t));
+
   await loadSettings();
   await loadStats();
   setupEventListeners();
@@ -108,6 +116,12 @@ function setupEventListeners() {
     await chrome.storage.local.set({ stats: { tabsUnloaded: 0, memorySaved: 0 } });
     await loadStats();
     showStatus("Statistics reset");
+  });
+
+  // Theme toggle
+  elements.themeToggle.addEventListener("click", async () => {
+    const newTheme = await toggleTheme();
+    updateThemeIcon(elements.themeIcon, elements.themeToggle, newTheme);
   });
 }
 
