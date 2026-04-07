@@ -7,7 +7,7 @@
       "release-type": "node",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
-      "extra-files": ["manifest.json"]
+      "extra-files": ["manifest.json", "package.json"]
     }
   }
 }
