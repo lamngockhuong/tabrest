@@ -10,7 +10,6 @@ let saveTimeout = null;
 export async function initTabTracker() {
   tabActivity = await getTabActivity();
   await setupTabCheckAlarm();
-  console.log("Tab tracker initialized with", Object.keys(tabActivity).length, "tabs");
 }
 
 // Setup periodic check alarm based on settings
@@ -23,7 +22,6 @@ export async function setupTabCheckAlarm() {
     chrome.alarms.create(ALARM_NAMES.TAB_CHECK, {
       periodInMinutes: 1,
     });
-    console.log("Tab check alarm set (every 1 minute)");
   }
 }
 
@@ -77,13 +75,9 @@ export async function checkAndUnloadInactiveTabs() {
     // Skip if recently active (unless blacklisted)
     if (!blacklisted && lastActive > cutoffTime) continue;
 
-    if (await discardTab(tabId)) {
+    if (await discardTab(tabId, { settings })) {
       unloadedCount++;
     }
-  }
-
-  if (unloadedCount > 0) {
-    console.log(`Timer check: unloaded ${unloadedCount} inactive tabs`);
   }
 
   return unloadedCount;
@@ -113,7 +107,6 @@ export async function cleanupStaleActivity() {
 
   if (cleaned > 0) {
     await saveTabActivity(tabActivity);
-    console.log(`Cleaned up ${cleaned} stale tab entries`);
   }
 }
 

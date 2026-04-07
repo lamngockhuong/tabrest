@@ -65,8 +65,12 @@ function checkForUnsavedData() {
 }
 
 // Track contenteditable modifications
-document.addEventListener("input", (e) => {
-  if (e.target.isContentEditable) {
-    e.target.dataset.tabrestModified = "true";
-  }
-}, true);
+document.addEventListener(
+  "input",
+  (e) => {
+    if (e.target.isContentEditable) {
+      e.target.dataset.tabrestModified = "true";
+    }
+  },
+  true,
+);

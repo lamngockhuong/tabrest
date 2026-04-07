@@ -246,7 +246,7 @@ async function renderTabList() {
           </div>
         </div>
         <div class="tab-status">
-          ${!tab.active && !tab.discarded && !tab.isProtected ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="Unload">💤</button>` : ""}
+          ${!tab.active && !tab.discarded ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="${tab.isProtected ? "Force unload" : "Unload"}">💤</button>` : ""}
           ${statusBadge}
         </div>
       </div>

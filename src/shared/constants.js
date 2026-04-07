@@ -19,6 +19,9 @@ export const ALARM_NAMES = {
   MEMORY_CHECK: "memory-check-alarm",
 };
 
+// Timeout for form data check (content script message)
+export const FORM_CHECK_TIMEOUT_MS = 300;
+
 // Chrome storage keys
 export const STORAGE_KEYS = {
   SETTINGS: "settings",

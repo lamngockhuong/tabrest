@@ -1,4 +1,4 @@
-import { ALARM_NAMES } from "../shared/constants.js";
+import { ALARM_NAMES, FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
 import {
   checkMemoryAndUnload,
@@ -31,29 +31,22 @@ import {
 
 // Browser startup - initialize trackers and auto-unload
 chrome.runtime.onStartup.addListener(async () => {
-  console.log("Browser started");
   await initTabTracker();
   await initMemoryMonitor();
   await initStats();
   await syncAllTabs();
   await cleanupStaleActivity();
-
-  const count = await discardAllTabsOnStartup();
-  console.log(`Auto-unloaded ${count} tabs on startup`);
+  await discardAllTabsOnStartup();
   updateBadge();
 });
 
 // Extension installed/updated
 chrome.runtime.onInstalled.addListener(async (details) => {
-  console.log("Extension installed/updated:", details.reason);
   await initTabTracker();
   await initMemoryMonitor();
   await initStats();
   await syncAllTabs();
   setupContextMenus();
-
-  const settings = await getSettings();
-  console.log("Current settings:", settings);
   updateBadge();
 
   // Open engagement pages
@@ -130,8 +123,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 
 // Keyboard shortcuts handler
 chrome.commands.onCommand.addListener(async (command) => {
-  console.log("Command received:", command);
-
   switch (command) {
     case "unload-current":
       await discardCurrentTab();
@@ -184,7 +175,6 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 // Settings changed - reconfigure alarms and badge
 chrome.storage.onChanged.addListener(async (changes, area) => {
   if (area === "sync" && changes.settings) {
-    console.log("Settings changed, reconfiguring alarms...");
     await setupTabCheckAlarm();
     await setupMemoryCheckAlarm();
     updateBadge();
@@ -220,7 +210,7 @@ async function handleMessage(message) {
     case "get-tabs-with-status":
       return await getTabsWithStatus();
     case "unload-tab":
-      return await discardTab(tabId);
+      return await discardTab(tabId, { force: true });
     // Session commands
     case "get-sessions":
       return await getSessions();
@@ -243,7 +233,7 @@ async function checkTabFormData(tabId) {
   try {
     const response = await Promise.race([
       chrome.tabs.sendMessage(tabId, { action: "checkFormData" }),
-      new Promise((resolve) => setTimeout(() => resolve(null), 300)),
+      new Promise((resolve) => setTimeout(() => resolve(null), FORM_CHECK_TIMEOUT_MS)),
     ]);
     return response?.hasFormData || false;
   } catch {
@@ -264,7 +254,7 @@ async function getTabsWithStatus() {
   if (settings.protectFormTabs) {
     const eligibleTabs = tabs.filter((t) => !t.discarded && !t.active && t.url?.startsWith("http"));
     const formChecks = await Promise.all(
-      eligibleTabs.map(async (t) => ({ id: t.id, hasForm: await checkTabFormData(t.id) }))
+      eligibleTabs.map(async (t) => ({ id: t.id, hasForm: await checkTabFormData(t.id) })),
     );
     for (const { id, hasForm } of formChecks) {
       formDataMap.set(id, hasForm);
@@ -322,5 +312,3 @@ async function updateBadge() {
   chrome.action.setBadgeText({ text: count > 0 ? count.toString() : "" });
   chrome.action.setBadgeBackgroundColor({ color: "#4338CA" });
 }
-
-console.log("TabRest service worker initialized");

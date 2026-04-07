@@ -1,3 +1,4 @@
+import { FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
 import { recordUnload } from "./stats-collector.js";
 
@@ -18,7 +19,7 @@ async function shouldProtectTab(tab, settings) {
     try {
       const response = await Promise.race([
         chrome.tabs.sendMessage(tab.id, { action: "checkFormData" }),
-        new Promise((resolve) => setTimeout(() => resolve(null), 500)),
+        new Promise((resolve) => setTimeout(() => resolve(null), FORM_CHECK_TIMEOUT_MS)),
       ]);
       if (response?.hasFormData) {
         return { protected: true, reason: "form" };
@@ -31,29 +32,37 @@ async function shouldProtectTab(tab, settings) {
   return { protected: false };
 }
 
-// Discard a single tab by ID (accepts optional settings to avoid refetching in batch)
-export async function discardTab(tabId, settings = null) {
+// Discard a single tab by ID
+// @param {number} tabId - Tab ID to discard
+// @param {object} options - { settings, force }
+//   - settings: Pre-fetched settings to avoid refetching in batch
+//   - force: Bypass protection checks (for user-initiated unloads)
+export async function discardTab(tabId, options = {}) {
+  const { settings: providedSettings = null, force = false } = options;
+
   try {
     const tab = await chrome.tabs.get(tabId);
 
     // Can't discard active tab or already discarded
     if (tab.active || tab.discarded) return false;
 
-    settings = settings ?? await getSettings();
-    if (tab.pinned && !settings.unloadPinnedTabs) return false;
+    const settings = providedSettings ?? (await getSettings());
 
-    // Check whitelist
-    if (isWhitelisted(tab.url, settings)) return false;
+    // Skip protection checks if force unload
+    if (!force) {
+      if (tab.pinned && !settings.unloadPinnedTabs) return false;
 
-    // Check audio/form protection
-    const protection = await shouldProtectTab(tab, settings);
-    if (protection.protected) {
-      console.log(`Tab protected (${protection.reason}): ${tab.title}`);
-      return false;
+      // Check whitelist
+      if (isWhitelisted(tab.url, settings)) return false;
+
+      // Check audio/form protection
+      const protection = await shouldProtectTab(tab, settings);
+      if (protection.protected) {
+        return false;
+      }
     }
 
     await chrome.tabs.discard(tabId);
-    console.log(`Discarded tab: ${tab.title}`);
 
     // Record stats if enabled
     if (settings.enableStats) {
@@ -99,7 +108,7 @@ export async function discardTabsToRight() {
   const settings = await getSettings();
   let count = 0;
   for (const tab of tabsToRight) {
-    if (await discardTab(tab.id, settings)) count++;
+    if (await discardTab(tab.id, { settings })) count++;
   }
   return count;
 }
@@ -116,7 +125,7 @@ export async function discardTabsToLeft() {
   const settings = await getSettings();
   let count = 0;
   for (const tab of tabsToLeft) {
-    if (await discardTab(tab.id, settings)) count++;
+    if (await discardTab(tab.id, { settings })) count++;
   }
   return count;
 }
@@ -130,7 +139,7 @@ export async function discardOtherTabs() {
   const settings = await getSettings();
   let count = 0;
   for (const tab of tabs) {
-    if (tab.id !== activeTab.id && (await discardTab(tab.id, settings))) count++;
+    if (tab.id !== activeTab.id && (await discardTab(tab.id, { settings }))) count++;
   }
   return count;
 }
@@ -151,14 +160,12 @@ export async function discardTabGroup(groupId) {
   }
 
   const tabs = await chrome.tabs.query({ groupId: numericGroupId });
-  const eligibleTabIds = tabs
-    .filter((tab) => !tab.active && !tab.discarded)
-    .map((tab) => tab.id);
+  const eligibleTabIds = tabs.filter((tab) => !tab.active && !tab.discarded).map((tab) => tab.id);
 
   const settings = await getSettings();
   let count = 0;
   for (const tabId of eligibleTabIds) {
-    if (await discardTab(tabId, settings)) count++;
+    if (await discardTab(tabId, { settings })) count++;
   }
   return count;
 }
@@ -168,9 +175,7 @@ function matchesDomainList(url, domainList) {
   if (!url || !domainList?.length) return false;
   try {
     const hostname = new URL(url).hostname;
-    return domainList.some(
-      (domain) => hostname === domain || hostname.endsWith(`.${domain}`),
-    );
+    return domainList.some((domain) => hostname === domain || hostname.endsWith(`.${domain}`));
   } catch {
     return false;
   }
@@ -187,4 +192,4 @@ function isBlacklisted(url, settings) {
 }
 
 // Export for external use
-export { isWhitelisted as isUrlWhitelisted, isBlacklisted as isUrlBlacklisted };
+export { isBlacklisted as isUrlBlacklisted, isWhitelisted as isUrlWhitelisted };

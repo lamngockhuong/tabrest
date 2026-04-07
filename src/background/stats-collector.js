@@ -48,7 +48,6 @@ export async function initStats() {
   const result = await chrome.storage.local.get(STATS_KEY);
   if (!result[STATS_KEY]) {
     await chrome.storage.local.set({ [STATS_KEY]: defaultStats() });
-    console.log("Stats initialized with defaults");
   }
 }
 

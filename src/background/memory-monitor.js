@@ -8,7 +8,6 @@ let lastMemoryInfo = null;
 // Initialize memory monitor and setup alarm
 export async function initMemoryMonitor() {
   await setupMemoryCheckAlarm();
-  console.log("Memory monitor initialized");
 }
 
 // Setup periodic memory check alarm based on settings
@@ -21,7 +20,6 @@ export async function setupMemoryCheckAlarm() {
     chrome.alarms.create(ALARM_NAMES.MEMORY_CHECK, {
       periodInMinutes: 0.5,
     });
-    console.log("Memory check alarm set (every 30 seconds)");
   }
 }
 
@@ -63,10 +61,6 @@ export async function checkMemoryAndUnload() {
     return 0; // Under threshold
   }
 
-  console.log(
-    `Memory usage ${usagePercent}% exceeds threshold ${settings.memoryThresholdPercent}%`,
-  );
-
   // Get LRU sorted tabs and unload oldest ones
   const lruTabs = getLRUSortedTabs();
   let unloadedCount = 0;
@@ -77,13 +71,9 @@ export async function checkMemoryAndUnload() {
   for (const tabId of lruTabs) {
     if (unloadedCount >= maxUnload) break;
 
-    if (await discardTab(tabId)) {
+    if (await discardTab(tabId, { settings })) {
       unloadedCount++;
     }
-  }
-
-  if (unloadedCount > 0) {
-    console.log(`Memory threshold: unloaded ${unloadedCount} tabs`);
   }
 
   return unloadedCount;
