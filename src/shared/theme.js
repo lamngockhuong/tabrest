@@ -1,8 +1,8 @@
 // Theme management module
 // Handles dark/light theme switching with system preference detection
 
-const THEME_KEY = 'tabrest_theme';
-const THEMES = { LIGHT: 'light', DARK: 'dark' };
+const THEME_KEY = "tabrest_theme";
+const THEMES = { LIGHT: "light", DARK: "dark" };
 
 /**
  * Get saved theme or detect system preference
@@ -13,7 +13,7 @@ export async function getTheme() {
   if (result[THEME_KEY]) return result[THEME_KEY];
 
   // Detect system preference
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   return prefersDark ? THEMES.DARK : THEMES.LIGHT;
 }
 
@@ -30,7 +30,7 @@ export async function setTheme(theme) {
  * @param {string} theme - Theme name
  */
 export function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.setAttribute("data-theme", theme);
 }
 
 /**
@@ -48,11 +48,11 @@ export async function initTheme() {
  * @returns {Promise<string>} New theme name
  */
 export async function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme') || THEMES.LIGHT;
+  const current = document.documentElement.getAttribute("data-theme") || THEMES.LIGHT;
   const next = current === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK;
   applyTheme(next);
   await setTheme(next);
   return next;
 }
 
-export { THEMES, THEME_KEY };
+export { THEME_KEY, THEMES };

@@ -1,7 +1,7 @@
 // Enhanced stats collection module
 // Tracks detailed metrics: today/all-time/member since/RAM saved
 
-import { STORAGE_KEYS } from '../shared/constants.js';
+import { STORAGE_KEYS } from "../shared/constants.js";
 
 const STATS_KEY = STORAGE_KEYS.STATS;
 const MB_PER_TAB = 150; // Estimated MB saved per suspended tab
@@ -10,7 +10,7 @@ const MB_PER_TAB = 150; // Estimated MB saved per suspended tab
  * Get today's date string (YYYY-MM-DD)
  */
 function getTodayDate() {
-  return new Date().toISOString().split('T')[0];
+  return new Date().toISOString().split("T")[0];
 }
 
 /**
@@ -22,7 +22,7 @@ function defaultStats() {
     totalTabsSuspendedToday: 0,
     todayDate: getTodayDate(),
     installDate: Date.now(),
-    memorySaved: 0
+    memorySaved: 0,
   };
 }
 
@@ -48,7 +48,7 @@ export async function initStats() {
   const result = await chrome.storage.local.get(STATS_KEY);
   if (!result[STATS_KEY]) {
     await chrome.storage.local.set({ [STATS_KEY]: defaultStats() });
-    console.log('Stats initialized with defaults');
+    console.log("Stats initialized with defaults");
   }
 }
 

@@ -1,5 +1,5 @@
-import { getSettings } from '../shared/storage.js';
-import { recordUnload } from './stats-collector.js';
+import { getSettings } from "../shared/storage.js";
+import { recordUnload } from "./stats-collector.js";
 
 /**
  * Check if tab should be protected from unloading
@@ -10,18 +10,18 @@ import { recordUnload } from './stats-collector.js';
 async function shouldProtectTab(tab, settings) {
   // Audio protection - skip tabs playing audio
   if (settings.protectAudioTabs && tab.audible) {
-    return { protected: true, reason: 'audio' };
+    return { protected: true, reason: "audio" };
   }
 
   // Form protection - check for unsaved form data
   if (settings.protectFormTabs) {
     try {
       const response = await Promise.race([
-        chrome.tabs.sendMessage(tab.id, { action: 'checkFormData' }),
-        new Promise(resolve => setTimeout(() => resolve(null), 500))
+        chrome.tabs.sendMessage(tab.id, { action: "checkFormData" }),
+        new Promise((resolve) => setTimeout(() => resolve(null), 500)),
       ]);
       if (response?.hasFormData) {
-        return { protected: true, reason: 'form' };
+        return { protected: true, reason: "form" };
       }
     } catch {
       // Content script not loaded, proceed with unload
@@ -63,7 +63,7 @@ export async function discardTab(tabId) {
     return true;
   } catch (error) {
     // Tab closed between query and discard - expected during batch operations
-    if (!error.message?.includes('No tab with id')) {
+    if (!error.message?.includes("No tab with id")) {
       console.error(`Failed to discard tab ${tabId}:`, error);
     }
     return false;
@@ -77,7 +77,7 @@ export async function discardCurrentTab() {
 
   // Switch to adjacent tab first
   const tabs = await chrome.tabs.query({ currentWindow: true });
-  const currentIndex = tabs.findIndex(t => t.id === activeTab.id);
+  const currentIndex = tabs.findIndex((t) => t.id === activeTab.id);
   const nextTab = tabs[currentIndex + 1] || tabs[currentIndex - 1];
 
   if (nextTab) {
@@ -93,7 +93,7 @@ export async function discardTabsToRight() {
   if (!activeTab) return 0;
 
   const tabs = await chrome.tabs.query({ currentWindow: true });
-  const currentIndex = tabs.findIndex(t => t.id === activeTab.id);
+  const currentIndex = tabs.findIndex((t) => t.id === activeTab.id);
   const tabsToRight = tabs.slice(currentIndex + 1);
 
   let count = 0;
@@ -109,7 +109,7 @@ export async function discardTabsToLeft() {
   if (!activeTab) return 0;
 
   const tabs = await chrome.tabs.query({ currentWindow: true });
-  const currentIndex = tabs.findIndex(t => t.id === activeTab.id);
+  const currentIndex = tabs.findIndex((t) => t.id === activeTab.id);
   const tabsToLeft = tabs.slice(0, currentIndex);
 
   let count = 0;
@@ -127,7 +127,7 @@ export async function discardOtherTabs() {
   const tabs = await chrome.tabs.query({ currentWindow: true });
   let count = 0;
   for (const tab of tabs) {
-    if (tab.id !== activeTab.id && await discardTab(tab.id)) count++;
+    if (tab.id !== activeTab.id && (await discardTab(tab.id))) count++;
   }
   return count;
 }
@@ -156,8 +156,8 @@ function isWhitelisted(url, settings) {
   if (!url || !settings?.whitelist) return false;
   try {
     const hostname = new URL(url).hostname;
-    return settings.whitelist.some(domain =>
-      hostname === domain || hostname.endsWith('.' + domain)
+    return settings.whitelist.some(
+      (domain) => hostname === domain || hostname.endsWith(`.${domain}`),
     );
   } catch {
     return false;

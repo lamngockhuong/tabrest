@@ -58,6 +58,16 @@ tabrest/
 └── docs/                   # Store assets
 ```
 
+## Development
+
+```bash
+pnpm install          # Install dependencies
+pnpm run lint         # Check code with Biome
+pnpm run lint:fix     # Auto-fix lint issues
+pnpm run format       # Format code
+pnpm run ci           # Run full CI (validate + lint)
+```
+
 ## Privacy
 
 - No data collection

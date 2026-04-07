@@ -1,8 +1,8 @@
 // Onboarding page script
-import { injectIcons } from '../shared/icons.js';
-import { initTheme } from '../shared/theme.js';
+import { injectIcons } from "../shared/icons.js";
+import { initTheme } from "../shared/theme.js";
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // Initialize theme
   await initTheme();
 
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   injectIcons();
 
   // Close button handler
-  document.getElementById('btn-get-started').addEventListener('click', () => {
+  document.getElementById("btn-get-started").addEventListener("click", () => {
     window.close();
   });
 });

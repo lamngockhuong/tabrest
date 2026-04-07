@@ -1,50 +1,50 @@
-import { getSettings, saveSettings } from '../shared/storage.js';
-import { formatBytes } from '../shared/utils.js';
-import { initTheme, toggleTheme, THEMES } from '../shared/theme.js';
-import { injectIcons } from '../shared/icons.js';
+import { injectIcons } from "../shared/icons.js";
+import { getSettings, saveSettings } from "../shared/storage.js";
+import { initTheme, THEMES, toggleTheme } from "../shared/theme.js";
+import { formatBytes } from "../shared/utils.js";
 
 // DOM Elements
 const elements = {
   // Stats strip
-  statSleeping: document.getElementById('stat-sleeping'),
-  statProtected: document.getElementById('stat-protected'),
-  statSaved: document.getElementById('stat-saved'),
+  statSleeping: document.getElementById("stat-sleeping"),
+  statProtected: document.getElementById("stat-protected"),
+  statSaved: document.getElementById("stat-saved"),
   // Settings
-  timerSelect: document.getElementById('timer-select'),
-  thresholdSelect: document.getElementById('threshold-select'),
-  settingsBtn: document.getElementById('settings-btn'),
-  settingsToggle: document.getElementById('settings-toggle'),
-  settingsBody: document.getElementById('settings-body'),
+  timerSelect: document.getElementById("timer-select"),
+  thresholdSelect: document.getElementById("threshold-select"),
+  settingsBtn: document.getElementById("settings-btn"),
+  settingsToggle: document.getElementById("settings-toggle"),
+  settingsBody: document.getElementById("settings-body"),
   // More actions
-  moreToggle: document.getElementById('more-toggle'),
-  moreBody: document.getElementById('more-body'),
+  moreToggle: document.getElementById("more-toggle"),
+  moreBody: document.getElementById("more-body"),
   // Tab groups
-  tabGroupsSection: document.getElementById('tab-groups-section'),
-  tabGroupSelect: document.getElementById('tab-group-select'),
+  tabGroupsSection: document.getElementById("tab-groups-section"),
+  tabGroupSelect: document.getElementById("tab-group-select"),
   // Tab list
-  tabsToggle: document.getElementById('tabs-toggle'),
-  tabsBody: document.getElementById('tabs-body'),
-  tabList: document.getElementById('tab-list'),
-  refreshTabs: document.getElementById('refresh-tabs'),
+  tabsToggle: document.getElementById("tabs-toggle"),
+  tabsBody: document.getElementById("tabs-body"),
+  tabList: document.getElementById("tab-list"),
+  refreshTabs: document.getElementById("refresh-tabs"),
   // Theme
-  themeToggle: document.getElementById('theme-toggle'),
-  themeIcon: document.getElementById('theme-icon'),
+  themeToggle: document.getElementById("theme-toggle"),
+  themeIcon: document.getElementById("theme-icon"),
   // Toast
-  toast: document.getElementById('toast'),
+  toast: document.getElementById("toast"),
   // Sessions
-  sessionList: document.getElementById('session-list'),
-  sessionNameInput: document.getElementById('session-name-input'),
-  btnSaveSession: document.getElementById('btn-save-session'),
+  sessionList: document.getElementById("session-list"),
+  sessionNameInput: document.getElementById("session-name-input"),
+  btnSaveSession: document.getElementById("btn-save-session"),
   // Detailed stats
-  statToday: document.getElementById('stat-today'),
-  statAllTime: document.getElementById('stat-all-time'),
-  statRam: document.getElementById('stat-ram'),
-  statMemberSince: document.getElementById('stat-member-since'),
+  statToday: document.getElementById("stat-today"),
+  statAllTime: document.getElementById("stat-all-time"),
+  statRam: document.getElementById("stat-ram"),
+  statMemberSince: document.getElementById("stat-member-since"),
   // Review prompt
-  reviewPrompt: document.getElementById('review-prompt'),
-  reviewYes: document.getElementById('review-yes'),
-  reviewNo: document.getElementById('review-no'),
-  reviewDismiss: document.getElementById('review-dismiss')
+  reviewPrompt: document.getElementById("review-prompt"),
+  reviewYes: document.getElementById("review-yes"),
+  reviewNo: document.getElementById("review-no"),
+  reviewDismiss: document.getElementById("review-dismiss"),
 };
 
 // --- Utility Functions ---
@@ -57,25 +57,29 @@ async function sendCommand(command, data = {}) {
 // Get hostname from URL
 function getHostname(url) {
   try {
-    return new URL(url).hostname.replace('www.', '');
+    return new URL(url).hostname.replace("www.", "");
   } catch {
-    return '';
+    return "";
   }
 }
 
 // Escape HTML to prevent XSS
 function escapeHtml(text) {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
 }
 
 // Attach error handlers to hide broken favicon images
 function attachFaviconErrorHandlers(container, selector) {
-  container.querySelectorAll(selector).forEach(img => {
-    img.addEventListener('error', () => {
-      img.style.display = 'none';
-    }, { once: true });
+  container.querySelectorAll(selector).forEach((img) => {
+    img.addEventListener(
+      "error",
+      () => {
+        img.style.display = "none";
+      },
+      { once: true },
+    );
   });
 }
 
@@ -88,13 +92,13 @@ function getStatusBadge(tab) {
     return '<span class="badge badge-sleeping">💤 ZZZ</span>';
   }
   if (tab.isProtected) {
-    return `<span class="badge badge-protected" title="${tab.pinned ? 'Pinned' : 'Whitelisted'}">🛡️</span>`;
+    return `<span class="badge badge-protected" title="${tab.pinned ? "Pinned" : "Whitelisted"}">🛡️</span>`;
   }
   if (tab.timeUntilUnload !== null && tab.timeUntilUnload > 0) {
     const mins = Math.ceil(tab.timeUntilUnload / 60000);
     return `<span class="badge badge-timer" title="Time until auto-unload">⏱️ ${mins}m</span>`;
   }
-  return '';
+  return "";
 }
 
 // Toast notification
@@ -102,18 +106,19 @@ let toastTimer = null;
 
 function showToast(message, duration = 2500) {
   elements.toast.textContent = message;
-  elements.toast.classList.add('show');
+  elements.toast.classList.add("show");
 
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {
-    elements.toast.classList.remove('show');
+    elements.toast.classList.remove("show");
   }, duration);
 }
 
 // Update theme toggle icon based on current theme
 function updateThemeIcon(theme) {
-  elements.themeIcon.textContent = theme === THEMES.DARK ? '☀️' : '🌙';
-  elements.themeToggle.title = theme === THEMES.DARK ? 'Switch to light mode' : 'Switch to dark mode';
+  elements.themeIcon.textContent = theme === THEMES.DARK ? "☀️" : "🌙";
+  elements.themeToggle.title =
+    theme === THEMES.DARK ? "Switch to light mode" : "Switch to dark mode";
 }
 
 // Setup collapsible section
@@ -122,15 +127,15 @@ function setupCollapsible(toggleId, bodyId) {
   const body = document.getElementById(bodyId);
   if (!toggle || !body) return;
 
-  toggle.addEventListener('click', () => {
-    const isOpen = body.classList.contains('open');
+  toggle.addEventListener("click", () => {
+    const isOpen = body.classList.contains("open");
 
     if (isOpen) {
-      body.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
+      body.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
     } else {
-      body.classList.add('open');
-      toggle.setAttribute('aria-expanded', 'true');
+      body.classList.add("open");
+      toggle.setAttribute("aria-expanded", "true");
     }
   });
 }
@@ -139,12 +144,12 @@ function setupCollapsible(toggleId, bodyId) {
 function relativeTime(ts) {
   const diff = Date.now() - ts;
   const mins = Math.floor(diff / 60000);
-  if (mins < 1) return 'just now';
+  if (mins < 1) return "just now";
   if (mins < 60) return `${mins}m ago`;
   const hrs = Math.floor(mins / 60);
   if (hrs < 24) return `${hrs}h ago`;
   const days = Math.floor(hrs / 24);
-  if (days === 1) return 'yesterday';
+  if (days === 1) return "yesterday";
   if (days < 7) return `${days}d ago`;
   return new Date(ts).toLocaleDateString();
 }
@@ -164,11 +169,11 @@ async function updateStats() {
   const [allTabs, currentWindowTabs, statsResult] = await Promise.all([
     chrome.tabs.query({}),
     chrome.tabs.query({ currentWindow: true }),
-    chrome.storage.local.get('stats')
+    chrome.storage.local.get("stats"),
   ]);
 
-  const discardedCount = allTabs.filter(t => t.discarded).length;
-  const protectedCount = currentWindowTabs.filter(t => t.pinned || t.active).length;
+  const discardedCount = allTabs.filter((t) => t.discarded).length;
+  const protectedCount = currentWindowTabs.filter((t) => t.pinned || t.active).length;
 
   elements.statSleeping.textContent = discardedCount;
   elements.statProtected.textContent = protectedCount;
@@ -177,7 +182,7 @@ async function updateStats() {
   if (statsResult.stats?.memorySaved) {
     elements.statSaved.textContent = `~${formatBytes(statsResult.stats.memorySaved)}`;
   } else {
-    elements.statSaved.textContent = '—';
+    elements.statSaved.textContent = "—";
   }
 }
 
@@ -186,10 +191,10 @@ async function loadTabGroups() {
   try {
     const groups = await chrome.tabGroups.query({});
     if (groups.length > 0) {
-      elements.tabGroupsSection.classList.remove('hidden');
+      elements.tabGroupsSection.classList.remove("hidden");
       elements.tabGroupSelect.innerHTML = '<option value="">Select Tab Group...</option>';
       for (const group of groups) {
-        const option = document.createElement('option');
+        const option = document.createElement("option");
         option.value = group.id;
         option.textContent = group.title || `Group ${group.id}`;
         elements.tabGroupSelect.appendChild(option);
@@ -202,23 +207,24 @@ async function loadTabGroups() {
 
 // Render tab list with status indicators
 async function renderTabList() {
-  const tabs = await sendCommand('get-tabs-with-status');
+  const tabs = await sendCommand("get-tabs-with-status");
   if (!tabs) {
     elements.tabList.innerHTML = '<div class="tab-item-empty">Unable to load tabs</div>';
     return;
   }
 
-  elements.tabList.innerHTML = tabs.map(tab => {
-    const statusBadge = getStatusBadge(tab);
-    const favicon = tab.favIconUrl
-      ? `<img class="tab-favicon" src="${tab.favIconUrl}" alt="">`
-      : '<span class="tab-favicon-placeholder">🌐</span>';
+  elements.tabList.innerHTML = tabs
+    .map((tab) => {
+      const statusBadge = getStatusBadge(tab);
+      const favicon = tab.favIconUrl
+        ? `<img class="tab-favicon" src="${tab.favIconUrl}" alt="">`
+        : '<span class="tab-favicon-placeholder">🌐</span>';
 
-    const title = escapeHtml(tab.title.length > 30 ? tab.title.slice(0, 30) + '...' : tab.title);
-    const hostname = getHostname(tab.url);
+      const title = escapeHtml(tab.title.length > 30 ? `${tab.title.slice(0, 30)}...` : tab.title);
+      const hostname = getHostname(tab.url);
 
-    return `
-      <div class="tab-item ${tab.active ? 'active' : ''} ${tab.discarded ? 'discarded' : ''}"
+      return `
+      <div class="tab-item ${tab.active ? "active" : ""} ${tab.discarded ? "discarded" : ""}"
            data-tab-id="${tab.id}"
            title="${escapeHtml(tab.title)}">
         <div class="tab-info">
@@ -229,14 +235,15 @@ async function renderTabList() {
           </div>
         </div>
         <div class="tab-status">
-          ${!tab.active && !tab.discarded && !tab.isProtected ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="Unload">💤</button>` : ''}
+          ${!tab.active && !tab.discarded && !tab.isProtected ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="Unload">💤</button>` : ""}
           ${statusBadge}
         </div>
       </div>
     `;
-  }).join('');
+    })
+    .join("");
 
-  attachFaviconErrorHandlers(elements.tabList, '.tab-favicon');
+  attachFaviconErrorHandlers(elements.tabList, ".tab-favicon");
 }
 
 // Validate URL is safe (http/https only)
@@ -244,7 +251,7 @@ function isSafeUrl(url) {
   if (!url) return false;
   try {
     const parsed = new URL(url);
-    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
   } catch {
     return false;
   }
@@ -252,20 +259,26 @@ function isSafeUrl(url) {
 
 // Render sessions list
 async function renderSessions() {
-  const sessions = await sendCommand('get-sessions');
+  const sessions = await sendCommand("get-sessions");
 
-  if (!sessions || !sessions.length) {
+  if (!sessions?.length) {
     elements.sessionList.innerHTML = '<div class="empty-state">Save your first session</div>';
     return;
   }
 
-  elements.sessionList.innerHTML = sessions.map(s => {
-    // Only render favicons from safe URLs
-    const favicons = s.tabs.slice(0, 4).map(t =>
-      (t.favIconUrl && isSafeUrl(t.favIconUrl)) ? `<img src="${escapeHtml(t.favIconUrl)}" alt="">` : ''
-    ).join('');
+  elements.sessionList.innerHTML = sessions
+    .map((s) => {
+      // Only render favicons from safe URLs
+      const favicons = s.tabs
+        .slice(0, 4)
+        .map((t) =>
+          t.favIconUrl && isSafeUrl(t.favIconUrl)
+            ? `<img src="${escapeHtml(t.favIconUrl)}" alt="">`
+            : "",
+        )
+        .join("");
 
-    return `
+      return `
       <div class="session-card" data-session-id="${s.id}">
         <div class="session-favicon-stack">${favicons}</div>
         <div class="session-info">
@@ -282,16 +295,17 @@ async function renderSessions() {
         </div>
       </div>
     `;
-  }).join('');
+    })
+    .join("");
 
-  attachFaviconErrorHandlers(elements.sessionList, '.session-favicon-stack img');
+  attachFaviconErrorHandlers(elements.sessionList, ".session-favicon-stack img");
 
   injectIcons();
 }
 
 // Render detailed stats section
 async function renderDetailedStats() {
-  const stats = await sendCommand('get-stats');
+  const stats = await sendCommand("get-stats");
   if (!stats) return;
 
   elements.statToday.textContent = stats.totalTabsSuspendedToday || 0;
@@ -299,30 +313,32 @@ async function renderDetailedStats() {
 
   // Format RAM
   const ramMb = stats.estimatedRamSaved || 0;
-  elements.statRam.textContent = ramMb >= 1024
-    ? `~${(ramMb / 1024).toFixed(1)} GB`
-    : `~${ramMb} MB`;
+  elements.statRam.textContent =
+    ramMb >= 1024 ? `~${(ramMb / 1024).toFixed(1)} GB` : `~${ramMb} MB`;
 
   // Format member since
   if (stats.installDate) {
-    elements.statMemberSince.textContent = new Date(stats.installDate).toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
+    elements.statMemberSince.textContent = new Date(stats.installDate).toLocaleDateString(
+      undefined,
+      {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      },
+    );
   }
 }
 
 // Review prompt URLs
-const REVIEW_URL = 'https://chromewebstore.google.com/detail/tabrest/placeholder-id/reviews';
-const ISSUES_URL = 'https://github.com/lamngockhuong/tabrest/issues';
+const REVIEW_URL = "https://chromewebstore.google.com/detail/tabrest/placeholder-id/reviews";
+const ISSUES_URL = "https://github.com/lamngockhuong/tabrest/issues";
 
 // Check and show review prompt
 async function checkReviewPrompt() {
   const data = await chrome.storage.local.get([
-    'tabrest_stats',
-    'reviewPromptCompleted',
-    'reviewPromptDismissCount'
+    "tabrest_stats",
+    "reviewPromptCompleted",
+    "reviewPromptDismissCount",
   ]);
 
   const stats = data.tabrest_stats;
@@ -331,18 +347,18 @@ async function checkReviewPrompt() {
   if ((data.reviewPromptDismissCount || 0) >= 2) return;
 
   // Show prompt
-  elements.reviewPrompt.style.display = '';
+  elements.reviewPrompt.style.display = "";
   injectIcons();
 }
 
 function hideReviewPrompt() {
-  elements.reviewPrompt.style.display = 'none';
+  elements.reviewPrompt.style.display = "none";
 }
 
 function incrementDismiss() {
-  chrome.storage.local.get('reviewPromptDismissCount', (data) => {
+  chrome.storage.local.get("reviewPromptDismissCount", (data) => {
     chrome.storage.local.set({
-      reviewPromptDismissCount: (data.reviewPromptDismissCount || 0) + 1
+      reviewPromptDismissCount: (data.reviewPromptDismissCount || 0) + 1,
     });
   });
 }
@@ -350,43 +366,43 @@ function incrementDismiss() {
 // Setup event listeners
 function setupEventListeners() {
   // Settings button
-  elements.settingsBtn.addEventListener('click', () => {
+  elements.settingsBtn.addEventListener("click", () => {
     chrome.runtime.openOptionsPage();
   });
 
   // Theme toggle button
-  elements.themeToggle.addEventListener('click', async () => {
+  elements.themeToggle.addEventListener("click", async () => {
     const newTheme = await toggleTheme();
     updateThemeIcon(newTheme);
   });
 
   // Refresh tabs button
-  elements.refreshTabs.addEventListener('click', async (e) => {
+  elements.refreshTabs.addEventListener("click", async (e) => {
     e.stopPropagation();
     await Promise.all([renderTabList(), updateStats()]);
-    showToast('Refreshed');
+    showToast("Refreshed");
   });
 
   // Setup collapsible sections
-  setupCollapsible('tabs-toggle', 'tabs-body');
-  setupCollapsible('settings-toggle', 'settings-body');
-  setupCollapsible('more-toggle', 'more-body');
-  setupCollapsible('sessions-toggle', 'sessions-body');
-  setupCollapsible('stats-toggle', 'stats-body');
+  setupCollapsible("tabs-toggle", "tabs-body");
+  setupCollapsible("settings-toggle", "settings-body");
+  setupCollapsible("more-toggle", "more-body");
+  setupCollapsible("sessions-toggle", "sessions-body");
+  setupCollapsible("stats-toggle", "stats-body");
 
   // Tab list event delegation
-  elements.tabList.addEventListener('click', async (e) => {
-    const item = e.target.closest('.tab-item');
+  elements.tabList.addEventListener("click", async (e) => {
+    const item = e.target.closest(".tab-item");
     if (!item) return;
 
-    if (e.target.classList.contains('tab-unload-btn')) {
+    if (e.target.classList.contains("tab-unload-btn")) {
       e.stopPropagation();
-      const tabId = parseInt(e.target.dataset.tabId);
-      await sendCommand('unload-tab', { tabId });
+      const tabId = Number.parseInt(e.target.dataset.tabId, 10);
+      await sendCommand("unload-tab", { tabId });
       await Promise.all([renderTabList(), updateStats()]);
-      showToast('Tab unloaded');
+      showToast("Tab unloaded");
     } else {
-      const tabId = parseInt(item.dataset.tabId);
+      const tabId = Number.parseInt(item.dataset.tabId, 10);
       await chrome.tabs.update(tabId, { active: true });
       window.close();
     }
@@ -395,8 +411,8 @@ function setupEventListeners() {
   // Quick action buttons - unified handler
   const handleUnloadAction = async (command, data = {}) => {
     const result = await sendCommand(command, data);
-    if (command === 'unload-current') {
-      showToast(result ? 'Tab unloaded' : 'Cannot unload active tab');
+    if (command === "unload-current") {
+      showToast(result ? "Tab unloaded" : "Cannot unload active tab");
     } else {
       showToast(`${result || 0} tabs unloaded`);
     }
@@ -404,77 +420,87 @@ function setupEventListeners() {
     updateStats();
   };
 
-  document.getElementById('unload-current').addEventListener('click', () => handleUnloadAction('unload-current'));
-  document.getElementById('unload-others').addEventListener('click', () => handleUnloadAction('unload-others'));
-  document.getElementById('unload-right').addEventListener('click', () => handleUnloadAction('unload-right'));
-  document.getElementById('unload-left').addEventListener('click', () => handleUnloadAction('unload-left'));
+  document
+    .getElementById("unload-current")
+    .addEventListener("click", () => handleUnloadAction("unload-current"));
+  document
+    .getElementById("unload-others")
+    .addEventListener("click", () => handleUnloadAction("unload-others"));
+  document
+    .getElementById("unload-right")
+    .addEventListener("click", () => handleUnloadAction("unload-right"));
+  document
+    .getElementById("unload-left")
+    .addEventListener("click", () => handleUnloadAction("unload-left"));
 
-  document.getElementById('unload-group')?.addEventListener('click', () => {
-    const groupId = parseInt(elements.tabGroupSelect.value);
-    if (groupId) handleUnloadAction('unload-group', { groupId });
+  document.getElementById("unload-group")?.addEventListener("click", () => {
+    const groupId = Number.parseInt(elements.tabGroupSelect.value, 10);
+    if (groupId) handleUnloadAction("unload-group", { groupId });
   });
 
   // Quick settings
-  elements.timerSelect.addEventListener('change', async (e) => {
+  elements.timerSelect.addEventListener("change", async (e) => {
     const settings = await getSettings();
-    settings.unloadDelayMinutes = parseInt(e.target.value);
+    settings.unloadDelayMinutes = Number.parseInt(e.target.value, 10);
     await saveSettings(settings);
-    showToast('Timer updated');
+    showToast("Timer updated");
   });
 
-  elements.thresholdSelect.addEventListener('change', async (e) => {
+  elements.thresholdSelect.addEventListener("change", async (e) => {
     const settings = await getSettings();
-    settings.memoryThresholdPercent = parseInt(e.target.value);
+    settings.memoryThresholdPercent = Number.parseInt(e.target.value, 10);
     await saveSettings(settings);
-    showToast('Threshold updated');
+    showToast("Threshold updated");
   });
 
   // Session save button
-  elements.btnSaveSession.addEventListener('click', async () => {
-    const result = await sendCommand('save-session', { name: elements.sessionNameInput.value.trim() });
+  elements.btnSaveSession.addEventListener("click", async () => {
+    const result = await sendCommand("save-session", {
+      name: elements.sessionNameInput.value.trim(),
+    });
 
     if (result.success) {
-      elements.sessionNameInput.value = '';
-      showToast('Session saved');
+      elements.sessionNameInput.value = "";
+      showToast("Session saved");
       renderSessions();
     } else {
-      showToast(result.error || 'Failed to save');
+      showToast(result.error || "Failed to save");
     }
   });
 
   // Session list event delegation
-  elements.sessionList.addEventListener('click', async (e) => {
-    const restoreBtn = e.target.closest('.session-restore');
-    const deleteBtn = e.target.closest('.session-delete');
+  elements.sessionList.addEventListener("click", async (e) => {
+    const restoreBtn = e.target.closest(".session-restore");
+    const deleteBtn = e.target.closest(".session-delete");
 
     if (restoreBtn) {
       const id = restoreBtn.dataset.id;
-      const result = await sendCommand('restore-session', { id, mode: 'open' });
+      const result = await sendCommand("restore-session", { id, mode: "open" });
       showToast(result.success ? `Restored ${result.count} tabs` : result.error);
     }
 
     if (deleteBtn) {
       const id = deleteBtn.dataset.id;
-      await sendCommand('delete-session', { id });
+      await sendCommand("delete-session", { id });
       renderSessions();
-      showToast('Session deleted');
+      showToast("Session deleted");
     }
   });
 
   // Review prompt handlers
-  elements.reviewYes?.addEventListener('click', () => {
+  elements.reviewYes?.addEventListener("click", () => {
     chrome.storage.local.set({ reviewPromptCompleted: true });
     chrome.tabs.create({ url: REVIEW_URL });
     hideReviewPrompt();
   });
 
-  elements.reviewNo?.addEventListener('click', () => {
+  elements.reviewNo?.addEventListener("click", () => {
     incrementDismiss();
     chrome.tabs.create({ url: ISSUES_URL });
     hideReviewPrompt();
   });
 
-  elements.reviewDismiss?.addEventListener('click', () => {
+  elements.reviewDismiss?.addEventListener("click", () => {
     incrementDismiss();
     hideReviewPrompt();
   });
@@ -499,7 +525,7 @@ async function init() {
     renderTabList(),
     renderSessions(),
     renderDetailedStats(),
-    checkReviewPrompt()
+    checkReviewPrompt(),
   ]);
   setupEventListeners();
 }

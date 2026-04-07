@@ -1,6 +1,6 @@
-import { getTabActivity, saveTabActivity, getSettings } from '../shared/storage.js';
-import { discardTab } from './unload-manager.js';
-import { ALARM_NAMES } from '../shared/constants.js';
+import { ALARM_NAMES } from "../shared/constants.js";
+import { getSettings, getTabActivity, saveTabActivity } from "../shared/storage.js";
+import { discardTab } from "./unload-manager.js";
 
 // In-memory cache of tab activity: { tabId: lastActiveTimestamp }
 let tabActivity = {};
@@ -10,7 +10,7 @@ let saveTimeout = null;
 export async function initTabTracker() {
   tabActivity = await getTabActivity();
   await setupTabCheckAlarm();
-  console.log('Tab tracker initialized with', Object.keys(tabActivity).length, 'tabs');
+  console.log("Tab tracker initialized with", Object.keys(tabActivity).length, "tabs");
 }
 
 // Setup periodic check alarm based on settings
@@ -21,9 +21,9 @@ export async function setupTabCheckAlarm() {
   if (settings.unloadDelayMinutes > 0) {
     // Check every minute
     chrome.alarms.create(ALARM_NAMES.TAB_CHECK, {
-      periodInMinutes: 1
+      periodInMinutes: 1,
     });
-    console.log('Tab check alarm set (every 1 minute)');
+    console.log("Tab check alarm set (every 1 minute)");
   }
 }
 
@@ -48,7 +48,7 @@ export function getTabActivityMap() {
 export function getLRUSortedTabs() {
   return Object.entries(tabActivity)
     .sort(([, a], [, b]) => a - b)
-    .map(([tabId]) => parseInt(tabId));
+    .map(([tabId]) => Number.parseInt(tabId, 10));
 }
 
 // Check and unload tabs that exceeded the inactivity delay
@@ -56,16 +56,16 @@ export async function checkAndUnloadInactiveTabs() {
   const settings = await getSettings();
   if (settings.unloadDelayMinutes <= 0) return 0;
 
-  const cutoffTime = Date.now() - (settings.unloadDelayMinutes * 60 * 1000);
+  const cutoffTime = Date.now() - settings.unloadDelayMinutes * 60 * 1000;
   const tabs = await chrome.tabs.query({});
 
   // Build Map for O(1) lookup instead of O(n) find per iteration
-  const tabMap = new Map(tabs.map(t => [t.id, t]));
+  const tabMap = new Map(tabs.map((t) => [t.id, t]));
 
   let unloadedCount = 0;
 
   for (const [tabIdStr, lastActive] of Object.entries(tabActivity)) {
-    const tabId = parseInt(tabIdStr);
+    const tabId = Number.parseInt(tabIdStr, 10);
 
     // Skip if recently active
     if (lastActive > cutoffTime) continue;
@@ -97,11 +97,11 @@ function debouncedSave() {
 // Clean up activity entries for tabs that no longer exist
 export async function cleanupStaleActivity() {
   const tabs = await chrome.tabs.query({});
-  const validTabIds = new Set(tabs.map(t => t.id));
+  const validTabIds = new Set(tabs.map((t) => t.id));
 
   let cleaned = 0;
   for (const tabIdStr of Object.keys(tabActivity)) {
-    const tabId = parseInt(tabIdStr);
+    const tabId = Number.parseInt(tabIdStr, 10);
     if (!validTabIds.has(tabId)) {
       delete tabActivity[tabId];
       cleaned++;

@@ -1,14 +1,14 @@
-import { getSettings } from '../shared/storage.js';
-import { getLRUSortedTabs } from './tab-tracker.js';
-import { discardTab } from './unload-manager.js';
-import { ALARM_NAMES } from '../shared/constants.js';
+import { ALARM_NAMES } from "../shared/constants.js";
+import { getSettings } from "../shared/storage.js";
+import { getLRUSortedTabs } from "./tab-tracker.js";
+import { discardTab } from "./unload-manager.js";
 
 let lastMemoryInfo = null;
 
 // Initialize memory monitor and setup alarm
 export async function initMemoryMonitor() {
   await setupMemoryCheckAlarm();
-  console.log('Memory monitor initialized');
+  console.log("Memory monitor initialized");
 }
 
 // Setup periodic memory check alarm based on settings
@@ -19,9 +19,9 @@ export async function setupMemoryCheckAlarm() {
   if (settings.memoryThresholdPercent > 0) {
     // Check every 30 seconds
     chrome.alarms.create(ALARM_NAMES.MEMORY_CHECK, {
-      periodInMinutes: 0.5
+      periodInMinutes: 0.5,
     });
-    console.log('Memory check alarm set (every 30 seconds)');
+    console.log("Memory check alarm set (every 30 seconds)");
   }
 }
 
@@ -32,7 +32,7 @@ export async function getMemoryInfo() {
     lastMemoryInfo = info;
     return info;
   } catch (error) {
-    console.error('Failed to get memory info:', error);
+    console.error("Failed to get memory info:", error);
     return null;
   }
 }
@@ -63,7 +63,9 @@ export async function checkMemoryAndUnload() {
     return 0; // Under threshold
   }
 
-  console.log(`Memory usage ${usagePercent}% exceeds threshold ${settings.memoryThresholdPercent}%`);
+  console.log(
+    `Memory usage ${usagePercent}% exceeds threshold ${settings.memoryThresholdPercent}%`,
+  );
 
   // Get LRU sorted tabs and unload oldest ones
   const lruTabs = getLRUSortedTabs();
@@ -88,4 +90,4 @@ export async function checkMemoryAndUnload() {
 }
 
 // Re-export formatBytes from shared utils for backwards compatibility
-export { formatBytes } from '../shared/utils.js';
+export { formatBytes } from "../shared/utils.js";

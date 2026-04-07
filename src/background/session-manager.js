@@ -2,10 +2,10 @@
 // Handles saving, restoring, and managing tab sessions
 
 const MAX_SESSIONS = 20;
-const SESSIONS_KEY = 'tabrest_sessions';
+const SESSIONS_KEY = "tabrest_sessions";
 
 // Internal protocols to exclude from sessions
-const INTERNAL_PROTOCOLS = ['chrome:', 'chrome-extension:', 'about:', 'file:', 'devtools:'];
+const INTERNAL_PROTOCOLS = ["chrome:", "chrome-extension:", "about:", "file:", "devtools:"];
 
 /**
  * Check if URL is an internal browser URL
@@ -13,7 +13,7 @@ const INTERNAL_PROTOCOLS = ['chrome:', 'chrome-extension:', 'about:', 'file:', '
  * @returns {boolean}
  */
 function isInternalUrl(url) {
-  return !url || INTERNAL_PROTOCOLS.some(p => url.startsWith(p));
+  return !url || INTERNAL_PROTOCOLS.some((p) => url.startsWith(p));
 }
 
 /**
@@ -23,11 +23,11 @@ function isInternalUrl(url) {
 function formatSessionName() {
   const d = new Date();
   return d.toLocaleString(undefined, {
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
   });
 }
 
@@ -49,26 +49,26 @@ export async function saveSession(name) {
   const sessions = await getSessions();
 
   if (sessions.length >= MAX_SESSIONS) {
-    return { success: false, error: 'Maximum sessions reached (20)' };
+    return { success: false, error: "Maximum sessions reached (20)" };
   }
 
   const tabs = await chrome.tabs.query({ currentWindow: true });
-  const validTabs = tabs.filter(t => t.url && !isInternalUrl(t.url));
+  const validTabs = tabs.filter((t) => t.url && !isInternalUrl(t.url));
 
   if (!validTabs.length) {
-    return { success: false, error: 'No saveable tabs in window' };
+    return { success: false, error: "No saveable tabs in window" };
   }
 
   const session = {
     id: `session_${Date.now()}`,
     name: name || formatSessionName(),
     createdAt: Date.now(),
-    tabs: validTabs.map(t => ({
+    tabs: validTabs.map((t) => ({
       url: t.url,
-      title: t.title || 'Untitled',
-      favIconUrl: t.favIconUrl || '',
-      pinned: t.pinned || false
-    }))
+      title: t.title || "Untitled",
+      favIconUrl: t.favIconUrl || "",
+      pinned: t.pinned || false,
+    })),
   };
 
   sessions.unshift(session);
@@ -84,7 +84,7 @@ export async function saveSession(name) {
  */
 export async function deleteSession(id) {
   const sessions = await getSessions();
-  const filtered = sessions.filter(s => s.id !== id);
+  const filtered = sessions.filter((s) => s.id !== id);
   await chrome.storage.local.set({ [SESSIONS_KEY]: filtered });
   return { success: true };
 }
@@ -95,20 +95,20 @@ export async function deleteSession(id) {
  * @param {string} mode - 'open' (add tabs) or 'replace' (close existing)
  * @returns {Promise<{success: boolean, count?: number, error?: string}>}
  */
-export async function restoreSession(id, mode = 'open') {
+export async function restoreSession(id, mode = "open") {
   const sessions = await getSessions();
-  const session = sessions.find(s => s.id === id);
+  const session = sessions.find((s) => s.id === id);
 
   if (!session) {
-    return { success: false, error: 'Session not found' };
+    return { success: false, error: "Session not found" };
   }
 
-  const validTabs = session.tabs.filter(t => t.url && !isInternalUrl(t.url));
+  const validTabs = session.tabs.filter((t) => t.url && !isInternalUrl(t.url));
   if (!validTabs.length) {
-    return { success: false, error: 'No restorable tabs' };
+    return { success: false, error: "No restorable tabs" };
   }
 
-  if (mode === 'replace') {
+  if (mode === "replace") {
     // Close current tabs and open session tabs
     const currentTabs = await chrome.tabs.query({ currentWindow: true });
 
@@ -117,11 +117,11 @@ export async function restoreSession(id, mode = 'open') {
     const newTab = await chrome.tabs.create({
       url: firstTab.url,
       pinned: firstTab.pinned,
-      active: true
+      active: true,
     });
 
     // Close old tabs
-    const oldIds = currentTabs.map(t => t.id).filter(tabId => tabId !== newTab.id);
+    const oldIds = currentTabs.map((t) => t.id).filter((tabId) => tabId !== newTab.id);
     if (oldIds.length) await chrome.tabs.remove(oldIds);
 
     // Create remaining tabs
@@ -129,7 +129,7 @@ export async function restoreSession(id, mode = 'open') {
       await chrome.tabs.create({
         url: validTabs[i].url,
         pinned: validTabs[i].pinned,
-        active: false
+        active: false,
       });
     }
   } else {
@@ -138,7 +138,7 @@ export async function restoreSession(id, mode = 'open') {
       await chrome.tabs.create({
         url: tab.url,
         pinned: tab.pinned,
-        active: false
+        active: false,
       });
     }
   }

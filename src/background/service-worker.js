@@ -1,42 +1,37 @@
+import { ALARM_NAMES } from "../shared/constants.js";
+import { getSettings } from "../shared/storage.js";
+import {
+  checkMemoryAndUnload,
+  getMemoryInfo,
+  initMemoryMonitor,
+  setupMemoryCheckAlarm,
+} from "./memory-monitor.js";
+import { deleteSession, getSessions, restoreSession, saveSession } from "./session-manager.js";
+import { getStats, initStats } from "./stats-collector.js";
+import {
+  checkAndUnloadInactiveTabs,
+  cleanupStaleActivity,
+  getTabActivityMap,
+  initTabTracker,
+  removeTabActivity,
+  setupTabCheckAlarm,
+  syncAllTabs,
+  updateTabActivity,
+} from "./tab-tracker.js";
 import {
   discardAllTabsOnStartup,
   discardCurrentTab,
   discardOtherTabs,
+  discardTab,
+  discardTabGroup,
   discardTabsToLeft,
   discardTabsToRight,
-  discardTabGroup,
-  discardTab,
-  isUrlWhitelisted
-} from './unload-manager.js';
-import {
-  initTabTracker,
-  updateTabActivity,
-  removeTabActivity,
-  checkAndUnloadInactiveTabs,
-  syncAllTabs,
-  cleanupStaleActivity,
-  setupTabCheckAlarm,
-  getTabActivityMap
-} from './tab-tracker.js';
-import {
-  initMemoryMonitor,
-  checkMemoryAndUnload,
-  setupMemoryCheckAlarm,
-  getMemoryInfo
-} from './memory-monitor.js';
-import { initStats, getStats } from './stats-collector.js';
-import {
-  getSessions,
-  saveSession,
-  deleteSession,
-  restoreSession
-} from './session-manager.js';
-import { getSettings } from '../shared/storage.js';
-import { ALARM_NAMES } from '../shared/constants.js';
+  isUrlWhitelisted,
+} from "./unload-manager.js";
 
 // Browser startup - initialize trackers and auto-unload
 chrome.runtime.onStartup.addListener(async () => {
-  console.log('Browser started');
+  console.log("Browser started");
   await initTabTracker();
   await initMemoryMonitor();
   await initStats();
@@ -50,7 +45,7 @@ chrome.runtime.onStartup.addListener(async () => {
 
 // Extension installed/updated
 chrome.runtime.onInstalled.addListener(async (details) => {
-  console.log('Extension installed/updated:', details.reason);
+  console.log("Extension installed/updated:", details.reason);
   await initTabTracker();
   await initMemoryMonitor();
   await initStats();
@@ -58,21 +53,21 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   setupContextMenus();
 
   const settings = await getSettings();
-  console.log('Current settings:', settings);
+  console.log("Current settings:", settings);
   updateBadge();
 
   // Open engagement pages
   const currentVersion = chrome.runtime.getManifest().version;
 
-  if (details.reason === 'install') {
+  if (details.reason === "install") {
     // First install - show onboarding
-    chrome.tabs.create({ url: 'src/pages/onboarding.html' });
-  } else if (details.reason === 'update') {
+    chrome.tabs.create({ url: "src/pages/onboarding.html" });
+  } else if (details.reason === "update") {
     // Check if we should show changelog
-    const result = await chrome.storage.local.get('tabrest_lastVersion');
+    const result = await chrome.storage.local.get("tabrest_lastVersion");
     if (result.tabrest_lastVersion !== currentVersion) {
       await chrome.storage.local.set({ tabrest_lastVersion: currentVersion });
-      chrome.tabs.create({ url: 'src/pages/changelog.html' });
+      chrome.tabs.create({ url: "src/pages/changelog.html" });
     }
   }
 });
@@ -81,29 +76,29 @@ chrome.runtime.onInstalled.addListener(async (details) => {
 function setupContextMenus() {
   chrome.contextMenus.removeAll(() => {
     chrome.contextMenus.create({
-      id: 'unload-tab',
-      title: 'Unload This Tab',
-      contexts: ['page']
+      id: "unload-tab",
+      title: "Unload This Tab",
+      contexts: ["page"],
     });
     chrome.contextMenus.create({
-      id: 'unload-others',
-      title: 'Unload Other Tabs',
-      contexts: ['page']
+      id: "unload-others",
+      title: "Unload Other Tabs",
+      contexts: ["page"],
     });
     chrome.contextMenus.create({
-      id: 'separator-1',
-      type: 'separator',
-      contexts: ['page']
+      id: "separator-1",
+      type: "separator",
+      contexts: ["page"],
     });
     chrome.contextMenus.create({
-      id: 'unload-right',
-      title: 'Unload Tabs to the Right',
-      contexts: ['page']
+      id: "unload-right",
+      title: "Unload Tabs to the Right",
+      contexts: ["page"],
     });
     chrome.contextMenus.create({
-      id: 'unload-left',
-      title: 'Unload Tabs to the Left',
-      contexts: ['page']
+      id: "unload-left",
+      title: "Unload Tabs to the Left",
+      contexts: ["page"],
     });
   });
 }
@@ -111,7 +106,7 @@ function setupContextMenus() {
 // Context menu click handler
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   switch (info.menuItemId) {
-    case 'unload-tab':
+    case "unload-tab":
       if (tab?.id) {
         if (tab.active) {
           await discardCurrentTab();
@@ -120,13 +115,13 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
         }
       }
       break;
-    case 'unload-others':
+    case "unload-others":
       await discardOtherTabs();
       break;
-    case 'unload-right':
+    case "unload-right":
       await discardTabsToRight();
       break;
-    case 'unload-left':
+    case "unload-left":
       await discardTabsToLeft();
       break;
   }
@@ -135,19 +130,19 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 
 // Keyboard shortcuts handler
 chrome.commands.onCommand.addListener(async (command) => {
-  console.log('Command received:', command);
+  console.log("Command received:", command);
 
   switch (command) {
-    case 'unload-current':
+    case "unload-current":
       await discardCurrentTab();
       break;
-    case 'unload-others':
+    case "unload-others":
       await discardOtherTabs();
       break;
-    case 'unload-right':
+    case "unload-right":
       await discardTabsToRight();
       break;
-    case 'unload-left':
+    case "unload-left":
       await discardTabsToLeft();
       break;
   }
@@ -161,7 +156,7 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 
 // Tab updated (navigation complete) - update activity and badge
 chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (changeInfo.status === 'complete' || changeInfo.url) {
+  if (changeInfo.status === "complete" || changeInfo.url) {
     updateTabActivity(tabId);
   }
   if (changeInfo.discarded !== undefined) {
@@ -188,8 +183,8 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 
 // Settings changed - reconfigure alarms and badge
 chrome.storage.onChanged.addListener(async (changes, area) => {
-  if (area === 'sync' && changes.settings) {
-    console.log('Settings changed, reconfiguring alarms...');
+  if (area === "sync" && changes.settings) {
+    console.log("Settings changed, reconfiguring alarms...");
     await setupTabCheckAlarm();
     await setupMemoryCheckAlarm();
     updateBadge();
@@ -197,8 +192,8 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
 });
 
 // Message handler for popup commands
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  handleMessage(message).then(result => {
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  handleMessage(message).then((result) => {
     sendResponse(result);
     updateBadge();
   });
@@ -210,33 +205,33 @@ async function handleMessage(message) {
   const { command, groupId, tabId, name, id, mode } = message;
 
   switch (command) {
-    case 'unload-current':
+    case "unload-current":
       return await discardCurrentTab();
-    case 'unload-others':
+    case "unload-others":
       return await discardOtherTabs();
-    case 'unload-right':
+    case "unload-right":
       return await discardTabsToRight();
-    case 'unload-left':
+    case "unload-left":
       return await discardTabsToLeft();
-    case 'unload-group':
+    case "unload-group":
       return await discardTabGroup(groupId);
-    case 'get-memory-info':
+    case "get-memory-info":
       return await getMemoryInfo();
-    case 'get-tabs-with-status':
+    case "get-tabs-with-status":
       return await getTabsWithStatus();
-    case 'unload-tab':
+    case "unload-tab":
       return await discardTab(tabId);
     // Session commands
-    case 'get-sessions':
+    case "get-sessions":
       return await getSessions();
-    case 'save-session':
+    case "save-session":
       return await saveSession(name);
-    case 'delete-session':
+    case "delete-session":
       return await deleteSession(id);
-    case 'restore-session':
+    case "restore-session":
       return await restoreSession(id, mode);
     // Stats commands
-    case 'get-stats':
+    case "get-stats":
       return await getStats();
     default:
       return null;
@@ -251,7 +246,7 @@ async function getTabsWithStatus() {
   const now = Date.now();
   const unloadDelay = settings.unloadDelayMinutes * 60 * 1000;
 
-  return tabs.map(tab => {
+  return tabs.map((tab) => {
     const lastActive = tabActivity[tab.id] || now;
     const elapsed = now - lastActive;
     const timeUntilUnload = unloadDelay > 0 ? Math.max(0, unloadDelay - elapsed) : null;
@@ -263,7 +258,7 @@ async function getTabsWithStatus() {
 
     return {
       id: tab.id,
-      title: tab.title || 'New Tab',
+      title: tab.title || "New Tab",
       url: tab.url,
       favIconUrl: tab.favIconUrl,
       active: tab.active,
@@ -271,7 +266,7 @@ async function getTabsWithStatus() {
       pinned: tab.pinned,
       isProtected,
       isWhitelisted,
-      timeUntilUnload: tab.active || tab.discarded || isProtected ? null : timeUntilUnload
+      timeUntilUnload: tab.active || tab.discarded || isProtected ? null : timeUntilUnload,
     };
   });
 }
@@ -281,15 +276,15 @@ async function updateBadge() {
   const settings = await getSettings();
 
   if (!settings.showBadgeCount) {
-    chrome.action.setBadgeText({ text: '' });
+    chrome.action.setBadgeText({ text: "" });
     return;
   }
 
   const tabs = await chrome.tabs.query({});
-  const count = tabs.filter(t => t.discarded).length;
+  const count = tabs.filter((t) => t.discarded).length;
 
-  chrome.action.setBadgeText({ text: count > 0 ? count.toString() : '' });
-  chrome.action.setBadgeBackgroundColor({ color: '#4caf50' });
+  chrome.action.setBadgeText({ text: count > 0 ? count.toString() : "" });
+  chrome.action.setBadgeBackgroundColor({ color: "#4caf50" });
 }
 
-console.log('TabRest service worker initialized');
+console.log("TabRest service worker initialized");

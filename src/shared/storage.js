@@ -1,12 +1,12 @@
-import { SETTINGS_DEFAULTS, STORAGE_KEYS } from './constants.js';
+import { SETTINGS_DEFAULTS, STORAGE_KEYS } from "./constants.js";
 
 // Settings cache to avoid repeated storage reads
 let settingsCache = null;
 
 // Initialize cache invalidation listener
-if (typeof chrome !== 'undefined' && chrome.storage) {
+if (typeof chrome !== "undefined" && chrome.storage) {
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === 'sync' && changes[STORAGE_KEYS.SETTINGS]) {
+    if (area === "sync" && changes[STORAGE_KEYS.SETTINGS]) {
       settingsCache = null;
     }
   });
