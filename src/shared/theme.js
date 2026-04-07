@@ -59,7 +59,7 @@ export async function toggleTheme() {
  * Subscribe to theme changes from other pages/popups
  * @param {function(string): void} callback - Called with new theme when changed externally
  */
-export function onThemeChange(callback) {
+export function onThemeChange(callback = () => {}) {
   chrome.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "local" && changes[THEME_KEY]) {
       const { newValue, oldValue } = changes[THEME_KEY];
