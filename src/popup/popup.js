@@ -70,6 +70,15 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+// Attach error handlers to hide broken favicon images
+function attachFaviconErrorHandlers(container, selector) {
+  container.querySelectorAll(selector).forEach(img => {
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+    }, { once: true });
+  });
+}
+
 // Get status badge HTML for a tab
 function getStatusBadge(tab) {
   if (tab.active) {
@@ -227,12 +236,7 @@ async function renderTabList() {
     `;
   }).join('');
 
-  // Handle favicon load errors
-  elements.tabList.querySelectorAll('.tab-favicon').forEach(img => {
-    img.addEventListener('error', () => {
-      img.style.display = 'none';
-    }, { once: true });
-  });
+  attachFaviconErrorHandlers(elements.tabList, '.tab-favicon');
 }
 
 // Validate URL is safe (http/https only)
@@ -258,7 +262,7 @@ async function renderSessions() {
   elements.sessionList.innerHTML = sessions.map(s => {
     // Only render favicons from safe URLs
     const favicons = s.tabs.slice(0, 4).map(t =>
-      (t.favIconUrl && isSafeUrl(t.favIconUrl)) ? `<img src="${escapeHtml(t.favIconUrl)}" alt="" onerror="this.style.display='none'">` : ''
+      (t.favIconUrl && isSafeUrl(t.favIconUrl)) ? `<img src="${escapeHtml(t.favIconUrl)}" alt="">` : ''
     ).join('');
 
     return `
@@ -279,6 +283,8 @@ async function renderSessions() {
       </div>
     `;
   }).join('');
+
+  attachFaviconErrorHandlers(elements.sessionList, '.session-favicon-stack img');
 
   injectIcons();
 }
