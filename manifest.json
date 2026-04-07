@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extName__",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
   "permissions": [
@@ -26,19 +26,27 @@
   },
   "commands": {
     "unload-current": {
-      "suggested_key": { "default": "Alt+Shift+D" },
+      "suggested_key": {
+        "default": "Alt+Shift+D"
+      },
       "description": "Unload current tab"
     },
     "unload-others": {
-      "suggested_key": { "default": "Alt+Shift+O" },
+      "suggested_key": {
+        "default": "Alt+Shift+O"
+      },
       "description": "Unload all other tabs"
     },
     "unload-right": {
-      "suggested_key": { "default": "Alt+Shift+Right" },
+      "suggested_key": {
+        "default": "Alt+Shift+Right"
+      },
       "description": "Unload tabs to the right"
     },
     "unload-left": {
-      "suggested_key": { "default": "Alt+Shift+Left" },
+      "suggested_key": {
+        "default": "Alt+Shift+Left"
+      },
       "description": "Unload tabs to the left"
     }
   },
@@ -48,9 +56,16 @@
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
-  "content_scripts": [{
-    "matches": ["http://*/*", "https://*/*"],
-    "js": ["src/content/form-checker.js"],
-    "run_at": "document_idle"
-  }]
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "src/content/form-checker.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
 }
