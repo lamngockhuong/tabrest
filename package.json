@@ -10,12 +10,15 @@
     "format": "biome format src/ --write",
     "validate:manifest": "node scripts/validate-manifest.js",
     "ci": "pnpm run validate:manifest && pnpm run lint",
+    "build": "node scripts/build.js",
+    "build:clean": "rm -rf dist",
     "website:dev": "cd website && pnpm dev",
     "website:build": "cd website && pnpm build",
     "website:preview": "cd website && pnpm preview"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.10"
+    "@biomejs/biome": "2.4.10",
+    "esbuild": "0.28.0"
   },
   "engines": {
     "node": ">=18"
