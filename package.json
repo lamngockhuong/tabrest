@@ -1,6 +1,6 @@
 {
   "name": "tabrest",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Chrome extension that automatically unloads inactive tabs to free memory",
   "private": true,
   "type": "module",
