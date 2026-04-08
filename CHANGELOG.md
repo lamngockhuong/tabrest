@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.4](https://github.com/lamngockhuong/tabrest/compare/v0.0.3...v0.0.4) (2026-04-08)
+
+
+### Features
+
+* add multi-browser support for Chromium-based browsers ([e9a076f](https://github.com/lamngockhuong/tabrest/commit/e9a076ffd9384d05b470ad8ac06870ff6429f9fb))
+* improve UI/UX with filter chips, external changelog, and dark mode fixes ([16af340](https://github.com/lamngockhuong/tabrest/commit/16af34023581bba519527775f242ab61b3237a62))
+* **popup:** add tab filter chips and fix domain snooze cancel ([eaea1ca](https://github.com/lamngockhuong/tabrest/commit/eaea1ca82ad285e06210ebe9260bfb9a5ba53076))
+* **website:** add back-to-top button and docs footer ([3e99bfd](https://github.com/lamngockhuong/tabrest/commit/3e99bfd32be3f8b6fb60a691e574e3851a12e9e5))
+
 ## [0.0.3](https://github.com/lamngockhuong/tabrest/compare/v0.0.2...v0.0.3) (2026-04-08)
 
 
