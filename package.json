@@ -9,7 +9,10 @@
     "lint:fix": "biome check src/ --write",
     "format": "biome format src/ --write",
     "validate:manifest": "node scripts/validate-manifest.js",
-    "ci": "pnpm run validate:manifest && pnpm run lint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "ci": "pnpm run validate:manifest && pnpm run lint && pnpm run test",
     "build": "node scripts/build.js",
     "build:clean": "rm -rf dist",
     "website:dev": "cd website && pnpm dev",
@@ -18,7 +21,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
-    "esbuild": "0.28.0"
+    "@vitest/coverage-v8": "^4.1.3",
+    "esbuild": "0.28.0",
+    "vitest": "^4.1.3"
   },
   "engines": {
     "node": ">=18"
