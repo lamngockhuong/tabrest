@@ -700,7 +700,8 @@ async function init() {
   onThemeChange((theme) => updateThemeIcon(elements.themeIcon, elements.themeToggle, theme));
 
   // Set version from manifest
-  document.getElementById("app-version").textContent = `TabRest v${chrome.runtime.getManifest().version}`;
+  document.getElementById("app-version").textContent =
+    `TabRest v${chrome.runtime.getManifest().version}`;
 
   // Inject SVG icons
   injectIcons();
