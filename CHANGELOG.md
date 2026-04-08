@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3](https://github.com/lamngockhuong/tabrest/compare/v0.0.2...v0.0.3) (2026-04-08)
+
+
+### Features
+
+* add copy tab list to clipboard button ([f21a27d](https://github.com/lamngockhuong/tabrest/commit/f21a27d0351ce97532b785fb68225446482a1e99))
+* add snooze, scroll restore, offline skip, and notifications ([0c3474d](https://github.com/lamngockhuong/tabrest/commit/0c3474dfb1b1ff037bea3331fdc7acba0849ea82))
+
 ## [0.0.2](https://github.com/lamngockhuong/tabrest/compare/v0.0.1...v0.0.2) (2026-04-08)
 
 
