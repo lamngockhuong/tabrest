@@ -291,5 +291,44 @@
   },
   "performanceModeDesc": {
     "message": "Ít tích cực hơn, giữ tab lâu hơn"
+  },
+  "skipWhenOffline": {
+    "message": "Bỏ qua khi offline"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "Không tự động ngủ tab khi mất kết nối mạng"
+  },
+  "restoreScrollPosition": {
+    "message": "Khôi phục vị trí cuộn"
+  },
+  "restoreScrollHelp": {
+    "message": "Lưu và khôi phục vị trí cuộn khi tab được tải lại"
+  },
+  "tabSnoozed": {
+    "message": "Đã tạm hoãn tab"
+  },
+  "domainSnoozed": {
+    "message": "Đã tạm hoãn trang web"
+  },
+  "snoozeRemoved": {
+    "message": "Đã hủy tạm hoãn"
+  },
+  "snoozeTab30": {
+    "message": "Tạm hoãn tab (30 phút)"
+  },
+  "snoozeTab60": {
+    "message": "Tạm hoãn tab (1 giờ)"
+  },
+  "snoozeDomain60": {
+    "message": "Tạm hoãn trang web (1 giờ)"
+  },
+  "openLinkSuspended": {
+    "message": "Mở link ở trạng thái ngủ"
+  },
+  "notifyOnAutoUnload": {
+    "message": "Thông báo khi tab bị tự động ngủ"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "Hiển thị thông báo với lý do (hết thời gian/RAM)"
   }
 }

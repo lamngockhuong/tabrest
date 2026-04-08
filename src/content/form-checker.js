@@ -1,13 +1,92 @@
-// Content script for form data detection
-// Injected into web pages to check for unsaved form data
+// Content script for form data detection and scroll position tracking
+// Injected into web pages to check for unsaved form data and save/restore scroll
+
+// Note: Content scripts can't use ES imports, so constants defined locally
+const SCROLL_POSITIONS_KEY = "tabrest_scroll_positions";
+const SCROLL_MAX_ENTRIES = 100;
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.action === "checkFormData") {
     const hasFormData = checkForUnsavedData();
     sendResponse({ hasFormData });
+  } else if (message.action === "saveScrollPosition") {
+    saveScrollPosition(message.tabId).then((saved) => sendResponse({ saved }));
+    return true; // Async response
   }
   return true;
 });
+
+/**
+ * Save current scroll position to storage
+ * @param {number} tabId - Tab ID for storage key
+ */
+async function saveScrollPosition(tabId) {
+  try {
+    const position = {
+      x: window.scrollX,
+      y: window.scrollY,
+      url: location.href,
+      savedAt: Date.now(),
+    };
+
+    const data = await chrome.storage.local.get(SCROLL_POSITIONS_KEY);
+    const positions = data[SCROLL_POSITIONS_KEY] || {};
+    positions[tabId] = position;
+
+    // Cleanup old entries if over limit
+    const keys = Object.keys(positions);
+    if (keys.length > SCROLL_MAX_ENTRIES) {
+      const sorted = keys.sort((a, b) => positions[a].savedAt - positions[b].savedAt);
+      const toRemove = sorted.slice(0, keys.length - SCROLL_MAX_ENTRIES);
+      for (const k of toRemove) {
+        delete positions[k];
+      }
+    }
+
+    await chrome.storage.local.set({ [SCROLL_POSITIONS_KEY]: positions });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Restore scroll position if saved for this tab/URL
+ */
+async function restoreScrollPosition() {
+  // Check if extension context is valid
+  if (!chrome.runtime?.id) return;
+
+  try {
+    // Get current tab ID via background
+    const response = await chrome.runtime.sendMessage({ action: "getTabId" });
+    if (!response?.tabId) return;
+
+    const data = await chrome.storage.local.get(SCROLL_POSITIONS_KEY);
+    const positions = data[SCROLL_POSITIONS_KEY] || {};
+    const saved = positions[response.tabId];
+
+    if (saved && saved.url === location.href) {
+      // Small delay to ensure page is rendered
+      setTimeout(() => {
+        window.scrollTo(saved.x, saved.y);
+      }, 100);
+
+      // Clean up after restore
+      delete positions[response.tabId];
+      await chrome.storage.local.set({ [SCROLL_POSITIONS_KEY]: positions });
+    }
+  } catch {
+    // Ignore errors (extension context invalidated, etc.)
+  }
+}
+
+// Restore scroll on page load
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", restoreScrollPosition);
+} else {
+  restoreScrollPosition();
+}
 
 /**
  * Check if page has unsaved form data (user-modified values)

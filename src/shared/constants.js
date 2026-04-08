@@ -3,7 +3,7 @@ export const SETTINGS_DEFAULTS = {
   autoUnloadOnStartup: true,
   unloadDelayMinutes: 30,
   memoryThresholdPercent: 80,
-  whitelist: ["youtube.com", "gmail.com", "docs.google.com"],
+  whitelist: ["youtube.com", "gmail.com", "docs.google.com", "miro.com", "figma.com", "notion.so"],
   blacklist: [],
   unloadPinnedTabs: false,
   protectAudioTabs: true,
@@ -26,6 +26,12 @@ export const SETTINGS_DEFAULTS = {
   powerMode: "normal", // "battery-saver" | "normal" | "performance"
   // Phase 6: Per-tab JS heap threshold (0 = disabled)
   perTabJsHeapThresholdMB: 0,
+  // Competitor feature: Skip auto-discard when offline
+  skipWhenOffline: true,
+  // Competitor feature: Restore scroll position after reload
+  restoreScrollPosition: true,
+  // Notify when tabs are auto-unloaded
+  notifyOnAutoUnload: false,
 };
 
 // YouTube timestamp storage key
@@ -54,7 +60,15 @@ export const POWER_MODE_CONFIG = {
 export const ALARM_NAMES = {
   TAB_CHECK: "tab-check-alarm",
   MEMORY_CHECK: "memory-check-alarm",
+  SNOOZE_CLEANUP: "snooze-cleanup-alarm",
 };
+
+// Scroll position storage
+export const SCROLL_POSITIONS_KEY = "tabrest_scroll_positions";
+export const SCROLL_MAX_ENTRIES = 100;
+
+// Snooze storage
+export const SNOOZE_KEY = "tabrest_snooze";
 
 // Timeout for form data check (content script message)
 export const FORM_CHECK_TIMEOUT_MS = 300;

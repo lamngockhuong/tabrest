@@ -12,7 +12,7 @@ if (typeof chrome !== "undefined" && chrome.storage) {
   });
 }
 
-// Get settings with defaults merged (cached)
+// Get settings with defaults merged (cached, invalidated on change)
 export async function getSettings() {
   if (settingsCache) return settingsCache;
   const result = await chrome.storage.sync.get(STORAGE_KEYS.SETTINGS);
@@ -22,6 +22,8 @@ export async function getSettings() {
 
 // Save settings to sync storage
 export async function saveSettings(settings) {
+  // Invalidate cache immediately to ensure consistency
+  settingsCache = null;
   await chrome.storage.sync.set({ [STORAGE_KEYS.SETTINGS]: settings });
 }
 

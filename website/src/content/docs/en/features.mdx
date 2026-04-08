@@ -67,11 +67,19 @@ Only auto-unload tabs when your computer is idle:
 
 Automatically unload individual tabs that consume excessive memory:
 
-- **Range**: 50-200 MB (JavaScript heap)
+- **Range**: 100MB - 1GB (JavaScript heap)
 - **Default**: Disabled
 - **Note**: Only measures JS memory, not total tab memory
 
 **Use case**: Target memory-heavy tabs specifically rather than by age.
+
+### Skip When Offline
+
+Prevent tabs from being discarded when network is unavailable:
+
+- **Default**: Enabled
+- **Behavior**: Pauses auto-unload when `navigator.onLine` is false
+- **Why**: Discarded tabs can't reload without network, avoiding frustration
 
 ## Manual Controls
 
@@ -132,9 +140,22 @@ Protect specific tabs from automatic unloading:
 - **Configurable**: Disable "Protect tabs with unsaved forms" to allow unloading
 
 ### Whitelist
-- **Default**: YouTube, Gmail, Google Docs
+- **Default**: YouTube, Gmail, Google Docs, Miro, Figma, Notion
 - **Custom**: Add any site to prevent auto-unload
 - **Details**: See [Whitelist Configuration](/docs/whitelist-config)
+
+### Snooze Tabs/Domains
+
+Temporarily protect specific tabs or entire domains from auto-discard:
+
+| Snooze Option | Duration |
+|---------------|----------|
+| Tab snooze | 30 min, 1 hour, 2 hours |
+| Domain snooze | 1 hour |
+
+**Access**: Right-click on page → Snooze options, or use ⏸️ button in popup tab list.
+
+**Use case**: Working intensively on a site without adding it to permanent whitelist.
 
 ## Tab Groups
 
@@ -164,6 +185,42 @@ Show the number of unloaded tabs on the extension icon:
 - **Default**: Enabled
 - **Display**: Small number badge on toolbar icon
 - **Disable**: Turn off "Show badge count" in settings
+
+## RAM Usage Display
+
+View current system RAM usage in the popup header:
+
+- **Display**: Shows RAM % alongside tab statistics
+- **Warning**: Highlights when RAM exceeds your configured threshold
+- **Tooltip**: Hover to see threshold comparison
+
+## Scroll Position Restore
+
+Automatically save and restore scroll position when tabs reload:
+
+- **Default**: Enabled
+- **Behavior**: Saves position before discard, restores on reload
+- **Storage**: Local storage, auto-cleans old entries (max 100)
+
+**Use case**: Continue reading long articles exactly where you left off.
+
+## Auto-Unload Notifications
+
+Get notified when tabs are automatically unloaded:
+
+- **Default**: Disabled
+- **Content**: Shows tab title, reason (Timer/RAM), and details
+- **Silent**: Notifications don't play sound
+
+**Use case**: Stay informed about what TabRest is doing in the background.
+
+## Open Link Suspended
+
+Open links directly in a suspended (discarded) state:
+
+- **Access**: Right-click on any link → "Open Link in Suspended Tab"
+- **Behavior**: Creates tab, waits for load, then immediately discards
+- **Use case**: Save links for later without consuming memory
 
 ## Multi-Language Support
 

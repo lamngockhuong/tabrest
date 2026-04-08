@@ -374,6 +374,66 @@ footer {
   flex-shrink: 0;
 }
 
+/* Snooze dropdown */
+.snooze-dropdown {
+  position: relative;
+}
+
+.tab-snooze-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.tab-snooze-btn:hover {
+  opacity: 1;
+}
+
+.snooze-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: var(--card-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+  min-width: 90px;
+}
+
+.snooze-dropdown.open .snooze-menu {
+  display: block;
+}
+
+.snooze-menu button {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 11px;
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.snooze-menu button:hover {
+  background: var(--border);
+}
+
+.snooze-menu hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 4px 0;
+}
+
 .badge {
   font-size: 10px;
   font-weight: 600;
@@ -487,6 +547,14 @@ footer {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.strip-stat.warning .strip-stat-value {
+  color: var(--warning);
+}
+
+.strip-stat.warning .strip-stat-label {
+  color: var(--warning);
 }
 
 .strip-divider {

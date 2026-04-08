@@ -53,7 +53,11 @@ export async function discardTab(tabId, options = {}) {
       if (tab.pinned && !settings.unloadPinnedTabs) return false;
 
       // Check whitelist
-      if (isWhitelisted(tab.url, settings)) return false;
+      const whitelisted = isWhitelisted(tab.url, settings);
+      console.log(
+        `[TabRest] Checking tab ${tabId}: ${tab.url}, whitelist: [${settings.whitelist?.join(", ")}], isWhitelisted: ${whitelisted}`,
+      );
+      if (whitelisted) return false;
 
       // Check audio/form protection
       const protection = await shouldProtectTab(tab, settings);
@@ -66,6 +70,15 @@ export async function discardTab(tabId, options = {}) {
     if (settings.saveYouTubeTimestamp && tab.url?.includes("youtube.com/watch")) {
       try {
         await chrome.tabs.sendMessage(tabId, { action: "saveYouTubeTimestamp" });
+      } catch {
+        // Content script not loaded, proceed without saving
+      }
+    }
+
+    // Save scroll position before discarding
+    if (settings.restoreScrollPosition) {
+      try {
+        await chrome.tabs.sendMessage(tabId, { action: "saveScrollPosition", tabId });
       } catch {
         // Content script not loaded, proceed without saving
       }
@@ -183,8 +196,8 @@ export async function discardTabGroup(groupId) {
   return count;
 }
 
-// Check if hostname matches a domain list
-function matchesDomainList(url, domainList) {
+// Check if hostname matches a domain list (exported for reuse)
+export function matchesDomainList(url, domainList) {
   if (!url || !domainList?.length) return false;
   try {
     const hostname = new URL(url).hostname;

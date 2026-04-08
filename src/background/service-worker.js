@@ -10,6 +10,16 @@ import {
   setupMemoryCheckAlarm,
 } from "./memory-monitor.js";
 import { deleteSession, getSessions, restoreSession, saveSession } from "./session-manager.js";
+import {
+  cancelDomainSnooze,
+  cancelTabSnooze,
+  cleanupExpiredSnooze,
+  getActiveSnoozes,
+  getSnoozeData,
+  getTabSnoozeInfo,
+  snoozeDomain,
+  snoozeTab,
+} from "./snooze-manager.js";
 import { getStats, initStats } from "./stats-collector.js";
 import {
   checkAndUnloadInactiveTabs,
@@ -65,6 +75,7 @@ chrome.runtime.onStartup.addListener(async () => {
   await syncAllTabs();
   await cleanupStaleActivity();
   await configureToolbarAction();
+  await setupSnoozeCleanupAlarm();
   await discardAllTabsOnStartup();
   updateBadge();
 });
@@ -76,6 +87,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   await initStats();
   await syncAllTabs();
   await configureToolbarAction();
+  await setupSnoozeCleanupAlarm();
   setupContextMenus();
   updateBadge();
 
@@ -142,6 +154,34 @@ function setupContextMenus() {
       title: "Unload Tabs to the Left",
       contexts: ["page"],
     });
+    chrome.contextMenus.create({
+      id: "separator-2",
+      type: "separator",
+      contexts: ["page"],
+    });
+    // Snooze context menus
+    chrome.contextMenus.create({
+      id: "snooze-tab-30",
+      title: "Snooze Tab (30 min)",
+      contexts: ["page"],
+    });
+    chrome.contextMenus.create({
+      id: "snooze-tab-60",
+      title: "Snooze Tab (1 hour)",
+      contexts: ["page"],
+    });
+    chrome.contextMenus.create({
+      id: "snooze-domain-60",
+      title: "Snooze Site (1 hour)",
+      contexts: ["page"],
+    });
+
+    // Open link in suspended tab
+    chrome.contextMenus.create({
+      id: "open-link-suspended",
+      title: "Open Link in Suspended Tab",
+      contexts: ["link"],
+    });
 
     // Toolbar icon (action) context menu
     chrome.contextMenus.create({
@@ -182,6 +222,29 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
       break;
     case "unload-left":
       await discardTabsToLeft();
+      break;
+    // Snooze handlers
+    case "snooze-tab-30":
+      if (tab?.id) await snoozeTab(tab.id, 30);
+      break;
+    case "snooze-tab-60":
+      if (tab?.id) await snoozeTab(tab.id, 60);
+      break;
+    case "snooze-domain-60":
+      if (tab?.url) {
+        try {
+          const hostname = new URL(tab.url).hostname;
+          await snoozeDomain(hostname, 60);
+        } catch {
+          // Invalid URL
+        }
+      }
+      break;
+    // Open link in suspended tab
+    case "open-link-suspended":
+      if (info.linkUrl) {
+        await openLinkSuspended(info.linkUrl);
+      }
       break;
     // Action (toolbar icon) menu handlers
     case "action-unload-current":
@@ -247,8 +310,73 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
     const systemCount = await checkMemoryAndUnload();
     const perTabCount = await checkPerTabMemory();
     if (systemCount + perTabCount > 0) updateBadge();
+  } else if (alarm.name === ALARM_NAMES.SNOOZE_CLEANUP) {
+    await cleanupExpiredSnooze();
   }
 });
+
+// Setup snooze cleanup alarm (runs every 5 minutes)
+async function setupSnoozeCleanupAlarm() {
+  await chrome.alarms.clear(ALARM_NAMES.SNOOZE_CLEANUP);
+  chrome.alarms.create(ALARM_NAMES.SNOOZE_CLEANUP, { periodInMinutes: 5 });
+}
+
+/**
+ * Open a link in a new suspended (discarded) tab
+ * @param {string} url - URL to open
+ */
+async function openLinkSuspended(url) {
+  // Validate URL (security - only http/https)
+  try {
+    const parsed = new URL(url);
+    if (!["http:", "https:"].includes(parsed.protocol)) {
+      return false;
+    }
+  } catch {
+    return false;
+  }
+
+  // Create tab in background (not active)
+  const tab = await chrome.tabs.create({ url, active: false });
+
+  let timeoutId = null;
+
+  // Cleanup function to remove all listeners and clear timeout
+  const cleanup = () => {
+    chrome.tabs.onUpdated.removeListener(updateListener);
+    chrome.tabs.onRemoved.removeListener(removeListener);
+    if (timeoutId) clearTimeout(timeoutId);
+  };
+
+  // Wait for tab to finish loading, then discard
+  const updateListener = (tabId, changeInfo) => {
+    if (tabId === tab.id && changeInfo.status === "complete") {
+      cleanup();
+      // Small delay to ensure page is fully ready
+      setTimeout(() => {
+        chrome.tabs.discard(tab.id).catch(() => {});
+      }, 500);
+    }
+  };
+
+  // Handle tab closed before load completes
+  const removeListener = (tabId) => {
+    if (tabId === tab.id) {
+      cleanup();
+    }
+  };
+
+  chrome.tabs.onUpdated.addListener(updateListener);
+  chrome.tabs.onRemoved.addListener(removeListener);
+
+  // Timeout fallback - cleanup and discard after 30s regardless
+  timeoutId = setTimeout(() => {
+    cleanup();
+    chrome.tabs.discard(tab.id).catch(() => {});
+  }, 30000);
+
+  return true;
+}
 
 // Settings changed - reconfigure alarms, toolbar action, and badge
 chrome.storage.onChanged.addListener(async (changes, area) => {
@@ -269,6 +397,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 
+  // Handle getTabId for scroll position restore
+  if (message.action === "getTabId" && sender.tab?.id) {
+    sendResponse({ tabId: sender.tab.id });
+    return true;
+  }
+
   handleMessage(message).then((result) => {
     sendResponse(result);
     updateBadge();
@@ -278,7 +412,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Handle messages from popup
 async function handleMessage(message) {
-  const { command, groupId, tabId, name, id, mode } = message;
+  const { command, groupId, tabId, name, id, mode, minutes, domain, url } = message;
 
   switch (command) {
     case "unload-current":
@@ -309,6 +443,23 @@ async function handleMessage(message) {
     // Stats commands
     case "get-stats":
       return await getStats();
+    // Snooze commands
+    case "snooze-tab":
+      await snoozeTab(tabId, minutes);
+      return { success: true };
+    case "snooze-domain":
+      await snoozeDomain(domain, minutes);
+      return { success: true };
+    case "cancel-tab-snooze":
+      await cancelTabSnooze(tabId);
+      return { success: true };
+    case "cancel-domain-snooze":
+      await cancelDomainSnooze(domain);
+      return { success: true };
+    case "get-snooze-info":
+      return await getTabSnoozeInfo(tabId, url);
+    case "get-active-snoozes":
+      return await getActiveSnoozes();
     default:
       return null;
   }
@@ -347,6 +498,13 @@ async function getTabsWithStatus() {
     }
   }
 
+  // Load snooze data once and check all tabs (avoids N storage reads)
+  const snoozeData = await getSnoozeData();
+  const snoozeMap = new Map();
+  for (const t of tabs) {
+    snoozeMap.set(t.id, await getTabSnoozeInfo(t.id, t.url, snoozeData));
+  }
+
   return tabs.map((tab) => {
     const lastActive = tabActivity[tab.id] || now;
     const elapsed = now - lastActive;
@@ -357,7 +515,9 @@ async function getTabsWithStatus() {
     const isPinned = tab.pinned && !settings.unloadPinnedTabs;
     const isAudioPlaying = settings.protectAudioTabs && tab.audible;
     const hasFormData = settings.protectFormTabs && formDataMap.get(tab.id);
-    const isProtected = isWhitelisted || isPinned || isAudioPlaying || hasFormData;
+    const snoozeInfo = snoozeMap.get(tab.id) || { snoozed: false };
+    const isSnoozed = snoozeInfo.snoozed;
+    const isProtected = isWhitelisted || isPinned || isAudioPlaying || hasFormData || isSnoozed;
 
     // Determine protection reason for UI display (priority order)
     let protectionReason = null;
@@ -365,6 +525,7 @@ async function getTabsWithStatus() {
     else if (isWhitelisted) protectionReason = "whitelist";
     else if (isAudioPlaying) protectionReason = "audio";
     else if (hasFormData) protectionReason = "form";
+    else if (isSnoozed) protectionReason = "snooze";
 
     return {
       id: tab.id,
@@ -377,6 +538,8 @@ async function getTabsWithStatus() {
       audible: tab.audible,
       isProtected,
       isWhitelisted,
+      isSnoozed,
+      snoozeInfo,
       protectionReason,
       timeUntilUnload: tab.active || tab.discarded || isProtected ? null : timeUntilUnload,
     };

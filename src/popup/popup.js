@@ -10,6 +10,8 @@ const elements = {
   statSleeping: document.getElementById("stat-sleeping"),
   statProtected: document.getElementById("stat-protected"),
   statSaved: document.getElementById("stat-saved"),
+  statRamUsage: document.getElementById("stat-ram-usage"),
+  ramStat: document.getElementById("ram-stat"),
   // Settings
   timerSelect: document.getElementById("timer-select"),
   thresholdSelect: document.getElementById("threshold-select"),
@@ -99,6 +101,7 @@ function getStatusBadge(tab) {
       whitelist: { icon: "🛡️", text: "safe", title: "Whitelisted" },
       audio: { icon: "🔊", text: "audio", title: "Playing audio" },
       form: { icon: "📝", text: "form", title: "Unsaved form" },
+      snooze: { icon: "⏸️", text: "snooze", title: "Snoozed" },
     };
     const badge = badges[tab.protectionReason] || badges.whitelist;
     return `<span class="badge badge-protected" title="${badge.title}">${badge.icon} ${badge.text}</span>`;
@@ -168,11 +171,12 @@ async function loadSettings() {
 // Update stats strip display
 async function updateStats() {
   // Batch all async operations
-  const [allTabs, currentWindowTabs, statsResult, settings] = await Promise.all([
+  const [allTabs, currentWindowTabs, statsResult, settings, memoryInfo] = await Promise.all([
     chrome.tabs.query({}),
     chrome.tabs.query({ currentWindow: true }),
     chrome.storage.local.get("stats"),
     getSettings(),
+    sendCommand("get-memory-info"),
   ]);
 
   const discardedCount = allTabs.filter((t) => t.discarded).length;
@@ -191,6 +195,23 @@ async function updateStats() {
     elements.statSaved.textContent = `~${formatBytes(statsResult.stats.memorySaved)}`;
   } else {
     elements.statSaved.textContent = "—";
+  }
+
+  // Display RAM usage with threshold indicator
+  if (memoryInfo) {
+    const used = memoryInfo.capacity - memoryInfo.availableCapacity;
+    const usagePercent = Math.round((used / memoryInfo.capacity) * 100);
+    elements.statRamUsage.textContent = `${usagePercent}%`;
+
+    // Highlight if above threshold
+    const threshold = settings.memoryThresholdPercent || 0;
+    if (threshold > 0 && usagePercent >= threshold) {
+      elements.ramStat.classList.add("warning");
+      elements.ramStat.title = `RAM ${usagePercent}% ≥ threshold ${threshold}% - tabs may be unloaded`;
+    } else {
+      elements.ramStat.classList.remove("warning");
+      elements.ramStat.title = `System RAM usage: ${usagePercent}%`;
+    }
   }
 }
 
@@ -235,6 +256,23 @@ async function renderTabList() {
       const title = escapeHtml(tab.title.length > 30 ? `${tab.title.slice(0, 30)}...` : tab.title);
       const hostname = getHostname(tab.url);
 
+      // Snooze button - show unsnooze if snoozed, else snooze dropdown
+      const snoozeBtn =
+        tab.active || tab.discarded
+          ? ""
+          : tab.isSnoozed
+            ? `<button class="tab-snooze-btn unsnooze" data-tab-id="${tab.id}" data-url="${escapeHtml(tab.url || "")}" title="Cancel snooze">▶️</button>`
+            : `<div class="snooze-dropdown">
+            <button class="tab-snooze-btn" data-tab-id="${tab.id}" title="Snooze">⏸️</button>
+            <div class="snooze-menu">
+              <button data-tab-id="${tab.id}" data-minutes="30">30 min</button>
+              <button data-tab-id="${tab.id}" data-minutes="60">1 hour</button>
+              <button data-tab-id="${tab.id}" data-minutes="120">2 hours</button>
+              <hr>
+              <button data-tab-id="${tab.id}" data-domain="${hostname}" data-minutes="60">Site 1h</button>
+            </div>
+          </div>`;
+
       return `
       <div class="tab-item ${tab.active ? "active" : ""} ${tab.discarded ? "discarded" : ""}"
            data-tab-id="${tab.id}"
@@ -247,6 +285,7 @@ async function renderTabList() {
           </div>
         </div>
         <div class="tab-status">
+          ${snoozeBtn}
           ${!tab.active && !tab.discarded ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="${tab.isProtected ? "Force unload" : "Unload"}">💤</button>` : ""}
           ${statusBadge}
         </div>
@@ -416,16 +455,72 @@ function setupEventListeners() {
     const item = e.target.closest(".tab-item");
     if (!item) return;
 
+    // Handle snooze dropdown toggle
+    if (e.target.classList.contains("tab-snooze-btn") && !e.target.classList.contains("unsnooze")) {
+      e.stopPropagation();
+      const dropdown = e.target.closest(".snooze-dropdown");
+      if (dropdown) {
+        // Close other dropdowns
+        for (const d of document.querySelectorAll(".snooze-dropdown.open")) {
+          d.classList.remove("open");
+        }
+        dropdown.classList.toggle("open");
+      }
+      return;
+    }
+
+    // Handle unsnooze
+    if (e.target.classList.contains("unsnooze")) {
+      e.stopPropagation();
+      const tabId = Number.parseInt(e.target.dataset.tabId, 10);
+      await sendCommand("cancel-tab-snooze", { tabId });
+      await renderTabList();
+      showToast(t("snoozeRemoved") || "Snooze removed");
+      return;
+    }
+
+    // Handle snooze menu item click
+    if (e.target.closest(".snooze-menu button")) {
+      e.stopPropagation();
+      const btn = e.target.closest(".snooze-menu button");
+      const tabId = Number.parseInt(btn.dataset.tabId, 10);
+      const minutes = Number.parseInt(btn.dataset.minutes, 10);
+      const domain = btn.dataset.domain;
+
+      if (domain) {
+        await sendCommand("snooze-domain", { domain, minutes });
+        showToast(t("domainSnoozed") || `Site snoozed for ${minutes} min`);
+      } else {
+        await sendCommand("snooze-tab", { tabId, minutes });
+        showToast(t("tabSnoozed") || `Tab snoozed for ${minutes} min`);
+      }
+
+      for (const d of document.querySelectorAll(".snooze-dropdown.open")) {
+        d.classList.remove("open");
+      }
+      await renderTabList();
+      return;
+    }
+
     if (e.target.classList.contains("tab-unload-btn")) {
       e.stopPropagation();
       const tabId = Number.parseInt(e.target.dataset.tabId, 10);
       await sendCommand("unload-tab", { tabId });
       await Promise.all([renderTabList(), updateStats()]);
       showToast(t("tabUnloaded"));
-    } else {
+    } else if (!e.target.closest(".snooze-dropdown")) {
       const tabId = Number.parseInt(item.dataset.tabId, 10);
       await chrome.tabs.update(tabId, { active: true });
       window.close();
+    }
+  });
+
+  // Close snooze dropdowns when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".snooze-dropdown")) {
+      for (const d of document.querySelectorAll(".snooze-dropdown.open")) {
+        d.classList.remove("open");
+      }
     }
   });
 

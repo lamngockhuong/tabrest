@@ -1,5 +1,7 @@
 import { ALARM_NAMES, POWER_MODE_CONFIG } from "../shared/constants.js";
 import { getSettings, getTabActivity, saveTabActivity } from "../shared/storage.js";
+import { notifyAutoUnload } from "../shared/utils.js";
+import { getSnoozeData, isTabSnoozed } from "./snooze-manager.js";
 import { discardTab, isUrlBlacklisted } from "./unload-manager.js";
 
 // In-memory cache of tab activity: { tabId: lastActiveTimestamp }
@@ -54,6 +56,11 @@ export async function checkAndUnloadInactiveTabs() {
   const settings = await getSettings();
   if (settings.unloadDelayMinutes <= 0) return 0;
 
+  // Skip if offline and setting enabled - avoid discarding tabs that can't reload
+  if (settings.skipWhenOffline && !navigator.onLine) {
+    return 0;
+  }
+
   // Phase 4: Check idle state - skip if user is active and idle-only mode is enabled
   if (settings.onlyDiscardWhenIdle) {
     try {
@@ -84,6 +91,9 @@ export async function checkAndUnloadInactiveTabs() {
     }
   }
 
+  // Load snooze data once before loop to avoid N+1 storage reads
+  const snoozeData = await getSnoozeData();
+
   let unloadedCount = 0;
 
   for (const [tabIdStr, lastActive] of Object.entries(tabActivity)) {
@@ -99,8 +109,20 @@ export async function checkAndUnloadInactiveTabs() {
     // Skip if recently active (unless blacklisted)
     if (!blacklisted && lastActive > cutoffTime) continue;
 
+    // Skip if tab or domain is snoozed (using preloaded data)
+    if (await isTabSnoozed(tabId, tab.url, snoozeData)) continue;
+
+    const inactiveMinutes = Math.round((Date.now() - lastActive) / 60000);
+    console.log(
+      `[TabRest] TIMER unload: ${tab.url}, inactive ${inactiveMinutes}min (threshold: ${effectiveDelay}min)`,
+    );
+
     if (await discardTab(tabId, { settings })) {
       unloadedCount++;
+      // Notify if enabled
+      if (settings.notifyOnAutoUnload) {
+        notifyAutoUnload(tab.title, "timer", `Inactive for ${inactiveMinutes} minutes`);
+      }
     }
   }
 

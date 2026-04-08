@@ -108,6 +108,26 @@ export const translations = {
           title: 'Per-Tab Memory',
           description: 'Automatically unload individual tabs that consume excessive JavaScript memory',
         },
+        {
+          icon: '⏸️',
+          title: 'Snooze Tabs',
+          description: 'Temporarily protect specific tabs or entire domains from auto-unload (30min to 2hrs)',
+        },
+        {
+          icon: '📜',
+          title: 'Scroll Restore',
+          description: 'Automatically save and restore scroll position when tabs are discarded and reloaded',
+        },
+        {
+          icon: '📶',
+          title: 'Offline Aware',
+          description: 'Pauses auto-unload when offline so tabs can reload when network returns',
+        },
+        {
+          icon: '🔔',
+          title: 'Notifications',
+          description: 'Get notified when tabs are auto-unloaded with reason (timer or memory threshold)',
+        },
       ],
     },
     howItWorks: {
@@ -287,6 +307,26 @@ export const translations = {
           icon: '📈',
           title: 'Bộ nhớ từng tab',
           description: 'Tự động giải phóng các tab tiêu thụ quá nhiều bộ nhớ JavaScript',
+        },
+        {
+          icon: '⏸️',
+          title: 'Tạm hoãn tab',
+          description: 'Tạm thời bảo vệ tab hoặc domain cụ thể khỏi tự động giải phóng (30 phút đến 2 giờ)',
+        },
+        {
+          icon: '📜',
+          title: 'Khôi phục vị trí cuộn',
+          description: 'Tự động lưu và khôi phục vị trí cuộn khi tab được giải phóng và tải lại',
+        },
+        {
+          icon: '📶',
+          title: 'Nhận biết offline',
+          description: 'Tạm dừng tự động giải phóng khi mất mạng để tab có thể tải lại khi có mạng',
+        },
+        {
+          icon: '🔔',
+          title: 'Thông báo',
+          description: 'Nhận thông báo khi tab tự động giải phóng với lý do (hẹn giờ hoặc ngưỡng bộ nhớ)',
         },
       ],
     },

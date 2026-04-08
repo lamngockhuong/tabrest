@@ -13,7 +13,8 @@
     "contextMenus",
     "tabGroups",
     "scripting",
-    "idle"
+    "idle",
+    "notifications"
   ],
   "host_permissions": [
     "http://*/*",

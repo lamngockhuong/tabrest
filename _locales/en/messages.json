@@ -392,5 +392,57 @@
   "performanceModeDesc": {
     "message": "Less aggressive, keeps tabs longer",
     "description": "Performance mode description"
+  },
+  "skipWhenOffline": {
+    "message": "Skip auto-unload when offline",
+    "description": "Skip when offline setting"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "Prevents tabs from being discarded when network is unavailable",
+    "description": "Skip when offline help text"
+  },
+  "restoreScrollPosition": {
+    "message": "Restore scroll position",
+    "description": "Restore scroll position setting"
+  },
+  "restoreScrollHelp": {
+    "message": "Saves and restores scroll position when tabs are discarded and reloaded",
+    "description": "Restore scroll position help text"
+  },
+  "tabSnoozed": {
+    "message": "Tab snoozed",
+    "description": "Toast message when tab is snoozed"
+  },
+  "domainSnoozed": {
+    "message": "Site snoozed",
+    "description": "Toast message when domain is snoozed"
+  },
+  "snoozeRemoved": {
+    "message": "Snooze removed",
+    "description": "Toast message when snooze is cancelled"
+  },
+  "snoozeTab30": {
+    "message": "Snooze Tab (30 min)",
+    "description": "Context menu item"
+  },
+  "snoozeTab60": {
+    "message": "Snooze Tab (1 hour)",
+    "description": "Context menu item"
+  },
+  "snoozeDomain60": {
+    "message": "Snooze Site (1 hour)",
+    "description": "Context menu item"
+  },
+  "openLinkSuspended": {
+    "message": "Open Link in Suspended Tab",
+    "description": "Context menu item for opening link in suspended state"
+  },
+  "notifyOnAutoUnload": {
+    "message": "Notify when tabs are auto-unloaded",
+    "description": "Setting for auto-unload notifications"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "Shows notification with reason (timer/RAM)",
+    "description": "Help text for auto-unload notifications"
   }
 }

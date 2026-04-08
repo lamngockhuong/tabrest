@@ -20,11 +20,17 @@
 
 - **Auto-unload inactive tabs** - Configurable timer (15min to 4hrs)
 - **Memory threshold** - Unload when RAM exceeds 60-90%
+- **Per-tab memory limit** - Unload tabs using >100MB-1GB JS heap
 - **Startup unload** - Free memory when browser opens
 - **Manual controls** - Unload current/left/right/other tabs
 - **Tab groups** - Unload entire tab groups
+- **Snooze tabs/sites** - Temporarily protect tabs or domains (30min-2hrs)
 - **Visual indicator** - Customizable prefix (💤) on discarded tab titles
 - **Whitelist** - Protect sites from auto-unload
+- **Scroll restore** - Restore scroll position when tabs reload
+- **Skip when offline** - Don't discard tabs when network unavailable
+- **Auto-unload notifications** - Get notified when tabs are unloaded
+- **RAM usage display** - Live RAM % in popup header
 - **Statistics** - Track tabs unloaded and memory saved
 - **Multi-language** - English and Vietnamese supported
 

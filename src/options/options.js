@@ -13,6 +13,8 @@ const elements = {
   minTabs: document.getElementById("min-tabs"),
   toolbarAction: document.getElementById("toolbar-action"),
   saveYouTube: document.getElementById("save-youtube"),
+  skipWhenOffline: document.getElementById("skip-when-offline"),
+  restoreScroll: document.getElementById("restore-scroll"),
   onlyDiscardIdle: document.getElementById("only-discard-idle"),
   idleThreshold: document.getElementById("idle-threshold"),
   idleThresholdContainer: document.getElementById("idle-threshold-container"),
@@ -22,6 +24,7 @@ const elements = {
   protectAudio: document.getElementById("protect-audio"),
   protectForm: document.getElementById("protect-form"),
   showBadge: document.getElementById("show-badge"),
+  notifyAutoUnload: document.getElementById("notify-auto-unload"),
   enableStats: document.getElementById("enable-stats"),
   enableTabGroups: document.getElementById("enable-tab-groups"),
   showDiscardedPrefix: document.getElementById("show-discarded-prefix"),
@@ -71,6 +74,8 @@ async function loadSettings() {
   }
   elements.toolbarAction.value = currentSettings.toolbarClickAction;
   elements.saveYouTube.checked = currentSettings.saveYouTubeTimestamp;
+  elements.skipWhenOffline.checked = currentSettings.skipWhenOffline;
+  elements.restoreScroll.checked = currentSettings.restoreScrollPosition;
   elements.onlyDiscardIdle.checked = currentSettings.onlyDiscardWhenIdle;
   elements.idleThreshold.value = currentSettings.idleThresholdMinutes;
   updateIdleThresholdVisibility();
@@ -78,6 +83,7 @@ async function loadSettings() {
   elements.protectAudio.checked = currentSettings.protectAudioTabs;
   elements.protectForm.checked = currentSettings.protectFormTabs;
   elements.showBadge.checked = currentSettings.showBadgeCount;
+  elements.notifyAutoUnload.checked = currentSettings.notifyOnAutoUnload;
   elements.enableStats.checked = currentSettings.enableStats;
   elements.enableTabGroups.checked = currentSettings.enableTabGroups;
   elements.showDiscardedPrefix.checked = currentSettings.showDiscardedPrefix;
@@ -154,12 +160,15 @@ function setupEventListeners() {
     { el: elements.minTabs, key: "minTabsBeforeAutoDiscard", type: "number" },
     { el: elements.toolbarAction, key: "toolbarClickAction", type: "string" },
     { el: elements.saveYouTube, key: "saveYouTubeTimestamp", type: "checkbox" },
+    { el: elements.skipWhenOffline, key: "skipWhenOffline", type: "checkbox" },
+    { el: elements.restoreScroll, key: "restoreScrollPosition", type: "checkbox" },
     { el: elements.onlyDiscardIdle, key: "onlyDiscardWhenIdle", type: "checkbox" },
     { el: elements.idleThreshold, key: "idleThresholdMinutes", type: "number" },
     { el: elements.unloadPinned, key: "unloadPinnedTabs", type: "checkbox" },
     { el: elements.protectAudio, key: "protectAudioTabs", type: "checkbox" },
     { el: elements.protectForm, key: "protectFormTabs", type: "checkbox" },
     { el: elements.showBadge, key: "showBadgeCount", type: "checkbox" },
+    { el: elements.notifyAutoUnload, key: "notifyOnAutoUnload", type: "checkbox" },
     { el: elements.enableStats, key: "enableStats", type: "checkbox" },
     { el: elements.enableTabGroups, key: "enableTabGroups", type: "checkbox" },
     { el: elements.showDiscardedPrefix, key: "showDiscardedPrefix", type: "checkbox" },

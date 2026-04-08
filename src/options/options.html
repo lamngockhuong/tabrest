@@ -78,11 +78,12 @@
         <label for="per-tab-memory" data-i18n="perTabMemoryLabel">Unload tabs using more than (JS heap):</label>
         <select id="per-tab-memory">
           <option value="0" data-i18n="disabled">Disabled</option>
-          <option value="50">50 MB</option>
-          <option value="75">75 MB</option>
           <option value="100">100 MB</option>
-          <option value="150">150 MB</option>
           <option value="200">200 MB</option>
+          <option value="300">300 MB</option>
+          <option value="500">500 MB</option>
+          <option value="750">750 MB</option>
+          <option value="1000">1 GB</option>
         </select>
         <p class="help" data-i18n="perTabMemoryHelp">Measures JavaScript memory only, not total tab memory</p>
       </div>
@@ -147,6 +148,20 @@
       </div>
       <div class="setting">
         <label>
+          <input type="checkbox" id="skip-when-offline">
+          <span data-i18n="skipWhenOffline">Skip auto-unload when offline</span>
+        </label>
+        <p class="help" data-i18n="skipWhenOfflineHelp">Prevents tabs from being discarded when network is unavailable</p>
+      </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="restore-scroll">
+          <span data-i18n="restoreScrollPosition">Restore scroll position</span>
+        </label>
+        <p class="help" data-i18n="restoreScrollHelp">Saves and restores scroll position when tabs are discarded and reloaded</p>
+      </div>
+      <div class="setting">
+        <label>
           <input type="checkbox" id="only-discard-idle">
           <span data-i18n="onlyDiscardWhenIdle">Only auto-unload when computer is idle</span>
         </label>
@@ -165,6 +180,13 @@
           <input type="checkbox" id="show-badge">
           <span data-i18n="showUnloadedCount">Show unloaded count on icon</span>
         </label>
+      </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="notify-auto-unload">
+          <span data-i18n="notifyOnAutoUnload">Notify when tabs are auto-unloaded</span>
+        </label>
+        <p class="help" data-i18n="notifyOnAutoUnloadHelp">Shows notification with reason (timer/RAM)</p>
       </div>
       <div class="setting">
         <label>

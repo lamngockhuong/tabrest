@@ -67,11 +67,19 @@ Chỉ tự động giải phóng tab khi máy tính không hoạt động:
 
 Tự động giải phóng các tab tiêu thụ quá nhiều bộ nhớ:
 
-- **Phạm vi**: 50-200 MB (JavaScript heap)
+- **Phạm vi**: 100MB - 1GB (JavaScript heap)
 - **Mặc định**: Tắt
 - **Lưu ý**: Chỉ đo bộ nhớ JS, không phải tổng bộ nhớ tab
 
 **Trường hợp sử dụng**: Nhắm mục tiêu các tab nặng bộ nhớ cụ thể thay vì theo thời gian.
+
+### Bỏ qua khi offline
+
+Ngăn tab bị giải phóng khi mất kết nối mạng:
+
+- **Mặc định**: Bật
+- **Hành vi**: Tạm dừng tự động giải phóng khi `navigator.onLine` là false
+- **Lý do**: Tab đã giải phóng không thể tải lại khi không có mạng
 
 ## Điều khiển thủ công
 
@@ -132,9 +140,22 @@ Bảo vệ các tab cụ thể khỏi tự động giải phóng:
 - **Có thể cấu hình**: Tắt "Bảo vệ tab có form chưa lưu" để cho phép giải phóng
 
 ### Danh sách trắng
-- **Mặc định**: YouTube, Gmail, Google Docs
+- **Mặc định**: YouTube, Gmail, Google Docs, Miro, Figma, Notion
 - **Tùy chỉnh**: Thêm bất kỳ trang nào để ngăn tự động giải phóng
 - **Chi tiết**: Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config)
+
+### Tạm hoãn Tab/Domain
+
+Tạm thời bảo vệ tab hoặc domain cụ thể khỏi tự động giải phóng:
+
+| Tùy chọn | Thời gian |
+|----------|-----------|
+| Tạm hoãn tab | 30 phút, 1 giờ, 2 giờ |
+| Tạm hoãn domain | 1 giờ |
+
+**Truy cập**: Nhấn chuột phải trên trang → Tùy chọn tạm hoãn, hoặc dùng nút ⏸️ trong danh sách tab popup.
+
+**Trường hợp sử dụng**: Làm việc tập trung trên một trang mà không cần thêm vào danh sách trắng vĩnh viễn.
 
 ## Nhóm tab
 
@@ -164,6 +185,42 @@ Hiển thị số tab đã giải phóng trên biểu tượng tiện ích:
 - **Mặc định**: Bật
 - **Hiển thị**: Số nhỏ trên biểu tượng thanh công cụ
 - **Tắt**: Tắt "Hiện số đếm huy hiệu" trong cài đặt
+
+## Hiển thị RAM
+
+Xem mức sử dụng RAM hệ thống trong header popup:
+
+- **Hiển thị**: Hiện % RAM cùng với thống kê tab
+- **Cảnh báo**: Làm nổi bật khi RAM vượt ngưỡng đã cấu hình
+- **Tooltip**: Di chuột để xem so sánh ngưỡng
+
+## Khôi phục vị trí cuộn
+
+Tự động lưu và khôi phục vị trí cuộn khi tab tải lại:
+
+- **Mặc định**: Bật
+- **Hành vi**: Lưu vị trí trước khi giải phóng, khôi phục khi tải lại
+- **Lưu trữ**: Local storage, tự động dọn dẹp (tối đa 100 mục)
+
+**Trường hợp sử dụng**: Tiếp tục đọc bài viết dài đúng nơi bạn đã dừng.
+
+## Thông báo tự động giải phóng
+
+Nhận thông báo khi tab bị tự động giải phóng:
+
+- **Mặc định**: Tắt
+- **Nội dung**: Hiện tiêu đề tab, lý do (Hẹn giờ/RAM), và chi tiết
+- **Im lặng**: Thông báo không phát âm thanh
+
+**Trường hợp sử dụng**: Theo dõi những gì TabRest đang làm trong nền.
+
+## Mở link ở trạng thái ngủ
+
+Mở link trực tiếp ở trạng thái đã giải phóng:
+
+- **Truy cập**: Nhấn chuột phải lên link → "Mở link ở trạng thái ngủ"
+- **Hành vi**: Tạo tab, đợi tải xong, rồi giải phóng ngay
+- **Trường hợp sử dụng**: Lưu link để đọc sau mà không tốn bộ nhớ
 
 ## Hỗ trợ đa ngôn ngữ
 

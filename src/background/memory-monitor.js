@@ -5,6 +5,7 @@ import {
   POWER_MODE_CONFIG,
 } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
+import { notifyAutoUnload } from "../shared/utils.js";
 import { getLRUSortedTabs } from "./tab-tracker.js";
 import { discardTab } from "./unload-manager.js";
 
@@ -74,11 +75,30 @@ export async function checkMemoryAndUnload() {
   const lruTabs = getLRUSortedTabs();
   let unloadedCount = 0;
 
+  console.log(
+    `[TabRest] MEMORY check: RAM ${usagePercent}% (threshold: ${effectiveThreshold}%), unloading up to ${MAX_TABS_PER_MEMORY_CHECK} tabs`,
+  );
+
   for (const tabId of lruTabs) {
     if (unloadedCount >= MAX_TABS_PER_MEMORY_CHECK) break;
 
+    // Get tab info before discarding for notification
+    let tabTitle = null;
+    if (settings.notifyOnAutoUnload) {
+      try {
+        const tab = await chrome.tabs.get(tabId);
+        tabTitle = tab.title;
+      } catch {
+        // Tab may not exist
+      }
+    }
+
     if (await discardTab(tabId, { settings })) {
       unloadedCount++;
+      // Notify if enabled
+      if (settings.notifyOnAutoUnload && tabTitle) {
+        notifyAutoUnload(tabTitle, "memory", `RAM usage: ${usagePercent}%`);
+      }
     }
   }
 
