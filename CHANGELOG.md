@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.2](https://github.com/lamngockhuong/tabrest/compare/v0.0.1...v0.0.2) (2026-04-08)
+
+
+### Features
+
+* add 6 advanced features for tab management ([55245da](https://github.com/lamngockhuong/tabrest/commit/55245da89c59391a79d9eb7ad37baf27c420b599))
+* add title prefix for discarded tabs ([0438fc4](https://github.com/lamngockhuong/tabrest/commit/0438fc4ffff6f5b445a9247de830956a0913dc7d))
+* add toolbar context menu and improve UI/UX ([b05351d](https://github.com/lamngockhuong/tabrest/commit/b05351d0ce528cceac8eb66f9ee57897a47e9891))
+
 ## 0.0.1 (2026-04-07)
 
 
