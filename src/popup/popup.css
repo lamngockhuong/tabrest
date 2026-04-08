@@ -327,6 +327,16 @@ footer {
   opacity: 0.9;
 }
 
+[data-theme="dark"] .filter-chip {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text);
+}
+
+[data-theme="dark"] .filter-chip:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 .tab-list {
   max-height: 200px;
   overflow-y: auto;
@@ -846,6 +856,16 @@ footer {
   padding: 8px 0 4px;
   font-size: 10px;
   color: var(--text-muted);
+}
+
+.popup-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.popup-footer a:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
 
 /* Session Save Row */

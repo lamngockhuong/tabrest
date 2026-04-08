@@ -226,7 +226,7 @@ service-worker.js
   },
 
   // Version tracking
-  tabrest_lastVersion: "0.0.2"
+  tabrest_lastVersion: "0.0.3"
 }
 ```
 

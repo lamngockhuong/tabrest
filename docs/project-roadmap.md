@@ -1,6 +1,6 @@
 # TabRest - Project Roadmap
 
-## Current Version: 0.0.2
+## Current Version: 0.0.3
 
 ### Completed Features
 

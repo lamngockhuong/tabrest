@@ -11,16 +11,15 @@ interface Props {
 const locale = (Astro.props.locale || Astro.currentLocale || 'en') as Locale;
 const t = useTranslations(locale);
 const currentPath = Astro.url.pathname;
+const homeLink = getLocalizedPath('/', locale);
 
 const navLinks = [
-  { href: '#features', label: t.header.features },
-  { href: '#how-it-works', label: t.header.howItWorks },
-  { href: '#faq', label: t.header.faq },
+  { href: `${homeLink}#features`, label: t.header.features },
+  { href: `${homeLink}#how-it-works`, label: t.header.howItWorks },
+  { href: `${homeLink}#faq`, label: t.header.faq },
   { href: getLocalizedPath('/docs/getting-started', locale), label: t.header.docs },
   { href: 'https://github.com/lamngockhuong/tabrest', label: t.header.github, external: true },
 ];
-
-const homeLink = getLocalizedPath('/', locale);
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">

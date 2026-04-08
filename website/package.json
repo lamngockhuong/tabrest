@@ -8,13 +8,14 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "6.1.4",
     "@astrojs/mdx": "5.0.3",
-    "@astrojs/sitemap": "3.7.2"
+    "@astrojs/sitemap": "3.7.2",
+    "astro": "6.1.4",
+    "marked": "^18.0.0"
   },
   "devDependencies": {
-    "tailwindcss": "4.2.2",
     "@tailwindcss/typography": "0.5.19",
-    "@tailwindcss/vite": "4.2.2"
+    "@tailwindcss/vite": "4.2.2",
+    "tailwindcss": "4.2.2"
   }
 }

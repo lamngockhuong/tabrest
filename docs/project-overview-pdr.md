@@ -100,7 +100,8 @@ host_permissions: http://*/*, https://*/*
 
 | Version | Status  | Key Changes                                         |
 | ------- | ------- | --------------------------------------------------- |
-| 0.0.2   | Current | Snooze, scroll restore, offline skip, notifications |
+| 0.0.3   | Current | Tab filter chips, domain snooze fix, UX improvements|
+| 0.0.2   |         | Snooze, scroll restore, offline skip, notifications |
 | 0.0.1   | Initial | Core unload functionality                           |
 
 ## Links

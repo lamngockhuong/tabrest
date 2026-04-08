@@ -1,6 +1,6 @@
 ---
 // Footer with CTA and links
-import { useTranslations, type Locale } from '../i18n';
+import { useTranslations, getLocalizedPath, type Locale } from '../i18n';
 
 interface Props {
   locale?: Locale;
@@ -8,6 +8,7 @@ interface Props {
 
 const locale = (Astro.props.locale || Astro.currentLocale || 'en') as Locale;
 const t = useTranslations(locale);
+const homeLink = getLocalizedPath('/', locale);
 ---
 
 <footer class="bg-card-light dark:bg-card-dark border-t border-border-light dark:border-border-dark">
@@ -37,17 +38,17 @@ const t = useTranslations(locale);
         <h3 class="font-semibold text-primary dark:text-primary-light mb-3">{t.footer.sections.product}</h3>
         <ul class="space-y-2">
           <li>
-            <a href="#features" class="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors">
+            <a href={`${homeLink}#features`} class="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors">
               {t.footer.links.features}
             </a>
           </li>
           <li>
-            <a href="#how-it-works" class="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors">
+            <a href={`${homeLink}#how-it-works`} class="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors">
               {t.footer.links.howItWorks}
             </a>
           </li>
           <li>
-            <a href="#faq" class="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors">
+            <a href={`${homeLink}#faq`} class="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors">
               {t.footer.links.faq}
             </a>
           </li>
@@ -86,6 +87,14 @@ const t = useTranslations(locale);
               class="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors"
             >
               {t.footer.links.chromeStore}
+            </a>
+          </li>
+          <li>
+            <a
+              href="/changelog"
+              class="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-light transition-colors"
+            >
+              Changelog
             </a>
           </li>
         </ul>
