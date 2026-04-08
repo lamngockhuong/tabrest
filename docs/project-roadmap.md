@@ -79,9 +79,9 @@
 
 **Goal:** User-requested features
 
-| Feature                   | Description                       | Priority |
-| ------------------------- | --------------------------------- | -------- |
-| Tab search/filter         | Search tabs by title/URL in popup | Medium   |
+| Feature                   | Description                       | Priority | Status      |
+| ------------------------- | --------------------------------- | -------- | ----------- |
+| Tab search/filter         | Search tabs by title/URL in popup | Medium   | Filter done |
 | Import/export settings    | Backup and restore configuration  | Low      |
 | Tab usage analytics       | Dashboard showing usage patterns  | Low      |
 | Custom keyboard shortcuts | Let users customize hotkeys       | Low      |
@@ -102,7 +102,12 @@
 
 ## Version History
 
-### v0.0.2 (Current)
+### v0.0.3 (Current)
+- Added tab filter chips (All/Sleeping/Snoozed/Protected)
+- Fixed cancel snooze for domain-snoozed tabs
+- Improved snooze button UX (show on hover)
+
+### v0.0.2
 - Added snooze functionality (tabs and domains)
 - Added scroll position restore
 - Added skip when offline option
@@ -124,9 +129,9 @@
 
 | Item                         | Impact          | Effort |
 | ---------------------------- | --------------- | ------ |
-| Split popup.js (651 LOC)     | Maintainability | Medium |
+| Split popup.js (715 LOC)     | Maintainability | Medium |
 | Add unit tests               | Reliability     | High   |
-| Reduce popup.css (1009 LOC)  | Maintainability | Low    |
+| Reduce popup.css (1053 LOC)  | Maintainability | Low    |
 | Extract shared UI components | Reusability     | Medium |
 
 ---

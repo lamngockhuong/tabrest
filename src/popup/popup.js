@@ -28,6 +28,11 @@ const elements = {
   tabsToggle: document.getElementById("tabs-toggle"),
   tabsBody: document.getElementById("tabs-body"),
   tabList: document.getElementById("tab-list"),
+  tabFilters: document.getElementById("tab-filters"),
+  filterCountAll: document.getElementById("filter-count-all"),
+  filterCountSleeping: document.getElementById("filter-count-sleeping"),
+  filterCountSnoozed: document.getElementById("filter-count-snoozed"),
+  filterCountProtected: document.getElementById("filter-count-protected"),
   copyTabs: document.getElementById("copy-tabs"),
   refreshTabs: document.getElementById("refresh-tabs"),
   // Theme
@@ -238,6 +243,93 @@ async function loadTabGroups() {
   }
 }
 
+// Current filter and cached tabs
+let currentFilter = "all";
+let cachedTabs = [];
+
+// Get tab filter category
+function getTabCategory(tab) {
+  if (tab.discarded) return "sleeping";
+  if (tab.isSnoozed) return "snoozed";
+  if (tab.isProtected && !tab.isSnoozed) return "protected";
+  return "active";
+}
+
+// Update filter counts
+function updateFilterCounts(tabs) {
+  const counts = { all: tabs.length, sleeping: 0, snoozed: 0, protected: 0 };
+  for (const tab of tabs) {
+    const category = getTabCategory(tab);
+    if (category === "sleeping") counts.sleeping++;
+    else if (category === "snoozed") counts.snoozed++;
+    else if (category === "protected") counts.protected++;
+  }
+  elements.filterCountAll.textContent = counts.all;
+  elements.filterCountSleeping.textContent = counts.sleeping;
+  elements.filterCountSnoozed.textContent = counts.snoozed;
+  elements.filterCountProtected.textContent = counts.protected;
+}
+
+// Filter tabs based on current filter
+function filterTabs(tabs) {
+  if (currentFilter === "all") return tabs;
+  return tabs.filter((tab) => getTabCategory(tab) === currentFilter);
+}
+
+// Generate HTML for a single tab item
+function renderTabItem(tab) {
+  const statusBadge = getStatusBadge(tab);
+  const favicon = tab.favIconUrl
+    ? `<img class="tab-favicon" src="${tab.favIconUrl}" alt="">`
+    : '<span class="tab-favicon-placeholder">🌐</span>';
+  const title = escapeHtml(tab.title.length > 30 ? `${tab.title.slice(0, 30)}...` : tab.title);
+  const hostname = getHostname(tab.url);
+  const snoozeBtn =
+    tab.active || tab.discarded
+      ? ""
+      : tab.isSnoozed
+        ? `<button class="tab-snooze-btn unsnooze" data-tab-id="${tab.id}" data-snooze-type="${tab.snoozeInfo?.type || "tab"}" data-snooze-domain="${escapeHtml(tab.snoozeInfo?.domain || "")}" title="Cancel snooze">▶️</button>`
+        : `<div class="snooze-dropdown">
+          <button class="tab-snooze-btn" data-tab-id="${tab.id}" title="Snooze">⏸️</button>
+          <div class="snooze-menu">
+            <button data-tab-id="${tab.id}" data-minutes="30">30 min</button>
+            <button data-tab-id="${tab.id}" data-minutes="60">1 hour</button>
+            <button data-tab-id="${tab.id}" data-minutes="120">2 hours</button>
+            <hr>
+            <button data-tab-id="${tab.id}" data-domain="${hostname}" data-minutes="60">Site 1h</button>
+          </div>
+        </div>`;
+
+  return `
+    <div class="tab-item ${tab.active ? "active" : ""} ${tab.discarded ? "discarded" : ""}"
+         data-tab-id="${tab.id}"
+         title="${escapeHtml(tab.title)}">
+      <div class="tab-info">
+        ${favicon}
+        <div class="tab-details">
+          <span class="tab-title">${title}</span>
+          <span class="tab-hostname">${hostname}</span>
+        </div>
+      </div>
+      <div class="tab-status">
+        ${snoozeBtn}
+        ${!tab.active && !tab.discarded ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="${tab.isProtected ? "Force unload" : "Unload"}">💤</button>` : ""}
+        ${statusBadge}
+      </div>
+    </div>
+  `;
+}
+
+// Render filtered tabs to DOM
+function renderFilteredTabs(tabs) {
+  if (tabs.length === 0) {
+    elements.tabList.innerHTML = '<div class="tab-item-empty">No tabs match this filter</div>';
+    return;
+  }
+  elements.tabList.innerHTML = tabs.map(renderTabItem).join("");
+  attachFaviconErrorHandlers(elements.tabList, ".tab-favicon");
+}
+
 // Render tab list with status indicators
 async function renderTabList() {
   const tabs = await sendCommand("get-tabs-with-status");
@@ -246,55 +338,9 @@ async function renderTabList() {
     return;
   }
 
-  elements.tabList.innerHTML = tabs
-    .map((tab) => {
-      const statusBadge = getStatusBadge(tab);
-      const favicon = tab.favIconUrl
-        ? `<img class="tab-favicon" src="${tab.favIconUrl}" alt="">`
-        : '<span class="tab-favicon-placeholder">🌐</span>';
-
-      const title = escapeHtml(tab.title.length > 30 ? `${tab.title.slice(0, 30)}...` : tab.title);
-      const hostname = getHostname(tab.url);
-
-      // Snooze button - show unsnooze if snoozed, else snooze dropdown
-      const snoozeBtn =
-        tab.active || tab.discarded
-          ? ""
-          : tab.isSnoozed
-            ? `<button class="tab-snooze-btn unsnooze" data-tab-id="${tab.id}" data-url="${escapeHtml(tab.url || "")}" title="Cancel snooze">▶️</button>`
-            : `<div class="snooze-dropdown">
-            <button class="tab-snooze-btn" data-tab-id="${tab.id}" title="Snooze">⏸️</button>
-            <div class="snooze-menu">
-              <button data-tab-id="${tab.id}" data-minutes="30">30 min</button>
-              <button data-tab-id="${tab.id}" data-minutes="60">1 hour</button>
-              <button data-tab-id="${tab.id}" data-minutes="120">2 hours</button>
-              <hr>
-              <button data-tab-id="${tab.id}" data-domain="${hostname}" data-minutes="60">Site 1h</button>
-            </div>
-          </div>`;
-
-      return `
-      <div class="tab-item ${tab.active ? "active" : ""} ${tab.discarded ? "discarded" : ""}"
-           data-tab-id="${tab.id}"
-           title="${escapeHtml(tab.title)}">
-        <div class="tab-info">
-          ${favicon}
-          <div class="tab-details">
-            <span class="tab-title">${title}</span>
-            <span class="tab-hostname">${hostname}</span>
-          </div>
-        </div>
-        <div class="tab-status">
-          ${snoozeBtn}
-          ${!tab.active && !tab.discarded ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="${tab.isProtected ? "Force unload" : "Unload"}">💤</button>` : ""}
-          ${statusBadge}
-        </div>
-      </div>
-    `;
-    })
-    .join("");
-
-  attachFaviconErrorHandlers(elements.tabList, ".tab-favicon");
+  cachedTabs = tabs;
+  updateFilterCounts(tabs);
+  renderFilteredTabs(filterTabs(tabs));
 }
 
 // Validate URL is safe (http/https only)
@@ -443,6 +489,22 @@ function setupEventListeners() {
     showToast(t("refreshed"));
   });
 
+  // Filter chips click handler
+  elements.tabFilters.addEventListener("click", (e) => {
+    const chip = e.target.closest(".filter-chip");
+    if (!chip) return;
+
+    // Update active state
+    for (const c of document.querySelectorAll(".filter-chip")) {
+      c.classList.remove("active");
+    }
+    chip.classList.add("active");
+
+    // Apply filter and re-render
+    currentFilter = chip.dataset.filter;
+    renderFilteredTabs(filterTabs(cachedTabs));
+  });
+
   // Setup collapsible sections
   setupCollapsible("tabs-toggle", "tabs-body");
   setupCollapsible("settings-toggle", "settings-body");
@@ -473,7 +535,14 @@ function setupEventListeners() {
     if (e.target.classList.contains("unsnooze")) {
       e.stopPropagation();
       const tabId = Number.parseInt(e.target.dataset.tabId, 10);
-      await sendCommand("cancel-tab-snooze", { tabId });
+      const snoozeType = e.target.dataset.snoozeType;
+      const snoozeDomain = e.target.dataset.snoozeDomain;
+
+      if (snoozeType === "domain" && snoozeDomain) {
+        await sendCommand("cancel-domain-snooze", { domain: snoozeDomain });
+      } else {
+        await sendCommand("cancel-tab-snooze", { tabId });
+      }
       await renderTabList();
       showToast(t("snoozeRemoved") || "Snooze removed");
       return;

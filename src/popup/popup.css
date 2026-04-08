@@ -288,6 +288,45 @@ footer {
   padding: 2px;
 }
 
+.tab-filters {
+  display: flex;
+  gap: 6px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--background);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-chip:hover {
+  background: var(--border);
+}
+
+.filter-chip.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.filter-count {
+  font-weight: 600;
+}
+
+.filter-chip.active .filter-count {
+  opacity: 0.9;
+}
+
 .tab-list {
   max-height: 200px;
   overflow-y: auto;
@@ -385,12 +424,17 @@ footer {
   padding: 4px;
   cursor: pointer;
   font-size: 12px;
-  opacity: 0.7;
-  transition: opacity 0.15s;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+  border-radius: 4px;
+}
+
+.tab-item:hover .tab-snooze-btn {
+  opacity: 1;
 }
 
 .tab-snooze-btn:hover {
-  opacity: 1;
+  background: var(--border);
 }
 
 .snooze-menu {
@@ -661,7 +705,7 @@ footer {
 }
 
 #tabs-body.open {
-  max-height: 220px;
+  max-height: 270px;
   border-top: 1px solid var(--border);
 }
 

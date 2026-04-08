@@ -55,9 +55,9 @@ tabrest/
 
 | File                   | LOC  | Purpose                             |
 | ---------------------- | ---- | ----------------------------------- |
-| `popup/popup.js`       | 651  | Main popup logic, tab list, actions |
-| `popup/popup.html`     | 232  | Popup markup                        |
-| `popup/popup.css`      | 1009 | Popup styles                        |
+| `popup/popup.js`       | 715  | Main popup logic, tab list, actions |
+| `popup/popup.html`     | 238  | Popup markup                        |
+| `popup/popup.css`      | 1053 | Popup styles                        |
 | `options/options.js`   | 297  | Settings management                 |
 | `options/options.html` | 267  | Options page markup                 |
 | `options/options.css`  | 401  | Options styles                      |
@@ -154,5 +154,5 @@ pnpm run ci         # Full CI check
 ## File Size Limits
 
 - Target: < 200 LOC per file for maintainability
-- Current largest: `popup.js` (651 LOC), `popup.css` (1009 LOC)
+- Current largest: `popup.js` (715 LOC), `popup.css` (1053 LOC)
 - Consider splitting popup into components if it grows further
