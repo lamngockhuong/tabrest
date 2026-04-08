@@ -100,6 +100,12 @@
   "refreshed": {
     "message": "Đã làm mới"
   },
+  "copyTabListTooltip": {
+    "message": "Sao chép danh sách tab vào clipboard"
+  },
+  "tabListCopied": {
+    "message": "Đã sao chép danh sách tab"
+  },
   "timerUpdated": {
     "message": "Đã cập nhật hẹn giờ"
   },

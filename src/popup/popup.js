@@ -26,6 +26,7 @@ const elements = {
   tabsToggle: document.getElementById("tabs-toggle"),
   tabsBody: document.getElementById("tabs-body"),
   tabList: document.getElementById("tab-list"),
+  copyTabs: document.getElementById("copy-tabs"),
   refreshTabs: document.getElementById("refresh-tabs"),
   // Theme
   themeToggle: document.getElementById("theme-toggle"),
@@ -385,6 +386,15 @@ function setupEventListeners() {
   elements.themeToggle.addEventListener("click", async () => {
     const newTheme = await toggleTheme();
     updateThemeIcon(elements.themeIcon, elements.themeToggle, newTheme);
+  });
+
+  // Copy tabs button
+  elements.copyTabs.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    const tabs = await chrome.tabs.query({ currentWindow: true });
+    const tabListText = tabs.map((tab) => `${tab.title}\n${tab.url}`).join("\n\n");
+    await navigator.clipboard.writeText(tabListText);
+    showToast(t("tabListCopied"));
   });
 
   // Refresh tabs button

@@ -137,6 +137,14 @@
     "message": "Refreshed",
     "description": "Toast message"
   },
+  "copyTabListTooltip": {
+    "message": "Copy tab list to clipboard",
+    "description": "Tooltip for copy tab list button"
+  },
+  "tabListCopied": {
+    "message": "Tab list copied to clipboard",
+    "description": "Toast message when tab list is copied"
+  },
   "timerUpdated": {
     "message": "Timer updated",
     "description": "Toast message"
