@@ -26,12 +26,32 @@ const t = useTranslations(locale);
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 min-w-0">
-      <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-1 min-w-0 flex flex-col">
+      <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1">
         <div class="prose prose-indigo dark:prose-invert max-w-none">
           <slot />
         </div>
       </article>
+
+      <!-- Minimal Footer -->
+      <footer class="border-t border-border-light dark:border-border-dark py-6 px-4 text-center text-sm text-text-muted dark:text-text-muted-dark">
+        <p>
+          Made with <span class="inline-block text-danger animate-heartbeat">♥</span> by <a href="https://khuong.dev" target="_blank" rel="noopener noreferrer" class="hover:text-primary dark:hover:text-primary-light transition-colors">khuong.dev</a>
+        </p>
+      </footer>
+
+      <style>
+        @keyframes heartbeat {
+          0%, 100% { transform: scale(1); }
+          15% { transform: scale(1.25); }
+          30% { transform: scale(1); }
+          45% { transform: scale(1.15); }
+          60% { transform: scale(1); }
+        }
+        .animate-heartbeat {
+          animation: heartbeat 1.5s ease-in-out infinite;
+        }
+      </style>
     </main>
 
     <!-- Mobile FAB -->

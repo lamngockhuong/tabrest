@@ -1,0 +1,42 @@
+---
+// Back to Top button component - shows after scrolling down
+---
+
+<button
+  id="back-to-top"
+  class="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-full bg-primary hover:bg-primary-hover text-white shadow-lg flex items-center justify-center opacity-0 invisible translate-y-3 transition-all duration-200 cursor-pointer"
+  aria-label="Back to top"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+</button>
+
+<script>
+  const backToTop = document.getElementById('back-to-top');
+  const SCROLL_THRESHOLD = 300;
+  let isVisible = false;
+  let ticking = false;
+
+  function updateVisibility() {
+    const shouldShow = window.scrollY > SCROLL_THRESHOLD;
+    if (shouldShow !== isVisible) {
+      isVisible = shouldShow;
+      backToTop?.classList.toggle('opacity-0', !isVisible);
+      backToTop?.classList.toggle('invisible', !isVisible);
+      backToTop?.classList.toggle('translate-y-3', !isVisible);
+    }
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateVisibility);
+      ticking = true;
+    }
+  });
+
+  backToTop?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
