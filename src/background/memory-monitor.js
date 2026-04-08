@@ -1,4 +1,9 @@
-import { ALARM_NAMES, MAX_TABS_PER_MEMORY_CHECK, MEMORY_STALE_THRESHOLD_MS, POWER_MODE_CONFIG } from "../shared/constants.js";
+import {
+  ALARM_NAMES,
+  MAX_TABS_PER_MEMORY_CHECK,
+  MEMORY_STALE_THRESHOLD_MS,
+  POWER_MODE_CONFIG,
+} from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
 import { getLRUSortedTabs } from "./tab-tracker.js";
 import { discardTab } from "./unload-manager.js";

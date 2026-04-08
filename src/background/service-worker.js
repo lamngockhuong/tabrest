@@ -1,5 +1,5 @@
 import { ALARM_NAMES, FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
-import { getSettings } from "../shared/storage.js";
+import { getSettings, saveSettings } from "../shared/storage.js";
 import {
   checkMemoryAndUnload,
   checkPerTabMemory,
@@ -44,7 +44,7 @@ async function configureToolbarAction() {
 }
 
 // Handle toolbar click (only fires when popup is empty)
-chrome.action.onClicked.addListener(async (tab) => {
+chrome.action.onClicked.addListener(async (_tab) => {
   const settings = await getSettings();
   switch (settings.toolbarClickAction) {
     case "discard-current":
@@ -95,6 +95,25 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   }
 });
 
+// Add current site to whitelist
+async function addCurrentSiteToWhitelist() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab?.url) return;
+
+  try {
+    const url = new URL(tab.url);
+    const hostname = url.hostname.replace(/^www\./, "");
+
+    const settings = await getSettings();
+    if (!settings.whitelist.includes(hostname)) {
+      settings.whitelist.push(hostname);
+      await saveSettings(settings);
+    }
+  } catch {
+    // Ignore invalid URLs
+  }
+}
+
 // Setup context menus
 function setupContextMenus() {
   chrome.contextMenus.removeAll(() => {
@@ -123,6 +142,23 @@ function setupContextMenus() {
       title: "Unload Tabs to the Left",
       contexts: ["page"],
     });
+
+    // Toolbar icon (action) context menu
+    chrome.contextMenus.create({
+      id: "action-unload-current",
+      title: "Unload Current Tab",
+      contexts: ["action"],
+    });
+    chrome.contextMenus.create({
+      id: "action-unload-others",
+      title: "Unload Other Tabs",
+      contexts: ["action"],
+    });
+    chrome.contextMenus.create({
+      id: "action-never-unload-site",
+      title: "Never Unload This Site",
+      contexts: ["action"],
+    });
   });
 }
 
@@ -146,6 +182,16 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
       break;
     case "unload-left":
       await discardTabsToLeft();
+      break;
+    // Action (toolbar icon) menu handlers
+    case "action-unload-current":
+      await discardCurrentTab();
+      break;
+    case "action-unload-others":
+      await discardOtherTabs();
+      break;
+    case "action-never-unload-site":
+      await addCurrentSiteToWhitelist();
       break;
   }
   updateBadge();

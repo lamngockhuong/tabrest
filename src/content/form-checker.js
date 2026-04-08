@@ -80,6 +80,15 @@ document.addEventListener(
 let memoryReporterId = null;
 
 function reportMemoryUsage() {
+  // Check if extension context is still valid
+  if (!chrome.runtime?.id) {
+    if (memoryReporterId) {
+      clearInterval(memoryReporterId);
+      memoryReporterId = null;
+    }
+    return;
+  }
+
   // performance.memory is only available in Chrome with the flag or in certain contexts
   if (!performance.memory) return;
 

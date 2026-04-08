@@ -74,6 +74,15 @@ h1 {
   color: var(--primary);
 }
 
+.header-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header-link:hover {
+  opacity: 0.8;
+}
+
 .logo-title {
   display: flex;
   align-items: center;

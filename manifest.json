@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
+  "homepage_url": "https://tabrest.khuong.dev",
   "permissions": [
     "tabs",
     "storage",

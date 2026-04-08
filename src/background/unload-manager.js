@@ -210,7 +210,7 @@ async function addTitlePrefix(tabId, prefix) {
       target: { tabId },
       func: (p) => {
         if (!document.title.startsWith(p)) {
-          document.title = p + " " + document.title;
+          document.title = `${p} ${document.title}`;
         }
       },
       args: [prefix],
