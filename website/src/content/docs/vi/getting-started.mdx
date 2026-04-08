@@ -7,14 +7,23 @@ section: getting-started
 
 # Bắt đầu với TabRest
 
-TabRest là tiện ích Chrome tự động giải phóng các tab không hoạt động để giải phóng bộ nhớ. Hướng dẫn này sẽ giúp bạn bắt đầu.
+TabRest là tiện ích trình duyệt tự động giải phóng các tab không hoạt động để giải phóng bộ nhớ. Hoạt động trên **tất cả trình duyệt Chromium**: Chrome, Microsoft Edge, Brave, Opera, Vivaldi và Arc.
 
 ## Cài đặt
 
-### Từ Chrome Web Store
+### Từ Web Store
 
+**Người dùng Chrome:**
 1. Truy cập [TabRest trên Chrome Web Store](https://chrome.google.com/webstore) (sắp ra mắt)
 2. Nhấn **Thêm vào Chrome**
+
+**Người dùng Edge:**
+1. Truy cập [TabRest trên Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons) (sắp ra mắt)
+2. Nhấn **Tải về**
+
+**Người dùng Brave, Opera, Vivaldi, Arc:**
+- Cài đặt trực tiếp từ Chrome Web Store (các trình duyệt này hỗ trợ tiện ích Chrome)
+
 3. Xác nhận yêu cầu quyền
 4. Biểu tượng TabRest sẽ xuất hiện trên thanh công cụ
 
@@ -26,7 +35,12 @@ TabRest là tiện ích Chrome tự động giải phóng các tab không hoạt
    cd tabrest
    ```
 
-2. Mở Chrome và truy cập `chrome://extensions`
+2. Mở trình duyệt và truy cập trang tiện ích:
+   - Chrome: `chrome://extensions`
+   - Edge: `edge://extensions`
+   - Brave: `brave://extensions`
+   - Opera: `opera://extensions`
+   - Vivaldi: `vivaldi://extensions`
 
 3. Bật **Chế độ nhà phát triển** (nút bật/tắt ở góc trên bên phải)
 
@@ -65,7 +79,7 @@ Tab đã giải phóng vẫn hiển thị trên thanh tab nhưng sẽ tải lạ
 
 ## Điều gì xảy ra khi tab bị giải phóng?
 
-TabRest sử dụng API `chrome.tabs.discard()` của Chrome. Tab đã giải phóng:
+TabRest sử dụng API `tabs.discard()` của trình duyệt. Tab đã giải phóng:
 
 - ✅ Vẫn hiển thị trên thanh tab với tiêu đề và favicon
 - ✅ Giữ nguyên vị trí cuộn và dữ liệu form

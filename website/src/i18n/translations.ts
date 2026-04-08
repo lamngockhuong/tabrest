@@ -11,7 +11,7 @@ export const translations = {
   en: {
     meta: {
       title: 'TabRest - Rest your tabs, free your memory',
-      description: 'Chrome extension that automatically unloads inactive tabs to reduce memory usage.',
+      description: 'Browser extension for Chrome, Edge, Brave, Opera & Vivaldi that automatically unloads inactive tabs to reduce memory usage.',
     },
     header: {
       features: 'Features',
@@ -23,8 +23,8 @@ export const translations = {
     hero: {
       tagline: 'Rest your tabs, free your memory',
       description: 'Automatically unload inactive tabs to reduce memory usage and speed up your browser',
-      cta: "Add to Chrome - It's Free",
-      subtext: 'No account required • Works offline • Open source',
+      cta: "Install Free",
+      subtext: 'Chrome • Edge • Brave • Opera • Vivaldi',
     },
     problem: {
       title: 'The Tab Problem',
@@ -128,6 +128,11 @@ export const translations = {
           title: 'Notifications',
           description: 'Get notified when tabs are auto-unloaded with reason (timer or memory threshold)',
         },
+        {
+          icon: '🌐',
+          title: 'Multi-Browser Support',
+          description: 'Works on all Chromium-based browsers: Chrome, Edge, Brave, Opera, Vivaldi, and Arc',
+        },
       ],
     },
     howItWorks: {
@@ -173,13 +178,17 @@ export const translations = {
           question: 'Is TabRest open source?',
           answer: 'Yes! TabRest is fully open source under the MIT License. You can review the code, contribute improvements, or report issues on GitHub.',
         },
+        {
+          question: 'Which browsers does TabRest support?',
+          answer: 'TabRest works on all Chromium-based browsers including Chrome, Microsoft Edge, Brave, Opera, Vivaldi, and Arc. Same extension, same features across all browsers.',
+        },
       ],
     },
     footer: {
       cta: {
         title: 'Ready to free your memory?',
         subtitle: 'Install TabRest now and experience faster browsing',
-        button: "Add to Chrome - It's Free",
+        button: "Install Free",
       },
       sections: {
         product: 'Product',
@@ -211,7 +220,7 @@ export const translations = {
   vi: {
     meta: {
       title: 'TabRest - Nghỉ ngơi tab, giải phóng bộ nhớ',
-      description: 'Tiện ích Chrome tự động giải phóng các tab không hoạt động để giảm sử dụng bộ nhớ.',
+      description: 'Tiện ích trình duyệt cho Chrome, Edge, Brave, Opera & Vivaldi tự động giải phóng các tab không hoạt động để giảm sử dụng bộ nhớ.',
     },
     header: {
       features: 'Tính năng',
@@ -223,8 +232,8 @@ export const translations = {
     hero: {
       tagline: 'Nghỉ ngơi tab, giải phóng bộ nhớ',
       description: 'Tự động giải phóng các tab không hoạt động để giảm sử dụng bộ nhớ và tăng tốc trình duyệt',
-      cta: 'Thêm vào Chrome - Miễn phí',
-      subtext: 'Không cần tài khoản • Hoạt động offline • Mã nguồn mở',
+      cta: 'Cài đặt miễn phí',
+      subtext: 'Chrome • Edge • Brave • Opera • Vivaldi',
     },
     problem: {
       title: 'Vấn đề với Tab',
@@ -328,6 +337,11 @@ export const translations = {
           title: 'Thông báo',
           description: 'Nhận thông báo khi tab tự động giải phóng với lý do (hẹn giờ hoặc ngưỡng bộ nhớ)',
         },
+        {
+          icon: '🌐',
+          title: 'Hỗ trợ đa trình duyệt',
+          description: 'Hoạt động trên tất cả trình duyệt Chromium: Chrome, Edge, Brave, Opera, Vivaldi và Arc',
+        },
       ],
     },
     howItWorks: {
@@ -373,13 +387,17 @@ export const translations = {
           question: 'TabRest có phải mã nguồn mở không?',
           answer: 'Có! TabRest hoàn toàn mã nguồn mở theo giấy phép MIT. Bạn có thể xem code, đóng góp cải tiến, hoặc báo lỗi trên GitHub.',
         },
+        {
+          question: 'TabRest hỗ trợ những trình duyệt nào?',
+          answer: 'TabRest hoạt động trên tất cả trình duyệt nhân Chromium: Chrome, Microsoft Edge, Brave, Opera, Vivaldi và Arc. Cùng một tiện ích, cùng tính năng trên mọi trình duyệt.',
+        },
       ],
     },
     footer: {
       cta: {
         title: 'Sẵn sàng giải phóng bộ nhớ?',
         subtitle: 'Cài đặt TabRest ngay và trải nghiệm duyệt web nhanh hơn',
-        button: 'Thêm vào Chrome - Miễn phí',
+        button: 'Cài đặt miễn phí',
       },
       sections: {
         product: 'Sản phẩm',

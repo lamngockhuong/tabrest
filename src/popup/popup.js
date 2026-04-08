@@ -2,7 +2,7 @@ import { localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
-import { formatBytes } from "../shared/utils.js";
+import { formatBytes, getBrowserInfo } from "../shared/utils.js";
 
 // DOM Elements
 const elements = {
@@ -699,9 +699,10 @@ async function init() {
   updateThemeIcon(elements.themeIcon, elements.themeToggle, theme);
   onThemeChange((theme) => updateThemeIcon(elements.themeIcon, elements.themeToggle, theme));
 
-  // Set version from manifest
+  // Set version from manifest with browser name
+  const browser = getBrowserInfo();
   document.getElementById("app-version").textContent =
-    `TabRest v${chrome.runtime.getManifest().version}`;
+    `TabRest v${chrome.runtime.getManifest().version} · ${browser.name}`;
 
   // Inject SVG icons
   injectIcons();

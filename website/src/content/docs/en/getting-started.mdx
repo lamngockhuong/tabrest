@@ -7,14 +7,23 @@ section: getting-started
 
 # Getting Started with TabRest
 
-TabRest is a Chrome extension that automatically unloads inactive tabs to free up memory. This guide will help you get started.
+TabRest is a browser extension that automatically unloads inactive tabs to free up memory. It works on **all Chromium-based browsers**: Chrome, Microsoft Edge, Brave, Opera, Vivaldi, and Arc.
 
 ## Installation
 
-### From Chrome Web Store
+### From Browser Web Store
 
+**Chrome users:**
 1. Visit the [TabRest listing on Chrome Web Store](https://chrome.google.com/webstore) (coming soon)
 2. Click **Add to Chrome**
+
+**Edge users:**
+1. Visit the [TabRest listing on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons) (coming soon)
+2. Click **Get**
+
+**Brave, Opera, Vivaldi, Arc users:**
+- Install directly from Chrome Web Store (these browsers support Chrome extensions)
+
 3. Confirm the permission request
 4. The TabRest icon will appear in your browser toolbar
 
@@ -26,7 +35,12 @@ TabRest is a Chrome extension that automatically unloads inactive tabs to free u
    cd tabrest
    ```
 
-2. Open Chrome and navigate to `chrome://extensions`
+2. Open your browser and navigate to the extensions page:
+   - Chrome: `chrome://extensions`
+   - Edge: `edge://extensions`
+   - Brave: `brave://extensions`
+   - Opera: `opera://extensions`
+   - Vivaldi: `vivaldi://extensions`
 
 3. Enable **Developer mode** (toggle in top-right corner)
 
@@ -65,7 +79,7 @@ Unloaded tabs stay visible in the tab bar but reload when you click them.
 
 ## What Happens When a Tab is Unloaded?
 
-TabRest uses Chrome's native `chrome.tabs.discard()` API. Unloaded tabs:
+TabRest uses the browser's native `tabs.discard()` API. Unloaded tabs:
 
 - ✅ Stay visible in the tab bar with their title and favicon
 - ✅ Preserve scroll position and form data

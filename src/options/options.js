@@ -2,7 +2,7 @@ import { SETTINGS_DEFAULTS } from "../shared/constants.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
-import { formatBytes } from "../shared/utils.js";
+import { formatBytes, getBrowserInfo } from "../shared/utils.js";
 
 const elements = {
   themeToggle: document.getElementById("theme-toggle"),
@@ -237,10 +237,11 @@ function setupEventListeners() {
     showStatus(t("statsReset"));
   });
 
-  // Open shortcuts page (chrome:// URLs require chrome.tabs.create)
+  // Open shortcuts page (browser:// URLs require chrome.tabs.create)
   elements.shortcutsLink?.addEventListener("click", (e) => {
     e.preventDefault();
-    chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
+    const browser = getBrowserInfo();
+    chrome.tabs.create({ url: browser.shortcutsUrl });
   });
 
   // Theme toggle
