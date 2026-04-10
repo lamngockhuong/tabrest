@@ -154,7 +154,7 @@ document.addEventListener(
   true,
 );
 
-// Phase 6: Report JS heap memory usage to background
+// Report JS heap memory usage to background
 // Guard against duplicate intervals on SPA navigation
 let memoryReporterId = null;
 

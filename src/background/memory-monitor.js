@@ -6,6 +6,7 @@ import {
 } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
 import { notifyAutoUnload } from "../shared/utils.js";
+import { getSnoozeData, isTabSnoozed } from "./snooze-manager.js";
 import { getLRUSortedTabs } from "./tab-tracker.js";
 import { discardTab } from "./unload-manager.js";
 
@@ -58,12 +59,17 @@ export async function checkMemoryAndUnload() {
   const settings = await getSettings();
   if (settings.memoryThresholdPercent <= 0) return 0;
 
+  // Skip if offline and setting enabled - tabs can't reload anyway
+  if (settings.skipWhenOffline && !navigator.onLine) {
+    return 0;
+  }
+
   const memoryInfo = await getMemoryInfo();
   if (!memoryInfo) return 0;
 
   const usagePercent = calculateMemoryUsagePercent(memoryInfo);
 
-  // Phase 5: Apply power mode offset to threshold
+  // Apply power mode offset to threshold
   const powerConfig = POWER_MODE_CONFIG[settings.powerMode] || POWER_MODE_CONFIG.normal;
   const effectiveThreshold = settings.memoryThresholdPercent + powerConfig.memoryThresholdOffset;
 
@@ -75,6 +81,9 @@ export async function checkMemoryAndUnload() {
   const lruTabs = getLRUSortedTabs();
   let unloadedCount = 0;
 
+  // Load snooze data once before loop to avoid N+1 storage reads
+  const snoozeData = await getSnoozeData();
+
   console.log(
     `[TabRest] MEMORY check: RAM ${usagePercent}% (threshold: ${effectiveThreshold}%), unloading up to ${MAX_TABS_PER_MEMORY_CHECK} tabs`,
   );
@@ -82,22 +91,23 @@ export async function checkMemoryAndUnload() {
   for (const tabId of lruTabs) {
     if (unloadedCount >= MAX_TABS_PER_MEMORY_CHECK) break;
 
-    // Get tab info before discarding for notification
-    let tabTitle = null;
-    if (settings.notifyOnAutoUnload) {
-      try {
-        const tab = await chrome.tabs.get(tabId);
-        tabTitle = tab.title;
-      } catch {
-        // Tab may not exist
-      }
+    // Get tab info for snooze check and notification
+    let tab = null;
+    try {
+      tab = await chrome.tabs.get(tabId);
+    } catch {
+      // Tab may not exist
+      continue;
     }
+
+    // Skip if tab or domain is snoozed (using preloaded data)
+    if (await isTabSnoozed(tabId, tab.url, snoozeData)) continue;
 
     if (await discardTab(tabId, { settings })) {
       unloadedCount++;
       // Notify if enabled
-      if (settings.notifyOnAutoUnload && tabTitle) {
-        notifyAutoUnload(tabTitle, "memory", `RAM usage: ${usagePercent}%`);
+      if (settings.notifyOnAutoUnload && tab.title) {
+        notifyAutoUnload(tab.title, "memory", `RAM usage: ${usagePercent}%`);
       }
     }
   }
@@ -130,16 +140,27 @@ export function getTabMemory(tabId) {
   return null;
 }
 
-// Phase 6: Check individual tab memory and unload heavy tabs
+// Check individual tab memory and unload heavy tabs
 export async function checkPerTabMemory() {
   const settings = await getSettings();
   if (settings.perTabJsHeapThresholdMB <= 0) return 0;
 
+  // Skip if offline and setting enabled - tabs can't reload anyway
+  if (settings.skipWhenOffline && !navigator.onLine) {
+    return 0;
+  }
+
   const tabs = await chrome.tabs.query({});
   let unloadedCount = 0;
 
+  // Load snooze data once before loop to avoid N+1 storage reads
+  const snoozeData = await getSnoozeData();
+
   for (const tab of tabs) {
     if (tab.active || tab.discarded) continue;
+
+    // Skip if tab or domain is snoozed
+    if (await isTabSnoozed(tab.id, tab.url, snoozeData)) continue;
 
     const heapMB = getTabMemory(tab.id);
     if (heapMB && heapMB > settings.perTabJsHeapThresholdMB) {

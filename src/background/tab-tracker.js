@@ -61,7 +61,7 @@ export async function checkAndUnloadInactiveTabs() {
     return 0;
   }
 
-  // Phase 4: Check idle state - skip if user is active and idle-only mode is enabled
+  // Skip if user is active and idle-only mode is enabled
   if (settings.onlyDiscardWhenIdle) {
     try {
       const idleSeconds = settings.idleThresholdMinutes * 60;
@@ -74,7 +74,7 @@ export async function checkAndUnloadInactiveTabs() {
     }
   }
 
-  // Phase 5: Apply power mode multiplier to delay
+  // Apply power mode multiplier to delay
   const powerConfig = POWER_MODE_CONFIG[settings.powerMode] || POWER_MODE_CONFIG.normal;
   const effectiveDelay = settings.unloadDelayMinutes * powerConfig.delayMultiplier;
   const cutoffTime = Date.now() - effectiveDelay * 60 * 1000;
@@ -83,7 +83,7 @@ export async function checkAndUnloadInactiveTabs() {
   // Build Map for O(1) lookup instead of O(n) find per iteration
   const tabMap = new Map(tabs.map((t) => [t.id, t]));
 
-  // Phase 1: Check tab count threshold - skip if not enough inactive tabs
+  // Skip if not enough inactive tabs
   if (settings.minTabsBeforeAutoDiscard > 0) {
     const eligibleCount = tabs.filter((t) => !t.active && !t.discarded).length;
     if (eligibleCount <= settings.minTabsBeforeAutoDiscard) {

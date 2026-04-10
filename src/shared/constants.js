@@ -13,18 +13,18 @@ export const SETTINGS_DEFAULTS = {
   enableStats: true,
   showDiscardedPrefix: true,
   discardedPrefix: "\u{1F4A4}",
-  // Phase 1: Tab count threshold - only auto-discard when inactive tabs exceed this count (0 = disabled)
+  // Only auto-discard when inactive tabs exceed this count (0 = disabled)
   minTabsBeforeAutoDiscard: 6,
-  // Phase 3: Toolbar click action - what happens when clicking extension icon
-  toolbarClickAction: "popup", // "popup" | "discard-current" | "discard-others"
-  // Phase 2: YouTube timestamp - save video position before discarding (disabled by default, YouTube has built-in resume)
+  // Toolbar click action: "popup" | "discard-current" | "discard-others"
+  toolbarClickAction: "popup",
+  // Save YouTube video position before discarding (disabled by default, YouTube has built-in resume)
   saveYouTubeTimestamp: false,
-  // Phase 4: Idle state - only auto-discard when computer is idle
+  // Only auto-discard when computer is idle
   onlyDiscardWhenIdle: false,
   idleThresholdMinutes: 5,
-  // Phase 5: Power mode - adjust discarding aggressiveness
-  powerMode: "normal", // "battery-saver" | "normal" | "performance"
-  // Phase 6: Per-tab JS heap threshold (0 = disabled)
+  // Power mode: "battery-saver" | "normal" | "performance"
+  powerMode: "normal",
+  // Per-tab JS heap threshold in MB (0 = disabled)
   perTabJsHeapThresholdMB: 0,
   // Competitor feature: Skip auto-discard when offline
   skipWhenOffline: true,
