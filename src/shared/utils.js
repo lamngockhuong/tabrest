@@ -1,15 +1,29 @@
 export function getBrowserInfo() {
   const ua = navigator.userAgent;
 
-  if (ua.includes("Edg/")) return { name: "Edge", shortcutsUrl: "edge://extensions/shortcuts" };
-  if (ua.includes("OPR/") || ua.includes("Opera"))
-    return { name: "Opera", shortcutsUrl: "opera://extensions/shortcuts" };
-  if (ua.includes("Brave")) return { name: "Brave", shortcutsUrl: "brave://extensions/shortcuts" };
-  if (ua.includes("Vivaldi"))
-    return { name: "Vivaldi", shortcutsUrl: "vivaldi://extensions/shortcuts" };
-  if (ua.includes("Arc")) return { name: "Arc", shortcutsUrl: "chrome://extensions/shortcuts" };
+  // Extract version from user agent
+  const getVersion = (pattern) => {
+    const match = ua.match(pattern);
+    return match ? match[1] : null;
+  };
 
-  return { name: "Chrome", shortcutsUrl: "chrome://extensions/shortcuts" };
+  if (ua.includes("Edg/")) {
+    return { name: "Edge", version: getVersion(/Edg\/(\d+[\d.]*)/), shortcutsUrl: "edge://extensions/shortcuts" };
+  }
+  if (ua.includes("OPR/") || ua.includes("Opera")) {
+    return { name: "Opera", version: getVersion(/OPR\/(\d+[\d.]*)/), shortcutsUrl: "opera://extensions/shortcuts" };
+  }
+  if (ua.includes("Brave")) {
+    return { name: "Brave", version: getVersion(/Chrome\/(\d+[\d.]*)/), shortcutsUrl: "brave://extensions/shortcuts" };
+  }
+  if (ua.includes("Vivaldi")) {
+    return { name: "Vivaldi", version: getVersion(/Vivaldi\/(\d+[\d.]*)/), shortcutsUrl: "vivaldi://extensions/shortcuts" };
+  }
+  if (ua.includes("Arc")) {
+    return { name: "Arc", version: getVersion(/Chrome\/(\d+[\d.]*)/), shortcutsUrl: "chrome://extensions/shortcuts" };
+  }
+
+  return { name: "Chrome", version: getVersion(/Chrome\/(\d+[\d.]*)/), shortcutsUrl: "chrome://extensions/shortcuts" };
 }
 
 // Format bytes to human readable string

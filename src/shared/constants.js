@@ -32,6 +32,8 @@ export const SETTINGS_DEFAULTS = {
   restoreScrollPosition: true,
   // Notify when tabs are auto-unloaded
   notifyOnAutoUnload: false,
+  // Error reporting (opt-out) - send anonymous crash reports
+  enableErrorReporting: true,
 };
 
 // YouTube timestamp storage key
