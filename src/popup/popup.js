@@ -1,7 +1,11 @@
 import { sanitizeString } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
-import { collectDiagnostics, formatDiagnosticsJSON, formatDiagnosticsText } from "../shared/log-collector.js";
+import {
+  collectDiagnostics,
+  formatDiagnosticsJSON,
+  formatDiagnosticsText,
+} from "../shared/log-collector.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import { formatBytes, getBrowserInfo } from "../shared/utils.js";
