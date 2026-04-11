@@ -189,7 +189,11 @@ async function storeToBuffer(key, item, maxSize) {
  * Store error in local buffer
  */
 async function storeError(error, context) {
-  await storeToBuffer(ERROR_BUFFER_KEY, { error, context, timestamp: new Date().toISOString() }, MAX_STORED_ERRORS);
+  await storeToBuffer(
+    ERROR_BUFFER_KEY,
+    { error, context, timestamp: new Date().toISOString() },
+    MAX_STORED_ERRORS,
+  );
 }
 
 /**
@@ -223,4 +227,6 @@ export async function clearStoredErrors() {
 
 function sendToSentry(_error, _context) {}
 function sendMessageToSentry(_message, _level, _context) {}
-function sendReportToSentry(_report) { return true; }
+function sendReportToSentry(_report) {
+  return true;
+}

@@ -55,11 +55,7 @@ export async function collectDiagnostics() {
  */
 function sanitizeSettings(settings) {
   // Extract only non-sensitive settings
-  const {
-    whitelist,
-    blacklist,
-    ...safeSettings
-  } = settings;
+  const { whitelist, blacklist, ...safeSettings } = settings;
 
   return {
     ...safeSettings,

@@ -8,22 +8,46 @@ export function getBrowserInfo() {
   };
 
   if (ua.includes("Edg/")) {
-    return { name: "Edge", version: getVersion(/Edg\/(\d+[\d.]*)/), shortcutsUrl: "edge://extensions/shortcuts" };
+    return {
+      name: "Edge",
+      version: getVersion(/Edg\/(\d+[\d.]*)/),
+      shortcutsUrl: "edge://extensions/shortcuts",
+    };
   }
   if (ua.includes("OPR/") || ua.includes("Opera")) {
-    return { name: "Opera", version: getVersion(/OPR\/(\d+[\d.]*)/), shortcutsUrl: "opera://extensions/shortcuts" };
+    return {
+      name: "Opera",
+      version: getVersion(/OPR\/(\d+[\d.]*)/),
+      shortcutsUrl: "opera://extensions/shortcuts",
+    };
   }
   if (ua.includes("Brave")) {
-    return { name: "Brave", version: getVersion(/Chrome\/(\d+[\d.]*)/), shortcutsUrl: "brave://extensions/shortcuts" };
+    return {
+      name: "Brave",
+      version: getVersion(/Chrome\/(\d+[\d.]*)/),
+      shortcutsUrl: "brave://extensions/shortcuts",
+    };
   }
   if (ua.includes("Vivaldi")) {
-    return { name: "Vivaldi", version: getVersion(/Vivaldi\/(\d+[\d.]*)/), shortcutsUrl: "vivaldi://extensions/shortcuts" };
+    return {
+      name: "Vivaldi",
+      version: getVersion(/Vivaldi\/(\d+[\d.]*)/),
+      shortcutsUrl: "vivaldi://extensions/shortcuts",
+    };
   }
   if (ua.includes("Arc")) {
-    return { name: "Arc", version: getVersion(/Chrome\/(\d+[\d.]*)/), shortcutsUrl: "chrome://extensions/shortcuts" };
+    return {
+      name: "Arc",
+      version: getVersion(/Chrome\/(\d+[\d.]*)/),
+      shortcutsUrl: "chrome://extensions/shortcuts",
+    };
   }
 
-  return { name: "Chrome", version: getVersion(/Chrome\/(\d+[\d.]*)/), shortcutsUrl: "chrome://extensions/shortcuts" };
+  return {
+    name: "Chrome",
+    version: getVersion(/Chrome\/(\d+[\d.]*)/),
+    shortcutsUrl: "chrome://extensions/shortcuts",
+  };
 }
 
 // Format bytes to human readable string
