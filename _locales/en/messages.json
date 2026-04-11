@@ -444,5 +444,49 @@
   "notifyOnAutoUnloadHelp": {
     "message": "Shows notification with reason (timer/RAM)",
     "description": "Help text for auto-unload notifications"
+  },
+  "reportBug": {
+    "message": "Report a Bug",
+    "description": "Bug report modal title"
+  },
+  "describeIssue": {
+    "message": "Describe the issue (optional):",
+    "description": "Bug report description label"
+  },
+  "bugDescPlaceholder": {
+    "message": "What went wrong?",
+    "description": "Bug report placeholder text"
+  },
+  "debugInfoAttached": {
+    "message": "Debug info will be attached",
+    "description": "Diagnostics preview summary"
+  },
+  "copyForGithub": {
+    "message": "Copy & Open GitHub",
+    "description": "Button to copy report and open GitHub"
+  },
+  "copiedToClipboard": {
+    "message": "Copied! Paste in GitHub issue.",
+    "description": "Toast after copying bug report"
+  },
+  "supportFeedback": {
+    "message": "Support & Feedback",
+    "description": "Options page section title"
+  },
+  "enableErrorReporting": {
+    "message": "Send anonymous error reports",
+    "description": "Error reporting toggle label"
+  },
+  "errorReportingHelp": {
+    "message": "Automatically report crashes to help improve TabRest. No personal data collected.",
+    "description": "Error reporting help text"
+  },
+  "reportIssue": {
+    "message": "Report an Issue",
+    "description": "Support link text"
+  },
+  "askQuestion": {
+    "message": "Ask a Question",
+    "description": "Support link text"
   }
 }

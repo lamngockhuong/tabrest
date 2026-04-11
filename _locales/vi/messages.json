@@ -330,5 +330,38 @@
   },
   "notifyOnAutoUnloadHelp": {
     "message": "Hiển thị thông báo với lý do (hết thời gian/RAM)"
+  },
+  "reportBug": {
+    "message": "Báo lỗi"
+  },
+  "describeIssue": {
+    "message": "Mô tả vấn đề (tùy chọn):"
+  },
+  "bugDescPlaceholder": {
+    "message": "Có gì sai?"
+  },
+  "debugInfoAttached": {
+    "message": "Thông tin debug sẽ được đính kèm"
+  },
+  "copyForGithub": {
+    "message": "Sao chép & Mở GitHub"
+  },
+  "copiedToClipboard": {
+    "message": "Đã sao chép! Dán vào GitHub issue."
+  },
+  "supportFeedback": {
+    "message": "Hỗ trợ & Phản hồi"
+  },
+  "enableErrorReporting": {
+    "message": "Gửi báo lỗi ẩn danh"
+  },
+  "errorReportingHelp": {
+    "message": "Tự động báo cáo crash để cải thiện TabRest. Không thu thập dữ liệu cá nhân."
+  },
+  "reportIssue": {
+    "message": "Báo lỗi"
+  },
+  "askQuestion": {
+    "message": "Đặt câu hỏi"
   }
 }
