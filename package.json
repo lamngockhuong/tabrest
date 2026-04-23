@@ -20,7 +20,7 @@
     "website:preview": "cd website && pnpm preview"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.13",
     "@vitest/coverage-v8": "^4.1.3",
     "esbuild": "0.28.0",
     "vitest": "^4.1.3"
