@@ -83,17 +83,19 @@ h1 {
   border-radius: 50%;
   border: 1px solid var(--border);
   background: var(--card);
+  color: var(--text-muted);
   cursor: pointer;
   font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 
 #theme-toggle:hover {
   background: var(--background);
   border-color: var(--secondary);
+  color: var(--primary);
 }
 
 h2 {

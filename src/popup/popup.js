@@ -1,6 +1,6 @@
 import { sanitizeString } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
-import { injectIcons } from "../shared/icons.js";
+import { icon, injectIcons } from "../shared/icons.js";
 import {
   collectDiagnostics,
   formatDiagnosticsJSON,
@@ -108,25 +108,25 @@ function attachFaviconErrorHandlers(container, selector) {
 // Get status badge HTML for a tab
 function getStatusBadge(tab) {
   if (tab.active) {
-    return '<span class="badge badge-active">⚡ active</span>';
+    return `<span class="badge badge-active">${icon("zap", 12)} active</span>`;
   }
   if (tab.discarded) {
-    return '<span class="badge badge-sleeping">💤 zzz</span>';
+    return `<span class="badge badge-sleeping">${icon("moon", 12)} zzz</span>`;
   }
   if (tab.isProtected) {
     const badges = {
-      pinned: { icon: "📌", text: "pin", title: "Pinned" },
-      whitelist: { icon: "🛡️", text: "safe", title: "Whitelisted" },
-      audio: { icon: "🔊", text: "audio", title: "Playing audio" },
-      form: { icon: "📝", text: "form", title: "Unsaved form" },
-      snooze: { icon: "⏸️", text: "snooze", title: "Snoozed" },
+      pinned: { icon: "pin", text: "pin", title: "Pinned" },
+      whitelist: { icon: "shield", text: "safe", title: "Whitelisted" },
+      audio: { icon: "volume", text: "audio", title: "Playing audio" },
+      form: { icon: "fileText", text: "form", title: "Unsaved form" },
+      snooze: { icon: "pause", text: "snooze", title: "Snoozed" },
     };
     const badge = badges[tab.protectionReason] || badges.whitelist;
-    return `<span class="badge badge-protected" title="${badge.title}">${badge.icon} ${badge.text}</span>`;
+    return `<span class="badge badge-protected" title="${badge.title}">${icon(badge.icon, 12)} ${badge.text}</span>`;
   }
   if (tab.timeUntilUnload !== null && tab.timeUntilUnload > 0) {
     const mins = Math.ceil(tab.timeUntilUnload / 60000);
-    return `<span class="badge badge-timer" title="Time until auto-unload">⏱️ ${mins}m</span>`;
+    return `<span class="badge badge-timer" title="Time until auto-unload">${icon("clock", 12)} ${mins}m</span>`;
   }
   return "";
 }
@@ -294,16 +294,16 @@ function renderTabItem(tab) {
   const statusBadge = getStatusBadge(tab);
   const favicon = tab.favIconUrl
     ? `<img class="tab-favicon" src="${tab.favIconUrl}" alt="">`
-    : '<span class="tab-favicon-placeholder">🌐</span>';
+    : `<span class="tab-favicon-placeholder">${icon("globe", 14)}</span>`;
   const title = escapeHtml(tab.title.length > 30 ? `${tab.title.slice(0, 30)}...` : tab.title);
   const hostname = getHostname(tab.url);
   const snoozeBtn =
     tab.active || tab.discarded
       ? ""
       : tab.isSnoozed
-        ? `<button class="tab-snooze-btn unsnooze" data-tab-id="${tab.id}" data-snooze-type="${tab.snoozeInfo?.type || "tab"}" data-snooze-domain="${escapeHtml(tab.snoozeInfo?.domain || "")}" title="Cancel snooze">▶️</button>`
+        ? `<button class="tab-snooze-btn unsnooze" data-tab-id="${tab.id}" data-snooze-type="${tab.snoozeInfo?.type || "tab"}" data-snooze-domain="${escapeHtml(tab.snoozeInfo?.domain || "")}" title="Cancel snooze">${icon("play", 14)}</button>`
         : `<div class="snooze-dropdown">
-          <button class="tab-snooze-btn" data-tab-id="${tab.id}" title="Snooze">⏸️</button>
+          <button class="tab-snooze-btn" data-tab-id="${tab.id}" title="Snooze">${icon("pause", 14)}</button>
           <div class="snooze-menu">
             <button data-tab-id="${tab.id}" data-minutes="30">30 min</button>
             <button data-tab-id="${tab.id}" data-minutes="60">1 hour</button>
@@ -326,7 +326,7 @@ function renderTabItem(tab) {
       </div>
       <div class="tab-status">
         ${snoozeBtn}
-        ${!tab.active && !tab.discarded ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="${tab.isProtected ? "Force unload" : "Unload"}">💤</button>` : ""}
+        ${!tab.active && !tab.discarded ? `<button class="tab-unload-btn" data-tab-id="${tab.id}" title="${tab.isProtected ? "Force unload" : "Unload"}">${icon("moon", 14)}</button>` : ""}
         ${statusBadge}
       </div>
     </div>
