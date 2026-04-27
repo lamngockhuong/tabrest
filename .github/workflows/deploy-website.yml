@@ -40,7 +40,7 @@ jobs:
         uses: actions/configure-pages@v6
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --config.strictDepBuilds=false
         working-directory: website
 
       - name: Build website
