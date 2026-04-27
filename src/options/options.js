@@ -3,7 +3,7 @@ import { localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
-import { formatBytes, getBrowserInfo } from "../shared/utils.js";
+import { formatBytes, getBrowserInfo, isValidDomainOrIp } from "../shared/utils.js";
 
 const elements = {
   themeToggle: document.getElementById("theme-toggle"),
@@ -262,8 +262,8 @@ async function addDomainToList(inputEl, listKey, renderFn) {
 
   if (!domain) return;
 
-  // Basic validation
-  if (!/^[a-z0-9]+([-.][a-z0-9]+)*\.[a-z]{2,}$/i.test(domain)) {
+  // Accept domains, IPv4, IPv6, and 'localhost'
+  if (!isValidDomainOrIp(domain)) {
     showStatus(t("invalidDomain"));
     return;
   }

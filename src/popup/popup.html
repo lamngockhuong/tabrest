@@ -51,7 +51,7 @@
         <span class="strip-stat-label" data-i18n="protected">protected</span>
       </div>
       <div class="strip-divider"></div>
-      <div class="strip-stat">
+      <div class="strip-stat" data-i18n-title="ramEstimateTooltip" title="Based on ~150 MB per discarded tab. Actual savings vary by page content.">
         <span class="strip-stat-value" id="stat-saved">—</span>
         <span class="strip-stat-label" data-i18n="saved">saved</span>
       </div>
@@ -90,6 +90,9 @@
           <span data-i18n="tabsInWindow">Tabs in this window</span>
         </span>
         <span class="section-toggle-right">
+          <button class="btn-icon small" id="toggle-search" data-i18n-title="searchTabs" title="Search tabs">
+            <span data-icon="search"></span>
+          </button>
           <button class="btn-icon small" id="copy-tabs" data-i18n-title="copyTabListTooltip" title="Copy tab list to clipboard">
             <span data-icon="clipboard"></span>
           </button>
@@ -100,6 +103,10 @@
         </span>
       </div>
       <div class="section-body open" id="tabs-body">
+        <div class="tab-search hidden" id="tab-search-row">
+          <input type="search" id="tab-search-input" class="input"
+            data-i18n-placeholder="searchPlaceholder" placeholder="Search tabs...">
+        </div>
         <div class="tab-filters" id="tab-filters">
           <button class="filter-chip active" data-filter="all">All <span class="filter-count" id="filter-count-all">0</span></button>
           <button class="filter-chip" data-filter="sleeping"><span data-icon="moon"></span> <span class="filter-count" id="filter-count-sleeping">0</span></button>
@@ -162,6 +169,10 @@
             <button class="btn btn-sm" id="unload-left">
               <span>← Unload Left</span>
             </button>
+            <button class="btn btn-sm" id="close-duplicates">
+              <span data-icon="copy"></span>
+              <span data-i18n="closeDuplicates">Close Duplicates</span>
+            </button>
           </div>
         </div>
       </div>
@@ -212,7 +223,7 @@
               <span class="stat-card-label" data-i18n="allTime">All time</span>
               <span class="stat-card-value" id="stat-all-time">0</span>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" data-i18n-title="ramEstimateTooltip" title="Based on ~150 MB per discarded tab. Actual savings vary by page content.">
               <span class="stat-card-label" data-i18n="ramSaved">RAM saved (est.)</span>
               <span class="stat-card-value" id="stat-ram">—</span>
             </div>

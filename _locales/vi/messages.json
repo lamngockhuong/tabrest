@@ -194,7 +194,7 @@
     "message": "Đã xóa tên miền"
   },
   "invalidDomain": {
-    "message": "Định dạng tên miền không hợp lệ"
+    "message": "Nhập tên miền, địa chỉ IP, hoặc 'localhost'"
   },
   "domainExists": {
     "message": "Tên miền đã tồn tại"
@@ -363,5 +363,26 @@
   },
   "askQuestion": {
     "message": "Đặt câu hỏi"
+  },
+  "closeDuplicates": {
+    "message": "Đóng tab trùng lặp"
+  },
+  "closedNDuplicates": {
+    "message": "Đã đóng $COUNT$ tab trùng lặp",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "Không tìm thấy tab trùng lặp"
+  },
+  "searchTabs": {
+    "message": "Tìm tab"
+  },
+  "searchPlaceholder": {
+    "message": "Tìm tab..."
+  },
+  "ramEstimateTooltip": {
+    "message": "Ước tính dựa trên ~150 MB mỗi tab. Mức tiết kiệm thực tế thay đổi theo nội dung trang."
   }
 }

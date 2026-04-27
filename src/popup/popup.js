@@ -41,6 +41,9 @@ const elements = {
   filterCountProtected: document.getElementById("filter-count-protected"),
   copyTabs: document.getElementById("copy-tabs"),
   refreshTabs: document.getElementById("refresh-tabs"),
+  toggleSearch: document.getElementById("toggle-search"),
+  tabSearchRow: document.getElementById("tab-search-row"),
+  tabSearchInput: document.getElementById("tab-search-input"),
   // Theme
   themeToggle: document.getElementById("theme-toggle"),
   themeIcon: document.getElementById("theme-icon"),
@@ -144,22 +147,50 @@ function showToast(message, duration = 2500) {
   }, duration);
 }
 
-// Setup collapsible section
+const SECTION_STATE_KEY = "popup_section_state";
+const SECTIONS = [
+  { toggle: "tabs-toggle", body: "tabs-body", defaultOpen: true },
+  { toggle: "settings-toggle", body: "settings-body", defaultOpen: false },
+  { toggle: "more-toggle", body: "more-body", defaultOpen: false },
+  { toggle: "sessions-toggle", body: "sessions-body", defaultOpen: false },
+  { toggle: "stats-toggle", body: "stats-body", defaultOpen: false },
+];
+const SECTION_BY_TOGGLE = new Map(SECTIONS.map((s) => [s.toggle, s]));
+
+function applySectionState(toggleId, isOpen) {
+  const section = SECTION_BY_TOGGLE.get(toggleId);
+  if (!section) return;
+  const body = document.getElementById(section.body);
+  const toggle = document.getElementById(toggleId);
+  if (!body || !toggle) return;
+  body.classList.toggle("open", isOpen);
+  toggle.setAttribute("aria-expanded", String(isOpen));
+}
+
+async function loadSectionState() {
+  const result = await chrome.storage.local.get(SECTION_STATE_KEY);
+  const stored = result[SECTION_STATE_KEY] || {};
+  for (const s of SECTIONS) {
+    applySectionState(s.toggle, stored[s.toggle] ?? s.defaultOpen);
+  }
+}
+
+async function persistSectionState(toggleId, isOpen) {
+  const result = await chrome.storage.local.get(SECTION_STATE_KEY);
+  const stored = result[SECTION_STATE_KEY] || {};
+  stored[toggleId] = isOpen;
+  await chrome.storage.local.set({ [SECTION_STATE_KEY]: stored });
+}
+
 function setupCollapsible(toggleId, bodyId) {
   const toggle = document.getElementById(toggleId);
   const body = document.getElementById(bodyId);
   if (!toggle || !body) return;
 
-  toggle.addEventListener("click", () => {
-    const isOpen = body.classList.contains("open");
-
-    if (isOpen) {
-      body.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-    } else {
-      body.classList.add("open");
-      toggle.setAttribute("aria-expanded", "true");
-    }
+  toggle.addEventListener("click", async () => {
+    const willOpen = !body.classList.contains("open");
+    applySectionState(toggleId, willOpen);
+    await persistSectionState(toggleId, willOpen);
   });
 }
 
@@ -256,8 +287,9 @@ async function loadTabGroups() {
   }
 }
 
-// Current filter and cached tabs
+// Current filter, search query, and cached tabs
 let currentFilter = "all";
+let searchQuery = "";
 let cachedTabs = [];
 
 // Get tab filter category
@@ -283,10 +315,22 @@ function updateFilterCounts(tabs) {
   elements.filterCountProtected.textContent = counts.protected;
 }
 
-// Filter tabs based on current filter
+// Apply search query (case-insensitive substring on title or url)
+function applySearch(tabs) {
+  if (!searchQuery) return tabs;
+  const q = searchQuery.toLowerCase();
+  return tabs.filter(
+    (t) => (t.title || "").toLowerCase().includes(q) || (t.url || "").toLowerCase().includes(q),
+  );
+}
+
+// Filter tabs by current chip filter, then by search query (AND composition).
+// Filter chip counts intentionally reflect pre-search totals — they represent
+// category sizes, not visible result count.
 function filterTabs(tabs) {
-  if (currentFilter === "all") return tabs;
-  return tabs.filter((tab) => getTabCategory(tab) === currentFilter);
+  const filtered =
+    currentFilter === "all" ? tabs : tabs.filter((tab) => getTabCategory(tab) === currentFilter);
+  return applySearch(filtered);
 }
 
 // Generate HTML for a single tab item
@@ -502,6 +546,47 @@ function setupEventListeners() {
     showToast(t("refreshed"));
   });
 
+  function clearSearch() {
+    searchQuery = "";
+    elements.tabSearchInput.value = "";
+    renderFilteredTabs(filterTabs(cachedTabs));
+  }
+
+  elements.toggleSearch.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    const willHide = !elements.tabSearchRow.classList.contains("hidden");
+    if (willHide) {
+      clearSearch();
+      elements.tabSearchRow.classList.add("hidden");
+      return;
+    }
+    // Search input lives inside the Tabs collapsible — force it open so the input is visible
+    const tabsBody = document.getElementById("tabs-body");
+    if (tabsBody && !tabsBody.classList.contains("open")) {
+      applySectionState("tabs-toggle", true);
+      await persistSectionState("tabs-toggle", true);
+    }
+    elements.tabSearchRow.classList.remove("hidden");
+    elements.tabSearchInput.focus();
+  });
+
+  let searchDebounce = null;
+  elements.tabSearchInput.addEventListener("input", () => {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(() => {
+      searchQuery = elements.tabSearchInput.value.trim();
+      renderFilteredTabs(filterTabs(cachedTabs));
+    }, 50);
+  });
+
+  elements.tabSearchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      clearSearch();
+      elements.tabSearchRow.classList.add("hidden");
+      elements.toggleSearch.focus();
+    }
+  });
+
   // Filter chips click handler
   elements.tabFilters.addEventListener("click", (e) => {
     const chip = e.target.closest(".filter-chip");
@@ -636,6 +721,16 @@ function setupEventListeners() {
     if (groupId) handleUnloadAction("unload-group", { groupId });
   });
 
+  document.getElementById("close-duplicates")?.addEventListener("click", async () => {
+    const result = await sendCommand("close-duplicates");
+    if (!result || result.closed === 0) {
+      showToast(t("noDuplicatesFound"));
+    } else {
+      showToast(t("closedNDuplicates", [String(result.closed)]));
+    }
+    await Promise.all([renderTabList(), updateStats()]);
+  });
+
   // Quick settings
   elements.timerSelect.addEventListener("change", async (e) => {
     const settings = await getSettings();
@@ -757,9 +852,9 @@ async function init() {
   injectIcons();
   localizeHtml();
 
-  // Run independent operations in parallel for faster popup load
-  // Use allSettled to handle individual failures gracefully
+  // loadSectionState only flips classes; safe to run alongside renderers
   await Promise.allSettled([
+    loadSectionState(),
     loadSettings(),
     updateStats(),
     loadTabGroups(),
