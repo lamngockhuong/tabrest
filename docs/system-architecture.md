@@ -27,9 +27,10 @@
 │         ▼                                                       │
 │  ┌─────────────────────────────────────────────────────────────┐│
 │  │                   CONTENT SCRIPTS                           ││
+│  │                  (Lazy-injected)                            ││
 │  │  ┌─────────────────────┐  ┌─────────────────────┐           ││
 │  │  │   form-checker.js   │  │ youtube-tracker.js  │           ││
-│  │  │  (all http/https)   │  │ (youtube.com/watch) │           ││
+│  │  │ (on-demand inject)  │  │ (youtube.com/watch) │           ││
 │  │  └─────────────────────┘  └─────────────────────┘           ││
 │  └─────────────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────────┘
@@ -61,7 +62,9 @@ service-worker.js
 │   ├── memory-monitor.js
 │   ├── snooze-manager.js
 │   ├── session-manager.js
-│   └── stats-collector.js
+│   ├── stats-collector.js
+│   ├── form-injector.js
+│   └── shared/permissions.js
 └── Internal Functions
     ├── handleMessage()
     ├── getTabsWithStatus()
@@ -76,10 +79,11 @@ service-worker.js
 | ----------------- | ----------------------------------------------- | ------------------------------ |
 | `unload-manager`  | Execute tab discards with protection checks     | stats-collector                |
 | `tab-tracker`     | Track tab activity, trigger timer-based unloads | unload-manager, snooze-manager |
-| `memory-monitor`  | Monitor RAM, trigger memory-based unloads       | tab-tracker, unload-manager    |
+| `memory-monitor`  | Monitor RAM, trigger memory-based unloads       | tab-tracker, unload-manager, form-injector |
 | `snooze-manager`  | Manage temporary protections                    | storage                        |
 | `session-manager` | Save/restore tab sessions                       | storage                        |
 | `stats-collector` | Track unload statistics                         | storage                        |
+| `form-injector`   | Lazy-inject form-checker on demand              | permissions                    |
 
 ## Data Flow
 
@@ -130,6 +134,7 @@ service-worker.js
 2. memory-monitor.checkMemoryAndUnload()
        │
        ├── Check settings.memoryThresholdPercent > 0
+       ├── Proactively ensure form-checker injected (for per-tab heap data)
        ├── chrome.system.memory.getInfo()
        ├── Calculate usage percent
        ├── Apply power mode threshold offset
@@ -311,7 +316,7 @@ service-worker.js
 - `notifications`: Alert on auto-unload
 
 ### Host Permissions
-- `http://*/*`, `https://*/*`: Required for content scripts
+- `http://*/*`, `https://*/*`: Optional (requested on-demand for form detection)
 
 ### Data Security
 - No external network requests

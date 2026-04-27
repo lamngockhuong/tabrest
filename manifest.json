@@ -16,7 +16,7 @@
     "idle",
     "notifications"
   ],
-  "host_permissions": [
+  "optional_host_permissions": [
     "http://*/*",
     "https://*/*"
   ],
@@ -65,16 +65,6 @@
     "128": "icons/icon-128.png"
   },
   "content_scripts": [
-    {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "src/content/form-checker.js"
-      ],
-      "run_at": "document_idle"
-    },
     {
       "matches": [
         "*://*.youtube.com/watch*"

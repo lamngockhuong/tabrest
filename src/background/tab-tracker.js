@@ -117,7 +117,7 @@ export async function checkAndUnloadInactiveTabs() {
       `[TabRest] TIMER unload: ${tab.url}, inactive ${inactiveMinutes}min (threshold: ${effectiveDelay}min)`,
     );
 
-    if (await discardTab(tabId, { settings })) {
+    if (await discardTab(tabId, { settings, auto: true })) {
       unloadedCount++;
       // Notify if enabled
       if (settings.notifyOnAutoUnload) {

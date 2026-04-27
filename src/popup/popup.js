@@ -6,6 +6,7 @@ import {
   formatDiagnosticsJSON,
   formatDiagnosticsText,
 } from "../shared/log-collector.js";
+import { requestHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import { formatBytes, getBrowserInfo } from "../shared/utils.js";
@@ -63,6 +64,10 @@ const elements = {
   reviewYes: document.getElementById("review-yes"),
   reviewNo: document.getElementById("review-no"),
   reviewDismiss: document.getElementById("review-dismiss"),
+  // Form permission recovery banner
+  formPermBanner: document.getElementById("form-perm-banner"),
+  formPermGrant: document.getElementById("form-perm-grant"),
+  formPermDismiss: document.getElementById("form-perm-dismiss"),
   // Bug report
   reportBugBtn: document.getElementById("report-bug-btn"),
   bugReportModal: document.getElementById("bug-report-modal"),
@@ -509,6 +514,29 @@ function hideReviewPrompt() {
   elements.reviewPrompt.style.display = "none";
 }
 
+async function checkFormPermBanner() {
+  const { pendingFormPermBanner } = await chrome.storage.local.get("pendingFormPermBanner");
+  if (!pendingFormPermBanner) return;
+  elements.formPermBanner.style.display = "flex";
+  injectIcons();
+}
+
+async function dismissFormPermBanner() {
+  elements.formPermBanner.style.display = "none";
+  await chrome.storage.local.remove("pendingFormPermBanner");
+}
+
+async function handleFormPermGrant() {
+  const granted = await requestHostPermission();
+  if (granted) {
+    const settings = await getSettings();
+    settings.protectFormTabs = true;
+    await saveSettings(settings);
+    showToast(t("formPermGranted"));
+  }
+  await dismissFormPermBanner();
+}
+
 function incrementDismiss() {
   chrome.storage.local.get("reviewPromptDismissCount", (data) => {
     chrome.storage.local.set({
@@ -798,6 +826,10 @@ function setupEventListeners() {
     hideReviewPrompt();
   });
 
+  // Form permission recovery banner handlers
+  elements.formPermGrant?.addEventListener("click", handleFormPermGrant);
+  elements.formPermDismiss?.addEventListener("click", dismissFormPermBanner);
+
   // Bug report modal handlers
   let cachedDiagnostics = null;
 
@@ -862,6 +894,7 @@ async function init() {
     renderSessions(),
     renderDetailedStats(),
     checkReviewPrompt(),
+    checkFormPermBanner(),
   ]);
   setupEventListeners();
 }

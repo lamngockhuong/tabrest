@@ -4,8 +4,10 @@ import {
   MEMORY_STALE_THRESHOLD_MS,
   POWER_MODE_CONFIG,
 } from "../shared/constants.js";
+import { hasHostPermission } from "../shared/permissions.js";
 import { getSettings } from "../shared/storage.js";
 import { notifyAutoUnload } from "../shared/utils.js";
+import { ensureFormCheckerInjected } from "./form-injector.js";
 import { getSnoozeData, isTabSnoozed } from "./snooze-manager.js";
 import { getLRUSortedTabs } from "./tab-tracker.js";
 import { discardTab } from "./unload-manager.js";
@@ -103,7 +105,7 @@ export async function checkMemoryAndUnload() {
     // Skip if tab or domain is snoozed (using preloaded data)
     if (await isTabSnoozed(tabId, tab.url, snoozeData)) continue;
 
-    if (await discardTab(tabId, { settings })) {
+    if (await discardTab(tabId, { settings, auto: true })) {
       unloadedCount++;
       // Notify if enabled
       if (settings.notifyOnAutoUnload && tab.title) {
@@ -140,7 +142,10 @@ export function getTabMemory(tabId) {
   return null;
 }
 
-// Check individual tab memory and unload heavy tabs
+// Check individual tab memory and unload heavy tabs.
+// Memory reports come from form-checker.js — when form protection is off but
+// per-tab memory monitoring is on, we still need the script injected so the
+// 30s reporter loop fires. Bootstrap it here on tabs missing memory data.
 export async function checkPerTabMemory() {
   const settings = await getSettings();
   if (settings.perTabJsHeapThresholdMB <= 0) return 0;
@@ -153,8 +158,13 @@ export async function checkPerTabMemory() {
   const tabs = await chrome.tabs.query({});
   let unloadedCount = 0;
 
+  const canInject = await hasHostPermission();
   // Load snooze data once before loop to avoid N+1 storage reads
   const snoozeData = await getSnoozeData();
+
+  // Cap bootstrap injections per tick to avoid thundering-herd executeScript
+  // on session restore with many tabs missing memory data.
+  let bootstrapBudget = MAX_BOOTSTRAP_INJECTS_PER_TICK;
 
   for (const tab of tabs) {
     if (tab.active || tab.discarded) continue;
@@ -163,8 +173,15 @@ export async function checkPerTabMemory() {
     if (await isTabSnoozed(tab.id, tab.url, snoozeData)) continue;
 
     const heapMB = getTabMemory(tab.id);
+    if (heapMB === null && canInject && tab.url?.startsWith("http")) {
+      if (bootstrapBudget > 0) {
+        bootstrapBudget--;
+        ensureFormCheckerInjected(tab.id, tab.url);
+      }
+      continue;
+    }
     if (heapMB && heapMB > settings.perTabJsHeapThresholdMB) {
-      if (await discardTab(tab.id, { settings })) {
+      if (await discardTab(tab.id, { settings, auto: true })) {
         unloadedCount++;
       }
     }
@@ -172,6 +189,8 @@ export async function checkPerTabMemory() {
 
   return unloadedCount;
 }
+
+const MAX_BOOTSTRAP_INJECTS_PER_TICK = 5;
 
 // Re-export formatBytes from shared utils for backwards compatibility
 export { formatBytes } from "../shared/utils.js";

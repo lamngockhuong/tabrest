@@ -1,7 +1,15 @@
 import { FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
 import { unwrapHostname } from "../shared/utils.js";
+import { ensureFormCheckerInjected } from "./form-injector.js";
 import { recordUnload } from "./stats-collector.js";
+
+// Pinned + whitelist gates only. Returns null if cleared, else { protected, reason }.
+function passesStaticGates(tab, settings) {
+  if (tab.pinned && !settings.unloadPinnedTabs) return { protected: true, reason: "pinned" };
+  if (isWhitelisted(tab.url, settings)) return { protected: true, reason: "whitelist" };
+  return null;
+}
 
 /**
  * Check if tab should be protected from unloading
@@ -18,6 +26,9 @@ async function shouldProtectTab(tab, settings) {
   // Form protection - check for unsaved form data
   if (settings.protectFormTabs) {
     try {
+      if (!(await ensureFormCheckerInjected(tab.id, tab.url))) {
+        return { protected: false };
+      }
       const response = await Promise.race([
         chrome.tabs.sendMessage(tab.id, { action: "checkFormData" }),
         new Promise((resolve) => setTimeout(() => resolve(null), FORM_CHECK_TIMEOUT_MS)),
@@ -26,7 +37,7 @@ async function shouldProtectTab(tab, settings) {
         return { protected: true, reason: "form" };
       }
     } catch {
-      // Content script not loaded, proceed with unload
+      // Content script not loaded or restricted page; proceed with unload.
     }
   }
 
@@ -35,11 +46,12 @@ async function shouldProtectTab(tab, settings) {
 
 // Discard a single tab by ID
 // @param {number} tabId - Tab ID to discard
-// @param {object} options - { settings, force }
+// @param {object} options - { settings, force, auto }
 //   - settings: Pre-fetched settings to avoid refetching in batch
 //   - force: Bypass protection checks (for user-initiated unloads)
+//   - auto: From alarm/memory-monitor — eligible for warning toast + recheck window
 export async function discardTab(tabId, options = {}) {
-  const { settings: providedSettings = null, force = false } = options;
+  const { settings: providedSettings = null, force = false, auto = false } = options;
 
   try {
     const tab = await chrome.tabs.get(tabId);
@@ -51,24 +63,32 @@ export async function discardTab(tabId, options = {}) {
 
     // Skip protection checks if force unload
     if (!force) {
-      if (tab.pinned && !settings.unloadPinnedTabs) return false;
-
-      // Check whitelist
-      const whitelisted = isWhitelisted(tab.url, settings);
-      console.log(
-        `[TabRest] Checking tab ${tabId}: ${tab.url}, whitelist: [${settings.whitelist?.join(", ")}], isWhitelisted: ${whitelisted}`,
-      );
-      if (whitelisted) return false;
-
-      // Check audio/form protection
+      if (passesStaticGates(tab, settings)) return false;
       const protection = await shouldProtectTab(tab, settings);
-      if (protection.protected) {
-        return false;
-      }
+      if (protection.protected) return false;
+    }
+
+    // Auto paths: show warning toast and re-check before committing.
+    let currentTab = tab;
+    if (auto && !force && settings.showSuspendWarning && currentTab.url?.startsWith("http")) {
+      if (currentTab.status === "loading") return false;
+      const message =
+        chrome.i18n.getMessage("suspendWarningMessage") ||
+        "TabRest will suspend this tab to free memory…";
+      await injectSuspendWarning(tabId, settings.suspendWarningDelayMs, message);
+      await new Promise((r) => setTimeout(r, settings.suspendWarningDelayMs));
+
+      const refreshed = await chrome.tabs.get(tabId).catch(() => null);
+      if (!refreshed || refreshed.active || refreshed.discarded) return false;
+      if (refreshed.status === "loading") return false;
+      if (passesStaticGates(refreshed, settings)) return false;
+      const recheck = await shouldProtectTab(refreshed, settings);
+      if (recheck.protected) return false;
+      currentTab = refreshed;
     }
 
     // Save YouTube timestamp before discarding
-    if (settings.saveYouTubeTimestamp && tab.url?.includes("youtube.com/watch")) {
+    if (settings.saveYouTubeTimestamp && currentTab.url?.includes("youtube.com/watch")) {
       try {
         await chrome.tabs.sendMessage(tabId, { action: "saveYouTubeTimestamp" });
       } catch {
@@ -273,6 +293,39 @@ function isWhitelisted(url, settings) {
 // Check if URL is in blacklist (sync - settings passed in)
 function isBlacklisted(url, settings) {
   return matchesDomainList(url, settings?.blacklist);
+}
+
+// Inject self-contained warning toast on the page. Uses Shadow DOM + all:initial
+// to avoid CSS collisions. Silent on restricted URLs / missing permission.
+async function injectSuspendWarning(tabId, delayMs, message) {
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      func: (d, m) => {
+        if (window.__tabrestSuspendWarningShown) return;
+        window.__tabrestSuspendWarningShown = true;
+        const host = document.createElement("div");
+        host.id = "__tabrest_warning_toast";
+        host.style.cssText = "position:fixed;top:16px;right:16px;z-index:2147483647;all:initial;";
+        const root = host.attachShadow({ mode: "closed" });
+        const style = document.createElement("style");
+        style.textContent =
+          ".toast{font:14px system-ui,-apple-system,Segoe UI,sans-serif;background:#1f2937;color:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.3);max-width:320px;line-height:1.4}";
+        const div = document.createElement("div");
+        div.className = "toast";
+        div.textContent = m;
+        root.append(style, div);
+        document.documentElement.appendChild(host);
+        setTimeout(() => {
+          host.remove();
+          delete window.__tabrestSuspendWarningShown;
+        }, d);
+      },
+      args: [delayMs, message],
+    });
+  } catch {
+    // Restricted page or no host permission — skip warning silently.
+  }
 }
 
 async function addTitlePrefix(tabId, prefix) {

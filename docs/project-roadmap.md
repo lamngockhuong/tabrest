@@ -1,6 +1,6 @@
 # TabRest - Project Roadmap
 
-## Current Version: 0.0.3
+## Current Version: 0.0.4
 
 ### Completed Features
 
@@ -102,7 +102,13 @@
 
 ## Version History
 
-### v0.0.3 (Current)
+### v0.0.4 (Current)
+- **Phase 06:** Auto-open changelog on minor/major version bumps (silent for patch updates)
+- **Phase 07:** Optional host_permissions + on-demand form-checker injection (breaking for v0.0.3 users)
+- **Phase 08:** Suspend warning toast (3s delay before auto-unload), optional form protection
+- Fixed per-tab JS heap memory monitoring regression
+
+### v0.0.3
 - Added tab filter chips (All/Sleeping/Snoozed/Protected)
 - Fixed cancel snooze for domain-snoozed tabs
 - Improved snooze button UX (show on hover)

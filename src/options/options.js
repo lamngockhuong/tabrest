@@ -1,6 +1,11 @@
 import { SETTINGS_DEFAULTS } from "../shared/constants.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
+import {
+  hasHostPermission,
+  removeHostPermission,
+  requestHostPermission,
+} from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import { formatBytes, getBrowserInfo, isValidDomainOrIp } from "../shared/utils.js";
@@ -26,6 +31,9 @@ const elements = {
   protectForm: document.getElementById("protect-form"),
   showBadge: document.getElementById("show-badge"),
   notifyAutoUnload: document.getElementById("notify-auto-unload"),
+  showSuspendWarning: document.getElementById("show-suspend-warning"),
+  suspendWarningDelay: document.getElementById("suspend-warning-delay"),
+  suspendWarningDelayContainer: document.getElementById("suspend-warning-delay-container"),
   enableStats: document.getElementById("enable-stats"),
   enableTabGroups: document.getElementById("enable-tab-groups"),
   showDiscardedPrefix: document.getElementById("show-discarded-prefix"),
@@ -84,9 +92,13 @@ async function loadSettings() {
   updateIdleThresholdVisibility();
   elements.unloadPinned.checked = currentSettings.unloadPinnedTabs;
   elements.protectAudio.checked = currentSettings.protectAudioTabs;
-  elements.protectForm.checked = currentSettings.protectFormTabs;
+  // protectFormTabs is only truly enabled when host permission is granted.
+  elements.protectForm.checked = currentSettings.protectFormTabs && (await hasHostPermission());
   elements.showBadge.checked = currentSettings.showBadgeCount;
   elements.notifyAutoUnload.checked = currentSettings.notifyOnAutoUnload;
+  elements.showSuspendWarning.checked = currentSettings.showSuspendWarning;
+  elements.suspendWarningDelay.value = String(currentSettings.suspendWarningDelayMs);
+  updateSuspendWarningDelayVisibility();
   elements.enableStats.checked = currentSettings.enableStats;
   elements.enableTabGroups.checked = currentSettings.enableTabGroups;
   elements.showDiscardedPrefix.checked = currentSettings.showDiscardedPrefix;
@@ -104,6 +116,13 @@ function updatePrefixInputVisibility() {
 
 function updateIdleThresholdVisibility() {
   elements.idleThresholdContainer.classList.toggle("hidden", !elements.onlyDiscardIdle.checked);
+}
+
+function updateSuspendWarningDelayVisibility() {
+  elements.suspendWarningDelayContainer.classList.toggle(
+    "hidden",
+    !elements.showSuspendWarning.checked,
+  );
 }
 
 // Render domain list (XSS-safe DOM manipulation)
@@ -170,9 +189,10 @@ function setupEventListeners() {
     { el: elements.idleThreshold, key: "idleThresholdMinutes", type: "number" },
     { el: elements.unloadPinned, key: "unloadPinnedTabs", type: "checkbox" },
     { el: elements.protectAudio, key: "protectAudioTabs", type: "checkbox" },
-    { el: elements.protectForm, key: "protectFormTabs", type: "checkbox" },
     { el: elements.showBadge, key: "showBadgeCount", type: "checkbox" },
     { el: elements.notifyAutoUnload, key: "notifyOnAutoUnload", type: "checkbox" },
+    { el: elements.showSuspendWarning, key: "showSuspendWarning", type: "checkbox" },
+    { el: elements.suspendWarningDelay, key: "suspendWarningDelayMs", type: "number" },
     { el: elements.enableStats, key: "enableStats", type: "checkbox" },
     { el: elements.enableTabGroups, key: "enableTabGroups", type: "checkbox" },
     { el: elements.showDiscardedPrefix, key: "showDiscardedPrefix", type: "checkbox" },
@@ -196,8 +216,29 @@ function setupEventListeners() {
       if (key === "onlyDiscardWhenIdle") {
         updateIdleThresholdVisibility();
       }
+      if (key === "showSuspendWarning") {
+        updateSuspendWarningDelayVisibility();
+      }
     });
   }
+
+  // protectFormTabs has its own handler — it must request optional host permission
+  // before enabling, and revert the toggle if the user denies.
+  elements.protectForm.addEventListener("change", async () => {
+    if (elements.protectForm.checked) {
+      const granted = await requestHostPermission();
+      if (!granted) {
+        elements.protectForm.checked = false;
+        showStatus(t("formProtectPermDenied"));
+        return;
+      }
+    } else {
+      await removeHostPermission();
+    }
+    currentSettings.protectFormTabs = elements.protectForm.checked;
+    await saveSettings(currentSettings);
+    showStatus(t("settingsSaved"));
+  });
 
   // Power mode radios
   for (const radio of elements.powerModeRadios) {

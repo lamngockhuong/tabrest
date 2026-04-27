@@ -183,6 +183,22 @@
       </div>
       <div class="setting">
         <label>
+          <input type="checkbox" id="show-suspend-warning">
+          <span data-i18n="showSuspendWarningLabel">Show warning before auto-suspend</span>
+        </label>
+        <p class="help" data-i18n="showSuspendWarningHelp">Displays a brief on-page toast so you can interact with the tab to keep it alive</p>
+      </div>
+      <div class="setting setting-sub" id="suspend-warning-delay-container">
+        <label for="suspend-warning-delay" data-i18n="suspendWarningDelayLabel">Warning delay:</label>
+        <select id="suspend-warning-delay">
+          <option value="1500">1.5 seconds</option>
+          <option value="3000">3 seconds</option>
+          <option value="5000">5 seconds</option>
+          <option value="8000">8 seconds</option>
+        </select>
+      </div>
+      <div class="setting">
+        <label>
           <input type="checkbox" id="notify-auto-unload">
           <span data-i18n="notifyOnAutoUnload">Notify when tabs are auto-unloaded</span>
         </label>

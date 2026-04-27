@@ -34,6 +34,10 @@ export const SETTINGS_DEFAULTS = {
   notifyOnAutoUnload: false,
   // Error reporting (opt-out) - send anonymous crash reports
   enableErrorReporting: true,
+  // Show on-page warning toast before auto-discard (timer/memory paths only)
+  showSuspendWarning: true,
+  // Delay between toast appearance and discard, in ms
+  suspendWarningDelayMs: 3000,
 };
 
 // YouTube timestamp storage key
