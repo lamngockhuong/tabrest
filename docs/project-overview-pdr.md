@@ -106,6 +106,6 @@ host_permissions: http://*/*, https://*/*
 
 ## Links
 
-- **Website:** https://tabrest.khuong.dev
+- **Website:** https://tabrest.ohnice.app
 - **Repository:** GitHub (lamngockhuong/tabrest)
 - **Chrome Web Store:** Coming soon

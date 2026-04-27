@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tabrest.khuong.dev/sitemap-index.xml
+Sitemap: https://tabrest.ohnice.app/sitemap-index.xml

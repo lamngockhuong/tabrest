@@ -71,7 +71,7 @@ TabRest uses Chrome's native tabs.discard() API. Discarded tabs:
 • All settings stored locally on your device
 • Open source: https://github.com/lamngockhuong/tabrest
 
-🌐 WEBSITE: https://tabrest.khuong.dev
+🌐 WEBSITE: https://tabrest.ohnice.app
 
 Made with ❤️ for tab hoarders everywhere.
 ```
@@ -138,7 +138,7 @@ TabRest sử dụng API tabs.discard() của Chrome. Tab đã giải phóng:
 • Mọi cài đặt lưu cục bộ trên thiết bị
 • Mã nguồn mở: https://github.com/lamngockhuong/tabrest
 
-🌐 WEBSITE: https://tabrest.khuong.dev
+🌐 WEBSITE: https://tabrest.ohnice.app
 
 Làm với ❤️ cho những người "nghiện" mở tab.
 ```
@@ -224,7 +224,7 @@ Làm với ❤️ cho những người "nghiện" mở tab.
 | Field                  | Value                                           |
 | ---------------------- | ----------------------------------------------- |
 | **URL chính thức**     | Không                                           |
-| **URL trang chủ**      | https://tabrest.khuong.dev                      |
+| **URL trang chủ**      | https://tabrest.ohnice.app                      |
 | **URL hỗ trợ**         | https://github.com/lamngockhuong/tabrest/issues |
 | **Nội dung người lớn** | ❌ Không                                         |
 
@@ -235,7 +235,7 @@ Làm với ❤️ cho những người "nghiện" mở tab.
 - [ ] Mô tả tiếng Anh đã copy vào form
 - [ ] Mô tả tiếng Việt đã thêm (nếu cần)
 - [ ] Ít nhất 1 screenshot đã upload
-- [ ] URL trang chủ: https://tabrest.khuong.dev
+- [ ] URL trang chủ: https://tabrest.ohnice.app
 - [ ] URL hỗ trợ: https://github.com/lamngockhuong/tabrest/issues
 - [ ] Ô quảng cáo nhỏ (tùy chọn)
 - [ ] Ô quảng cáo marquee (tùy chọn)
