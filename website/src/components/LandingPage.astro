@@ -1,6 +1,7 @@
 ---
 // Landing page content - shared between EN and VI
 import { useTranslations, type Locale } from '../i18n';
+import Icon from './Icon.astro';
 
 interface Props {
   locale: Locale;
@@ -120,7 +121,7 @@ const t = useTranslations(locale);
         <ul class="space-y-3 text-text-muted dark:text-text-muted-dark">
           {t.problem.beforeItems.map(item => (
             <li class="flex items-start gap-2">
-              <span class="text-danger">❌</span>
+              <span class="text-danger flex-shrink-0 mt-0.5"><Icon name="x" size={20} strokeWidth={2.5} /></span>
               <span>{item}</span>
             </li>
           ))}
@@ -134,7 +135,7 @@ const t = useTranslations(locale);
         <ul class="space-y-3 text-text-muted dark:text-text-muted-dark">
           {t.problem.afterItems.map(item => (
             <li class="flex items-start gap-2">
-              <span class="text-success">✅</span>
+              <span class="text-success flex-shrink-0 mt-0.5"><Icon name="check" size={20} strokeWidth={2.5} /></span>
               <span>{item}</span>
             </li>
           ))}
@@ -161,7 +162,9 @@ const t = useTranslations(locale);
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {t.features.items.map(feature => (
         <div class="p-6 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark hover:shadow-lg transition-shadow">
-          <div class="text-4xl mb-4">{feature.icon}</div>
+          <div class="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary-light/10 text-primary dark:text-primary-light">
+            <Icon name={feature.icon} size={28} />
+          </div>
           <h3 class="text-xl font-bold text-primary dark:text-primary-light mb-2">
             {feature.title}
           </h3>

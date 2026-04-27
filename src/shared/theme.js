@@ -1,6 +1,8 @@
 // Theme management module
 // Handles dark/light theme switching with system preference detection
 
+import { icon } from "./icons.js";
+
 const THEME_KEY = "tabrest_theme";
 const THEMES = { LIGHT: "light", DARK: "dark" };
 
@@ -81,7 +83,8 @@ export function onThemeChange(callback = () => {}) {
  * @param {string} theme - Current theme
  */
 export function updateThemeIcon(iconEl, toggleEl, theme) {
-  iconEl.textContent = theme === THEMES.DARK ? "☀️" : "🌙";
+  const name = theme === THEMES.DARK ? "sun" : "moon";
+  iconEl.innerHTML = icon(name, 14);
   toggleEl.title = theme === THEMES.DARK ? "Switch to light mode" : "Switch to dark mode";
 }
 

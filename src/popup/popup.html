@@ -15,7 +15,7 @@
       </div>
       <div class="header-actions">
         <button id="theme-toggle" class="icon-btn" title="Toggle theme">
-          <span id="theme-icon">🌙</span>
+          <span id="theme-icon" data-icon="moon"></span>
         </button>
         <button id="settings-btn" class="icon-btn" title="Settings">
           <span data-icon="settings"></span>
@@ -102,9 +102,9 @@
       <div class="section-body open" id="tabs-body">
         <div class="tab-filters" id="tab-filters">
           <button class="filter-chip active" data-filter="all">All <span class="filter-count" id="filter-count-all">0</span></button>
-          <button class="filter-chip" data-filter="sleeping">💤 <span class="filter-count" id="filter-count-sleeping">0</span></button>
-          <button class="filter-chip" data-filter="snoozed">⏸️ <span class="filter-count" id="filter-count-snoozed">0</span></button>
-          <button class="filter-chip" data-filter="protected">🛡️ <span class="filter-count" id="filter-count-protected">0</span></button>
+          <button class="filter-chip" data-filter="sleeping"><span data-icon="moon"></span> <span class="filter-count" id="filter-count-sleeping">0</span></button>
+          <button class="filter-chip" data-filter="snoozed"><span data-icon="pause"></span> <span class="filter-count" id="filter-count-snoozed">0</span></button>
+          <button class="filter-chip" data-filter="protected"><span data-icon="shield"></span> <span class="filter-count" id="filter-count-protected">0</span></button>
         </div>
         <div id="tab-list" class="tab-list"></div>
       </div>

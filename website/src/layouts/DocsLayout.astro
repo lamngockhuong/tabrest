@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import DocsSidebar from '../components/DocsSidebar.astro';
+import Icon from '../components/Icon.astro';
 import { useTranslations, type Locale } from '../i18n';
 
 interface Props {
@@ -36,7 +37,7 @@ const t = useTranslations(locale);
       <!-- Minimal Footer -->
       <footer class="border-t border-border-light dark:border-border-dark py-6 px-4 text-center text-sm text-text-muted dark:text-text-muted-dark">
         <p>
-          Made with <span class="inline-block text-danger animate-heartbeat">♥</span> by <a href="https://khuong.dev" target="_blank" rel="noopener noreferrer" class="hover:text-primary dark:hover:text-primary-light transition-colors">khuong.dev</a>
+          Made with <span class="inline-flex align-middle text-danger animate-heartbeat"><Icon name="heart" size={16} strokeWidth={2.5} /></span> by <a href="https://khuong.dev" target="_blank" rel="noopener noreferrer" class="hover:text-primary dark:hover:text-primary-light transition-colors">khuong.dev</a>
         </p>
       </footer>
 

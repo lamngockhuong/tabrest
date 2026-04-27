@@ -1,14 +1,15 @@
 ---
 // Theme toggle button - switches between light and dark mode
+import Icon from './Icon.astro';
 ---
 
 <button
-  class="theme-toggle p-2 rounded-lg border border-border-light dark:border-border-dark hover:bg-card-light dark:hover:bg-card-dark transition-colors cursor-pointer"
+  class="theme-toggle p-2 rounded-lg border border-border-light dark:border-border-dark hover:bg-card-light dark:hover:bg-card-dark transition-colors cursor-pointer text-text-muted dark:text-text-muted-dark hover:text-text dark:hover:text-text-dark"
   aria-label="Toggle theme"
   type="button"
 >
-  <span class="sun hidden dark:inline">☀️</span>
-  <span class="moon dark:hidden">🌙</span>
+  <span class="hidden dark:inline-flex"><Icon name="sun" size={20} /></span>
+  <span class="inline-flex dark:hidden"><Icon name="moon" size={20} /></span>
 </button>
 
 <script is:inline>
