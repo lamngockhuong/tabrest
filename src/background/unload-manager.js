@@ -1,5 +1,6 @@
 import { FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
+import { unwrapHostname } from "../shared/utils.js";
 import { recordUnload } from "./stats-collector.js";
 
 /**
@@ -196,11 +197,68 @@ export async function discardTabGroup(groupId) {
   return count;
 }
 
+// Normalize URL for duplicate detection: lowercase host, strip trailing slash + fragment, keep query
+function normalizeUrl(url) {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    if (!["http:", "https:"].includes(u.protocol)) return null;
+    const path = u.pathname.replace(/\/$/, "") || "/";
+    return `${u.protocol}//${u.hostname.toLowerCase()}${path}${u.search}`;
+  } catch {
+    return null;
+  }
+}
+
+// Pick best tab to keep from a duplicate group: pinned > active > lowest index
+function pickKeeper(group) {
+  const pinned = group.find((t) => t.pinned);
+  if (pinned) return pinned;
+  const active = group.find((t) => t.active);
+  if (active) return active;
+  return group.reduce((a, b) => (a.index <= b.index ? a : b));
+}
+
+export async function closeDuplicateTabs() {
+  const tabs = await chrome.tabs.query({ currentWindow: true });
+  const groups = new Map();
+
+  for (const tab of tabs) {
+    const key = normalizeUrl(tab.url);
+    if (!key) continue;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(tab);
+  }
+
+  const idsToClose = [];
+  for (const group of groups.values()) {
+    if (group.length < 2) continue;
+    const keeper = pickKeeper(group);
+    for (const tab of group) {
+      if (tab.id === keeper.id || tab.pinned) continue;
+      idsToClose.push(tab.id);
+    }
+  }
+
+  if (idsToClose.length === 0) return { closed: 0 };
+
+  // chrome.tabs.remove(array) is all-or-nothing; on rejection no tabs are closed
+  try {
+    await chrome.tabs.remove(idsToClose);
+    return { closed: idsToClose.length };
+  } catch (error) {
+    if (!error.message?.includes("No tab with id")) {
+      console.error("Failed to close duplicate tabs:", error);
+    }
+    return { closed: 0 };
+  }
+}
+
 // Check if hostname matches a domain list (exported for reuse)
 export function matchesDomainList(url, domainList) {
   if (!url || !domainList?.length) return false;
   try {
-    const hostname = new URL(url).hostname;
+    const hostname = unwrapHostname(new URL(url).hostname);
     return domainList.some((domain) => hostname === domain || hostname.endsWith(`.${domain}`));
   } catch {
     return false;

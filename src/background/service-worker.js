@@ -1,6 +1,7 @@
 import { ALARM_NAMES, FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
 import { initErrorReporter } from "../shared/error-reporter.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
+import { isValidDomainOrIp, unwrapHostname } from "../shared/utils.js";
 import {
   checkMemoryAndUnload,
   checkPerTabMemory,
@@ -33,6 +34,7 @@ import {
   updateTabActivity,
 } from "./tab-tracker.js";
 import {
+  closeDuplicateTabs,
   discardAllTabsOnStartup,
   discardCurrentTab,
   discardOtherTabs,
@@ -117,7 +119,8 @@ async function addCurrentSiteToWhitelist() {
 
   try {
     const url = new URL(tab.url);
-    const hostname = url.hostname.replace(/^www\./, "");
+    const hostname = unwrapHostname(url.hostname).replace(/^www\./, "");
+    if (!isValidDomainOrIp(hostname)) return;
 
     const settings = await getSettings();
     if (!settings.whitelist.includes(hostname)) {
@@ -434,6 +437,8 @@ async function handleMessage(message) {
       return await getTabsWithStatus();
     case "unload-tab":
       return await discardTab(tabId, { force: true });
+    case "close-duplicates":
+      return await closeDuplicateTabs();
     // Session commands
     case "get-sessions":
       return await getSessions();

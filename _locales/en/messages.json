@@ -262,8 +262,8 @@
     "description": "Status message"
   },
   "invalidDomain": {
-    "message": "Invalid domain format",
-    "description": "Error message"
+    "message": "Enter a domain, IP address, or 'localhost'",
+    "description": "Error message when whitelist/blacklist input is invalid"
   },
   "domainExists": {
     "message": "Domain already exists",
@@ -488,5 +488,32 @@
   "askQuestion": {
     "message": "Ask a Question",
     "description": "Support link text"
+  },
+  "closeDuplicates": {
+    "message": "Close Duplicates",
+    "description": "Button to close duplicate tabs in current window"
+  },
+  "closedNDuplicates": {
+    "message": "Closed $COUNT$ duplicate tab(s)",
+    "description": "Toast after closing duplicate tabs",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "No duplicate tabs found",
+    "description": "Toast when no duplicates exist"
+  },
+  "searchTabs": {
+    "message": "Search tabs",
+    "description": "Tooltip for tab search toggle button"
+  },
+  "searchPlaceholder": {
+    "message": "Search tabs...",
+    "description": "Placeholder text for tab search input"
+  },
+  "ramEstimateTooltip": {
+    "message": "Based on ~150 MB per discarded tab. Actual savings vary by page content.",
+    "description": "Tooltip explaining the RAM saved estimate"
   }
 }

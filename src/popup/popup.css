@@ -811,6 +811,18 @@ footer {
   color: var(--text);
 }
 
+.tab-search {
+  padding: 8px 0 4px;
+}
+
+.tab-search.hidden {
+  display: none;
+}
+
+.tab-search input {
+  width: 100%;
+}
+
 .input:focus {
   outline: 2px solid var(--secondary);
   outline-offset: 1px;

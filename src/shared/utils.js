@@ -50,6 +50,43 @@ export function getBrowserInfo() {
   };
 }
 
+const RE_IPV4 = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d)$/;
+const RE_IPV6_GROUP = /^[0-9a-f]{1,4}$/i;
+const RE_DOMAIN = /^[a-z0-9]+([-.][a-z0-9]+)*\.[a-z]{2,}$/i;
+
+function isIPv6(v) {
+  if (!/^[0-9a-f:]+$/i.test(v)) return false;
+  if (v.includes(":::")) return false;
+  const compressedCount = v.split("::").length - 1;
+  if (compressedCount > 1) return false;
+
+  if (compressedCount === 0) {
+    const parts = v.split(":");
+    return parts.length === 8 && parts.every((p) => RE_IPV6_GROUP.test(p));
+  }
+
+  const groups = v.split(":").filter((p) => p !== "");
+  if (groups.length > 7) return false;
+  return groups.every((p) => RE_IPV6_GROUP.test(p));
+}
+
+// URL.hostname returns IPv6 wrapped in brackets ([::1]); strip for plain comparison/storage
+export function unwrapHostname(host) {
+  return host?.replace(/^\[|\]$/g, "") ?? "";
+}
+
+// Validate whitelist/blacklist entry: domain, IPv4, IPv6, or 'localhost'
+export function isValidDomainOrIp(input) {
+  if (!input || typeof input !== "string") return false;
+  const v = input.trim().toLowerCase();
+  if (!v) return false;
+  if (v === "localhost") return true;
+  if (RE_IPV4.test(v)) return true;
+  if (isIPv6(v)) return true;
+  if (RE_DOMAIN.test(v)) return true;
+  return false;
+}
+
 // Format bytes to human readable string
 export function formatBytes(bytes) {
   if (!bytes || bytes === 0) return "0 B";
