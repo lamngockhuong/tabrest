@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { formatBytes, isValidDomainOrIp } from "../../src/shared/utils.js";
+import {
+  formatBytes,
+  isMinorOrMajorBump,
+  isValidDomainOrIp,
+  parseSemver,
+} from "../../src/shared/utils.js";
 
 describe("formatBytes", () => {
   it("returns '0 B' for zero bytes", () => {
@@ -71,5 +76,57 @@ describe("isValidDomainOrIp", () => {
     expect(isValidDomainOrIp("1:2:::3")).toBe(false);
     expect(isValidDomainOrIp("abcd:::")).toBe(false);
     expect(isValidDomainOrIp("1::2::3")).toBe(false);
+  });
+});
+
+describe("parseSemver", () => {
+  it("parses standard semver", () => {
+    expect(parseSemver("1.2.3")).toEqual({ major: 1, minor: 2, patch: 3 });
+    expect(parseSemver("0.0.4")).toEqual({ major: 0, minor: 0, patch: 4 });
+  });
+
+  it("ignores pre-release suffix", () => {
+    expect(parseSemver("1.2.3-beta.1")).toEqual({ major: 1, minor: 2, patch: 3 });
+  });
+
+  it("returns null for invalid input", () => {
+    expect(parseSemver("")).toBe(null);
+    expect(parseSemver(null)).toBe(null);
+    expect(parseSemver(undefined)).toBe(null);
+    expect(parseSemver("1.2")).toBe(null);
+    expect(parseSemver("abc")).toBe(null);
+    expect(parseSemver(123)).toBe(null);
+  });
+});
+
+describe("isMinorOrMajorBump", () => {
+  it("returns false for patch bumps", () => {
+    expect(isMinorOrMajorBump("0.0.4", "0.0.5")).toBe(false);
+    expect(isMinorOrMajorBump("1.2.3", "1.2.99")).toBe(false);
+  });
+
+  it("returns true for minor bumps", () => {
+    expect(isMinorOrMajorBump("0.0.4", "0.1.0")).toBe(true);
+    expect(isMinorOrMajorBump("1.2.3", "1.3.0")).toBe(true);
+  });
+
+  it("returns true for major bumps", () => {
+    expect(isMinorOrMajorBump("0.9.9", "1.0.0")).toBe(true);
+    expect(isMinorOrMajorBump("1.5.5", "2.0.0")).toBe(true);
+  });
+
+  it("returns false for downgrades", () => {
+    expect(isMinorOrMajorBump("1.2.0", "1.1.0")).toBe(false);
+    expect(isMinorOrMajorBump("2.0.0", "1.9.9")).toBe(false);
+  });
+
+  it("returns false for invalid versions", () => {
+    expect(isMinorOrMajorBump(null, "1.0.0")).toBe(false);
+    expect(isMinorOrMajorBump("1.0.0", null)).toBe(false);
+    expect(isMinorOrMajorBump("abc", "1.0.0")).toBe(false);
+  });
+
+  it("handles same version", () => {
+    expect(isMinorOrMajorBump("1.0.0", "1.0.0")).toBe(false);
   });
 });

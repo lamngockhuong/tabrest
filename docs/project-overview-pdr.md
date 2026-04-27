@@ -87,7 +87,7 @@ Unloaded tabs remain visible in the tab bar and restore instantly when clicked.
 ```
 tabs, storage, alarms, system.memory, contextMenus,
 tabGroups, scripting, idle, notifications
-host_permissions: http://*/*, https://*/*
+optional_host_permissions: http://*/*, https://*/*
 ```
 
 ### Performance Targets
@@ -100,7 +100,8 @@ host_permissions: http://*/*, https://*/*
 
 | Version | Status  | Key Changes                                         |
 | ------- | ------- | --------------------------------------------------- |
-| 0.0.3   | Current | Tab filter chips, domain snooze fix, UX improvements|
+| 0.0.4   | Current | Changelog auto-open, optional host_permissions, suspend warning |
+| 0.0.3   |         | Tab filter chips, domain snooze fix, UX improvements|
 | 0.0.2   |         | Snooze, scroll restore, offline skip, notifications |
 | 0.0.1   | Initial | Core unload functionality                           |
 

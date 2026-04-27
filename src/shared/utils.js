@@ -87,6 +87,23 @@ export function isValidDomainOrIp(input) {
   return false;
 }
 
+export function parseSemver(version) {
+  if (!version || typeof version !== "string") return null;
+  const m = version.match(/^(\d+)\.(\d+)\.(\d+)/);
+  if (!m) return null;
+  return { major: +m[1], minor: +m[2], patch: +m[3] };
+}
+
+// True if curr bumps major or minor compared to prev. Patch-only or downgrade returns false.
+export function isMinorOrMajorBump(prev, curr) {
+  const a = parseSemver(prev);
+  const b = parseSemver(curr);
+  if (!a || !b) return false;
+  if (b.major > a.major) return true;
+  if (b.major === a.major && b.minor > a.minor) return true;
+  return false;
+}
+
 // Format bytes to human readable string
 export function formatBytes(bytes) {
   if (!bytes || bytes === 0) return "0 B";

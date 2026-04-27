@@ -1,7 +1,9 @@
 import { ALARM_NAMES, FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
 import { initErrorReporter } from "../shared/error-reporter.js";
+import { hasHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
-import { isValidDomainOrIp, unwrapHostname } from "../shared/utils.js";
+import { isMinorOrMajorBump, isValidDomainOrIp, unwrapHostname } from "../shared/utils.js";
+import { clearInjectedTab, ensureFormCheckerInjected } from "./form-injector.js";
 import {
   checkMemoryAndUnload,
   checkPerTabMemory,
@@ -80,6 +82,9 @@ chrome.runtime.onStartup.addListener(async () => {
   await cleanupStaleActivity();
   await configureToolbarAction();
   await setupSnoozeCleanupAlarm();
+  // Catch the case where the user revoked host permission via chrome://extensions
+  // between sessions; silently flip protectFormTabs off (no banner — not an upgrade).
+  await syncFormPermissionState(false);
   await discardAllTabsOnStartup();
   updateBadge();
 });
@@ -100,17 +105,34 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   const currentVersion = chrome.runtime.getManifest().version;
 
   if (details.reason === "install") {
-    // First install - show onboarding
+    // First install - show onboarding, store version to track future bumps
+    await chrome.storage.local.set({ tabrest_lastVersion: currentVersion });
     chrome.tabs.create({ url: "src/pages/onboarding.html" });
   } else if (details.reason === "update") {
-    // Check if we should show changelog
-    const result = await chrome.storage.local.get("tabrest_lastVersion");
-    if (result.tabrest_lastVersion !== currentVersion) {
-      await chrome.storage.local.set({ tabrest_lastVersion: currentVersion });
+    const stored = await chrome.storage.local.get("tabrest_lastVersion");
+    const prevVersion = details.previousVersion || stored.tabrest_lastVersion;
+
+    if (prevVersion && isMinorOrMajorBump(prevVersion, currentVersion)) {
       chrome.tabs.create({ url: "https://tabrest.ohnice.app/changelog" });
     }
+    await chrome.storage.local.set({ tabrest_lastVersion: currentVersion });
   }
+
+  // Migrate users moving to optional_host_permissions: if form protection was on
+  // but Chrome dropped the implicit grant, force-disable and queue recovery banner.
+  await syncFormPermissionState(details.reason === "update");
 });
+
+async function syncFormPermissionState(showBannerIfChanged) {
+  if (await hasHostPermission()) return;
+  const settings = await getSettings();
+  if (!settings.protectFormTabs) return;
+  settings.protectFormTabs = false;
+  await saveSettings(settings);
+  if (showBannerIfChanged) {
+    await chrome.storage.local.set({ pendingFormPermBanner: true });
+  }
+}
 
 // Add current site to whitelist
 async function addCurrentSiteToWhitelist() {
@@ -295,6 +317,11 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
   if (changeInfo.status === "complete" || changeInfo.url) {
     updateTabActivity(tabId);
   }
+  if (changeInfo.status === "loading" || changeInfo.discarded === true) {
+    // Page navigating or Chrome dropped the tab — injected form-checker is
+    // gone; force re-inject next check.
+    clearInjectedTab(tabId);
+  }
   if (changeInfo.discarded !== undefined) {
     updateBadge();
   }
@@ -304,6 +331,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
 chrome.tabs.onRemoved.addListener((tabId) => {
   removeTabActivity(tabId);
   removeTabMemory(tabId);
+  clearInjectedTab(tabId);
   updateBadge();
 });
 
@@ -476,6 +504,8 @@ async function handleMessage(message) {
 // Check if tab has unsaved form data
 async function checkTabFormData(tabId) {
   try {
+    const tab = await chrome.tabs.get(tabId);
+    if (!(await ensureFormCheckerInjected(tabId, tab.url))) return false;
     const response = await Promise.race([
       chrome.tabs.sendMessage(tabId, { action: "checkFormData" }),
       new Promise((resolve) => setTimeout(() => resolve(null), FORM_CHECK_TIMEOUT_MS)),

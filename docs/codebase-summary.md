@@ -43,12 +43,13 @@ tabrest/
 | `snooze-manager.js`  | ~120 | Temporary tab/domain protection                  |
 | `session-manager.js` | ~100 | Save/restore tab sessions                        |
 | `stats-collector.js` | ~80  | Usage statistics tracking                        |
+| `form-injector.js`  | ~60  | On-demand form-checker injection + caching       |
 
 ### Content Scripts
 
 | File                 | LOC | Purpose                                     |
 | -------------------- | --- | ------------------------------------------- |
-| `form-checker.js`    | 201 | Detect unsaved forms, report JS heap memory |
+| `form-checker.js`    | 201 | Detect unsaved forms, report JS heap memory (lazy-injected) |
 | `youtube-tracker.js` | 132 | Save/restore YouTube playback position      |
 
 ### UI Components
@@ -68,7 +69,8 @@ tabrest/
 | -------------- | --- | ------------------------------------------- |
 | `constants.js` | 90  | Default settings, alarm names, storage keys |
 | `storage.js`   | 39  | Chrome storage wrapper with caching         |
-| `utils.js`     | 23  | formatBytes, notification helper            |
+| `utils.js`     | 29  | formatBytes, notification helper, semver parsing |
+| `permissions.js` | 32 | Check/request/remove host permissions       |
 | `i18n.js`      | 48  | Internationalization helpers                |
 | `theme.js`     | 88  | Dark/light mode management                  |
 | `icons.js`     | 64  | SVG icon definitions                        |

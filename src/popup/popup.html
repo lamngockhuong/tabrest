@@ -23,6 +23,17 @@
       </div>
     </header>
 
+    <!-- Form Permission Recovery Banner (shown after upgrade if host perm dropped) -->
+    <div class="form-perm-banner" id="form-perm-banner" style="display: none;">
+      <span class="form-perm-banner-text" data-i18n="formPermBannerText">Form protection was reset due to permission changes.</span>
+      <div class="form-perm-banner-actions">
+        <button class="btn btn-sm btn-primary" id="form-perm-grant" data-i18n="enable">Enable</button>
+        <button class="icon-btn form-perm-dismiss" id="form-perm-dismiss" title="Dismiss">
+          <span data-icon="x"></span>
+        </button>
+      </div>
+    </div>
+
     <!-- Review Prompt -->
     <div class="review-prompt" id="review-prompt" style="display: none;">
       <span class="review-prompt-text" data-i18n="enjoyingTabRest">Enjoying TabRest?</span>

@@ -53,6 +53,14 @@ global.chrome = {
       getInfo: vi.fn(() => Promise.resolve({ capacity: 8589934592 })),
     },
   },
+  permissions: {
+    contains: vi.fn(() => Promise.resolve(true)),
+    request: vi.fn(() => Promise.resolve(true)),
+    remove: vi.fn(() => Promise.resolve(true)),
+  },
+  scripting: {
+    executeScript: vi.fn(() => Promise.resolve([])),
+  },
 };
 
 // Reset all mocks before each test

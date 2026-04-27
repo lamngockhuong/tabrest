@@ -384,5 +384,29 @@
   },
   "ramEstimateTooltip": {
     "message": "Ước tính dựa trên ~150 MB mỗi tab. Mức tiết kiệm thực tế thay đổi theo nội dung trang."
+  },
+  "formProtectPermDenied": {
+    "message": "Bảo vệ form cần quyền truy cập website. Đã bỏ qua."
+  },
+  "formPermBannerText": {
+    "message": "Bảo vệ form đã bị tắt do thay đổi quyền."
+  },
+  "enable": {
+    "message": "Bật"
+  },
+  "formPermGranted": {
+    "message": "Đã bật bảo vệ form"
+  },
+  "showSuspendWarningLabel": {
+    "message": "Hiển thị cảnh báo trước khi tự động tạm dừng"
+  },
+  "showSuspendWarningHelp": {
+    "message": "Hiện toast ngắn trên trang để bạn có thể tương tác và giữ tab"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "Thời gian cảnh báo:"
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest sắp tạm dừng tab này để giải phóng bộ nhớ…"
   }
 }

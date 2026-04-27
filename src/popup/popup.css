@@ -1122,6 +1122,38 @@ footer {
 }
 
 /* Review Prompt */
+.form-perm-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--warning);
+  color: #fff;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.form-perm-banner-text {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.form-perm-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.form-perm-dismiss {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.form-perm-dismiss:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 .review-prompt {
   display: flex;
   align-items: center;
