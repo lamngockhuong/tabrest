@@ -1,5 +1,6 @@
 import { SETTINGS_DEFAULTS } from "../shared/constants.js";
 import { localizeHtml, t } from "../shared/i18n.js";
+import { injectIcons } from "../shared/icons.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import { formatBytes, getBrowserInfo } from "../shared/utils.js";
@@ -41,6 +42,7 @@ const elements = {
   resetStats: document.getElementById("reset-stats"),
   status: document.getElementById("status"),
   shortcutsLink: document.getElementById("shortcuts-link"),
+  enableErrorReporting: document.getElementById("enable-error-reporting"),
 };
 
 let currentSettings = {};
@@ -52,6 +54,7 @@ async function init() {
   updateThemeIcon(elements.themeIcon, elements.themeToggle, theme);
   onThemeChange((theme) => updateThemeIcon(elements.themeIcon, elements.themeToggle, theme));
   localizeHtml();
+  injectIcons();
 
   await loadSettings();
   await loadStats();
@@ -89,6 +92,7 @@ async function loadSettings() {
   elements.showDiscardedPrefix.checked = currentSettings.showDiscardedPrefix;
   elements.discardedPrefix.value = currentSettings.discardedPrefix;
   updatePrefixInputVisibility();
+  elements.enableErrorReporting.checked = currentSettings.enableErrorReporting ?? true;
 
   renderWhitelist();
   renderBlacklist();
@@ -172,6 +176,7 @@ function setupEventListeners() {
     { el: elements.enableStats, key: "enableStats", type: "checkbox" },
     { el: elements.enableTabGroups, key: "enableTabGroups", type: "checkbox" },
     { el: elements.showDiscardedPrefix, key: "showDiscardedPrefix", type: "checkbox" },
+    { el: elements.enableErrorReporting, key: "enableErrorReporting", type: "checkbox" },
   ];
 
   for (const { el, key, type } of settingsMap) {

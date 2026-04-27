@@ -1,4 +1,5 @@
 import { ALARM_NAMES, FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
+import { initErrorReporter } from "../shared/error-reporter.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import {
   checkMemoryAndUnload,
@@ -69,6 +70,7 @@ chrome.action.onClicked.addListener(async (_tab) => {
 
 // Browser startup - initialize trackers and auto-unload
 chrome.runtime.onStartup.addListener(async () => {
+  await initErrorReporter();
   await initTabTracker();
   await initMemoryMonitor();
   await initStats();
@@ -82,6 +84,7 @@ chrome.runtime.onStartup.addListener(async () => {
 
 // Extension installed/updated
 chrome.runtime.onInstalled.addListener(async (details) => {
+  await initErrorReporter();
   await initTabTracker();
   await initMemoryMonitor();
   await initStats();

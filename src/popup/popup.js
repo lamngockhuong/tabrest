@@ -1,5 +1,11 @@
+import { sanitizeString } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
+import {
+  collectDiagnostics,
+  formatDiagnosticsJSON,
+  formatDiagnosticsText,
+} from "../shared/log-collector.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import { formatBytes, getBrowserInfo } from "../shared/utils.js";
@@ -54,6 +60,13 @@ const elements = {
   reviewYes: document.getElementById("review-yes"),
   reviewNo: document.getElementById("review-no"),
   reviewDismiss: document.getElementById("review-dismiss"),
+  // Bug report
+  reportBugBtn: document.getElementById("report-bug-btn"),
+  bugReportModal: document.getElementById("bug-report-modal"),
+  modalClose: document.getElementById("modal-close"),
+  bugDescription: document.getElementById("bug-description"),
+  diagnosticsPreview: document.getElementById("diagnostics-preview"),
+  copyForGithub: document.getElementById("copy-for-github"),
 };
 
 // --- Utility Functions ---
@@ -688,6 +701,42 @@ function setupEventListeners() {
   elements.reviewDismiss?.addEventListener("click", () => {
     incrementDismiss();
     hideReviewPrompt();
+  });
+
+  // Bug report modal handlers
+  let cachedDiagnostics = null;
+
+  elements.reportBugBtn?.addEventListener("click", async () => {
+    cachedDiagnostics = await collectDiagnostics();
+    elements.diagnosticsPreview.textContent = formatDiagnosticsJSON(cachedDiagnostics);
+    elements.bugReportModal.style.display = "flex";
+  });
+
+  elements.modalClose?.addEventListener("click", () => {
+    elements.bugReportModal.style.display = "none";
+  });
+
+  elements.bugReportModal?.addEventListener("click", (e) => {
+    if (e.target === elements.bugReportModal) {
+      elements.bugReportModal.style.display = "none";
+    }
+  });
+
+  elements.copyForGithub?.addEventListener("click", async () => {
+    // Sanitize user description to prevent accidental PII sharing
+    const description = sanitizeString(elements.bugDescription.value.trim());
+    const text = formatDiagnosticsText(cachedDiagnostics);
+    const fullReport = description ? `## Description\n${description}\n\n${text}` : text;
+
+    try {
+      await navigator.clipboard.writeText(fullReport);
+      showToast(t("copiedToClipboard") || "Copied! Paste in GitHub issue.");
+    } catch {
+      showToast("Failed to copy. Please copy manually.");
+    }
+    chrome.tabs.create({ url: "https://github.com/lamngockhuong/tabrest/issues/new" });
+    elements.bugReportModal.style.display = "none";
+    elements.bugDescription.value = "";
   });
 }
 
