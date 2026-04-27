@@ -7,6 +7,24 @@ on:
     branches: [main]
 
 jobs:
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      website: ${{ steps.filter.outputs.website }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Filter paths
+        id: filter
+        uses: dorny/paths-filter@v4
+        with:
+          filters: |
+            website:
+              - 'website/**'
+              - '.github/workflows/ci.yml'
+
   lint:
     name: Lint & Validate
     runs-on: ubuntu-latest
@@ -35,3 +53,31 @@ jobs:
 
       - name: Run tests
         run: pnpm run test
+
+  website:
+    name: Build Website
+    needs: changes
+    if: needs.changes.outputs.website == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: "pnpm"
+          cache-dependency-path: website/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --config.strictDepBuilds=false
+        working-directory: website
+
+      - name: Build website
+        run: pnpm build
+        working-directory: website
