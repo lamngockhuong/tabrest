@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://tabrest.khuong.dev',
+  site: 'https://tabrest.ohnice.app',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'vi'],

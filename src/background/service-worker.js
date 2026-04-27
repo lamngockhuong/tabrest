@@ -105,7 +105,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     const result = await chrome.storage.local.get("tabrest_lastVersion");
     if (result.tabrest_lastVersion !== currentVersion) {
       await chrome.storage.local.set({ tabrest_lastVersion: currentVersion });
-      chrome.tabs.create({ url: "https://tabrest.khuong.dev/changelog" });
+      chrome.tabs.create({ url: "https://tabrest.ohnice.app/changelog" });
     }
   }
 });

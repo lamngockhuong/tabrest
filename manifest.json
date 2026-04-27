@@ -4,7 +4,7 @@
   "version": "0.0.4",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
-  "homepage_url": "https://tabrest.khuong.dev",
+  "homepage_url": "https://tabrest.ohnice.app",
   "permissions": [
     "tabs",
     "storage",
