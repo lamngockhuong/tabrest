@@ -60,6 +60,13 @@
           <option value="discard-others" data-i18n="actionDiscardOthers">Discard other tabs</option>
         </select>
       </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" id="use-side-panel">
+          <span data-i18n="useSidePanel">Open in side panel instead of popup</span>
+        </label>
+        <p class="help" data-i18n="useSidePanelHelp">Side panel stays open across tab switches. Requires Chrome 114+.</p>
+      </div>
     </section>
 
     <section class="card">
@@ -237,6 +244,10 @@
         <input type="text" id="new-whitelist" data-i18n-placeholder="addPlaceholder" placeholder="example.com">
         <button id="add-whitelist" class="btn" data-i18n="add">Add</button>
       </div>
+      <div class="list-actions">
+        <button class="btn btn-sm secondary" id="export-whitelist" data-i18n="exportList">Export</button>
+        <button class="btn btn-sm secondary" id="import-whitelist" data-i18n="importList">Import</button>
+      </div>
     </section>
 
     <section class="card">
@@ -246,6 +257,10 @@
       <div class="add-domain">
         <input type="text" id="new-blacklist" data-i18n-placeholder="addPlaceholder" placeholder="example.com">
         <button id="add-blacklist" class="btn" data-i18n="add">Add</button>
+      </div>
+      <div class="list-actions">
+        <button class="btn btn-sm secondary" id="export-blacklist" data-i18n="exportList">Export</button>
+        <button class="btn btn-sm secondary" id="import-blacklist" data-i18n="importList">Import</button>
       </div>
     </section>
 

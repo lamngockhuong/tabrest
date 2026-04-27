@@ -13,7 +13,13 @@ import {
   reportTabMemory,
   setupMemoryCheckAlarm,
 } from "./memory-monitor.js";
-import { deleteSession, getSessions, restoreSession, saveSession } from "./session-manager.js";
+import {
+  deleteSession,
+  getSessions,
+  importSessions,
+  restoreSession,
+  saveSession,
+} from "./session-manager.js";
 import {
   cancelDomainSnooze,
   cancelTabSnooze,
@@ -47,20 +53,38 @@ import {
   isUrlWhitelisted,
 } from "./unload-manager.js";
 
-// Configure toolbar action based on user preference
+// Side-panel mode takes precedence over toolbarClickAction.
 async function configureToolbarAction() {
   const settings = await getSettings();
+  if (settings.useSidePanel && chrome.sidePanel) {
+    // Empty popup → action.onClicked fires → opens side panel.
+    chrome.action.setPopup({ popup: "" });
+    try {
+      await chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false });
+    } catch {}
+    return;
+  }
   if (settings.toolbarClickAction === "popup") {
     chrome.action.setPopup({ popup: "src/popup/popup.html" });
   } else {
-    // Disable popup to enable onClicked event
     chrome.action.setPopup({ popup: "" });
+  }
+  if (chrome.sidePanel) {
+    try {
+      await chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false });
+    } catch {}
   }
 }
 
-// Handle toolbar click (only fires when popup is empty)
-chrome.action.onClicked.addListener(async (_tab) => {
+// Toolbar click (only fires when popup is empty).
+chrome.action.onClicked.addListener(async (tab) => {
   const settings = await getSettings();
+  if (settings.useSidePanel && chrome.sidePanel) {
+    try {
+      await chrome.sidePanel.open({ windowId: tab.windowId });
+    } catch {}
+    return;
+  }
   switch (settings.toolbarClickAction) {
     case "discard-current":
       await discardCurrentTab();
@@ -446,7 +470,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Handle messages from popup
 async function handleMessage(message) {
-  const { command, groupId, tabId, name, id, mode, minutes, domain, url } = message;
+  const { command, groupId, tabId, name, id, mode, minutes, domain, url, sessions } = message;
 
   switch (command) {
     case "unload-current":
@@ -476,6 +500,8 @@ async function handleMessage(message) {
       return await deleteSession(id);
     case "restore-session":
       return await restoreSession(id, mode);
+    case "import-sessions":
+      return await importSessions(sessions);
     // Stats commands
     case "get-stats":
       return await getStats();

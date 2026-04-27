@@ -6,10 +6,15 @@
 ┌─────────────────────────────────────────────────────────────────┐
 │                        CHROME BROWSER                           │
 ├─────────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐              │
-│  │   Popup     │  │   Options   │  │   Pages     │              │
-│  │  (popup.*)  │  │ (options.*) │  │ (pages/*)   │              │
-│  └──────┬──────┘  └──────┬──────┘  └─────────────┘              │
+│  ┌─────────────┐  ┌─────────────┐  ┌──────────────┐             │
+│  │   Popup     │  │   Options   │  │    Pages     │             │
+│  │  (popup.*)  │  │ (options.*) │  │  (pages/*)   │             │
+│  └──────┬──────┘  └──────┬──────┘  └──────────────┘             │
+│         │                │                                      │
+│  ┌──────┴────────────────┴──────────────────────────────┐       │
+│  │  Side Panel (optional, useSidePanel setting)        │       │
+│  │  Reuses popup.html/js/css when active               │       │
+│  └──────────────────────────────────────────────────────┘       │
 │         │                │                                      │
 │         │    chrome.runtime.sendMessage                         │
 │         ▼                ▼                                      │
@@ -19,8 +24,9 @@
 │  │  ┌─────────────┬─────────────┬─────────────┬──────────────┐ ││
 │  │  │ unload-mgr  │ tab-tracker │ memory-mon  │ snooze-mgr   │ ││
 │  │  │             │             │             │              │ ││
-│  │  │ session-mgr │ stats-coll  │             │              │ ││
+│  │  │ session-mgr │ stats-coll  │ window mgr* │ form-inject  │ ││
 │  │  └─────────────┴─────────────┴─────────────┴──────────────┘ ││
+│  │  * chrome.windows.onFocusChanged listener                    ││
 │  └──────┬──────────────────────────────────────────────────────┘│
 │         │                                                       │
 │         │    chrome.tabs.sendMessage                            │
@@ -239,18 +245,19 @@ service-worker.js
 
 ### Chrome Events → Actions
 
-| Event                    | Handler                                          | Action          |
-| ------------------------ | ------------------------------------------------ | --------------- |
-| `runtime.onStartup`      | Initialize all trackers, sync tabs, setup alarms | Startup         |
-| `runtime.onInstalled`    | Same as startup + show onboarding/changelog      | Install/Update  |
-| `tabs.onActivated`       | Update tab activity timestamp                    | Tab focus       |
-| `tabs.onUpdated`         | Update activity, refresh badge                   | Tab navigation  |
-| `tabs.onRemoved`         | Cleanup activity & memory entries                | Tab close       |
-| `alarms.onAlarm`         | Route to appropriate check function              | Timer tick      |
-| `commands.onCommand`     | Execute keyboard shortcut action                 | Hotkey          |
-| `contextMenus.onClicked` | Execute context menu action                      | Right-click     |
-| `storage.onChanged`      | Reconfigure alarms, toolbar, badge               | Settings change |
-| `runtime.onMessage`      | Route to command handler                         | Message         |
+| Event                    | Handler                                          | Action                    |
+| ------------------------ | ------------------------------------------------ | ------------------------- |
+| `runtime.onStartup`      | Initialize all trackers, sync tabs, setup alarms | Startup                   |
+| `runtime.onInstalled`    | Same as startup + show onboarding/changelog      | Install/Update            |
+| `tabs.onActivated`       | Update tab activity timestamp                    | Tab focus                 |
+| `tabs.onUpdated`         | Update activity, refresh badge                   | Tab navigation            |
+| `tabs.onRemoved`         | Cleanup activity & memory entries                | Tab close                 |
+| `windows.onFocusChanged` | Update badge across windows (side panel mode)    | Window focus change       |
+| `alarms.onAlarm`         | Route to appropriate check function              | Timer tick                |
+| `commands.onCommand`     | Execute keyboard shortcut action                 | Hotkey                    |
+| `contextMenus.onClicked` | Execute context menu action                      | Right-click               |
+| `storage.onChanged`      | Reconfigure alarms, toolbar, badge               | Settings change           |
+| `runtime.onMessage`      | Route to command handler                         | Message (include import)  |
 
 ### Alarm Schedule
 
@@ -279,6 +286,7 @@ service-worker.js
 { command: "get-sessions" }
 { command: "save-session", name: "Research" }
 { command: "restore-session", id: "abc123", mode: "replace" }
+{ command: "import-sessions", data: [...] }  // Import with merge & dedup
 ```
 
 ### Content Script → Background

@@ -1,6 +1,7 @@
 import { sanitizeString } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { icon, injectIcons } from "../shared/icons.js";
+import { exportPayload, parseImport } from "../shared/import-export.js";
 import {
   collectDiagnostics,
   formatDiagnosticsJSON,
@@ -9,7 +10,7 @@ import {
 import { requestHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
-import { formatBytes, getBrowserInfo } from "../shared/utils.js";
+import { formatBytes, getBrowserInfo, isSafeHttpUrl } from "../shared/utils.js";
 
 // DOM Elements
 const elements = {
@@ -54,6 +55,8 @@ const elements = {
   sessionList: document.getElementById("session-list"),
   sessionNameInput: document.getElementById("session-name-input"),
   btnSaveSession: document.getElementById("btn-save-session"),
+  exportSessions: document.getElementById("export-sessions"),
+  importSessions: document.getElementById("import-sessions"),
   // Detailed stats
   statToday: document.getElementById("stat-today"),
   statAllTime: document.getElementById("stat-all-time"),
@@ -405,17 +408,6 @@ async function renderTabList() {
   renderFilteredTabs(filterTabs(tabs));
 }
 
-// Validate URL is safe (http/https only)
-function isSafeUrl(url) {
-  if (!url) return false;
-  try {
-    const parsed = new URL(url);
-    return parsed.protocol === "http:" || parsed.protocol === "https:";
-  } catch {
-    return false;
-  }
-}
-
 // Render sessions list
 async function renderSessions() {
   const sessions = await sendCommand("get-sessions");
@@ -431,7 +423,7 @@ async function renderSessions() {
       const favicons = s.tabs
         .slice(0, 4)
         .map((tab) =>
-          tab.favIconUrl && isSafeUrl(tab.favIconUrl)
+          tab.favIconUrl && isSafeHttpUrl(tab.favIconUrl)
             ? `<img src="${escapeHtml(tab.favIconUrl)}" alt="">`
             : "",
         )
@@ -787,6 +779,31 @@ function setupEventListeners() {
     } else {
       showToast(result.error || t("failedToSave"));
     }
+  });
+
+  // Session export — copy current sessions as JSON to clipboard
+  elements.exportSessions?.addEventListener("click", async () => {
+    const sessions = (await sendCommand("get-sessions")) || [];
+    try {
+      await exportPayload("sessions", { sessions });
+      showToast(t("exportedToClipboard"));
+    } catch {
+      showToast(t("exportFailed"));
+    }
+  });
+
+  // Session import — parse pasted JSON, additive merge by name
+  elements.importSessions?.addEventListener("click", async () => {
+    const text = prompt(t("pasteImportJson"));
+    if (!text) return;
+    const result = parseImport(text, "sessions");
+    if (!result.ok) {
+      showToast(t(`importFailed_${result.error}`));
+      return;
+    }
+    const res = await sendCommand("import-sessions", { sessions: result.data.sessions });
+    showToast(t("importedNAdded", [String(res?.added || 0), String(res?.skipped || 0)]));
+    await renderSessions();
   });
 
   // Session list event delegation

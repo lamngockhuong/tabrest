@@ -104,6 +104,18 @@ export function isMinorOrMajorBump(prev, curr) {
   return false;
 }
 
+// True only for http(s) URLs. Used to gate any code path that loads or
+// restores a URL from untrusted input (saved sessions, imports, favicons).
+export function isSafeHttpUrl(url) {
+  if (typeof url !== "string" || !url) return false;
+  try {
+    const { protocol } = new URL(url);
+    return protocol === "http:" || protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 // Format bytes to human readable string
 export function formatBytes(bytes) {
   if (!bytes || bytes === 0) return "0 B";

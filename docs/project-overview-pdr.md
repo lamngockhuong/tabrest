@@ -71,6 +71,8 @@ Unloaded tabs remain visible in the tab bar and restore instantly when clicked.
 | Notifications    | Alert when tabs auto-unloaded                     |
 | Statistics       | Track tabs unloaded, memory saved                 |
 | Sessions         | Save/restore tab collections                      |
+| Side panel       | Open UI in side panel instead of popup (Manifest V3) |
+| Import/export    | Backup/restore sessions & whitelists via clipboard |
 
 ### Internationalization
 - English (default)
@@ -100,7 +102,7 @@ optional_host_permissions: http://*/*, https://*/*
 
 | Version | Status  | Key Changes                                         |
 | ------- | ------- | --------------------------------------------------- |
-| 0.0.4   | Current | Changelog auto-open, optional host_permissions, suspend warning |
+| 0.0.4   | Current | Changelog auto-open, optional host_permissions, suspend warning, side panel, import/export |
 | 0.0.3   |         | Tab filter chips, domain snooze fix, UX improvements|
 | 0.0.2   |         | Snooze, scroll restore, offline skip, notifications |
 | 0.0.1   | Initial | Core unload functionality                           |

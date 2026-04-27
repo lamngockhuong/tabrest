@@ -41,7 +41,7 @@ tabrest/
 | `tab-tracker.js`     | 173  | LRU activity tracking, inactivity timer checks   |
 | `memory-monitor.js`  | 157  | System RAM monitoring, per-tab JS heap tracking  |
 | `snooze-manager.js`  | ~120 | Temporary tab/domain protection                  |
-| `session-manager.js` | ~100 | Save/restore tab sessions                        |
+| `session-manager.js` | ~130 | Save/restore tab sessions, import with merge & dedup |
 | `stats-collector.js` | ~80  | Usage statistics tracking                        |
 | `form-injector.js`  | ~60  | On-demand form-checker injection + caching       |
 
@@ -67,13 +67,14 @@ tabrest/
 
 | File           | LOC | Purpose                                     |
 | -------------- | --- | ------------------------------------------- |
-| `constants.js` | 90  | Default settings, alarm names, storage keys |
+| `constants.js` | 99  | Default settings, alarm names, storage keys |
 | `storage.js`   | 39  | Chrome storage wrapper with caching         |
-| `utils.js`     | 29  | formatBytes, notification helper, semver parsing |
+| `utils.js`     | 51  | formatBytes, notification helper, semver parsing |
 | `permissions.js` | 32 | Check/request/remove host permissions       |
 | `i18n.js`      | 48  | Internationalization helpers                |
 | `theme.js`     | 88  | Dark/light mode management                  |
 | `icons.js`     | 64  | SVG icon definitions                        |
+| `import-export.js` | 45 | Session/config export/import with schema validation |
 
 ### Pages
 
@@ -95,8 +96,10 @@ service-worker.js (orchestrator)
 │   ├── tab-tracker.js (getLRUSortedTabs)
 │   └── unload-manager.js
 ├── session-manager.js
+│   └── import-export.js (schema validation)
 ├── snooze-manager.js
 └── shared/*
+    └── import-export.js
 ```
 
 ## Key Data Structures

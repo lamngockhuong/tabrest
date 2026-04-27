@@ -19,6 +19,8 @@ Features:
 - Tab groups support
 - Whitelist your favorite sites
 - Track memory saved statistics
+- Side panel mode - open UI in sidebar instead of popup
+- Import/export settings - backup and restore your configuration
 
 Keyboard Shortcuts:
 
