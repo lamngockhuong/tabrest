@@ -38,6 +38,8 @@ export const SETTINGS_DEFAULTS = {
   showSuspendWarning: true,
   // Delay between toast appearance and discard, in ms
   suspendWarningDelayMs: 3000,
+  // Open in side panel instead of popup
+  useSidePanel: false,
 };
 
 // YouTube timestamp storage key

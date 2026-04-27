@@ -14,7 +14,8 @@
     "tabGroups",
     "scripting",
     "idle",
-    "notifications"
+    "notifications",
+    "sidePanel"
   ],
   "optional_host_permissions": [
     "http://*/*",
@@ -31,6 +32,9 @@
       "48": "icons/icon-48.png",
       "128": "icons/icon-128.png"
     }
+  },
+  "side_panel": {
+    "default_path": "src/popup/popup.html"
   },
   "commands": {
     "unload-current": {

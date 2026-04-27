@@ -250,6 +250,12 @@
   "actionDiscardOthers": {
     "message": "Dỡ các tab khác"
   },
+  "useSidePanel": {
+    "message": "Mở trong side panel thay vì popup"
+  },
+  "useSidePanelHelp": {
+    "message": "Side panel giữ mở khi chuyển tab. Yêu cầu Chrome 114+."
+  },
   "saveYouTubeTimestamp": {
     "message": "Lưu vị trí phát YouTube"
   },
@@ -408,5 +414,45 @@
   },
   "suspendWarningMessage": {
     "message": "TabRest sắp tạm dừng tab này để giải phóng bộ nhớ…"
+  },
+  "exportList": {
+    "message": "Xuất"
+  },
+  "importList": {
+    "message": "Nhập"
+  },
+  "exportSessions": {
+    "message": "Xuất phiên"
+  },
+  "importSessions": {
+    "message": "Nhập phiên"
+  },
+  "exportedToClipboard": {
+    "message": "Đã sao chép vào clipboard"
+  },
+  "exportFailed": {
+    "message": "Xuất thất bại"
+  },
+  "pasteImportJson": {
+    "message": "Dán JSON đã xuất vào đây:"
+  },
+  "importedNAdded": {
+    "message": "Đã thêm $1, bỏ qua $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "Nhập thất bại: JSON không hợp lệ"
+  },
+  "importFailed_invalidShape": {
+    "message": "Nhập thất bại: định dạng không hợp lệ"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "Nhập thất bại: phiên bản không được hỗ trợ"
+  },
+  "importFailed_wrongType": {
+    "message": "Nhập thất bại: sai loại danh sách"
   }
 }

@@ -1028,6 +1028,16 @@ footer {
   overflow-y: auto;
 }
 
+.sessions-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.sessions-actions .btn {
+  flex: 1;
+}
+
 .session-card {
   display: flex;
   align-items: center;
@@ -1245,4 +1255,19 @@ footer {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+/* Side panel mode: viewport is full window height (~700px+), much taller than
+ * popup max (~600px). Stretch container and widen body slightly. */
+@media (min-height: 650px) {
+  body {
+    width: auto;
+    min-width: 350px;
+    max-width: 100%;
+    min-height: 100vh;
+  }
+
+  .container {
+    min-height: 100vh;
+  }
 }

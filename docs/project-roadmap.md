@@ -106,6 +106,8 @@
 - **Phase 06:** Auto-open changelog on minor/major version bumps (silent for patch updates)
 - **Phase 07:** Optional host_permissions + on-demand form-checker injection (breaking for v0.0.3 users)
 - **Phase 08:** Suspend warning toast (3s delay before auto-unload), optional form protection
+- **Phase 09:** Side panel mode (alternative to popup, reuses popup UI, new `chrome.windows.onFocusChanged` listener)
+- **Phase 10:** Import/export sessions (clipboard-based) + whitelist/blacklist export/import in options
 - Fixed per-tab JS heap memory monitoring regression
 
 ### v0.0.3

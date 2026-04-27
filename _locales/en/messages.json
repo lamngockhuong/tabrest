@@ -337,6 +337,14 @@
     "message": "Discard other tabs",
     "description": "Toolbar action option"
   },
+  "useSidePanel": {
+    "message": "Open in side panel instead of popup",
+    "description": "Side panel toggle label"
+  },
+  "useSidePanelHelp": {
+    "message": "Side panel stays open across tab switches. Requires Chrome 114+.",
+    "description": "Side panel toggle help text"
+  },
   "saveYouTubeTimestamp": {
     "message": "Save YouTube playback position",
     "description": "YouTube timestamp setting"
@@ -547,5 +555,57 @@
   "suspendWarningMessage": {
     "message": "TabRest will suspend this tab to free memory…",
     "description": "Toast message shown on page before auto-suspend"
+  },
+  "exportList": {
+    "message": "Export",
+    "description": "Button label to export a domain list to clipboard"
+  },
+  "importList": {
+    "message": "Import",
+    "description": "Button label to import a domain list from clipboard"
+  },
+  "exportSessions": {
+    "message": "Export Sessions",
+    "description": "Button label to export sessions to clipboard"
+  },
+  "importSessions": {
+    "message": "Import Sessions",
+    "description": "Button label to import sessions from clipboard"
+  },
+  "exportedToClipboard": {
+    "message": "Copied to clipboard",
+    "description": "Toast confirming export completed"
+  },
+  "exportFailed": {
+    "message": "Export failed",
+    "description": "Toast when clipboard write fails"
+  },
+  "pasteImportJson": {
+    "message": "Paste exported JSON below:",
+    "description": "Prompt label for import textarea"
+  },
+  "importedNAdded": {
+    "message": "Added $1, skipped $2",
+    "description": "Toast after import completes",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "Import failed: invalid JSON",
+    "description": "Toast when imported text is not valid JSON"
+  },
+  "importFailed_invalidShape": {
+    "message": "Import failed: invalid format",
+    "description": "Toast when imported JSON has wrong structure"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "Import failed: unsupported version",
+    "description": "Toast when imported JSON uses an unsupported schema version"
+  },
+  "importFailed_wrongType": {
+    "message": "Import failed: wrong type for this list",
+    "description": "Toast when imported type does not match (e.g. blacklist into whitelist)"
   }
 }

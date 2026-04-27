@@ -1,6 +1,7 @@
 import { SETTINGS_DEFAULTS } from "../shared/constants.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
+import { exportPayload, parseImport } from "../shared/import-export.js";
 import {
   hasHostPermission,
   removeHostPermission,
@@ -18,6 +19,7 @@ const elements = {
   threshold: document.getElementById("threshold"),
   minTabs: document.getElementById("min-tabs"),
   toolbarAction: document.getElementById("toolbar-action"),
+  useSidePanel: document.getElementById("use-side-panel"),
   saveYouTube: document.getElementById("save-youtube"),
   skipWhenOffline: document.getElementById("skip-when-offline"),
   restoreScroll: document.getElementById("restore-scroll"),
@@ -45,6 +47,10 @@ const elements = {
   blacklistContainer: document.getElementById("blacklist-container"),
   newBlacklist: document.getElementById("new-blacklist"),
   addBlacklist: document.getElementById("add-blacklist"),
+  exportWhitelist: document.getElementById("export-whitelist"),
+  importWhitelist: document.getElementById("import-whitelist"),
+  exportBlacklist: document.getElementById("export-blacklist"),
+  importBlacklist: document.getElementById("import-blacklist"),
   totalUnloaded: document.getElementById("total-unloaded"),
   totalSaved: document.getElementById("total-saved"),
   resetStats: document.getElementById("reset-stats"),
@@ -84,6 +90,7 @@ async function loadSettings() {
     radio.checked = radio.value === currentSettings.powerMode;
   }
   elements.toolbarAction.value = currentSettings.toolbarClickAction;
+  elements.useSidePanel.checked = currentSettings.useSidePanel ?? false;
   elements.saveYouTube.checked = currentSettings.saveYouTubeTimestamp;
   elements.skipWhenOffline.checked = currentSettings.skipWhenOffline;
   elements.restoreScroll.checked = currentSettings.restoreScrollPosition;
@@ -182,6 +189,7 @@ function setupEventListeners() {
     { el: elements.perTabMemory, key: "perTabJsHeapThresholdMB", type: "number" },
     { el: elements.minTabs, key: "minTabsBeforeAutoDiscard", type: "number" },
     { el: elements.toolbarAction, key: "toolbarClickAction", type: "string" },
+    { el: elements.useSidePanel, key: "useSidePanel", type: "checkbox" },
     { el: elements.saveYouTube, key: "saveYouTubeTimestamp", type: "checkbox" },
     { el: elements.skipWhenOffline, key: "skipWhenOffline", type: "checkbox" },
     { el: elements.restoreScroll, key: "restoreScrollPosition", type: "checkbox" },
@@ -276,6 +284,24 @@ function setupEventListeners() {
     if (e.key === "Enter") addBlacklistDomain();
   });
 
+  for (const { listKey, render, exportEl, importEl } of [
+    {
+      listKey: "whitelist",
+      render: renderWhitelist,
+      exportEl: elements.exportWhitelist,
+      importEl: elements.importWhitelist,
+    },
+    {
+      listKey: "blacklist",
+      render: renderBlacklist,
+      exportEl: elements.exportBlacklist,
+      importEl: elements.importBlacklist,
+    },
+  ]) {
+    exportEl.addEventListener("click", () => exportList(listKey));
+    importEl.addEventListener("click", () => importList(listKey, render));
+  }
+
   // Reset stats
   elements.resetStats.addEventListener("click", async () => {
     await chrome.storage.local.set({ stats: { tabsUnloaded: 0, memorySaved: 0 } });
@@ -319,6 +345,45 @@ async function addDomainToList(inputEl, listKey, renderFn) {
   inputEl.value = "";
   renderFn();
   showStatus(t("domainAdded"));
+}
+
+// Export a domain list (whitelist | blacklist) to clipboard.
+async function exportList(listKey) {
+  try {
+    await exportPayload(listKey, { entries: currentSettings[listKey] || [] });
+    showStatus(t("exportedToClipboard"));
+  } catch {
+    showStatus(t("exportFailed"));
+  }
+}
+
+// Import a domain list from clipboard text. Additive — duplicates and invalid
+// entries are skipped, never overwritten.
+async function importList(listKey, renderFn) {
+  const text = prompt(t("pasteImportJson"));
+  if (!text) return;
+  const result = parseImport(text, listKey);
+  if (!result.ok) {
+    showStatus(t(`importFailed_${result.error}`));
+    return;
+  }
+  const entries = Array.isArray(result.data.entries) ? result.data.entries : [];
+  let added = 0;
+  let skipped = 0;
+  for (const raw of entries) {
+    const entry = String(raw || "")
+      .trim()
+      .toLowerCase();
+    if (!isValidDomainOrIp(entry) || currentSettings[listKey].includes(entry)) {
+      skipped++;
+      continue;
+    }
+    currentSettings[listKey].push(entry);
+    added++;
+  }
+  if (added > 0) await saveSettings(currentSettings);
+  renderFn();
+  showStatus(t("importedNAdded", [String(added), String(skipped)]));
 }
 
 // Add domain to whitelist

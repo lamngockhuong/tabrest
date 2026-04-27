@@ -56,6 +56,8 @@ TabRest automatically unloads inactive browser tabs to free up memory and keep y
 • YouTube position restore - resume where you left off
 • Scroll position restore when tabs reload
 • Auto-unload notifications
+• Side panel mode - open in sidebar instead of popup
+• Import/export settings - backup and restore your configuration
 • Multi-language support (English & Vietnamese)
 
 💡 HOW IT WORKS:
@@ -123,6 +125,8 @@ TabRest tự động giải phóng bộ nhớ các tab không hoạt động, gi
 • Khôi phục vị trí YouTube - tiếp tục xem từ chỗ dừng
 • Khôi phục vị trí cuộn khi tab tải lại
 • Thông báo khi giải phóng tab
+• Giao diện side panel (thay thế cho popup)
+• Xuất/nhập cấu hình (clipboard-based)
 • Đa ngôn ngữ (Tiếng Anh & Tiếng Việt)
 
 💡 CÁCH HOẠT ĐỘNG:

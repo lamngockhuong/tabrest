@@ -254,6 +254,17 @@ h2 {
   border-color: var(--secondary);
 }
 
+.btn.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.list-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
 .stats-display {
   display: flex;
   gap: 24px;
