@@ -241,6 +241,21 @@
   "tabGroups": {
     "message": "Nhóm tab"
   },
+  "selectTabGroup": {
+    "message": "Chọn nhóm tab..."
+  },
+  "unloadGroup": {
+    "message": "Dỡ nhóm"
+  },
+  "untitledTabGroup": {
+    "message": "Nhóm $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
   "showDiscardedPrefix": {
     "message": "Thêm ký hiệu vào tab đã dỡ"
   },

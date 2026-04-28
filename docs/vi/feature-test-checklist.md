@@ -210,6 +210,8 @@ Cấu hình tại `chrome://extensions/shortcuts`.
 - [ ] Selector `Tab groups` trong popup hiển thị group với số tab.
 - [ ] "Unload this group" discard mọi tab trong group, giữ nguyên cấu trúc.
 - [ ] Tắt `Enable tab groups` → ẩn selector.
+- [ ] Đa cửa sổ: mở 2 cửa sổ với group khác nhau → popup mỗi cửa sổ chỉ liệt kê group của chính nó.
+- [ ] Side panel: khi panel đang mở, tạo/đổi tên/xoá group → selector tự cập nhật, không cần đóng-mở.
 
 ## 25. Chỉ báo trực quan
 

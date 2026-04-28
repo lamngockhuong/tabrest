@@ -18,6 +18,7 @@
   --warning: #D97706;
   --danger: #DC2626;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --ring: rgba(99, 102, 241, 0.15);
 }
 
 /* Dark Theme */
@@ -37,6 +38,7 @@
   --warning: #FBBF24;
   --danger: #F87171;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --ring: rgba(129, 140, 248, 0.2);
 }
 
 * {
@@ -828,7 +830,7 @@ footer {
 }
 
 .tab-search {
-  padding: 8px 0 4px;
+  padding: 8px 10px 4px;
 }
 
 .tab-search.hidden {
@@ -840,8 +842,9 @@ footer {
 }
 
 .input:focus {
-  outline: 2px solid var(--secondary);
-  outline-offset: 1px;
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px var(--ring);
 }
 
 .input::placeholder {
