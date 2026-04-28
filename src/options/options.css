@@ -796,12 +796,6 @@ kbd {
   margin-top: 16px;
 }
 
-@media (max-width: 520px) {
-  .support-links {
-    grid-template-columns: 1fr;
-  }
-}
-
 .support-link {
   display: flex;
   align-items: center;
@@ -945,10 +939,6 @@ kbd {
     width: 100%;
   }
 
-  .setting:has(> select) > label[for] {
-    flex-basis: 100%;
-  }
-
   .setting-inline,
   .setting-sub {
     margin-left: 0;
@@ -972,6 +962,10 @@ kbd {
   }
 
   .stats-display {
+    grid-template-columns: 1fr;
+  }
+
+  .support-links {
     grid-template-columns: 1fr;
   }
 }
