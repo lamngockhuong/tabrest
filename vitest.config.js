@@ -12,9 +12,20 @@ export default defineConfig({
         "src/**/options.js",
         "src/**/onboarding.js",
         "src/**/service-worker.js",
+        // Content scripts: IIFE-loaded against live DOM/window, exercised via
+        // browser integration testing rather than node-environment unit tests.
+        "src/content/**",
       ],
       reporter: ["text", "html"],
       reportsDirectory: "./coverage",
+      // Floors sit ~5pp below current numbers so refactors have headroom but
+      // a regression of >5pp fails CI. Raise as coverage grows.
+      thresholds: {
+        lines: 85,
+        statements: 85,
+        functions: 80,
+        branches: 75,
+      },
     },
     setupFiles: ["tests/setup.js"],
   },
