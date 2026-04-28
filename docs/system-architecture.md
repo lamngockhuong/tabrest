@@ -110,6 +110,7 @@ service-worker.js
 3. For each tab in tabActivity map:
        │
        ├── Verify tab exists, not active, not discarded
+       ├── Check whitelist (skip — wins over blacklist)
        ├── Check if blacklisted (immediate unload)
        ├── Check if exceeded inactivity threshold
        ├── Check if snoozed

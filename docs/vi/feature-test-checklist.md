@@ -151,12 +151,15 @@ Cấu hình tại `chrome://extensions/shortcuts`.
 - [ ] Nhập sai (ví dụ `http://`) → input báo lỗi, không lưu.
 - [ ] Xóa entry → auto-unload kế tiếp có thể discard domain đó.
 - [ ] Context menu "Add to whitelist" trên tab localhost hoặc IP hoạt động trọn vẹn.
+- [ ] Thêm domain đã có trong blacklist → toast báo conflict, không thêm.
 
 ## 17. Blacklist
 
 - [ ] Thêm domain ưu tiên thấp vào blacklist.
 - [ ] Tab thuộc domain đó discard ngay ở timer kế tiếp (bỏ qua delay).
 - [ ] Xóa entry → ngừng discard aggressive.
+- [ ] Thêm domain đã có trong whitelist → toast báo conflict, không thêm.
+- [ ] Domain xuất hiện ở cả 2 list (state cũ) → whitelist thắng, tab được bảo vệ.
 
 ## 18. Bảo vệ Pinned / Audio / Form
 
@@ -253,6 +256,7 @@ Cho từng loại: **whitelist**, **blacklist**, **sessions**:
 - [ ] Export → JSON copy vào clipboard với schema `version: 1`.
 - [ ] Xóa danh sách rồi Import lại JSON đã export → khôi phục đầy đủ, không trùng.
 - [ ] Import JSON có overlap → merge cộng dồn, dedup theo name (sessions) hoặc domain (whitelist/blacklist).
+- [ ] Import whitelist/blacklist có entry trùng list đối lập → entry đó bị skip (đếm vào skipped), không tạo conflict.
 - [ ] JSON sai cú pháp → toast lỗi, không thay đổi state.
 - [ ] Sai schema version → từ chối với thông báo rõ ràng.
 

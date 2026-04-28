@@ -12,6 +12,8 @@ import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import { formatBytes, getBrowserInfo, isValidDomainOrIp } from "../shared/utils.js";
 
+const OPPOSITE_LIST = { whitelist: "blacklist", blacklist: "whitelist" };
+
 const elements = {
   themeToggle: document.getElementById("theme-toggle"),
   themeIcon: document.getElementById("theme-icon"),
@@ -359,6 +361,12 @@ async function addDomainToList(inputEl, listKey, renderFn) {
     return;
   }
 
+  const oppositeKey = OPPOSITE_LIST[listKey];
+  if (currentSettings[oppositeKey]?.includes(domain)) {
+    showStatus(t("domainConflict", [domain, t(oppositeKey)]));
+    return;
+  }
+
   currentSettings[listKey].push(domain);
   await saveSettings(currentSettings);
   inputEl.value = "";
@@ -387,13 +395,18 @@ async function importList(listKey, renderFn) {
     return;
   }
   const entries = Array.isArray(result.data.entries) ? result.data.entries : [];
+  const oppositeKey = OPPOSITE_LIST[listKey];
   let added = 0;
   let skipped = 0;
   for (const raw of entries) {
     const entry = String(raw || "")
       .trim()
       .toLowerCase();
-    if (!isValidDomainOrIp(entry) || currentSettings[listKey].includes(entry)) {
+    if (
+      !isValidDomainOrIp(entry) ||
+      currentSettings[listKey].includes(entry) ||
+      currentSettings[oppositeKey]?.includes(entry)
+    ) {
       skipped++;
       continue;
     }

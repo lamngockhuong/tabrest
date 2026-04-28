@@ -19,12 +19,17 @@ vi.mock("../../src/background/snooze-manager.js", () => ({
 vi.mock("../../src/background/unload-manager.js", () => ({
   discardTab: vi.fn(),
   isUrlBlacklisted: vi.fn(),
+  isUrlWhitelisted: vi.fn(),
 }));
 
 import { getSettings, getTabActivity, saveTabActivity } from "../../src/shared/storage.js";
 import { notifyAutoUnload } from "../../src/shared/utils.js";
 import { getSnoozeData, isTabSnoozed } from "../../src/background/snooze-manager.js";
-import { discardTab, isUrlBlacklisted } from "../../src/background/unload-manager.js";
+import {
+  discardTab,
+  isUrlBlacklisted,
+  isUrlWhitelisted,
+} from "../../src/background/unload-manager.js";
 
 const importTracker = () => import("../../src/background/tab-tracker.js");
 
@@ -41,6 +46,7 @@ const baseSettings = {
 describe("tab-tracker", () => {
   beforeEach(() => {
     vi.resetModules();
+    isUrlWhitelisted.mockReturnValue(false);
     Object.defineProperty(navigator, "onLine", {
       value: true,
       writable: true,
@@ -230,6 +236,21 @@ describe("tab-tracker", () => {
 
       const { checkAndUnloadInactiveTabs } = await setupTracker({ 1: recentTime });
       expect(await checkAndUnloadInactiveTabs()).toBe(1);
+    });
+
+    it("whitelist wins over blacklist — never unloads", async () => {
+      const oldTime = Date.now() - 60 * 60 * 1000;
+      chrome.tabs.query.mockResolvedValue([
+        { id: 1, url: "https://both.com", active: false, discarded: false, title: "X" },
+      ]);
+      isUrlWhitelisted.mockReturnValue(true);
+      isUrlBlacklisted.mockReturnValue(true);
+      isTabSnoozed.mockResolvedValue(false);
+      getSnoozeData.mockResolvedValue({ tabs: {}, domains: {} });
+
+      const { checkAndUnloadInactiveTabs } = await setupTracker({ 1: oldTime });
+      expect(await checkAndUnloadInactiveTabs()).toBe(0);
+      expect(discardTab).not.toHaveBeenCalled();
     });
 
     it("skips tabs that are active or already discarded", async () => {
