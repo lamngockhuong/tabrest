@@ -1,7 +1,11 @@
 // Helpers for the optional host permission ("http://*/*", "https://*/*").
-// Used by form protection. YouTube tracker keeps its narrow static match.
+// Used by form protection and the discarded-tab title prefix.
 
 const HOST_ORIGINS = ["http://*/*", "https://*/*"];
+
+// Settings flags that require the optional host permission to function.
+// Toggles share the grant; the permission is revoked only when all are off.
+export const HOST_PERM_DEPENDENT_FLAGS = ["protectFormTabs", "showDiscardedPrefix"];
 
 // Cache the permission state per session: `chrome.permissions.contains` is an
 // async IPC fired once per discard candidate / popup form check / per-tab heap

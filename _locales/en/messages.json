@@ -334,8 +334,12 @@
     "description": "Label for prefix input"
   },
   "prefixHelp": {
-    "message": "Does not work on protected pages (Chrome Web Store, Google accounts, etc.)",
+    "message": "Requires website access permission. Does not work on protected pages (Chrome Web Store, Google accounts, etc.)",
     "description": "Help text for prefix setting"
+  },
+  "prefixPermDenied": {
+    "message": "Tab prefix requires website access permission. Toggle skipped.",
+    "description": "Toast when user denies optional host permission for discarded-tab prefix"
   },
   "minTabsLabel": {
     "message": "Only auto-unload when inactive tabs exceed:",
@@ -553,7 +557,7 @@
     "description": "Toast when user denies optional host permission for form protection"
   },
   "formPermBannerText": {
-    "message": "Form protection was reset due to permission changes.",
+    "message": "Site permissions were reset. Enable to restore affected settings.",
     "description": "Banner shown after upgrade when host permission was implicitly revoked"
   },
   "enable": {
@@ -561,7 +565,7 @@
     "description": "Generic enable button label"
   },
   "formPermGranted": {
-    "message": "Form protection enabled",
+    "message": "Settings restored",
     "description": "Toast after user grants permission via recovery banner"
   },
   "showSuspendWarningLabel": {

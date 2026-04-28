@@ -248,7 +248,10 @@
     "message": "Ký hiệu:"
   },
   "prefixHelp": {
-    "message": "Không hoạt động trên các trang được bảo vệ (Chrome Web Store, tài khoản Google, v.v.)"
+    "message": "Cần quyền truy cập website. Không hoạt động trên các trang được bảo vệ (Chrome Web Store, tài khoản Google, v.v.)"
+  },
+  "prefixPermDenied": {
+    "message": "Tiền tố tab cần quyền truy cập website. Đã bỏ qua."
   },
   "minTabsLabel": {
     "message": "Chỉ tự động dỡ khi số tab không hoạt động vượt quá:"
@@ -413,13 +416,13 @@
     "message": "Bảo vệ form cần quyền truy cập website. Đã bỏ qua."
   },
   "formPermBannerText": {
-    "message": "Bảo vệ form đã bị tắt do thay đổi quyền."
+    "message": "Quyền truy cập website đã bị đặt lại. Bật để khôi phục các tuỳ chọn liên quan."
   },
   "enable": {
     "message": "Bật"
   },
   "formPermGranted": {
-    "message": "Đã bật bảo vệ form"
+    "message": "Đã khôi phục tuỳ chọn"
   },
   "showSuspendWarningLabel": {
     "message": "Hiển thị cảnh báo trước khi tự động tạm dừng"

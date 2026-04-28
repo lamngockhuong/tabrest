@@ -1,6 +1,6 @@
 import { ALARM_NAMES, FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
 import { initErrorReporter } from "../shared/error-reporter.js";
-import { hasHostPermission } from "../shared/permissions.js";
+import { HOST_PERM_DEPENDENT_FLAGS, hasHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { isMinorOrMajorBump, isValidDomainOrIp, unwrapHostname } from "../shared/utils.js";
 import { clearInjectedTab, ensureFormCheckerInjected } from "./form-injector.js";
@@ -96,8 +96,8 @@ chrome.runtime.onStartup.addListener(async () => {
   await configureToolbarAction();
   await setupSnoozeCleanupAlarm();
   // Catch the case where the user revoked host permission via chrome://extensions
-  // between sessions; silently flip protectFormTabs off (no banner — not an upgrade).
-  await syncFormPermissionState(false);
+  // between sessions; silently flip dependent toggles off (no banner — not an upgrade).
+  await syncHostPermissionState(false);
   await discardAllTabsOnStartup();
   updateBadge();
 });
@@ -131,19 +131,21 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     await chrome.storage.local.set({ tabrest_lastVersion: currentVersion });
   }
 
-  // Migrate users moving to optional_host_permissions: if form protection was on
-  // but Chrome dropped the implicit grant, force-disable and queue recovery banner.
-  await syncFormPermissionState(details.reason === "update");
+  // Migrate users moving to optional_host_permissions: if any host-permission-
+  // dependent toggle was on but Chrome dropped the implicit grant, force-disable
+  // and queue recovery banner.
+  await syncHostPermissionState(details.reason === "update");
 });
 
-async function syncFormPermissionState(showBannerIfChanged) {
+async function syncHostPermissionState(showBannerIfChanged) {
   if (await hasHostPermission()) return;
   const settings = await getSettings();
-  if (!settings.protectFormTabs) return;
-  settings.protectFormTabs = false;
+  const reset = HOST_PERM_DEPENDENT_FLAGS.filter((key) => settings[key]);
+  if (reset.length === 0) return;
+  for (const key of reset) settings[key] = false;
   await saveSettings(settings);
   if (showBannerIfChanged) {
-    await chrome.storage.local.set({ pendingFormPermBanner: true });
+    await chrome.storage.local.set({ pendingHostPermBanner: reset });
   }
 }
 
