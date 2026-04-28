@@ -3,6 +3,7 @@ import { localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
 import { exportPayload, parseImport } from "../shared/import-export.js";
 import {
+  HOST_PERM_DEPENDENT_FLAGS,
   hasHostPermission,
   removeHostPermission,
   requestHostPermission,
@@ -77,7 +78,8 @@ async function init() {
 
 // Load settings into UI
 async function loadSettings() {
-  currentSettings = await getSettings();
+  const [settings, hasHost] = await Promise.all([getSettings(), hasHostPermission()]);
+  currentSettings = settings;
 
   elements.autoStartup.checked = currentSettings.autoUnloadOnStartup;
   elements.timer.value = currentSettings.unloadDelayMinutes;
@@ -99,8 +101,8 @@ async function loadSettings() {
   updateIdleThresholdVisibility();
   elements.unloadPinned.checked = currentSettings.unloadPinnedTabs;
   elements.protectAudio.checked = currentSettings.protectAudioTabs;
-  // protectFormTabs is only truly enabled when host permission is granted.
-  elements.protectForm.checked = currentSettings.protectFormTabs && (await hasHostPermission());
+  // protectFormTabs / showDiscardedPrefix only truly enabled when host permission is granted.
+  elements.protectForm.checked = currentSettings.protectFormTabs && hasHost;
   elements.showBadge.checked = currentSettings.showBadgeCount;
   elements.notifyAutoUnload.checked = currentSettings.notifyOnAutoUnload;
   elements.showSuspendWarning.checked = currentSettings.showSuspendWarning;
@@ -108,7 +110,7 @@ async function loadSettings() {
   updateSuspendWarningDelayVisibility();
   elements.enableStats.checked = currentSettings.enableStats;
   elements.enableTabGroups.checked = currentSettings.enableTabGroups;
-  elements.showDiscardedPrefix.checked = currentSettings.showDiscardedPrefix;
+  elements.showDiscardedPrefix.checked = currentSettings.showDiscardedPrefix && hasHost;
   elements.discardedPrefix.value = currentSettings.discardedPrefix;
   updatePrefixInputVisibility();
   elements.enableErrorReporting.checked = currentSettings.enableErrorReporting ?? true;
@@ -187,6 +189,32 @@ async function loadStats() {
   elements.totalSaved.textContent = formatBytes(stats.memorySaved || 0);
 }
 
+// Bind a checkbox to a host-permission-dependent setting: request permission on
+// enable, revert + toast on deny, and only revoke when no other dependent flag
+// is still on.
+function bindHostPermToggle(el, settingKey, denyMessageKey, onChange) {
+  el.addEventListener("change", async () => {
+    if (el.checked) {
+      const granted = await requestHostPermission();
+      if (!granted) {
+        el.checked = false;
+        showStatus(t(denyMessageKey));
+        return;
+      }
+    } else {
+      // Re-read storage in case another surface (e.g., popup banner) flipped a
+      // sibling flag while options was open.
+      const fresh = await getSettings();
+      const stillNeeded = HOST_PERM_DEPENDENT_FLAGS.some((k) => k !== settingKey && fresh[k]);
+      if (!stillNeeded) await removeHostPermission();
+    }
+    currentSettings[settingKey] = el.checked;
+    await saveSettings(currentSettings);
+    if (onChange) onChange();
+    showStatus(t("settingsSaved"));
+  });
+}
+
 // Setup event listeners
 function setupEventListeners() {
   // Auto-save settings on change
@@ -211,7 +239,6 @@ function setupEventListeners() {
     { el: elements.suspendWarningDelay, key: "suspendWarningDelayMs", type: "number" },
     { el: elements.enableStats, key: "enableStats", type: "checkbox" },
     { el: elements.enableTabGroups, key: "enableTabGroups", type: "checkbox" },
-    { el: elements.showDiscardedPrefix, key: "showDiscardedPrefix", type: "checkbox" },
     { el: elements.enableErrorReporting, key: "enableErrorReporting", type: "checkbox" },
   ];
 
@@ -226,9 +253,6 @@ function setupEventListeners() {
       }
       await saveSettings(currentSettings);
       showStatus(t("settingsSaved"));
-      if (key === "showDiscardedPrefix") {
-        updatePrefixInputVisibility();
-      }
       if (key === "onlyDiscardWhenIdle") {
         updateIdleThresholdVisibility();
       }
@@ -238,23 +262,10 @@ function setupEventListeners() {
     });
   }
 
-  // protectFormTabs has its own handler — it must request optional host permission
-  // before enabling, and revert the toggle if the user denies.
-  elements.protectForm.addEventListener("change", async () => {
-    if (elements.protectForm.checked) {
-      const granted = await requestHostPermission();
-      if (!granted) {
-        elements.protectForm.checked = false;
-        showStatus(t("formProtectPermDenied"));
-        return;
-      }
-    } else {
-      await removeHostPermission();
-    }
-    currentSettings.protectFormTabs = elements.protectForm.checked;
-    await saveSettings(currentSettings);
-    showStatus(t("settingsSaved"));
-  });
+  bindHostPermToggle(elements.protectForm, "protectFormTabs", "formProtectPermDenied");
+  bindHostPermToggle(elements.showDiscardedPrefix, "showDiscardedPrefix", "prefixPermDenied", () =>
+    updatePrefixInputVisibility(),
+  );
 
   // Power mode radios
   for (const radio of elements.powerModeRadios) {

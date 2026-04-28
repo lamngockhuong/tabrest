@@ -521,23 +521,30 @@ function hideReviewPrompt() {
   elements.reviewPrompt.style.display = "none";
 }
 
+async function readPendingHostPermFlags() {
+  const { pendingHostPermBanner } = await chrome.storage.local.get("pendingHostPermBanner");
+  return Array.isArray(pendingHostPermBanner) && pendingHostPermBanner.length
+    ? pendingHostPermBanner
+    : null;
+}
+
 async function checkFormPermBanner() {
-  const { pendingFormPermBanner } = await chrome.storage.local.get("pendingFormPermBanner");
-  if (!pendingFormPermBanner) return;
+  if (!(await readPendingHostPermFlags())) return;
   elements.formPermBanner.style.display = "flex";
   injectIcons();
 }
 
 async function dismissFormPermBanner() {
   elements.formPermBanner.style.display = "none";
-  await chrome.storage.local.remove("pendingFormPermBanner");
+  await chrome.storage.local.remove("pendingHostPermBanner");
 }
 
 async function handleFormPermGrant() {
+  const flags = await readPendingHostPermFlags();
   const granted = await requestHostPermission();
-  if (granted) {
+  if (granted && flags?.length) {
     const settings = await getSettings();
-    settings.protectFormTabs = true;
+    for (const key of flags) settings[key] = true;
     await saveSettings(settings);
     showToast(t("formPermGranted"));
   }
