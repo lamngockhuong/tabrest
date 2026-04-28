@@ -164,15 +164,18 @@ Configurable at `chrome://extensions/shortcuts`.
 ## 18. Pinned / Audio / Form Protection
 
 - [ ] Pinned tab + `Protect pinned tabs` ON → never discards via auto-unload.
+- [ ] Pinned tab + `Include pinned tabs` ON (i.e., pinned tabs eligible) → popup row still shows "pin" badge (intrinsic), and the protected filter chip count includes it.
 - [ ] Tab playing YouTube audio + `Protect audio tabs` ON → never discards.
 - [ ] Tab with unsaved form (e.g., partially filled Google Form) + `Protect form tabs` ON → not discarded; popup row shows "Form" badge.
+- [ ] Tab with unsaved form on a React/contenteditable editor (e.g., GitHub issue body) → after typing, popup row shows "Form" badge (eager-injection captures keystrokes).
+- [ ] Whitelisted tab that is also pinned/audio/form → popup shows the more specific badge (pin/audio/form), not "safe" — whitelist is the lowest-priority reason.
 - [ ] Disable a protection → matching tabs become eligible.
 - [ ] **Force unload** (per-tab menu in popup) overrides all protections.
 
 ## 19. Optional Host Permissions + Form Injector
 - [ ] On a fresh install, host permissions NOT granted by default.
 - [ ] Toggle `Protect form tabs` OFF then ON → permission prompt or recovery banner appears.
-- [ ] Grant permission → form-checker injects only on tabs accessed; verify in popup row badges and DevTools.
+- [ ] Grant permission → form-checker injects eagerly on every page load (and lazily for already-open tabs on first check); verify via popup row badges and `window.__tabrestFormCheckLoaded` in DevTools.
 - [ ] Revoke via `chrome://extensions` → recovery banner reappears in popup with "Enable" CTA.
 - [ ] Toggle `Discarded tab title prefix` ON → if `scripting`/host perms not granted, requests them.
 

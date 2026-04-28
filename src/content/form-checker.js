@@ -96,6 +96,10 @@ if (!window.__tabrestFormCheckLoaded) {
    * @returns {boolean}
    */
   function checkForUnsavedData() {
+    // Global flag set by input listener — most reliable signal across SPA
+    // navigations, React re-renders, and rich editors (Lexical/ProseMirror).
+    if (document.body?.dataset.tabrestFormModified === "true") return true;
+
     // Check text inputs and textareas - only if MODIFIED from default
     const inputs = document.querySelectorAll(
       'input[type="text"], input[type="email"], input[type="password"], ' +
@@ -135,23 +139,27 @@ if (!window.__tabrestFormCheckLoaded) {
       }
     }
 
-    // Check contenteditable - track via data attribute set on input
+    // Pre-populated rich editor (e.g. GitHub edit-comment) — modern editors
+    // render placeholders via CSS pseudo-elements, so non-empty text implies
+    // user content. Post-injection typing is caught by the global flag above.
     const editables = document.querySelectorAll('[contenteditable="true"]');
     for (const el of editables) {
-      if (el.dataset.tabrestModified === "true") {
-        return true;
-      }
+      if (el.offsetParent === null) continue;
+      if (el.textContent?.trim().length > 0) return true;
     }
 
     return false;
   }
 
-  // Track contenteditable modifications
+  // Mark page as modified on any user input. value/defaultValue tracking is
+  // unreliable for React-controlled inputs and rich editors, so a single
+  // global flag set on the first keystroke is the most robust signal.
+  // Guarded against redundant attribute writes that would re-fire MutationObservers.
   document.addEventListener(
     "input",
-    (e) => {
-      if (e.target.isContentEditable) {
-        e.target.dataset.tabrestModified = "true";
+    () => {
+      if (document.body && document.body.dataset.tabrestFormModified !== "true") {
+        document.body.dataset.tabrestFormModified = "true";
       }
     },
     true,

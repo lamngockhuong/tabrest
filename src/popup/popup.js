@@ -128,9 +128,13 @@ function getStatusBadge(tab) {
   if (tab.discarded) {
     return `<span class="badge badge-sleeping">${icon("moon", 12)} zzz</span>`;
   }
+  // Pin badge shows for any pinned tab, including when unloadPinnedTabs=true
+  // (pin is intrinsic; protectionReason from background omits it for this reason).
+  if (tab.pinned) {
+    return `<span class="badge badge-protected" title="Pinned">${icon("pin", 12)} pin</span>`;
+  }
   if (tab.isProtected) {
     const badges = {
-      pinned: { icon: "pin", text: "pin", title: "Pinned" },
       whitelist: { icon: "shield", text: "safe", title: "Whitelisted" },
       audio: { icon: "volume", text: "audio", title: "Playing audio" },
       form: { icon: "fileText", text: "form", title: "Unsaved form" },
@@ -345,7 +349,9 @@ let cachedTabs = [];
 function getTabCategory(tab) {
   if (tab.discarded) return "sleeping";
   if (tab.isSnoozed) return "snoozed";
-  if (tab.isProtected && !tab.isSnoozed) return "protected";
+  // Match the badge: pinned tabs always count as protected (even when unloadPinnedTabs=true
+  // makes them eligible for unloading), so the filter chip and badge stay in sync.
+  if (tab.isProtected || tab.pinned) return "protected";
   return "active";
 }
 
