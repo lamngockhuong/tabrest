@@ -108,21 +108,24 @@ optional_host_permissions: http://*/*, https://*/*
 
 **10 new features across 3 sprints:**
 
-**Sprint 1: Quick Wins**
-- Phase 01: Close duplicate tabs in window
-- Phase 02: Tab search with live filtering (title + URL)
-- Phase 03: Persistent popup section state
-- Phase 04: Whitelist localhost & IP addresses
-- Phase 05: Memory estimate tooltip on RAM stats
+#### Sprint 1: Quick Wins
 
-**Sprint 2: UX Optimization**
-- Phase 06: Auto-open changelog on minor/major updates (skip patches)
-- Phase 07: Optional host permissions + on-demand form-checker injection
-- Phase 08: Suspend warning toast (3s delay before auto-suspend)
+- Close duplicate tabs in window
+- Tab search with live filtering (title + URL)
+- Persistent popup section state
+- Whitelist localhost & IP addresses
+- Memory estimate tooltip on RAM stats
 
-**Sprint 3: Major Features**
-- Phase 09: Chrome side panel UI (alternative to popup)
-- Phase 10: Import/export whitelists, blacklists, and sessions to clipboard
+#### Sprint 2: UX Optimization
+
+- Auto-open changelog on minor/major updates (skip patches)
+- Optional host permissions + on-demand form-checker injection
+- Suspend warning toast (3s delay before auto-suspend)
+
+#### Sprint 3: Major Features
+
+- Chrome side panel UI (alternative to popup)
+- Import/export whitelists, blacklists, and sessions to clipboard
 
 | Version | Status  | Key Changes |
 | ------- | ------- | --------------------------------------------------- |

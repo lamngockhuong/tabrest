@@ -234,7 +234,7 @@ async function injectFormChecker(tabId, settings) {
 
 ```javascript
 // Explain non-obvious business logic
-// Phase 5: Apply power mode multiplier to delay
+// Apply power mode multiplier to delay
 const effectiveDelay =
   settings.unloadDelayMinutes * powerConfig.delayMultiplier;
 
@@ -298,7 +298,7 @@ async function handleUpdate() {
 ## Import/Export Schema Versioning
 
 ```javascript
-// Phase 10: Versioned schemas for forward compatibility
+// Versioned schemas for forward compatibility
 export const EXPORT_SCHEMA_VERSION = 1;
 
 export function validateImportData(importedData) {

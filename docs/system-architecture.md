@@ -269,7 +269,7 @@ service-worker.js
 
 ## Advanced Features (v0.0.4+)
 
-### Side Panel Architecture (Phase 09)
+### Side Panel Architecture
 
 **Design:**
 
@@ -290,7 +290,7 @@ service-worker.js
 - Background response format identical for both UI surfaces
 - State shared via `chrome.storage.local` (e.g., filter state, section collapse)
 
-### Optional Host Permissions & On-Demand Injection (Phase 07)
+### Optional Host Permissions & On-Demand Injection
 
 **Flow:**
 
@@ -308,7 +308,7 @@ service-worker.js
 - Reduced trust friction on install (optional rather than required)
 - Form-checker stays lazy; only loaded when needed
 
-### Suspend Warning Toast (Phase 08)
+### Suspend Warning Toast
 
 **Execution:**
 
@@ -330,7 +330,7 @@ service-worker.js
 - Settings: `showSuspendWarning`, `suspendWarningDelayMs`
 - No persistent state for warnings (ephemeral toast)
 
-### Import/Export (Phase 10)
+### Import/Export
 
 **Schema:**
 
