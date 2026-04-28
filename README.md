@@ -1,3 +1,5 @@
+🇬🇧 **English** | 🇻🇳 [Tiếng Việt](README.vi.md)
+
 <p align="center">
   <img src="icons/icon-128.png" alt="TabRest Logo" width="128" height="128">
 </p>
@@ -120,6 +122,19 @@ Chrome Web Store promotional images are in `assets/` as SVG sources.
 - No external servers
 - All settings stored locally
 - See [Privacy Policy](docs/privacy-policy.md)
+
+## Sponsor
+
+If you find this extension useful, consider supporting its development:
+
+[![GitHub Sponsors](https://img.shields.io/badge/GitHub_Sponsors-Support-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/lamngockhuong)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-Support-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/lamngockhuong)
+[![MoMo](https://img.shields.io/badge/MoMo-Support-ae2070)](https://me.momo.vn/khuong)
+
+## Other Projects
+
+- [GitHub Flex](https://github.com/lamngockhuong/github-flex) - Cross-browser extension that enhances GitHub's interface with productivity features
+- [Termote](https://github.com/lamngockhuong/termote) - Remote control CLI tools (Claude Code, GitHub Copilot, any terminal) from mobile/desktop via PWA
 
 ## License
 
