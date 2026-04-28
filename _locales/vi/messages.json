@@ -497,5 +497,50 @@
   },
   "importFailed_wrongType": {
     "message": "Nhập thất bại: sai loại danh sách"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "Quyền riêng tư & Chẩn đoán"
+  },
+  "errorReportingHint": {
+    "message": "Giúp cải thiện TabRest bằng cách gửi báo cáo lỗi ẩn danh. Tắt mặc định. Không gửi URL, tiêu đề trang hay dữ liệu cá nhân."
+  },
+  "enableErrorReportingLabel": {
+    "message": "Bật báo cáo lỗi ẩn danh"
+  },
+  "advancedDsnSummary": {
+    "message": "Nâng cao: DSN Sentry tùy chỉnh"
+  },
+  "customDsnHint": {
+    "message": "Để trống để dùng mặc định. Chỉ chấp nhận DSN HTTPS."
+  },
+  "viewPrivacyPolicy": {
+    "message": "Xem chính sách quyền riêng tư"
+  },
+  "invalidDsnMessage": {
+    "message": "Định dạng DSN không hợp lệ. Cần dạng: https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "Đã lưu DSN tùy chỉnh"
+  },
+  "errorReportingEnabledToast": {
+    "message": "Đã bật báo cáo lỗi"
+  },
+  "errorReportingDisabledToast": {
+    "message": "Đã tắt báo cáo lỗi"
+  },
+  "sendToSentry": {
+    "message": "Gửi tới Sentry"
+  },
+  "sentryDisabledHint": {
+    "message": "Bật báo cáo lỗi trong "
+  },
+  "optionsLink": {
+    "message": "tùy chọn"
+  },
+  "reportSentSuccess": {
+    "message": "Đã gửi báo cáo. Cảm ơn bạn!"
+  },
+  "reportSentFailed": {
+    "message": "Gửi thất bại. Hãy thử sao chép cho GitHub."
   }
 }

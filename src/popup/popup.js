@@ -1,4 +1,4 @@
-import { sanitizeString } from "../shared/error-reporter.js";
+import { reportBug, sanitizeString } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { icon, injectIcons } from "../shared/icons.js";
 import { exportPayload, parseImport } from "../shared/import-export.js";
@@ -78,6 +78,9 @@ const elements = {
   bugDescription: document.getElementById("bug-description"),
   diagnosticsPreview: document.getElementById("diagnostics-preview"),
   copyForGithub: document.getElementById("copy-for-github"),
+  sendToSentryBtn: document.getElementById("send-to-sentry"),
+  sentryDisabledHint: document.getElementById("sentry-disabled-hint"),
+  openOptionsLink: document.getElementById("open-options-link"),
 };
 
 // --- Utility Functions ---
@@ -931,6 +934,10 @@ function setupEventListeners() {
   elements.reportBugBtn?.addEventListener("click", async () => {
     cachedDiagnostics = await collectDiagnostics();
     elements.diagnosticsPreview.textContent = formatDiagnosticsJSON(cachedDiagnostics);
+    const settings = await getSettings();
+    const consentOn = settings.enableErrorReporting === true;
+    elements.sendToSentryBtn.hidden = !consentOn;
+    elements.sentryDisabledHint.hidden = consentOn;
     elements.bugReportModal.style.display = "flex";
   });
 
@@ -959,6 +966,31 @@ function setupEventListeners() {
     chrome.tabs.create({ url: "https://github.com/lamngockhuong/tabrest/issues/new" });
     elements.bugReportModal.style.display = "none";
     elements.bugDescription.value = "";
+  });
+
+  elements.sendToSentryBtn?.addEventListener("click", async () => {
+    if (!cachedDiagnostics) return;
+    const description = sanitizeString(elements.bugDescription.value.trim());
+    elements.sendToSentryBtn.disabled = true;
+    try {
+      const ok = await reportBug(description, cachedDiagnostics);
+      if (ok) {
+        showToast(t("reportSentSuccess") || "Report sent. Thank you!");
+        elements.bugReportModal.style.display = "none";
+        elements.bugDescription.value = "";
+      } else {
+        showToast(t("reportSentFailed") || "Failed to send. Try GitHub copy instead.");
+      }
+    } catch {
+      showToast(t("reportSentFailed") || "Failed to send. Try GitHub copy instead.");
+    } finally {
+      elements.sendToSentryBtn.disabled = false;
+    }
+  });
+
+  elements.openOptionsLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    chrome.runtime.openOptionsPage();
   });
 }
 

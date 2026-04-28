@@ -1,4 +1,5 @@
 import { SETTINGS_DEFAULTS } from "../shared/constants.js";
+import { isValidDsn } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
 import { exportPayload, parseImport } from "../shared/import-export.js";
@@ -60,6 +61,8 @@ const elements = {
   status: document.getElementById("status"),
   shortcutsLink: document.getElementById("shortcuts-link"),
   enableErrorReporting: document.getElementById("enable-error-reporting"),
+  customSentryDsn: document.getElementById("custom-sentry-dsn"),
+  dsnValidationMsg: document.getElementById("dsn-validation-msg"),
 };
 
 let currentSettings = {};
@@ -115,7 +118,8 @@ async function loadSettings() {
   elements.showDiscardedPrefix.checked = currentSettings.showDiscardedPrefix && hasHost;
   elements.discardedPrefix.value = currentSettings.discardedPrefix;
   updatePrefixInputVisibility();
-  elements.enableErrorReporting.checked = currentSettings.enableErrorReporting ?? true;
+  elements.enableErrorReporting.checked = currentSettings.enableErrorReporting ?? false;
+  elements.customSentryDsn.value = currentSettings.customSentryDsn ?? "";
 
   renderWhitelist();
   renderBlacklist();
@@ -263,6 +267,25 @@ function setupEventListeners() {
       }
     });
   }
+
+  // Custom Sentry DSN input — validation delegates to the same parser the
+  // transport uses, so UI and runtime can never disagree on what counts as valid.
+  let dsnDebounce = null;
+  elements.customSentryDsn.addEventListener("input", () => {
+    clearTimeout(dsnDebounce);
+    dsnDebounce = setTimeout(async () => {
+      const value = elements.customSentryDsn.value.trim();
+      if (value !== "" && !isValidDsn(value)) {
+        elements.dsnValidationMsg.textContent = t("invalidDsnMessage");
+        elements.dsnValidationMsg.hidden = false;
+        return;
+      }
+      elements.dsnValidationMsg.hidden = true;
+      currentSettings.customSentryDsn = value;
+      await saveSettings(currentSettings);
+      showStatus(t("settingsSaved"));
+    }, 400);
+  });
 
   bindHostPermToggle(elements.protectForm, "protectFormTabs", "formProtectPermDenied");
   bindHostPermToggle(elements.showDiscardedPrefix, "showDiscardedPrefix", "prefixPermDenied", () =>

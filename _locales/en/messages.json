@@ -661,5 +661,65 @@
   "importFailed_wrongType": {
     "message": "Import failed: wrong type for this list",
     "description": "Toast when imported type does not match (e.g. blacklist into whitelist)"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "Privacy & Diagnostics",
+    "description": "Privacy section header in options"
+  },
+  "errorReportingHint": {
+    "message": "Help improve TabRest by sending anonymous error reports. Disabled by default. No URLs, page titles, or personal data are sent.",
+    "description": "Hint text under the privacy section header"
+  },
+  "enableErrorReportingLabel": {
+    "message": "Enable anonymous error reporting",
+    "description": "Checkbox label for error reporting toggle"
+  },
+  "advancedDsnSummary": {
+    "message": "Advanced: Custom Sentry DSN",
+    "description": "Summary label for the advanced DSN collapsible block"
+  },
+  "customDsnHint": {
+    "message": "Leave empty to use the default. Only HTTPS DSNs are accepted.",
+    "description": "Hint text under the custom DSN input"
+  },
+  "viewPrivacyPolicy": {
+    "message": "View privacy policy",
+    "description": "Link text to privacy policy section"
+  },
+  "invalidDsnMessage": {
+    "message": "Invalid DSN format. Expected: https://KEY@HOST/PROJECT_ID",
+    "description": "Inline validation error for malformed DSN input"
+  },
+  "dsnSavedMessage": {
+    "message": "Custom DSN saved",
+    "description": "Toast after custom DSN is saved successfully"
+  },
+  "errorReportingEnabledToast": {
+    "message": "Error reporting enabled",
+    "description": "Toast when user enables error reporting"
+  },
+  "errorReportingDisabledToast": {
+    "message": "Error reporting disabled",
+    "description": "Toast when user disables error reporting"
+  },
+  "sendToSentry": {
+    "message": "Send to Sentry",
+    "description": "Button label to send bug report directly to Sentry"
+  },
+  "sentryDisabledHint": {
+    "message": "Enable error reporting in ",
+    "description": "Hint text shown when Sentry reporting is disabled (followed by options link)"
+  },
+  "optionsLink": {
+    "message": "options",
+    "description": "Link text in Sentry disabled hint pointing to options page"
+  },
+  "reportSentSuccess": {
+    "message": "Report sent. Thank you!",
+    "description": "Toast shown after successful Sentry bug report submission"
+  },
+  "reportSentFailed": {
+    "message": "Failed to send. Try GitHub copy instead.",
+    "description": "Toast shown when Sentry bug report submission fails"
   }
 }

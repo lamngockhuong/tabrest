@@ -1,5 +1,10 @@
-import { ALARM_NAMES, FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
-import { initErrorReporter } from "../shared/error-reporter.js";
+import {
+  ALARM_NAMES,
+  CONSENT_RESET_MIGRATION_KEY,
+  FORM_CHECK_TIMEOUT_MS,
+  REPORTER_COMMANDS,
+} from "../shared/constants.js";
+import { captureError, captureMessage, initErrorReporter } from "../shared/error-reporter.js";
 import { HOST_PERM_DEPENDENT_FLAGS, hasHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { isMinorOrMajorBump, isValidDomainOrIp, unwrapHostname } from "../shared/utils.js";
@@ -104,6 +109,19 @@ chrome.runtime.onStartup.addListener(async () => {
 
 // Extension installed/updated
 chrome.runtime.onInstalled.addListener(async (details) => {
+  // CWS/AMO compliance: no remote telemetry without explicit consent. Reset
+  // enableErrorReporting once per profile during the v0.0.5 → v0.1.0 rollout
+  // (when remote transport first ships). The migration flag prevents future
+  // updates from silently clobbering a user's deliberate opt-in.
+  if (details.reason === "install" || details.reason === "update") {
+    const flag = await chrome.storage.local.get(CONSENT_RESET_MIGRATION_KEY);
+    if (!flag[CONSENT_RESET_MIGRATION_KEY]) {
+      const current = await getSettings();
+      await saveSettings({ ...current, enableErrorReporting: false });
+      await chrome.storage.local.set({ [CONSENT_RESET_MIGRATION_KEY]: true });
+    }
+  }
+
   await initErrorReporter();
   await initTabTracker();
   await initMemoryMonitor();
@@ -462,6 +480,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "getTabId" && sender.tab?.id) {
     sendResponse({ tabId: sender.tab.id });
     return true;
+  }
+
+  // Bridge content script errors to error-reporter (consent gate is inside captureError)
+  if (message.command === REPORTER_COMMANDS.CAPTURE_ERROR) {
+    const errPayload = message.error || {};
+    const err = new Error(errPayload.message || "Unknown error");
+    err.name = errPayload.name || "Error";
+    err.stack = errPayload.stack || "";
+    captureError(err, message.context || {});
+    sendResponse({ ok: true });
+    return false;
+  }
+  if (message.command === REPORTER_COMMANDS.CAPTURE_MESSAGE) {
+    captureMessage(message.message || "", message.level || "info", message.context || {});
+    sendResponse({ ok: true });
+    return false;
   }
 
   handleMessage(message).then((result) => {

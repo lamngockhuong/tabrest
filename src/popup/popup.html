@@ -274,7 +274,7 @@
       </div>
       <div class="modal-body">
         <label for="bug-description" data-i18n="describeIssue">Describe the issue (optional):</label>
-        <textarea id="bug-description" rows="3" data-i18n-placeholder="bugDescPlaceholder" placeholder="What went wrong?"></textarea>
+        <textarea id="bug-description" rows="3" data-i18n-placeholder="bugDescPlaceholder" placeholder="What went wrong?" maxlength="2000"></textarea>
 
         <details class="diagnostics-preview">
           <summary data-i18n="debugInfoAttached">Debug info will be attached</summary>
@@ -283,6 +283,10 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" id="copy-for-github" data-i18n="copyForGithub">Copy & Open GitHub</button>
+        <button id="send-to-sentry" class="btn btn-secondary" data-i18n="sendToSentry" hidden>Send to Sentry</button>
+      </div>
+      <div class="modal-sentry-hint" id="sentry-disabled-hint" hidden>
+        <span data-i18n="sentryDisabledHint">Enable error reporting in </span><a href="#" id="open-options-link" data-i18n="optionsLink">options</a><span>.</span>
       </div>
     </div>
   </div>

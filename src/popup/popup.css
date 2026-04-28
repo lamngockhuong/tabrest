@@ -1307,3 +1307,35 @@ footer {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* Secondary button — neutral style matching existing .btn aesthetic */
+.btn-secondary {
+  background: var(--card-elevated);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+  border-color: var(--secondary);
+}
+
+/* Bug report modal: allow two buttons on same row */
+.modal-footer {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Sentry disabled hint shown below the modal footer buttons */
+.modal-sentry-hint {
+  padding: 6px 14px 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.modal-sentry-hint a {
+  color: var(--secondary);
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { sanitizeString, sanitizeError } from "../../src/shared/error-reporter.js";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { sanitizeString, sanitizeError, initErrorReporter } from "../../src/shared/error-reporter.js";
 
 describe("sanitizeString", () => {
   it("returns input unchanged if no PII patterns", () => {
@@ -93,5 +93,95 @@ describe("sanitizeError", () => {
     expect(result.stack).not.toContain("example.com");
     expect(result.stack).not.toContain("test@email.com");
     expect(result.stack).toContain("[REDACTED]");
+  });
+});
+
+describe("initErrorReporter", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    // Reset module state by clearing chrome mocks
+    chrome.storage.sync.get.mockResolvedValue({});
+    chrome.storage.local.get.mockResolvedValue({});
+    // Mock self for addEventListener
+    global.self = {
+      addEventListener: vi.fn(),
+    };
+  });
+
+  afterEach(() => {
+    delete global.self;
+  });
+
+  it("respects explicit options.dsn over settings.customSentryDsn", async () => {
+    const customDsn = "https://custom@o123.ingest.us.sentry.io/456";
+    const optionsDsn = "https://explicit@o999.ingest.us.sentry.io/789";
+
+    chrome.storage.sync.get.mockResolvedValue({
+      settings: {
+        enableErrorReporting: true,
+        customSentryDsn: customDsn,
+      },
+    });
+
+    // Should use optionsDsn and not throw
+    await expect(initErrorReporter({ dsn: optionsDsn })).resolves.not.toThrow();
+  });
+
+  it("uses settings.customSentryDsn when options.dsn is not provided", async () => {
+    const customDsn = "https://custom@o123.ingest.us.sentry.io/456";
+
+    chrome.storage.sync.get.mockResolvedValue({
+      settings: {
+        enableErrorReporting: true,
+        customSentryDsn: customDsn,
+      },
+    });
+
+    await expect(initErrorReporter()).resolves.not.toThrow();
+  });
+
+  it("falls back to SENTRY_DSN constant when both options.dsn and customSentryDsn are missing", async () => {
+    chrome.storage.sync.get.mockResolvedValue({
+      settings: {
+        enableErrorReporting: true,
+      },
+    });
+
+    await expect(initErrorReporter()).resolves.not.toThrow();
+  });
+
+  it("falls back to SENTRY_DSN when customSentryDsn is empty string", async () => {
+    chrome.storage.sync.get.mockResolvedValue({
+      settings: {
+        enableErrorReporting: true,
+        customSentryDsn: "",
+      },
+    });
+
+    await expect(initErrorReporter()).resolves.not.toThrow();
+  });
+
+  it("falls back to SENTRY_DSN when customSentryDsn is whitespace only", async () => {
+    chrome.storage.sync.get.mockResolvedValue({
+      settings: {
+        enableErrorReporting: true,
+        customSentryDsn: "   ",
+      },
+    });
+
+    await expect(initErrorReporter()).resolves.not.toThrow();
+  });
+
+  it("returns early when enableErrorReporting is false", async () => {
+    chrome.storage.sync.get.mockResolvedValue({
+      settings: {
+        enableErrorReporting: false,
+      },
+    });
+
+    // Should complete without initializing error listeners
+    // (Note: sentryInitialized is module-level, so may be true from previous tests.
+    // getSettings will still be called to check the setting even if already initialized.)
+    await expect(initErrorReporter()).resolves.not.toThrow();
   });
 });

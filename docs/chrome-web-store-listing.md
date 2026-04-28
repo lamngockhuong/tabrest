@@ -1,5 +1,34 @@
 # Chrome Web Store Listing - TabRest
 
+## What's New in v0.1.0
+
+**Update release notes to paste in Chrome Web Store "What's new" field:**
+
+```
+What's New in v0.1.0:
+
+Optional anonymous error reporting is now available! When enabled, helps us identify and fix bugs faster while keeping your privacy protected.
+
+NEW FEATURES:
+• Opt-in anonymous error reporting (default OFF)
+• Privacy & Diagnostics settings section
+• "Send to Sentry" button in bug report dialog
+• Custom Sentry DSN for advanced users
+
+PRIVACY COMMITMENT:
+• No URLs, emails, IPs, or browsing data collected
+• Error reports sanitized before sending (sensitive data redacted)
+• Max 100 reports per user per day
+• Full transparency: https://tabrest.ohnice.app/en/privacy-policy/#error-reporting
+
+NEW PERMISSION:
+We've added "Read your data on sentry.io" to send error reports. This permission is only used when you explicitly enable error reporting in Settings → Privacy & Diagnostics.
+
+To enable: Options → Privacy & Diagnostics → Check "Enable anonymous error reporting"
+```
+
+---
+
 ## Thông tin cơ bản
 
 | Field                 | Value                                                                 |
@@ -68,6 +97,7 @@ TabRest automatically unloads inactive browser tabs to free up memory and keep y
 • Suspend warning toast - 3 second gentle warning before auto-unload
 • Side panel mode - open UI in persistent browser sidebar instead of popup (stays visible as you switch tabs)
 • Import/export settings - backup and restore whitelists, blacklists, and sessions to clipboard JSON
+• Optional anonymous error reporting (opt-in, v0.1.0+) - helps us fix bugs while protecting your privacy
 • Multi-language support (English & Vietnamese)
 • Auto-open changelog - view what's new on updates (minor/major releases only)
 
@@ -79,8 +109,9 @@ TabRest uses Chrome's native tabs.discard() API. Discarded tabs:
 • Free up memory while inactive
 
 🔒 PRIVACY:
-• No data collection
-• No external servers
+• No data collection by default
+• Optional anonymous error reporting (disabled by default, fully transparent)
+• When enabled: errors anonymized, PII redacted, max 100/day, 30-day retention
 • All settings stored locally on your device
 • Open source: https://github.com/lamngockhuong/tabrest
 

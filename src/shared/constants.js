@@ -32,8 +32,10 @@ export const SETTINGS_DEFAULTS = {
   restoreScrollPosition: true,
   // Notify when tabs are auto-unloaded
   notifyOnAutoUnload: false,
-  // Error reporting (opt-out) - send anonymous crash reports
-  enableErrorReporting: true,
+  // Error reporting (opt-in, default OFF for privacy) - send anonymous crash reports
+  enableErrorReporting: false,
+  // Custom Sentry DSN override (empty = use built-in SENTRY_DSN constant)
+  customSentryDsn: "",
   // Show on-page warning toast before auto-discard (timer/memory paths only)
   showSuspendWarning: true,
   // Delay between toast appearance and discard, in ms
@@ -96,3 +98,40 @@ export const STORAGE_KEYS = {
   TAB_ACTIVITY: "tabActivity",
   STATS: "stats",
 };
+
+// Error reporter: quota + dedup storage keys and limits
+export const ERROR_QUOTA_KEY = "error_reporter_quota";
+export const ERROR_DEDUP_KEY = "error_reporter_dedup";
+export const ERROR_DAILY_CAP = 100;
+export const ERROR_DEDUP_WINDOW_MS = 86400000; // 24 hours
+export const ERROR_REPEAT_SAMPLE_RATE = 0.1;
+export const ERROR_DEDUP_MAX_ENTRIES = 100;
+
+// One-time flag: marks that consent was reset to opt-in default during the
+// v0.0.5 → v0.1.0 migration. Without this guard, every future extension update
+// would silently re-flip a user's enabled opt-in back to false.
+export const CONSENT_RESET_MIGRATION_KEY = "consent_reset_migration_v1_done";
+
+// Sentry surface tags (event source). Content scripts duplicate these as
+// literals because they cannot import ES modules — keep in sync.
+export const SURFACES = Object.freeze({
+  SERVICE_WORKER: "service_worker",
+  POPUP: "popup",
+  OPTIONS: "options",
+  CONTENT_FORM: "content_form",
+  CONTENT_YOUTUBE: "content_youtube",
+  MANUAL_REPORT: "manual_report",
+});
+
+// Runtime message commands routed to the error reporter via the SW bridge.
+export const REPORTER_COMMANDS = Object.freeze({
+  CAPTURE_ERROR: "captureError",
+  CAPTURE_MESSAGE: "captureMessage",
+});
+
+// Sentry DSN for anonymous crash reporting.
+// DSNs are public by design: they are project-scoped, server-rate-limited,
+// and contain only a public key (no secret). Safe to commit.
+// US-region ingest endpoint.
+export const SENTRY_DSN =
+  "https://2b6ab992bad3bb998e5026532fabccb3@o4511298350612480.ingest.us.sentry.io/4511298353496064";
