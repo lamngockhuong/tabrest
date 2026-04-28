@@ -43,13 +43,13 @@ tabrest/
 | `snooze-manager.js`  | 164 | Temporary tab/domain protection                  |
 | `session-manager.js` | 209 | Save/restore tab sessions, import with merge & dedup |
 | `stats-collector.js` | 99  | Usage statistics tracking                        |
-| `form-injector.js`   | 24  | On-demand form-checker injection (lazy-loaded)   |
+| `form-injector.js`   | 24  | Form-checker injection (eager on page load + lazy on demand) |
 
 ### Content Scripts
 
 | File                 | LOC | Purpose                                     |
 | -------------------- | --- | ------------------------------------------- |
-| `form-checker.js`    | 201 | Detect unsaved forms, report JS heap memory (lazy-injected) |
+| `form-checker.js`    | 201 | Detect unsaved forms (global flag on first input), report JS heap memory |
 | `youtube-tracker.js` | 132 | Save/restore YouTube playback position      |
 
 ### UI Components

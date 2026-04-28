@@ -328,7 +328,7 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 });
 
 // Tab updated (navigation complete) - update activity and badge
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete" || changeInfo.url) {
     updateTabActivity(tabId);
   }
@@ -340,7 +340,19 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
   if (changeInfo.discarded !== undefined) {
     updateBadge();
   }
+  // Eagerly inject form-checker on page load so its input listener registers
+  // before the user types. Otherwise edits to contenteditable editors (e.g.
+  // GitHub's issue body) made prior to the first popup open go undetected.
+  if (changeInfo.status === "complete" && tab?.url?.startsWith("http")) {
+    eagerInjectFormChecker(tabId, tab.url);
+  }
 });
+
+async function eagerInjectFormChecker(tabId, tabUrl) {
+  const settings = await getSettings();
+  if (!settings.protectFormTabs) return;
+  await ensureFormCheckerInjected(tabId, tabUrl);
+}
 
 // Tab removed - clean up activity entry, memory entry, and update badge
 chrome.tabs.onRemoved.addListener((tabId) => {
@@ -574,13 +586,15 @@ async function getTabsWithStatus() {
     const isSnoozed = snoozeInfo.snoozed;
     const isProtected = isWhitelisted || isPinned || isAudioPlaying || hasFormData || isSnoozed;
 
-    // Determine protection reason for UI display (priority order)
+    // Pin is rendered directly from tab.pinned in the UI (intrinsic property,
+    // shown even when unloadPinnedTabs=true), so it's not part of this chain.
     let protectionReason = null;
-    if (isPinned) protectionReason = "pinned";
-    else if (isWhitelisted) protectionReason = "whitelist";
-    else if (isAudioPlaying) protectionReason = "audio";
-    else if (hasFormData) protectionReason = "form";
-    else if (isSnoozed) protectionReason = "snooze";
+    if (isProtected) {
+      if (isAudioPlaying) protectionReason = "audio";
+      else if (hasFormData) protectionReason = "form";
+      else if (isSnoozed) protectionReason = "snooze";
+      else if (isWhitelisted) protectionReason = "whitelist";
+    }
 
     return {
       id: tab.id,

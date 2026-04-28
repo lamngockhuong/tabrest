@@ -164,15 +164,18 @@ Cấu hình tại `chrome://extensions/shortcuts`.
 ## 18. Bảo vệ Pinned / Audio / Form
 
 - [ ] Tab ghim + bật `Protect pinned tabs` → không bao giờ discard qua auto-unload.
+- [ ] Tab ghim + bật `Include pinned tabs` (tức cho phép discard tab ghim) → dòng popup vẫn hiển thị badge "pin" (intrinsic) và filter chip "protected" vẫn count.
 - [ ] Tab phát YouTube + `Protect audio tabs` → không discard.
 - [ ] Tab có form chưa lưu (ví dụ Google Form điền dở) + `Protect form tabs` → không discard; dòng popup hiển thị badge "Form".
+- [ ] Tab có form chưa lưu trên React/contenteditable editor (ví dụ body issue GitHub) → sau khi gõ, dòng popup hiển thị badge "Form" (eager-injection bắt được keystroke).
+- [ ] Tab vừa whitelist vừa pin/audio/form → popup ưu tiên badge cụ thể (pin/audio/form), không hiển thị "safe" — whitelist là priority thấp nhất.
 - [ ] Tắt một protection → tab khớp trở lại đủ điều kiện.
 - [ ] **Force unload** (menu mỗi tab trong popup) override mọi protection.
 
 ## 19. Optional Host Permissions + Form Injector
 - [ ] Cài mới: host permissions KHÔNG cấp mặc định.
 - [ ] Tắt rồi bật `Protect form tabs` → prompt cấp quyền hoặc banner phục hồi xuất hiện.
-- [ ] Cấp quyền → form-checker chỉ inject vào tab được truy cập; xác nhận qua badge popup và DevTools.
+- [ ] Cấp quyền → form-checker eager-inject mỗi khi page load (và lazy-inject với tab đã mở sẵn ở lần check đầu); xác nhận qua badge popup và `window.__tabrestFormCheckLoaded` trong DevTools.
 - [ ] Thu hồi qua `chrome://extensions` → banner phục hồi tái xuất trong popup với CTA "Enable".
 - [ ] Bật `Discarded tab title prefix` → nếu chưa có quyền `scripting`/host, sẽ yêu cầu.
 

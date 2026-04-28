@@ -89,7 +89,7 @@ service-worker.js
 | `snooze-manager`  | Manage temporary protections                    | storage                                    |
 | `session-manager` | Save/restore tab sessions                       | storage                                    |
 | `stats-collector` | Track unload statistics                         | storage                                    |
-| `form-injector`   | Lazy-inject form-checker on demand              | permissions                                |
+| `form-injector`   | Inject form-checker (eager on page load + lazy) | permissions                                |
 
 ## Data Flow
 
@@ -297,17 +297,18 @@ service-worker.js
 
 1. Manifest declares `optional_host_permissions: ["http://*/*", "https://*/*"]`
 2. `protectFormTabs` setting gate: if false, form checking skipped
-3. Form checker injected on-demand via `chrome.scripting.executeScript()` when:
-   - Auto-unload timer fires AND `protectFormTabs` enabled
-   - Memory check executes AND needs per-tab heap data
-4. Permission recovery: if user revokes access, banner appears in options with "Grant permission" button
-5. `permissions.requestHostPermissions()` uses `chrome.permissions.request()` with silent fallback
+3. Form checker injected via `chrome.scripting.executeScript()` from two paths:
+   - **Eager** (`tabs.onUpdated` with `status="complete"`): so the input listener registers before the user types — required for React-controlled inputs and contenteditable editors (Lexical/ProseMirror) where `value`/`defaultValue` tracking is unreliable
+   - **Lazy** (auto-unload timer / memory check): catches tabs already open before the extension loaded
+4. On any keystroke, form-checker sets a global `document.body.dataset.tabrestFormModified` flag — single robust signal that survives SPA navigation and React re-renders
+5. Permission recovery: if user revokes access, banner appears in options with "Grant permission" button
+6. `permissions.requestHostPermissions()` uses `chrome.permissions.request()` with silent fallback
 
 **Rationale:**
 
 - User can protect unsaved forms without granting hosts permission upfront
 - Reduced trust friction on install (optional rather than required)
-- Form-checker stays lazy; only loaded when needed
+- Eager injection is the only reliable way to detect modifications in modern rich-text editors (which never expose values via `defaultValue`)
 
 ### Suspend Warning Toast
 
