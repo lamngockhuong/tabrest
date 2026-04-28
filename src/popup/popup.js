@@ -276,26 +276,63 @@ async function updateStats() {
   }
 }
 
-// Load tab groups if available and enabled
+let lastTabGroupsKey = "";
+const TAB_GROUP_ID_NONE = chrome.tabGroups?.TAB_GROUP_ID_NONE ?? -1;
+
 async function loadTabGroups() {
   try {
-    // Check if tab groups feature is enabled
     const settings = await getSettings();
-    if (!settings.enableTabGroups) return;
+    if (!settings.enableTabGroups || !chrome.tabGroups) {
+      elements.tabGroupsSection.classList.add("hidden");
+      lastTabGroupsKey = "hidden";
+      return;
+    }
 
-    const groups = await chrome.tabGroups.query({});
-    if (groups.length > 0) {
-      elements.tabGroupsSection.classList.remove("hidden");
-      elements.tabGroupSelect.innerHTML = '<option value="">Select Tab Group...</option>';
-      for (const group of groups) {
-        const option = document.createElement("option");
-        option.value = group.id;
-        option.textContent = group.title || `Group ${group.id}`;
-        elements.tabGroupSelect.appendChild(option);
+    const [tabs, allGroups] = await Promise.all([
+      chrome.tabs.query({ currentWindow: true }),
+      chrome.tabGroups.query({}),
+    ]);
+
+    const counts = new Map();
+    for (const tab of tabs) {
+      if (tab.groupId !== TAB_GROUP_ID_NONE) {
+        counts.set(tab.groupId, (counts.get(tab.groupId) ?? 0) + 1);
       }
     }
-  } catch {
-    // Tab groups not available
+
+    const groups = allGroups.filter((g) => counts.has(g.id));
+    if (groups.length === 0) {
+      elements.tabGroupsSection.classList.add("hidden");
+      lastTabGroupsKey = "hidden";
+      return;
+    }
+
+    // Skip DOM rebuild when nothing visible changed; preserves user's current selection.
+    const key = groups.map((g) => `${g.id}:${g.title ?? ""}:${counts.get(g.id)}`).join("|");
+    if (key === lastTabGroupsKey) {
+      elements.tabGroupsSection.classList.remove("hidden");
+      return;
+    }
+    lastTabGroupsKey = key;
+
+    elements.tabGroupSelect.innerHTML = "";
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = t("selectTabGroup");
+    elements.tabGroupSelect.appendChild(placeholder);
+
+    for (const group of groups) {
+      const option = document.createElement("option");
+      option.value = group.id;
+      const title = group.title || t("untitledTabGroup", [String(group.id)]);
+      option.textContent = `${title} (${counts.get(group.id)})`;
+      elements.tabGroupSelect.appendChild(option);
+    }
+
+    elements.tabGroupsSection.classList.remove("hidden");
+  } catch (err) {
+    console.error("[TabRest] loadTabGroups failed:", err);
+    elements.tabGroupsSection.classList.add("hidden");
   }
 }
 
@@ -951,16 +988,26 @@ async function init() {
   if (isSidePanel()) setupTabEventSync();
 }
 
-function setupTabEventSync() {
+const SYNC_DEBOUNCE_MS = 150;
+
+function leadingDebounce(fn, delay = SYNC_DEBOUNCE_MS) {
   let pending = false;
-  const scheduleRefresh = () => {
+  return () => {
     if (pending) return;
     pending = true;
     setTimeout(() => {
       pending = false;
-      renderTabList();
-    }, 150);
+      fn();
+    }, delay);
   };
+}
+
+let tabEventSyncBound = false;
+function setupTabEventSync() {
+  if (tabEventSyncBound) return;
+  tabEventSyncBound = true;
+
+  const scheduleRefresh = leadingDebounce(renderTabList);
   chrome.tabs.onActivated.addListener(scheduleRefresh);
   chrome.tabs.onUpdated.addListener((_id, changeInfo) => {
     if ("discarded" in changeInfo || "title" in changeInfo || "favIconUrl" in changeInfo) {
@@ -969,6 +1016,14 @@ function setupTabEventSync() {
   });
   chrome.tabs.onRemoved.addListener(scheduleRefresh);
   chrome.tabs.onCreated.addListener(scheduleRefresh);
+
+  if (!chrome.tabGroups) return;
+  const scheduleGroupsRefresh = leadingDebounce(loadTabGroups);
+  chrome.tabGroups.onCreated.addListener(scheduleGroupsRefresh);
+  chrome.tabGroups.onUpdated.addListener(scheduleGroupsRefresh);
+  chrome.tabGroups.onRemoved.addListener(scheduleGroupsRefresh);
+  chrome.tabs.onAttached.addListener(scheduleGroupsRefresh);
+  chrome.tabs.onDetached.addListener(scheduleGroupsRefresh);
 }
 
 init();

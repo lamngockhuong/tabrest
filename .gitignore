@@ -36,3 +36,6 @@ npm-debug.log*
 
 # Plans (development only)
 plans/
+
+# Local scratch / notes
+.tmp/

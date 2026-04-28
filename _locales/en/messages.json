@@ -325,6 +325,24 @@
     "message": "Tab Groups",
     "description": "Section header in popup"
   },
+  "selectTabGroup": {
+    "message": "Select Tab Group...",
+    "description": "Placeholder option in tab group selector"
+  },
+  "unloadGroup": {
+    "message": "Unload Group",
+    "description": "Button label to unload all tabs in a group"
+  },
+  "untitledTabGroup": {
+    "message": "Group $ID$",
+    "description": "Fallback label for tab group without a title",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
   "showDiscardedPrefix": {
     "message": "Prepend symbol to discarded tabs",
     "description": "Options setting"

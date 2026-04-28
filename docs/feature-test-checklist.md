@@ -210,6 +210,8 @@ Configurable at `chrome://extensions/shortcuts`.
 - [ ] Popup `Tab groups` selector lists the group with tab count.
 - [ ] "Unload this group" discards every tab in the group while keeping the group structure.
 - [ ] Toggle `Enable tab groups` OFF → selector hidden.
+- [ ] Multi-window: open two windows with different groups → each popup lists only its own window's groups.
+- [ ] Side panel mode: with the panel open, create/rename/remove a group → selector updates without reopening.
 
 ## 25. Visual Indicators
 
