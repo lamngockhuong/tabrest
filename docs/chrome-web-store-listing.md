@@ -30,8 +30,8 @@ TabRest automatically unloads inactive browser tabs to free up memory and keep y
 ✨ KEY FEATURES:
 
 📌 Smart Auto-Unload
-• Configurable inactivity timer (15 minutes to 4 hours)
-• Memory threshold trigger (60-90% RAM usage)
+• Configurable inactivity timer (5 minutes to 4 hours)
+• Memory threshold trigger (60-95% RAM usage)
 • Per-tab memory limit (unload tabs using >100MB-1GB JS heap)
 • Startup unload option to free memory when browser opens
 • Skip when offline - don't unload tabs when network unavailable
