@@ -499,6 +499,7 @@ body {
 
 .add-domain input {
   flex: 1;
+  min-width: 0;
   padding: 9px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -947,5 +948,26 @@ kbd {
   .setting-inline,
   .setting-sub {
     margin-left: 0;
+  }
+
+  .add-domain {
+    flex-wrap: wrap;
+  }
+
+  .add-domain input {
+    flex: 1 1 100%;
+  }
+
+  .add-domain .btn {
+    width: 100%;
+  }
+
+  .shortcut {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+
+  .stats-display {
+    grid-template-columns: 1fr;
   }
 }
