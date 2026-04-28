@@ -119,8 +119,8 @@ service-worker.js (orchestrator)
   onlyDiscardWhenIdle: boolean,
   idleThresholdMinutes: number,
   skipWhenOffline: boolean,
-  useSidePanel: boolean,             // Phase 09: side panel mode toggle
-  showSuspendWarning: boolean,       // Phase 08: pre-discard toast
+  useSidePanel: boolean,             // side panel mode toggle
+  showSuspendWarning: boolean,       // pre-discard toast
   suspendWarningDelayMs: number,     // 3000ms default
   // ... see constants.js SETTINGS_DEFAULTS for complete list
 }
@@ -144,8 +144,9 @@ service-worker.js (orchestrator)
 ```
 
 ### Other Storage Keys (chrome.storage.local)
-- `popup_section_state` — Persistent collapse state for popup sections (Phase 03)
-- `tabrest_lastVersion` — Current version for changelog gating (Phase 06)
+
+- `popup_section_state` — Persistent collapse state for popup sections
+- `tabrest_lastVersion` — Current version for changelog gating
 - `tabrest_snooze` — Active snooze timers
 - `tabrest_scroll_positions` — Cached scroll positions (max 100)
 - `youtube_timestamps` — YouTube playback positions (7-day max age)
