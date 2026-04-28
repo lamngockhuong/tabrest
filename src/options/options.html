@@ -7,19 +7,29 @@
   <title>TabRest Settings</title>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
+  <div class="hero">
+    <div class="hero-inner">
       <div class="logo-title">
-        <img src="../../icons/icon-48.png" alt="TabRest" class="header-logo">
-        <h1 data-i18n="settingsTitle">TabRest Settings</h1>
+        <div class="header-logo-wrap">
+          <img src="../../icons/icon-48.png" alt="TabRest" class="header-logo">
+        </div>
+        <div class="hero-text">
+          <h1 data-i18n="settingsTitle">TabRest Settings</h1>
+          <p class="hero-subtitle" data-i18n="settingsSubtitle">Fine-tune how TabRest manages your tabs and memory</p>
+        </div>
       </div>
       <button id="theme-toggle" title="Toggle theme">
         <span id="theme-icon" data-icon="moon"></span>
       </button>
     </div>
+  </div>
 
+  <div class="container">
     <section class="card">
-      <h2 data-i18n="autoUnload">Auto-Unload</h2>
+      <header class="card-header">
+        <span class="card-header-icon" data-icon="clock" data-icon-size="18"></span>
+        <h2 data-i18n="autoUnload">Auto-Unload</h2>
+      </header>
       <div class="setting">
         <label>
           <input type="checkbox" id="auto-startup">
@@ -51,7 +61,10 @@
     </section>
 
     <section class="card">
-      <h2 data-i18n="toolbarAction">Toolbar Action</h2>
+      <header class="card-header">
+        <span class="card-header-icon" data-icon="layers" data-icon-size="18"></span>
+        <h2 data-i18n="toolbarAction">Toolbar Action</h2>
+      </header>
       <div class="setting">
         <label for="toolbar-action" data-i18n="toolbarClickLabel">When clicking extension icon:</label>
         <select id="toolbar-action">
@@ -70,7 +83,10 @@
     </section>
 
     <section class="card">
-      <h2 data-i18n="memoryManagement">Memory Management</h2>
+      <header class="card-header">
+        <span class="card-header-icon" data-icon="memory" data-icon-size="18"></span>
+        <h2 data-i18n="memoryManagement">Memory Management</h2>
+      </header>
       <div class="setting">
         <label for="threshold" data-i18n="unloadWhenRamExceeds">Unload tabs when RAM exceeds:</label>
         <select id="threshold">
@@ -97,8 +113,10 @@
     </section>
 
     <section class="card">
-      <h2 data-i18n="powerMode">Power Mode</h2>
-      <p class="help" data-i18n="powerModeHelp">Adjust aggressiveness based on your power situation</p>
+      <header class="card-header">
+        <span class="card-header-icon" data-icon="zap" data-icon-size="18"></span>
+        <h2 data-i18n="powerMode">Power Mode</h2>
+      </header>
       <div class="setting">
         <div class="radio-group">
           <label class="radio-option">
@@ -127,145 +145,171 @@
     </section>
 
     <section class="card">
-      <h2 data-i18n="behavior">Behavior</h2>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="unload-pinned">
-          <span data-i18n="includePinnedTabs">Include pinned tabs</span>
-        </label>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="protect-audio">
-          <span data-i18n="protectAudioTabs">Protect tabs playing audio/video</span>
-        </label>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="protect-form">
-          <span data-i18n="protectFormTabs">Protect tabs with unsaved forms</span>
-        </label>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="save-youtube">
-          <span data-i18n="saveYouTubeTimestamp">Save YouTube playback position</span>
-        </label>
-        <p class="help" data-i18n="saveYouTubeHelp">Resume videos from saved position when tab reloads</p>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="skip-when-offline">
-          <span data-i18n="skipWhenOffline">Skip auto-unload when offline</span>
-        </label>
-        <p class="help" data-i18n="skipWhenOfflineHelp">Prevents tabs from being discarded when network is unavailable</p>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="restore-scroll">
-          <span data-i18n="restoreScrollPosition">Restore scroll position</span>
-        </label>
-        <p class="help" data-i18n="restoreScrollHelp">Saves and restores scroll position when tabs are discarded and reloaded</p>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="only-discard-idle">
-          <span data-i18n="onlyDiscardWhenIdle">Only auto-unload when computer is idle</span>
-        </label>
-      </div>
-      <div class="setting setting-sub" id="idle-threshold-container">
-        <label for="idle-threshold" data-i18n="idleThreshold">Idle threshold:</label>
-        <select id="idle-threshold">
-          <option value="2">2 minutes</option>
-          <option value="5">5 minutes</option>
-          <option value="10">10 minutes</option>
-          <option value="15">15 minutes</option>
-        </select>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="show-badge">
-          <span data-i18n="showUnloadedCount">Show unloaded count on icon</span>
-        </label>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="show-suspend-warning">
-          <span data-i18n="showSuspendWarningLabel">Show warning before auto-suspend</span>
-        </label>
-        <p class="help" data-i18n="showSuspendWarningHelp">Displays a brief on-page toast so you can interact with the tab to keep it alive</p>
-      </div>
-      <div class="setting setting-sub" id="suspend-warning-delay-container">
-        <label for="suspend-warning-delay" data-i18n="suspendWarningDelayLabel">Warning delay:</label>
-        <select id="suspend-warning-delay">
-          <option value="1500">1.5 seconds</option>
-          <option value="3000">3 seconds</option>
-          <option value="5000">5 seconds</option>
-          <option value="8000">8 seconds</option>
-        </select>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="notify-auto-unload">
-          <span data-i18n="notifyOnAutoUnload">Notify when tabs are auto-unloaded</span>
-        </label>
-        <p class="help" data-i18n="notifyOnAutoUnloadHelp">Shows notification with reason (timer/RAM)</p>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="enable-stats">
-          <span data-i18n="trackStatistics">Track statistics</span>
-        </label>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="enable-tab-groups">
-          <span data-i18n="enableTabGroups">Show tab groups in popup</span>
-        </label>
-      </div>
-      <div class="setting">
-        <label>
-          <input type="checkbox" id="show-discarded-prefix">
-          <span data-i18n="showDiscardedPrefix">Prepend symbol to discarded tabs</span>
-        </label>
-        <div class="setting-inline" id="prefix-input-container">
-          <label for="discarded-prefix" data-i18n="discardedPrefixLabel">Symbol:</label>
-          <input type="text" id="discarded-prefix" maxlength="4" class="prefix-input">
+      <header class="card-header">
+        <span class="card-header-icon" data-icon="sliders" data-icon-size="18"></span>
+        <h2 data-i18n="behavior">Behavior</h2>
+      </header>
+
+      <div class="behavior-group">
+        <h3 class="group-title" data-i18n="behaviorProtection">Protection</h3>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="unload-pinned">
+            <span data-i18n="includePinnedTabs">Include pinned tabs</span>
+          </label>
         </div>
-        <p class="help" data-i18n="prefixHelp">Does not work on protected pages (Chrome Web Store, Google accounts, etc.)</p>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="protect-audio">
+            <span data-i18n="protectAudioTabs">Protect tabs playing audio/video</span>
+          </label>
+        </div>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="protect-form">
+            <span data-i18n="protectFormTabs">Protect tabs with unsaved forms</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="behavior-group">
+        <h3 class="group-title" data-i18n="behaviorSmart">Smart behavior</h3>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="save-youtube">
+            <span data-i18n="saveYouTubeTimestamp">Save YouTube playback position</span>
+          </label>
+          <p class="help" data-i18n="saveYouTubeHelp">Resume videos from saved position when tab reloads</p>
+        </div>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="skip-when-offline">
+            <span data-i18n="skipWhenOffline">Skip auto-unload when offline</span>
+          </label>
+          <p class="help" data-i18n="skipWhenOfflineHelp">Prevents tabs from being discarded when network is unavailable</p>
+        </div>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="restore-scroll">
+            <span data-i18n="restoreScrollPosition">Restore scroll position</span>
+          </label>
+          <p class="help" data-i18n="restoreScrollHelp">Saves and restores scroll position when tabs are discarded and reloaded</p>
+        </div>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="only-discard-idle">
+            <span data-i18n="onlyDiscardWhenIdle">Only auto-unload when computer is idle</span>
+          </label>
+        </div>
+        <div class="setting setting-sub" id="idle-threshold-container">
+          <label for="idle-threshold" data-i18n="idleThreshold">Idle threshold:</label>
+          <select id="idle-threshold">
+            <option value="2">2 minutes</option>
+            <option value="5">5 minutes</option>
+            <option value="10">10 minutes</option>
+            <option value="15">15 minutes</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="behavior-group">
+        <h3 class="group-title" data-i18n="behaviorIndicators">Indicators &amp; display</h3>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="show-badge">
+            <span data-i18n="showUnloadedCount">Show unloaded count on icon</span>
+          </label>
+        </div>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="show-suspend-warning">
+            <span data-i18n="showSuspendWarningLabel">Show warning before auto-suspend</span>
+          </label>
+          <p class="help" data-i18n="showSuspendWarningHelp">Displays a brief on-page toast so you can interact with the tab to keep it alive</p>
+        </div>
+        <div class="setting setting-sub" id="suspend-warning-delay-container">
+          <label for="suspend-warning-delay" data-i18n="suspendWarningDelayLabel">Warning delay:</label>
+          <select id="suspend-warning-delay">
+            <option value="1500">1.5 seconds</option>
+            <option value="3000">3 seconds</option>
+            <option value="5000">5 seconds</option>
+            <option value="8000">8 seconds</option>
+          </select>
+        </div>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="notify-auto-unload">
+            <span data-i18n="notifyOnAutoUnload">Notify when tabs are auto-unloaded</span>
+          </label>
+          <p class="help" data-i18n="notifyOnAutoUnloadHelp">Shows notification with reason (timer/RAM)</p>
+        </div>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="enable-stats">
+            <span data-i18n="trackStatistics">Track statistics</span>
+          </label>
+        </div>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="enable-tab-groups">
+            <span data-i18n="enableTabGroups">Show tab groups in popup</span>
+          </label>
+        </div>
+        <div class="setting">
+          <label>
+            <input type="checkbox" id="show-discarded-prefix">
+            <span data-i18n="showDiscardedPrefix">Prepend symbol to discarded tabs</span>
+          </label>
+          <div class="setting-inline" id="prefix-input-container">
+            <label for="discarded-prefix" data-i18n="discardedPrefixLabel">Symbol:</label>
+            <input type="text" id="discarded-prefix" maxlength="4" class="prefix-input">
+          </div>
+          <p class="help" data-i18n="prefixHelp">Does not work on protected pages (Chrome Web Store, Google accounts, etc.)</p>
+        </div>
       </div>
     </section>
 
-    <section class="card">
-      <h2 data-i18n="whitelist">Whitelist</h2>
-      <p class="help" data-i18n="whitelistHelp">Sites that will never be unloaded automatically</p>
-      <div id="whitelist-container"></div>
-      <div class="add-domain">
-        <input type="text" id="new-whitelist" data-i18n-placeholder="addPlaceholder" placeholder="example.com">
-        <button id="add-whitelist" class="btn" data-i18n="add">Add</button>
-      </div>
-      <div class="list-actions">
-        <button class="btn btn-sm secondary" id="export-whitelist" data-i18n="exportList">Export</button>
-        <button class="btn btn-sm secondary" id="import-whitelist" data-i18n="importList">Import</button>
-      </div>
-    </section>
+    <div class="grid-2">
+      <section class="card">
+        <header class="card-header">
+          <span class="card-header-icon card-header-icon--success" data-icon="shieldCheck" data-icon-size="18"></span>
+          <h2 data-i18n="whitelist">Whitelist</h2>
+        </header>
+        <p class="help" data-i18n="whitelistHelp">Sites that will never be unloaded automatically</p>
+        <div id="whitelist-container"></div>
+        <div class="add-domain">
+          <input type="text" id="new-whitelist" data-i18n-placeholder="addPlaceholder" placeholder="example.com">
+          <button id="add-whitelist" class="btn" data-i18n="add">Add</button>
+        </div>
+        <div class="list-actions">
+          <button class="btn btn-sm secondary" id="export-whitelist" data-i18n="exportList">Export</button>
+          <button class="btn btn-sm secondary" id="import-whitelist" data-i18n="importList">Import</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <header class="card-header">
+          <span class="card-header-icon card-header-icon--danger" data-icon="shield" data-icon-size="18"></span>
+          <h2 data-i18n="blacklist">Blacklist</h2>
+        </header>
+        <p class="help" data-i18n="blacklistHelp">Sites that will always be unloaded automatically</p>
+        <div id="blacklist-container"></div>
+        <div class="add-domain">
+          <input type="text" id="new-blacklist" data-i18n-placeholder="addPlaceholder" placeholder="example.com">
+          <button id="add-blacklist" class="btn" data-i18n="add">Add</button>
+        </div>
+        <div class="list-actions">
+          <button class="btn btn-sm secondary" id="export-blacklist" data-i18n="exportList">Export</button>
+          <button class="btn btn-sm secondary" id="import-blacklist" data-i18n="importList">Import</button>
+        </div>
+      </section>
+    </div>
 
     <section class="card">
-      <h2 data-i18n="blacklist">Blacklist</h2>
-      <p class="help" data-i18n="blacklistHelp">Sites that will always be unloaded automatically</p>
-      <div id="blacklist-container"></div>
-      <div class="add-domain">
-        <input type="text" id="new-blacklist" data-i18n-placeholder="addPlaceholder" placeholder="example.com">
-        <button id="add-blacklist" class="btn" data-i18n="add">Add</button>
-      </div>
-      <div class="list-actions">
-        <button class="btn btn-sm secondary" id="export-blacklist" data-i18n="exportList">Export</button>
-        <button class="btn btn-sm secondary" id="import-blacklist" data-i18n="importList">Import</button>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 data-i18n="supportFeedback">Support & Feedback</h2>
+      <header class="card-header">
+        <span class="card-header-icon" data-icon="messageCircle" data-icon-size="18"></span>
+        <h2 data-i18n="supportFeedback">Support & Feedback</h2>
+      </header>
 
       <div class="setting">
         <label class="toggle-label">
@@ -287,31 +331,48 @@
       </div>
     </section>
 
-    <section class="card">
-      <h2 data-i18n="statistics">Statistics</h2>
-      <div class="stats-display">
-        <div class="stat">
-          <span class="stat-value" id="total-unloaded">0</span>
-          <span class="stat-label" data-i18n="tabsUnloadedLabel">Tabs Unloaded</span>
+    <div class="grid-2">
+      <section class="card">
+        <header class="card-header">
+          <span class="card-header-icon" data-icon="barChart" data-icon-size="18"></span>
+          <h2 data-i18n="statistics">Statistics</h2>
+        </header>
+        <div class="stats-display">
+          <div class="stat">
+            <span class="stat-icon" data-icon="trash" data-icon-size="18"></span>
+            <span class="stat-value" id="total-unloaded">0</span>
+            <span class="stat-label" data-i18n="tabsUnloadedLabel">Tabs Unloaded</span>
+          </div>
+          <div class="stat">
+            <span class="stat-icon" data-icon="memory" data-icon-size="18"></span>
+            <span class="stat-value" id="total-saved">0 MB</span>
+            <span class="stat-label" data-i18n="memorySavedLabel">Memory Saved</span>
+          </div>
         </div>
-        <div class="stat">
-          <span class="stat-value" id="total-saved">0 MB</span>
-          <span class="stat-label" data-i18n="memorySavedLabel">Memory Saved</span>
-        </div>
-      </div>
-      <button id="reset-stats" class="btn secondary" data-i18n="resetStatistics">Reset Statistics</button>
-    </section>
+        <button id="reset-stats" class="btn secondary" data-i18n="resetStatistics">Reset Statistics</button>
+      </section>
 
-    <section class="card">
-      <h2 data-i18n="keyboardShortcuts">Keyboard Shortcuts</h2>
-      <p class="help"><span data-i18n="configureIn">Configure in</span> <a href="chrome://extensions/shortcuts" id="shortcuts-link">chrome://extensions/shortcuts</a></p>
-      <div class="shortcuts-list">
-        <div class="shortcut"><kbd>Alt+Shift+D</kbd> <span data-i18n="unloadCurrent">Unload current tab</span></div>
-        <div class="shortcut"><kbd>Alt+Shift+O</kbd> <span data-i18n="unloadOthers">Unload other tabs</span></div>
-        <div class="shortcut"><kbd>Alt+Shift+Right</kbd> <span data-i18n="unloadRight">Unload tabs to right</span></div>
-        <div class="shortcut"><kbd>Alt+Shift+Left</kbd> <span data-i18n="unloadLeft">Unload tabs to left</span></div>
-      </div>
-    </section>
+      <section class="card">
+        <header class="card-header">
+          <span class="card-header-icon" data-icon="keyboard" data-icon-size="18"></span>
+          <h2 data-i18n="keyboardShortcuts">Keyboard Shortcuts</h2>
+        </header>
+        <p class="help"><span data-i18n="configureIn">Configure in</span> <a href="chrome://extensions/shortcuts" id="shortcuts-link">chrome://extensions/shortcuts</a></p>
+        <div class="shortcuts-list">
+          <div class="shortcut"><kbd>Alt+Shift+D</kbd> <span data-i18n="unloadCurrent">Unload current tab</span></div>
+          <div class="shortcut"><kbd>Alt+Shift+O</kbd> <span data-i18n="unloadOthers">Unload other tabs</span></div>
+          <div class="shortcut"><kbd>Alt+Shift+Right</kbd> <span data-i18n="unloadRight">Unload tabs to right</span></div>
+          <div class="shortcut"><kbd>Alt+Shift+Left</kbd> <span data-i18n="unloadLeft">Unload tabs to left</span></div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="page-footer">
+      <span class="footer-brand">
+        <span data-icon="heart" data-icon-size="14"></span>
+        TabRest &middot; <span data-i18n="footerTagline">Calm tab management</span>
+      </span>
+    </footer>
 
     <div id="status" class="status"></div>
   </div>

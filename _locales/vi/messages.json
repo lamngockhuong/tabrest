@@ -121,6 +121,24 @@
   "settingsTitle": {
     "message": "Cài đặt TabRest"
   },
+  "settingsSubtitle": {
+    "message": "Tinh chỉnh cách TabRest quản lý tab và bộ nhớ của bạn"
+  },
+  "footerTagline": {
+    "message": "Quản lý tab nhẹ nhàng"
+  },
+  "noDomainsYet": {
+    "message": "Chưa có tên miền nào"
+  },
+  "behaviorProtection": {
+    "message": "Bảo vệ"
+  },
+  "behaviorSmart": {
+    "message": "Hành vi thông minh"
+  },
+  "behaviorIndicators": {
+    "message": "Hiển thị & thông báo"
+  },
   "autoUnload": {
     "message": "Tự động dỡ"
   },
