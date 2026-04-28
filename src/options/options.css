@@ -863,3 +863,89 @@ kbd {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary);
 }
+
+/* ---------- Responsive: narrow viewports ---------- */
+@media (max-width: 520px) {
+  .hero {
+    padding: 18px 16px 32px;
+  }
+
+  .hero-inner {
+    gap: 12px;
+  }
+
+  .logo-title {
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .hero-text {
+    min-width: 0;
+  }
+
+  .hero-text h1 {
+    font-size: 20px;
+  }
+
+  .hero-subtitle {
+    font-size: 12px;
+  }
+
+  .header-logo-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  .header-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  #theme-toggle {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .container {
+    padding: 0 16px 32px;
+  }
+
+  .card {
+    padding: 18px 16px;
+    border-radius: 12px;
+  }
+
+  .card-header {
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+  }
+
+  .card-header-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .card-header h2 {
+    font-size: 15px;
+  }
+
+  .setting:has(> select) > select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .setting:has(> select) > label[for] {
+    flex-basis: 100%;
+  }
+
+  .setting-inline,
+  .setting-sub {
+    margin-left: 0;
+  }
+}
