@@ -68,6 +68,10 @@ body {
   min-height: 100vh;
 }
 
+[data-icon] svg {
+  display: block;
+}
+
 /* ---------- Hero header ---------- */
 .hero {
   position: relative;
