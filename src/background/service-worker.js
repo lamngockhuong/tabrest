@@ -56,35 +56,24 @@ import {
 // Side-panel mode takes precedence over toolbarClickAction.
 async function configureToolbarAction() {
   const settings = await getSettings();
-  if (settings.useSidePanel && chrome.sidePanel) {
-    // Empty popup → action.onClicked fires → opens side panel.
+  // Native auto-open: sidePanel.open() loses its user-gesture token after awaiting settings.
+  const useSidePanel = settings.useSidePanel && Boolean(chrome.sidePanel);
+  if (useSidePanel || settings.toolbarClickAction !== "popup") {
     chrome.action.setPopup({ popup: "" });
-    try {
-      await chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false });
-    } catch {}
-    return;
-  }
-  if (settings.toolbarClickAction === "popup") {
-    chrome.action.setPopup({ popup: "src/popup/popup.html" });
   } else {
-    chrome.action.setPopup({ popup: "" });
+    chrome.action.setPopup({ popup: "src/popup/popup.html" });
   }
   if (chrome.sidePanel) {
     try {
-      await chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false });
+      await chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: useSidePanel });
     } catch {}
   }
 }
 
-// Toolbar click (only fires when popup is empty).
+// Toolbar click (only fires when popup is empty AND side-panel auto-open is off).
 chrome.action.onClicked.addListener(async (tab) => {
   const settings = await getSettings();
-  if (settings.useSidePanel && chrome.sidePanel) {
-    try {
-      await chrome.sidePanel.open({ windowId: tab.windowId });
-    } catch {}
-    return;
-  }
+  if (settings.useSidePanel) return;
   switch (settings.toolbarClickAction) {
     case "discard-current":
       await discardCurrentTab();
