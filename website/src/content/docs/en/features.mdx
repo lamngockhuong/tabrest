@@ -9,6 +9,8 @@ section: features
 
 TabRest provides multiple ways to manage your tabs and free up memory.
 
+**Popup UI tip**: Collapsible sections in the popup (Tabs, Quick Settings, More Actions, Sessions, Stats) remember their open/closed state across popup closes, saving you time on repeated actions.
+
 ## Automatic Unloading
 
 ### Timer-Based Unloading
@@ -73,7 +75,22 @@ Automatically unload individual tabs that consume excessive memory:
 
 **Use case**: Target memory-heavy tabs specifically rather than by age.
 
-### Skip When Offline
+#### Suspend Warning Toast
+
+See a 3-second on-page warning before auto-discard happens:
+
+- **Default**: Enabled
+- **Delay**: Configurable from 1-10 seconds (default 3 seconds)
+- **Behavior**: Displays a notification bar before auto-suspending; you can cancel by:
+  - Switching to the tab
+  - Playing audio on the page
+  - Modifying a form field
+  - Snoozing the tab
+- **Why**: Prevents losing unsaved work or interrupting important tasks
+
+**Example**: You step away from a tab with unsaved text. TabRest shows a warning 3 seconds before unloading, giving you time to save or cancel the unload.
+
+## Skip When Offline
 
 Prevent tabs from being discarded when network is unavailable:
 
@@ -94,6 +111,27 @@ Control tab unloading on-demand from the popup:
 
 Access via the TabRest icon in the toolbar or [keyboard shortcuts](/docs/keyboard-shortcuts).
 
+### Close Duplicate Tabs
+
+Automatically close duplicate tabs in the current window:
+
+- **Access**: Open popup → More Actions → Close Duplicates
+- **Behavior**: Scans all tabs by URL and keeps the oldest tab, closes newer duplicates
+- **Use case**: Quickly clean up multiple tabs of the same site opened accidentally
+
+**Example**: If you have three tabs open to `github.com/user/project`, TabRest closes the newer two and keeps the first one.
+
+### Tab Search
+
+Live search filter for tabs in the popup:
+
+- **Access**: Open popup → Search input (toggle to show)
+- **Behavior**: Real-time filtering by tab title and URL (case-insensitive)
+- **Composable**: Works with filter chips (All/Sleeping/Snoozed/Protected)
+- **Use case**: Quickly find a specific tab when you have many open
+
+**Example**: Type "github" to filter for all GitHub-related tabs.
+
 ### Toolbar Click Action
 
 Customize what happens when you click the extension icon:
@@ -101,10 +139,11 @@ Customize what happens when you click the extension icon:
 | Option | Behavior |
 |--------|----------|
 | **Open popup** | Default - shows tab list and quick settings |
+| **Open in side panel** | Open TabRest in the browser's persistent sidebar (opt-in) |
 | **Discard current** | Immediately unload current tab |
 | **Discard others** | Immediately unload all other tabs |
 
-**Use case**: Power users who want one-click discard without opening popup.
+**Use case**: Power users who want one-click discard or persistent sidebar access without opening popup.
 
 ## Power Mode
 
@@ -136,8 +175,10 @@ Protect specific tabs from automatic unloading:
 
 ### Form Tabs
 - **Default**: Protected when forms have unsaved data
-- **Detection**: Content script checks for modified input fields
-- **Configurable**: Disable "Protect tabs with unsaved forms" to allow unloading
+- **Detection**: Content script checks for modified input fields and textareas
+- **Permissions**: On-demand host permission (only requested when you enable form protection)
+- **Configurable**: Disable "Protect tabs with unsaved forms" in settings to allow unloading
+- **Note**: Works with standard HTML forms; may not detect rich text editors (TinyMCE, CKEditor) — use whitelist for those sites
 
 ### Whitelist
 - **Default**: YouTube, Gmail, Google Docs, Miro, Figma, Notion
@@ -157,6 +198,19 @@ Temporarily protect specific tabs or entire domains from auto-discard:
 
 **Use case**: Working intensively on a site without adding it to permanent whitelist.
 
+## Side Panel Mode
+
+Open TabRest in Chrome's persistent sidebar instead of a popup:
+
+- **Access**: Settings → Toolbar Action → Toggle "Open in side panel"
+- **Default**: Disabled (opt-in feature)
+- **Behavior**: Opens a sidebar panel that stays visible when switching tabs
+- **Responsive**: Panel adapts layout for different screen sizes
+- **Revert**: Toggle off to return to popup mode
+- **Requirements**: Chrome 114+ for side panel API support
+
+**Use case**: Always keep TabRest visible for quick access to tab controls and statistics without closing the panel between actions.
+
 ## Tab Groups
 
 Unload entire tab groups at once:
@@ -166,6 +220,19 @@ Unload entire tab groups at once:
 3. **All tabs in group unload** together
 
 **Note**: Tab groups are a Chrome feature (Chrome 88+). TabRest integrates with existing groups.
+
+## Import & Export
+
+Back up and restore your configuration:
+
+- **What exports**: Whitelist, blacklist, and saved sessions
+- **Format**: JSON (clipboard-based, easy to store/share)
+- **Schema version**: v1 (future-proof for migration)
+- **Import behavior**: Additive (new items added to existing list, duplicates removed automatically)
+- **Access**: Settings or Popup → Sessions section → Export/Import buttons
+- **Use case**: Transfer settings between browsers, backup before major changes, share whitelist with teammates
+
+**Example**: Export your whitelist as JSON, email it, and import on another device.
 
 ## Statistics
 
@@ -192,7 +259,8 @@ View current system RAM usage in the popup header:
 
 - **Display**: Shows RAM % alongside tab statistics
 - **Warning**: Highlights when RAM exceeds your configured threshold
-- **Tooltip**: Hover to see threshold comparison
+- **Memory Estimate**: Hover over RAM stats to see an estimate of memory freed per discarded tab (~150 MB per tab average)
+- **Tooltip**: Shows threshold comparison and estimated memory recovery
 
 ## Scroll Position Restore
 
@@ -237,6 +305,16 @@ Language auto-detected from Chrome settings.
 - Modern service worker architecture
 - Efficient resource usage
 - Compliant with latest Chrome standards
+
+### Optional Host Permissions
+- Only requests permissions when you enable form protection or other host-dependent features
+- Revoke permissions anytime in Chrome settings without losing other functionality
+- Transparent permission prompts during feature activation
+
+### On-Demand Form Detection
+- Form-checker script injected only when form protection is enabled
+- Minimal performance impact when disabled
+- Detects modified input fields, textareas, and select dropdowns
 
 ### ES Modules
 - Native JavaScript modules

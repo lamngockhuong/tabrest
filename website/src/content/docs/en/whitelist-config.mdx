@@ -137,31 +137,66 @@ Whitelist works alongside other tab protections:
 - The tab is playing audio (and "Protect audio tabs" is enabled)
 - The tab has unsaved form data (and "Protect form tabs" is enabled)
 
-## Import/Export Whitelist
+## Import/Export
 
-Currently, whitelist is stored in Chrome sync storage and syncs across devices automatically.
+TabRest supports easy backup and restore of whitelist, blacklist, and sessions via JSON:
 
-**Manual backup**:
+### Export Whitelist/Sessions
+
+1. Click TabRest icon → **⚙️ Settings** (or Popup → Sessions section)
+2. Scroll to **Whitelist** or **Sessions** section
+3. Click **Export** button
+4. JSON is copied to clipboard
+5. Paste into a text file to save
+
+**Export format** (v1 schema):
+```json
+{
+  "version": 1,
+  "whitelist": ["github.com", "localhost"],
+  "blacklist": [],
+  "sessions": [...]
+}
+```
+
+### Import Whitelist/Sessions
+
+1. Copy your saved JSON to clipboard
+2. Click TabRest icon → **⚙️ Settings** (or Popup → Sessions section)
+3. Click **Import** button
+4. Paste JSON from clipboard
+5. Click **Confirm**
+6. New items are added to your existing list
+7. Duplicates are automatically removed
+
+**Import behavior**:
+- **Additive**: New entries are added to your existing whitelist/blacklist
+- **Deduplicating**: If you import `["github.com"]` and it already exists, it's not duplicated
+- **Non-destructive**: Doesn't delete existing entries
+
+### Automatic Sync
+
+Whitelist is also stored in `chrome.storage.sync` and syncs across your Chrome browsers automatically if you have Chrome Sync enabled.
+
+**To disable auto-sync**:
+1. Go to Chrome Settings → **Sync and Google services**
+2. Toggle off **Sync everything** or uncheck **Extensions**
+3. Whitelist will remain on this device only
+
+### Manual Backup (Advanced)
+
+For technical users who prefer console access:
+
 1. Open `chrome://extensions`
 2. Find TabRest → **Details**
 3. Scroll to **Inspect views: service worker**
 4. In console, run:
    ```javascript
    chrome.storage.sync.get('settings', (data) => {
-     console.log(data.settings.whitelist);
+     console.log(JSON.stringify(data.settings.whitelist));
    });
    ```
-5. Copy the array output
-
-**Manual restore**: Edit the array in settings UI or use console:
-```javascript
-chrome.storage.sync.set({
-  settings: {
-    ...existingSettings,
-    whitelist: ['github.com', 'example.com']
-  }
-});
-```
+5. Copy the JSON array output
 
 ## Tips
 

@@ -71,8 +71,12 @@ Unloaded tabs remain visible in the tab bar and restore instantly when clicked.
 | Notifications    | Alert when tabs auto-unloaded                     |
 | Statistics       | Track tabs unloaded, memory saved                 |
 | Sessions         | Save/restore tab collections                      |
-| Side panel       | Open UI in side panel instead of popup (Manifest V3) |
+| Suspend warning  | 3-second on-page warning before auto-suspend      |
+| Side panel       | Open UI in sidebar instead of popup               |
 | Import/export    | Backup/restore sessions & whitelists via clipboard |
+| Tab search       | Live filter tabs by title + URL in popup          |
+| Close duplicates | One-click deduplication of identical tabs         |
+| Memory tooltip   | Hover RAM stats to see per-tab memory estimates   |
 
 ### Internationalization
 - English (default)
@@ -100,9 +104,29 @@ optional_host_permissions: http://*/*, https://*/*
 
 ## Version History
 
-| Version | Status  | Key Changes                                         |
+### v0.0.4 (Current)
+
+**10 new features across 3 sprints:**
+
+**Sprint 1: Quick Wins**
+- Phase 01: Close duplicate tabs in window
+- Phase 02: Tab search with live filtering (title + URL)
+- Phase 03: Persistent popup section state
+- Phase 04: Whitelist localhost & IP addresses
+- Phase 05: Memory estimate tooltip on RAM stats
+
+**Sprint 2: UX Optimization**
+- Phase 06: Auto-open changelog on minor/major updates (skip patches)
+- Phase 07: Optional host permissions + on-demand form-checker injection
+- Phase 08: Suspend warning toast (3s delay before auto-suspend)
+
+**Sprint 3: Major Features**
+- Phase 09: Chrome side panel UI (alternative to popup)
+- Phase 10: Import/export whitelists, blacklists, and sessions to clipboard
+
+| Version | Status  | Key Changes |
 | ------- | ------- | --------------------------------------------------- |
-| 0.0.4   | Current | Changelog auto-open, optional host_permissions, suspend warning, side panel, import/export |
+| 0.0.4   | Current | 10 new features: duplicates, search, suspend warning, side panel, import/export (see above) |
 | 0.0.3   |         | Tab filter chips, domain snooze fix, UX improvements|
 | 0.0.2   |         | Snooze, scroll restore, offline skip, notifications |
 | 0.0.1   | Initial | Core unload functionality                           |

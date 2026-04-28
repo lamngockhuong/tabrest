@@ -15,6 +15,7 @@
 ## Module Organization
 
 ### Import Order
+
 ```javascript
 // 1. Constants and config
 import { ALARM_NAMES, SETTINGS_DEFAULTS } from "../shared/constants.js";
@@ -27,6 +28,7 @@ import { discardTab } from "./unload-manager.js";
 ```
 
 ### Export Pattern
+
 ```javascript
 // Named exports preferred
 export function doSomething() {}
@@ -39,6 +41,7 @@ export { isWhitelisted as isUrlWhitelisted };
 ## Coding Conventions
 
 ### Async/Await
+
 ```javascript
 // Prefer async/await over .then()
 async function handleMessage(message) {
@@ -49,6 +52,7 @@ async function handleMessage(message) {
 ```
 
 ### Error Handling
+
 ```javascript
 // Try-catch with silent fallback for expected failures
 try {
@@ -66,17 +70,19 @@ try {
 ```
 
 ### Timeout Patterns
+
 ```javascript
 // Promise.race for timeouts
 const response = await Promise.race([
   chrome.tabs.sendMessage(tabId, message),
-  new Promise(resolve => setTimeout(() => resolve(null), TIMEOUT_MS))
+  new Promise((resolve) => setTimeout(() => resolve(null), TIMEOUT_MS)),
 ]);
 ```
 
 ## Chrome Extension Patterns
 
 ### Service Worker State
+
 ```javascript
 // Use chrome.alarms instead of setInterval
 chrome.alarms.create(ALARM_NAMES.TAB_CHECK, { periodInMinutes: 1 });
@@ -87,6 +93,7 @@ await saveTabActivity(tabActivity); // Persist on changes
 ```
 
 ### Debounced Storage Writes
+
 ```javascript
 let saveTimeout = null;
 
@@ -99,6 +106,7 @@ function debouncedSave() {
 ```
 
 ### Message Passing
+
 ```javascript
 // Background: keep channel open for async
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -113,6 +121,7 @@ const result = await chrome.runtime.sendMessage({ command: "get-stats" });
 ## Settings Management
 
 ### Default Values
+
 ```javascript
 // Centralize in constants.js
 export const SETTINGS_DEFAULTS = {
@@ -123,6 +132,7 @@ export const SETTINGS_DEFAULTS = {
 ```
 
 ### Sync Check Pattern
+
 ```javascript
 // Pass settings as parameter to avoid redundant fetches
 function isWhitelisted(url, settings) {
@@ -139,6 +149,7 @@ for (const tab of tabs) {
 ## UI Patterns
 
 ### DOM Manipulation
+
 ```javascript
 // Query once, cache references
 const elements = {
@@ -153,6 +164,7 @@ function updateUI(data) {
 ```
 
 ### Event Delegation
+
 ```javascript
 // Single listener for list actions
 tabList.addEventListener("click", (e) => {
@@ -165,6 +177,7 @@ tabList.addEventListener("click", (e) => {
 ## Security Considerations
 
 ### URL Validation
+
 ```javascript
 // Validate URLs before processing
 try {
@@ -178,32 +191,59 @@ try {
 ```
 
 ### Script Injection
+
 ```javascript
 // Limit to tabs that support scripting
 try {
   await chrome.scripting.executeScript({
     target: { tabId },
-    func: (prefix) => { /* safe operation */ },
+    func: (prefix) => {
+      /* safe operation */
+    },
     args: [prefix],
   });
 } catch {
   // Tab may not support injection (chrome://, about:, etc.)
+}
+
+// On-demand injection with optional host permissions (v0.0.4+)
+async function injectFormChecker(tabId, settings) {
+  if (!settings.protectFormTabs) return; // Feature gate
+
+  // Ensure permission granted
+  const hasPermission = await chrome.permissions.contains({
+    permissions: ["scripting"],
+    origins: ["http://*/*", "https://*/*"],
+  });
+
+  if (!hasPermission) {
+    // Request permission or skip injection
+    return;
+  }
+
+  await chrome.scripting.executeScript({
+    target: { tabId },
+    files: ["content/form-checker.js"],
+  });
 }
 ```
 
 ## Comments
 
 ### When to Comment
+
 ```javascript
 // Explain non-obvious business logic
 // Phase 5: Apply power mode multiplier to delay
-const effectiveDelay = settings.unloadDelayMinutes * powerConfig.delayMultiplier;
+const effectiveDelay =
+  settings.unloadDelayMinutes * powerConfig.delayMultiplier;
 
 // Document API quirks
 // Tab may close between query and discard - expected during batch ops
 ```
 
 ### JSDoc for Public Functions
+
 ```javascript
 /**
  * Check if tab should be protected from unloading
@@ -221,11 +261,66 @@ async function shouldProtectTab(tab, settings) {}
 - Console logging with `[TabRest]` prefix for easy filtering
 - No automated test framework (simple extension)
 
+## Feature Flags & Conditional Behavior
+
+### Feature Gate Pattern
+
+```javascript
+// Always check settings before executing optional features
+if (settings.protectFormTabs) {
+  await injectFormChecker(tabId);
+}
+
+if (settings.useSidePanel) {
+  // Use side panel rendering path
+} else {
+  // Use popup rendering path
+}
+```
+
+### Version-aware Behavior
+
+```javascript
+// Use semver utilities from shared/utils.js
+import { compareSemVer } from "../shared/utils.js";
+
+async function handleUpdate() {
+  const lastVersion = await storage.get("tabrest_lastVersion");
+  const currentVersion = chrome.runtime.getManifest().version;
+
+  // Only open changelog on minor/major bumps, not patches
+  if (compareSemVer(currentVersion, lastVersion) >= "minor") {
+    chrome.tabs.create({ url: "pages/changelog.html" });
+  }
+}
+```
+
+## Import/Export Schema Versioning
+
+```javascript
+// Phase 10: Versioned schemas for forward compatibility
+export const EXPORT_SCHEMA_VERSION = 1;
+
+export function validateImportData(importedData) {
+  if (!importedData.version) {
+    throw new Error("Missing schema version");
+  }
+
+  if (importedData.version > EXPORT_SCHEMA_VERSION) {
+    console.warn("Future schema version; some features may not import");
+  }
+
+  // Parse based on version
+  return parseData(importedData);
+}
+```
+
 ## Linting
 
 - **Tool:** Biome
 - **Config:** `biome.json`
 - **Commands:**
+
   ```bash
   pnpm run lint       # Check
   pnpm run lint:fix   # Auto-fix

@@ -77,6 +77,19 @@ Thử giải phóng tab thủ công để xem cách hoạt động:
 
 Tab đã giải phóng vẫn hiển thị trên thanh tab nhưng sẽ tải lại khi bạn nhấn vào.
 
+### Sử dụng Side Panel
+
+TabRest cũng có thể mở trong bảng bên (sidebar) của Chrome thay vì popup:
+
+1. **Bật Side Panel**: Cài đặt → Phần "Toolbar Action" → Bật "Mở trong Side Panel"
+2. **Sử dụng**: Nhấp biểu tượng TabRest → Bảng bên sẽ mở ở bên phải
+3. **Lợi ích**: Bảng bên ở lại trong khi bạn duyệt web, không cần nhấp lại
+4. **Kích thước**: Bạn có thể thay đổi kích thước bằng cách kéo ranh giới
+
+**So sánh**:
+- **Popup**: Đóng lại sau mỗi lần nhấp, phù hợp cho kiểm tra nhanh
+- **Side Panel**: Ở lại mở, phù hợp để giám sát liên tục
+
 ## Điều gì xảy ra khi tab bị giải phóng?
 
 TabRest sử dụng API `tabs.discard()` của trình duyệt. Tab đã giải phóng:
@@ -86,6 +99,14 @@ TabRest sử dụng API `tabs.discard()` của trình duyệt. Tab đã giải p
 - ✅ Tải lại ngay khi nhấn vào
 - ✅ Giải phóng bộ nhớ khi không hoạt động
 - ❌ Không thể chạy script nền hoặc phát media
+
+### Cập nhật và Changelog
+
+Khi TabRest được cập nhật với phiên bản **minor hoặc major** mới:
+
+- Trang **Changelog** sẽ tự động mở để bạn xem các tính năng mới
+- Cập nhật **patch** (ví dụ: v0.0.4 → v0.0.5) không mở changelog để tránh làm phiền
+- Bạn có thể xem changelog bất kỳ lúc nào trong popup → Footer → Version link
 
 ## Bước tiếp theo
 

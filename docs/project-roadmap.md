@@ -75,17 +75,16 @@
 | Performance optimization       | Medium   | Pending     |
 | Accessibility audit            | Medium   | Pending     |
 
-### Phase 2: Feature Enhancements (Q3 2026)
+### Phase 2: Performance & Reliability (Q3 2026)
 
-**Goal:** User-requested features
+**Goal:** Stabilize before Web Store launch
 
-| Feature                   | Description                       | Priority | Status      |
-| ------------------------- | --------------------------------- | -------- | ----------- |
-| Tab search/filter         | Search tabs by title/URL in popup | Medium   | Filter done |
-| Import/export settings    | Backup and restore configuration  | Low      |
-| Tab usage analytics       | Dashboard showing usage patterns  | Low      |
-| Custom keyboard shortcuts | Let users customize hotkeys       | Low      |
-| More languages            | Add more i18n translations        | Low      |
+| Task                       | Priority | Status      |
+| -------------------------- | -------- | ----------- |
+| Bug fixes from user testing| High     | In Progress |
+| Performance optimization   | Medium   | Pending     |
+| Accessibility audit        | Medium   | Pending     |
+| Edge case handling         | Medium   | Pending     |
 
 ### Phase 3: Advanced Features (Q4 2026)
 
@@ -102,13 +101,23 @@
 
 ## Version History
 
-### v0.0.4 (Current)
-- **Phase 06:** Auto-open changelog on minor/major version bumps (silent for patch updates)
-- **Phase 07:** Optional host_permissions + on-demand form-checker injection (breaking for v0.0.3 users)
-- **Phase 08:** Suspend warning toast (3s delay before auto-unload), optional form protection
-- **Phase 09:** Side panel mode (alternative to popup, reuses popup UI, new `chrome.windows.onFocusChanged` listener)
-- **Phase 10:** Import/export sessions (clipboard-based) + whitelist/blacklist export/import in options
-- Fixed per-tab JS heap memory monitoring regression
+### v0.0.4 (Current - 10 Features Complete)
+
+**Sprint 1: Quick Wins** (Phases 01-05)
+- **Phase 01:** Close duplicate tabs — one-click dedup in popup "More Actions"
+- **Phase 02:** Tab search — live filter by title + URL, composable with status chips
+- **Phase 03:** Persistent section state — collapse/expand state remembered across popup closes
+- **Phase 04:** Whitelist localhost & IP — support `localhost`, IPv4, IPv6 in whitelist/blacklist
+- **Phase 05:** Memory estimate tooltip — hover RAM stats for per-tab memory breakdown
+
+**Sprint 2: UX Optimization** (Phases 06-08)
+- **Phase 06:** Changelog auto-open — only on minor/major bumps, silent for patches (no noise)
+- **Phase 07:** Optional host permissions — moved to `optional_host_permissions`; form-checker injected on-demand via `chrome.scripting.executeScript()`; permission recovery banner on update
+- **Phase 08:** Suspend warning toast — 3s on-page warning before auto-discard, re-check protections after delay, configurable delay
+
+**Sprint 3: Bigger Features** (Phases 09-10)
+- **Phase 09:** Side panel UI — Chrome side panel alternative to popup, reuses popup.html/js/css, stays open across tabs, responsive layout
+- **Phase 10:** Import/export — clipboard-based JSON for whitelists, blacklists, and sessions; versioned schema for forward compat; merge strategy on import
 
 ### v0.0.3
 - Added tab filter chips (All/Sleeping/Snoozed/Protected)

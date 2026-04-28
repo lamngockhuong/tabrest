@@ -165,6 +165,44 @@ TabRest nên hoạt động trên trình duyệt dựa trên Chromium hỗ trợ
 
 ## Câu hỏi về tính năng
 
+### Làm sao bật chế độ Side Panel?
+
+1. Mở **Cài đặt** → Nhấn biểu tượng ⚙️
+2. Tìm phần **Toolbar Action**
+3. Bật nút chuyển **"Mở trong Side Panel"** (Open in side panel)
+4. Biểu tượng TabRest bây giờ sẽ mở một bảng bên thay vì popup
+
+**Lợi ích**: Side Panel ở lại trong khi bạn duyệt web, không cần nhấp lại để xem cập nhật.
+
+### Làm sao đóng tab trùng lặp?
+
+1. Mở **popup TabRest** (nhấp biểu tượng trên thanh công cụ)
+2. Kéo xuống phần **More Actions** (Thêm hành động)
+3. Nhấp **Close Duplicates** (Đóng tab trùng lặp)
+4. TabRest sẽ quét tất cả tab trong cửa sổ hiện tại
+5. Giữ lại tab cũ nhất và đóng các tab trùng mới hơn
+
+**Ghi chú**: Chỉ ảnh hưởng cửa sổ hiện tại, không phải các cửa sổ khác.
+
+### Làm sao sao lưu whitelist hoặc sessions?
+
+1. Mở **popup TabRest**
+2. Kéo xuống phần **Sessions** hoặc **More Actions**
+3. Nhấp nút **Export** (Xuất)
+4. Sao chép JSON vào clipboard
+5. Lưu vào tệp tin hoặc ghi chú (Google Keep, OneNote, v.v.)
+
+**Để khôi phục**: Dán JSON vào trường Nhập → Nhấp **Import** (Nhập).
+
+### Cảnh báo suspend là gì?
+
+Cảnh báo suspend là một thông báo trên trang web xuất hiện **3 giây trước** khi TabRest tự động giải phóng tab:
+
+- **Mục đích**: Cho bạn cơ hội ngăn chặn (tương tác với tab hoặc chuyển hướng)
+- **Bật/Tắt**: Cài đặt → Behavior → "Show suspend warning"
+- **Tùy chỉnh**: Thay đổi độ trễ (ms) trong **Suspend warning delay**
+- **Hành vi**: Nếu bạn nhấp, nhập, hoặc phát audio, cảnh báo sẽ bị hủy
+
 ### TabRest có thể tự động giải phóng tab khi số tab đạt X không?
 
 Hiện tại không. TabRest kích hoạt dựa trên:
@@ -183,6 +221,22 @@ Có, dùng **chế độ danh sách đen**:
 4. Chỉ các domain đó sẽ bị giải phóng; tất cả domain khác được bảo vệ
 
 Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết chi tiết.
+
+### TabRest có bảo vệ localhost và IP addresses không?
+
+Có. TabRest hỗ trợ thêm localhost và IP addresses vào danh sách trắng:
+
+**Ví dụ**:
+```
+localhost
+127.0.0.1
+192.168.1.100
+::1 (IPv6 localhost)
+```
+
+**Trường hợp sử dụng**: Bảo vệ các máy chủ cục bộ (development servers) khỏi tự động giải phóng.
+
+Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết ví dụ đầy đủ.
 
 ### TabRest có thể khôi phục tất cả tab đã giải phóng cùng lúc không?
 

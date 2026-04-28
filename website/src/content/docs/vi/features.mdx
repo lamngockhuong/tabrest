@@ -81,6 +81,16 @@ Ngăn tab bị giải phóng khi mất kết nối mạng:
 - **Hành vi**: Tạm dừng tự động giải phóng khi `navigator.onLine` là false
 - **Lý do**: Tab đã giải phóng không thể tải lại khi không có mạng
 
+### Cảnh báo trước khi suspend
+
+Nhận cảnh báo (toast) trên trang web trước khi tab bị tự động giải phóng:
+
+- **Mặc định**: Bật
+- **Khoảng thời gian**: 3 giây cảnh báo trước khi giải phóng
+- **Hành vi**: Nếu bạn tương tác với tab (click, nhập, phát audio) thì cảnh báo sẽ bị hủy
+- **Có thể tùy chỉnh**: Thay đổi độ trễ (ms) trong Cài đặt
+- **Trường hợp sử dụng**: Tránh mất bất ngờ tab mà không biết
+
 ## Điều khiển thủ công
 
 Điều khiển giải phóng tab theo yêu cầu từ popup:
@@ -93,6 +103,25 @@ Ngăn tab bị giải phóng khi mất kết nối mạng:
 | **Giải phóng bên phải** | Giải phóng tất cả tab bên phải tab hiện tại |
 
 Truy cập qua biểu tượng TabRest trên thanh công cụ hoặc [phím tắt](/vi/docs/keyboard-shortcuts).
+
+### Đóng tab trùng lặp
+
+Tự động đóng các tab trùng lặp trong cửa sổ hiện tại:
+
+- **Truy cập**: Mở popup → More Actions (Thêm hành động) → Close Duplicates (Đóng tab trùng lặp)
+- **Cách hoạt động**: Quét tất cả các tab theo URL và giữ lại tab cũ nhất, đóng các tab trùng mới hơn
+- **Trường hợp sử dụng**: Nhanh chóng dọn dẹp nhiều tab của cùng một trang web được mở nhầm
+
+**Ví dụ**: Nếu bạn có ba tab mở cùng `github.com/user/project`, TabRest sẽ đóng hai tab mới và giữ lại tab đầu tiên.
+
+### Tìm kiếm tab
+
+Tìm kiếm nhanh các tab theo tiêu đề hoặc URL:
+
+- **Truy cập**: Mở popup → Nhấn biểu tượng tìm kiếm hoặc nút toggle tìm kiếm
+- **Cách hoạt động**: Tìm kiếm live trên tiêu đề và URL (không phân biệt chữ hoa/thường)
+- **Kết hợp**: Tìm kiếm hoạt động cùng với các chip bộ lọc (Tất cả/Đang ngủ/Tạm hoãn/Được bảo vệ)
+- **Trường hợp sử dụng**: Nhanh chóng định vị tab khi bạn có nhiều tab mở
 
 ### Thao tác thanh công cụ
 
@@ -192,7 +221,8 @@ Xem mức sử dụng RAM hệ thống trong header popup:
 
 - **Hiển thị**: Hiện % RAM cùng với thống kê tab
 - **Cảnh báo**: Làm nổi bật khi RAM vượt ngưỡng đã cấu hình
-- **Tooltip**: Di chuột để xem so sánh ngưỡng
+- **Tooltip**: Di chuột để xem ước tính bộ nhớ được giải phóng (~150 MB mỗi tab)
+- **Ước tính**: Hiển thị xấp xỉ bao nhiêu bộ nhớ có thể được giải phóng nếu các tab đang ngủ được tải lại
 
 ## Khôi phục vị trí cuộn
 
@@ -221,6 +251,34 @@ Mở link trực tiếp ở trạng thái đã giải phóng:
 - **Truy cập**: Nhấn chuột phải lên link → "Mở link ở trạng thái ngủ"
 - **Hành vi**: Tạo tab, đợi tải xong, rồi giải phóng ngay
 - **Trường hợp sử dụng**: Lưu link để đọc sau mà không tốn bộ nhớ
+
+## Side Panel (Bảng bên)
+
+Mở TabRest trong một bảng bên (sidebar) thay vì popup:
+
+- **Truy cập**: Cài đặt → Toolbar Action → Bật "Mở trong Side Panel"
+- **Lợi ích**: Bảng bên luôn hiển thị khi chuyển đổi giữa các tab
+- **Bố cục**: Giao diện responsive, có thể thay đổi kích thước
+- **Trường hợp sử dụng**: Giám sát thời gian thực cho việc giải phóng tab và thống kê
+- **So sánh**: Popup đóng lại sau mỗi lần nhấp; Side Panel ở lại cho phép quan sát liên tục
+
+## Xuất/Nhập cài đặt
+
+Sao lưu và khôi phục danh sách trắng, danh sách đen, và các phiên:
+
+- **Truy cập**: Popup → Sessions section → Export/Import buttons
+- **Định dạng**: JSON (có thể sao chép từ clipboard)
+- **Hành vi Xuất**: Sao lưu danh sách trắng, danh sách đen, và tất cả phiên đã lưu
+- **Hành vi Nhập**: Tự động hợp nhất, loại bỏ các mục trùng lặp theo tên
+- **Trường hợp sử dụng**: Chuyển các cài đặt sang thiết bị khác hoặc sao lưu dữ liệu quan trọng
+
+## Trạng thái giao diện bền vững
+
+Nhớ lại trạng thái mở/đóng của các phần trong popup:
+
+- **Hoạt động**: Các phần như "Tabs in this window", "Quick Settings" ghi nhớ trạng thái
+- **Lưu trữ**: Trạng thái lưu cục bộ, khôi phục khi mở popup lại
+- **Tính năng QoL**: Cải thiện trải nghiệm người dùng với tùy chỉnh nhanh
 
 ## Hỗ trợ đa ngôn ngữ
 
