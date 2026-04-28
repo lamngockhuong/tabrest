@@ -217,6 +217,13 @@
   "domainExists": {
     "message": "Tên miền đã tồn tại"
   },
+  "domainConflict": {
+    "message": "$1 đã có trong $2 — xóa khỏi đó trước",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
   "domainAdded": {
     "message": "Đã thêm tên miền"
   },

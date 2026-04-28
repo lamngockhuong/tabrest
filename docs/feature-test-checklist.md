@@ -151,12 +151,15 @@ Configurable at `chrome://extensions/shortcuts`.
 - [ ] Invalid entry (e.g., `http://`) → input shows error, not saved.
 - [ ] Remove an entry → next auto-unload may discard that domain.
 - [ ] Context menu "Add to whitelist" on a localhost or IP tab works end-to-end.
+- [ ] Add a domain that already exists in blacklist → toast shows conflict message, not added.
 
 ## 17. Blacklist
 
 - [ ] Add a low-priority domain to blacklist.
 - [ ] Tabs on that domain discard on the very next timer tick (ignoring delay).
 - [ ] Removing entry stops aggressive discard.
+- [ ] Add a domain that already exists in whitelist → toast shows conflict message, not added.
+- [ ] Domain in both lists (e.g., via legacy state) → whitelist wins, tab is protected.
 
 ## 18. Pinned / Audio / Form Protection
 
@@ -253,6 +256,7 @@ For each of: **whitelist**, **blacklist**, **sessions**:
 - [ ] Export → JSON copied to clipboard with `version: 1` schema.
 - [ ] Empty the list, then Import the previously exported JSON → list restored, no duplicates.
 - [ ] Import a JSON with overlap → additive merge, dedup by name (sessions) or domain (whitelist/blacklist).
+- [ ] Import whitelist/blacklist with entries already in opposite list → those entries skipped (counted in skipped), no conflict created.
 - [ ] Malformed JSON → error toast, no state change.
 - [ ] Wrong schema version → rejected with clear message.
 

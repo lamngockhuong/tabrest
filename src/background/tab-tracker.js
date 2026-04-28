@@ -2,7 +2,7 @@ import { ALARM_NAMES, POWER_MODE_CONFIG } from "../shared/constants.js";
 import { getSettings, getTabActivity, saveTabActivity } from "../shared/storage.js";
 import { notifyAutoUnload } from "../shared/utils.js";
 import { getSnoozeData, isTabSnoozed } from "./snooze-manager.js";
-import { discardTab, isUrlBlacklisted } from "./unload-manager.js";
+import { discardTab, isUrlBlacklisted, isUrlWhitelisted } from "./unload-manager.js";
 
 // In-memory cache of tab activity: { tabId: lastActiveTimestamp }
 let tabActivity = {};
@@ -102,6 +102,9 @@ export async function checkAndUnloadInactiveTabs() {
     // Verify tab still exists and is eligible (O(1) lookup)
     const tab = tabMap.get(tabId);
     if (!tab || tab.active || tab.discarded) continue;
+
+    // Whitelist wins over blacklist — skip entirely (matches discardTab gate)
+    if (isUrlWhitelisted(tab.url, settings)) continue;
 
     // Blacklisted tabs: unload immediately regardless of activity time
     const blacklisted = isUrlBlacklisted(tab.url, settings);
