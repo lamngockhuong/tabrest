@@ -145,7 +145,10 @@ function getStatusBadge(tab) {
   }
   if (tab.timeUntilUnload !== null && tab.timeUntilUnload > 0) {
     const mins = Math.ceil(tab.timeUntilUnload / 60000);
-    return `<span class="badge badge-timer" title="Time until auto-unload">${icon("clock", 12)} ${mins}m</span>`;
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    const label = h === 0 ? `${m}m` : m === 0 ? `${h}h` : `${h}h${m}m`;
+    return `<span class="badge badge-timer" title="Time until auto-unload">${icon("clock", 12)} ${label}</span>`;
   }
   return "";
 }
