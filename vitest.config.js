@@ -18,6 +18,14 @@ export default defineConfig({
       ],
       reporter: ["text", "html"],
       reportsDirectory: "./coverage",
+      // Floors sit ~5pp below current numbers so refactors have headroom but
+      // a regression of >5pp fails CI. Raise as coverage grows.
+      thresholds: {
+        lines: 85,
+        statements: 85,
+        functions: 80,
+        branches: 75,
+      },
     },
     setupFiles: ["tests/setup.js"],
   },
