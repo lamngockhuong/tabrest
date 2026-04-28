@@ -327,6 +327,13 @@ footer {
   opacity: 0.9;
 }
 
+.filter-chip.disabled,
+.filter-chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 [data-theme="dark"] .filter-chip {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
@@ -396,6 +403,7 @@ footer {
 .tab-details {
   display: flex;
   flex-direction: column;
+  flex: 1;
   min-width: 0;
 }
 
@@ -459,6 +467,13 @@ footer {
   z-index: 100;
   box-shadow: var(--shadow);
   min-width: 90px;
+}
+
+/* Flip up when not enough space below */
+.snooze-dropdown.flip-up .snooze-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 4px;
 }
 
 .snooze-dropdown.open .snooze-menu {
@@ -720,7 +735,8 @@ footer {
 }
 
 .section-body-inner {
-  padding: 2px 10px 10px;
+  padding: 10px;
+  border-top: 1px solid var(--border);
 }
 
 /* Quick Actions Row */
@@ -860,6 +876,7 @@ footer {
 
 .more-actions-grid .btn {
   flex: 1;
+  min-width: 0;
 }
 
 /* Footer */
@@ -1269,5 +1286,21 @@ footer {
 
   .container {
     min-height: 100vh;
+  }
+
+  /* Let tab list grow taller in side panel and scroll inside */
+  #tabs-body.open {
+    max-height: 65vh;
+  }
+
+  .tab-list {
+    max-height: calc(65vh - 80px);
+  }
+}
+
+/* Wider side panel: take advantage of horizontal space when user widens panel */
+@media (min-height: 650px) and (min-width: 480px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
