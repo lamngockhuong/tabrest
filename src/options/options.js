@@ -136,6 +136,14 @@ function updateSuspendWarningDelayVisibility() {
 function renderDomainList(container, list, listKey) {
   container.innerHTML = "";
 
+  if (!list || list.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "domain-empty";
+    empty.textContent = t("noDomainsYet");
+    container.appendChild(empty);
+    return;
+  }
+
   for (const domain of list || []) {
     const item = document.createElement("div");
     item.className = "domain-item";
