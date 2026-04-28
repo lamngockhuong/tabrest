@@ -2,17 +2,17 @@
 // Supports both automatic error capture and manual bug reports
 // Privacy-first: strips PII (URLs, emails, domains) before any reporting
 
-import { getSettings } from "./storage.js";
 import {
-  SENTRY_DSN,
-  ERROR_QUOTA_KEY,
-  ERROR_DEDUP_KEY,
   ERROR_DAILY_CAP,
-  ERROR_DEDUP_WINDOW_MS,
-  ERROR_REPEAT_SAMPLE_RATE,
+  ERROR_DEDUP_KEY,
   ERROR_DEDUP_MAX_ENTRIES,
+  ERROR_DEDUP_WINDOW_MS,
+  ERROR_QUOTA_KEY,
+  ERROR_REPEAT_SAMPLE_RATE,
+  SENTRY_DSN,
   SURFACES,
 } from "./constants.js";
+import { getSettings } from "./storage.js";
 import { getBrowserInfo } from "./utils.js";
 
 // Module-scope transport state, populated by initErrorReporter
@@ -271,9 +271,7 @@ function fnv1a(str) {
 function computeFingerprint(sanitizedError) {
   const name = sanitizedError?.name || "Error";
   const stack = sanitizedError?.stack || "";
-  const stackPart = stack
-    ? stack.split("\n").slice(0, 3).join("|")
-    : "no-stack";
+  const stackPart = stack ? stack.split("\n").slice(0, 3).join("|") : "no-stack";
   return fnv1a(`${name}::${stackPart}`);
 }
 

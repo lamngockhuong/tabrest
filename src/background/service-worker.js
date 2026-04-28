@@ -76,7 +76,7 @@ async function configureToolbarAction() {
 }
 
 // Toolbar click (only fires when popup is empty AND side-panel auto-open is off).
-chrome.action.onClicked.addListener(async (tab) => {
+chrome.action.onClicked.addListener(async (_tab) => {
   const settings = await getSettings();
   if (settings.useSidePanel) return;
   switch (settings.toolbarClickAction) {

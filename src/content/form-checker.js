@@ -221,11 +221,13 @@ if (!window.__tabrestFormCheckLoaded) {
     try {
       const stack = err?.stack || "";
       if (!isExtensionFrame(stack)) return;
-      chrome.runtime.sendMessage({
-        command: "captureError",
-        error: { name: err?.name || "Error", message: err?.message || String(err), stack },
-        context: { surface: SENTRY_SURFACE_TAG, source },
-      }).catch(() => {}); // extension context invalidated → swallow
+      chrome.runtime
+        .sendMessage({
+          command: "captureError",
+          error: { name: err?.name || "Error", message: err?.message || String(err), stack },
+          context: { surface: SENTRY_SURFACE_TAG, source },
+        })
+        .catch(() => {}); // extension context invalidated → swallow
     } catch {
       // never crash content script over telemetry
     }
