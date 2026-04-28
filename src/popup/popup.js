@@ -82,9 +82,13 @@ const elements = {
 
 // --- Utility Functions ---
 
-// Send command to background script
 async function sendCommand(command, data = {}) {
   return await chrome.runtime.sendMessage({ command, ...data });
+}
+
+// Heuristic must stay in sync with the @media (min-height: 650px) rule in popup.css
+function isSidePanel() {
+  return window.matchMedia("(min-height: 650px)").matches;
 }
 
 // Get hostname from URL
@@ -321,6 +325,17 @@ function updateFilterCounts(tabs) {
   elements.filterCountSleeping.textContent = counts.sleeping;
   elements.filterCountSnoozed.textContent = counts.snoozed;
   elements.filterCountProtected.textContent = counts.protected;
+
+  setChipDisabled("sleeping", counts.sleeping === 0);
+  setChipDisabled("snoozed", counts.snoozed === 0);
+  setChipDisabled("protected", counts.protected === 0);
+}
+
+function setChipDisabled(filter, disabled) {
+  const chip = document.querySelector(`.filter-chip[data-filter="${filter}"]`);
+  if (!chip) return;
+  chip.classList.toggle("disabled", disabled);
+  chip.disabled = disabled;
 }
 
 // Apply search query (case-insensitive substring on title or url)
@@ -347,7 +362,7 @@ function renderTabItem(tab) {
   const favicon = tab.favIconUrl
     ? `<img class="tab-favicon" src="${tab.favIconUrl}" alt="">`
     : `<span class="tab-favicon-placeholder">${icon("globe", 14)}</span>`;
-  const title = escapeHtml(tab.title.length > 30 ? `${tab.title.slice(0, 30)}...` : tab.title);
+  const title = escapeHtml(tab.title);
   const hostname = getHostname(tab.url);
   const snoozeBtn =
     tab.active || tab.discarded
@@ -413,7 +428,7 @@ async function renderSessions() {
   const sessions = await sendCommand("get-sessions");
 
   if (!sessions?.length) {
-    elements.sessionList.innerHTML = `<div class="empty-state">${t("saveFirstSession")}</div>`;
+    elements.sessionList.innerHTML = "";
     return;
   }
 
@@ -610,7 +625,7 @@ function setupEventListeners() {
   // Filter chips click handler
   elements.tabFilters.addEventListener("click", (e) => {
     const chip = e.target.closest(".filter-chip");
-    if (!chip) return;
+    if (!chip || chip.disabled) return;
 
     // Update active state
     for (const c of document.querySelectorAll(".filter-chip")) {
@@ -635,14 +650,22 @@ function setupEventListeners() {
     const item = e.target.closest(".tab-item");
     if (!item) return;
 
-    // Handle snooze dropdown toggle
-    if (e.target.classList.contains("tab-snooze-btn") && !e.target.classList.contains("unsnooze")) {
+    const snoozeBtn = e.target.closest(".tab-snooze-btn");
+    if (snoozeBtn && !snoozeBtn.classList.contains("unsnooze")) {
       e.stopPropagation();
-      const dropdown = e.target.closest(".snooze-dropdown");
+      const dropdown = snoozeBtn.closest(".snooze-dropdown");
       if (dropdown) {
-        // Close other dropdowns
         for (const d of document.querySelectorAll(".snooze-dropdown.open")) {
-          d.classList.remove("open");
+          d.classList.remove("open", "flip-up");
+        }
+        dropdown.classList.remove("flip-up");
+        const btnRect = snoozeBtn.getBoundingClientRect();
+        const containerRect = elements.tabList.getBoundingClientRect();
+        const spaceBelow = containerRect.bottom - btnRect.bottom;
+        const spaceAbove = btnRect.top - containerRect.top;
+        // Menu is ~180px tall — flip up only when below is too tight and above has more room
+        if (spaceBelow < 200 && spaceAbove > spaceBelow) {
+          dropdown.classList.add("flip-up");
         }
         dropdown.classList.toggle("open");
       }
@@ -650,11 +673,12 @@ function setupEventListeners() {
     }
 
     // Handle unsnooze
-    if (e.target.classList.contains("unsnooze")) {
+    const unsnoozeBtn = e.target.closest(".unsnooze");
+    if (unsnoozeBtn) {
       e.stopPropagation();
-      const tabId = Number.parseInt(e.target.dataset.tabId, 10);
-      const snoozeType = e.target.dataset.snoozeType;
-      const snoozeDomain = e.target.dataset.snoozeDomain;
+      const tabId = Number.parseInt(unsnoozeBtn.dataset.tabId, 10);
+      const snoozeType = unsnoozeBtn.dataset.snoozeType;
+      const snoozeDomain = unsnoozeBtn.dataset.snoozeDomain;
 
       if (snoozeType === "domain" && snoozeDomain) {
         await sendCommand("cancel-domain-snooze", { domain: snoozeDomain });
@@ -689,16 +713,17 @@ function setupEventListeners() {
       return;
     }
 
-    if (e.target.classList.contains("tab-unload-btn")) {
+    const unloadBtn = e.target.closest(".tab-unload-btn");
+    if (unloadBtn) {
       e.stopPropagation();
-      const tabId = Number.parseInt(e.target.dataset.tabId, 10);
+      const tabId = Number.parseInt(unloadBtn.dataset.tabId, 10);
       await sendCommand("unload-tab", { tabId });
       await Promise.all([renderTabList(), updateStats()]);
       showToast(t("tabUnloaded"));
     } else if (!e.target.closest(".snooze-dropdown")) {
       const tabId = Number.parseInt(item.dataset.tabId, 10);
       await chrome.tabs.update(tabId, { active: true });
-      window.close();
+      if (!isSidePanel()) window.close();
     }
   });
 
@@ -914,6 +939,29 @@ async function init() {
     checkFormPermBanner(),
   ]);
   setupEventListeners();
+
+  // Popup re-renders on every open; side panel persists, so it must subscribe to tab changes.
+  if (isSidePanel()) setupTabEventSync();
+}
+
+function setupTabEventSync() {
+  let pending = false;
+  const scheduleRefresh = () => {
+    if (pending) return;
+    pending = true;
+    setTimeout(() => {
+      pending = false;
+      renderTabList();
+    }, 150);
+  };
+  chrome.tabs.onActivated.addListener(scheduleRefresh);
+  chrome.tabs.onUpdated.addListener((_id, changeInfo) => {
+    if ("discarded" in changeInfo || "title" in changeInfo || "favIconUrl" in changeInfo) {
+      scheduleRefresh();
+    }
+  });
+  chrome.tabs.onRemoved.addListener(scheduleRefresh);
+  chrome.tabs.onCreated.addListener(scheduleRefresh);
 }
 
 init();
