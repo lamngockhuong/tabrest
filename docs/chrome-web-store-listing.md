@@ -11,9 +11,15 @@
 
 ---
 
+## Short Description (132 chars max)
+
+Rest your tabs, free your memory - automatically unload inactive tabs to keep Chrome fast and responsive.
+
+---
+
 ## Mô tả - English (Copy nội dung bên dưới)
 
-```
+```text
 TabRest automatically unloads inactive browser tabs to free up memory and keep your computer running smoothly.
 
 🎯 PERFECT FOR:
@@ -56,9 +62,14 @@ TabRest automatically unloads inactive browser tabs to free up memory and keep y
 • YouTube position restore - resume where you left off
 • Scroll position restore when tabs reload
 • Auto-unload notifications
-• Side panel mode - open in sidebar instead of popup
-• Import/export settings - backup and restore your configuration
+• Close duplicate tabs - one-click deduplication in popup
+• Tab search - live filter by title or URL
+• Memory estimate tooltip - hover to see per-tab memory breakdown
+• Suspend warning toast - 3 second gentle warning before auto-unload
+• Side panel mode - open UI in persistent browser sidebar instead of popup (stays visible as you switch tabs)
+• Import/export settings - backup and restore whitelists, blacklists, and sessions to clipboard JSON
 • Multi-language support (English & Vietnamese)
+• Auto-open changelog - view what's new on updates (minor/major releases only)
 
 💡 HOW IT WORKS:
 TabRest uses Chrome's native tabs.discard() API. Discarded tabs:
@@ -82,7 +93,7 @@ Made with ❤️ for tab hoarders everywhere.
 
 ## Mô tả - Tiếng Việt (Copy nội dung bên dưới)
 
-```
+```text
 TabRest tự động giải phóng bộ nhớ các tab không hoạt động, giúp máy tính của bạn chạy mượt mà hơn.
 
 🎯 PHÙ HỢP CHO:
@@ -125,9 +136,14 @@ TabRest tự động giải phóng bộ nhớ các tab không hoạt động, gi
 • Khôi phục vị trí YouTube - tiếp tục xem từ chỗ dừng
 • Khôi phục vị trí cuộn khi tab tải lại
 • Thông báo khi giải phóng tab
-• Giao diện side panel (thay thế cho popup)
-• Xuất/nhập cấu hình (clipboard-based)
+• Đóng các tab trùng lặp - một cú nhấp chuột để loại bỏ bản sao
+• Tìm kiếm tab - lọc theo tiêu đề hoặc URL trực tiếp
+• Mẹo vô hạn bộ nhớ - di chuột để xem dự toán bộ nhớ cho từng tab
+• Cảnh báo tạm dừng - cảnh báo 3 giây trước khi tự động giải phóng
+• Giao diện side panel - mở trong thanh bên trình duyệt (luôn hiển thị khi bạn chuyển tab)
+• Xuất/nhập cấu hình - sao lưu và khôi phục danh sách trắng, danh sách đen và phiên làm việc sang JSON clipboard
 • Đa ngôn ngữ (Tiếng Anh & Tiếng Việt)
+• Mở trang thay đổi tự động - xem tin tức mới khi cập nhật (chỉ phát hành chính/phụ)
 
 💡 CÁCH HOẠT ĐỘNG:
 TabRest sử dụng API tabs.discard() của Chrome. Tab đã giải phóng:
@@ -152,6 +168,7 @@ Làm với ❤️ cho những người "nghiện" mở tab.
 ## Nội dung đồ họa
 
 ### Biểu tượng cửa hàng
+
 - **Kích thước:** 128 x 128 pixel
 - **Trạng thái:** ✅ Đã upload
 
@@ -160,24 +177,30 @@ Làm với ❤️ cho những người "nghiện" mở tab.
 ## Hướng dẫn tạo Screenshots (1280x800 hoặc 640x400)
 
 ### Screenshot 1: Popup chính
+
 **Nội dung:** Giao diện popup với RAM usage và các nút điều khiển
 **Cách chụp:**
+
 1. Mở extension popup
 2. Đảm bảo có một số tab đang mở để hiển thị danh sách
 3. Chụp màn hình popup đang hiển thị RAM % và các nút
 4. Thêm khung mockup Chrome và text highlight tính năng
 
 ### Screenshot 2: Tính năng Whitelist
+
 **Nội dung:** Trang Options với danh sách whitelist
 **Cách chụp:**
+
 1. Mở Options page
 2. Thêm vài domain vào whitelist (gmail.com, youtube.com, etc.)
 3. Chụp màn hình phần whitelist
 4. Thêm mũi tên/text giải thích
 
 ### Screenshot 3: Keyboard Shortcuts
+
 **Nội dung:** Minh họa các phím tắt
 **Cách tạo:**
+
 1. Thiết kế graphic hiển thị 4 phím tắt:
    - Alt+Shift+D → Unload current
    - Alt+Shift+O → Unload others
@@ -186,15 +209,19 @@ Làm với ❤️ cho những người "nghiện" mở tab.
 2. Dùng style keyboard keys đẹp
 
 ### Screenshot 4: Memory Saved Statistics
+
 **Nội dung:** Hiển thị thống kê bộ nhớ đã tiết kiệm
 **Cách chụp:**
+
 1. Sử dụng extension một thời gian để có số liệu
 2. Chụp popup hiển thị "Tabs unloaded" và "Memory saved"
 3. Highlight các con số
 
 ### Screenshot 5: Context Menu
+
 **Nội dung:** Right-click menu với các options
 **Cách chụp:**
+
 1. Click chuột phải trên bất kỳ tab
 2. Chụp context menu với các options TabRest
 3. Highlight các actions có sẵn
@@ -204,14 +231,18 @@ Làm với ❤️ cho những người "nghiện" mở tab.
 ## Hướng dẫn tạo Promotional Tiles
 
 ### Ô quảng cáo nhỏ (440x280)
+
 **Nội dung gợi ý:**
+
 - Logo TabRest ở giữa
 - Tagline: "Rest your tabs, free your RAM"
 - Background gradient nhẹ (tím/xanh dương)
 - Icon gối ngủ với Zzz
 
 ### Ô quảng cáo marquee (1400x560)
+
 **Nội dung gợi ý:**
+
 - Logo lớn bên trái
 - 3-4 feature highlights với icons:
   - ⚡ Auto-unload inactive tabs
@@ -225,12 +256,12 @@ Làm với ❤️ cho những người "nghiện" mở tab.
 
 ## Các trường bổ sung
 
-| Field                  | Value                                           |
-| ---------------------- | ----------------------------------------------- |
-| **URL chính thức**     | Không                                           |
-| **URL trang chủ**      | https://tabrest.ohnice.app                      |
-| **URL hỗ trợ**         | https://github.com/lamngockhuong/tabrest/issues |
-| **Nội dung người lớn** | ❌ Không                                         |
+| Field                  | Value                                             |
+| ---------------------- | ------------------------------------------------- |
+| **URL chính thức**     | Không                                             |
+| **URL trang chủ**      | <https://tabrest.ohnice.app>                      |
+| **URL hỗ trợ**         | <https://github.com/lamngockhuong/tabrest/issues> |
+| **Nội dung người lớn** | ❌ Không                                          |
 
 ---
 
@@ -239,8 +270,8 @@ Làm với ❤️ cho những người "nghiện" mở tab.
 - [ ] Mô tả tiếng Anh đã copy vào form
 - [ ] Mô tả tiếng Việt đã thêm (nếu cần)
 - [ ] Ít nhất 1 screenshot đã upload
-- [ ] URL trang chủ: https://tabrest.ohnice.app
-- [ ] URL hỗ trợ: https://github.com/lamngockhuong/tabrest/issues
+- [ ] URL trang chủ: <https://tabrest.ohnice.app>
+- [ ] URL hỗ trợ: <https://github.com/lamngockhuong/tabrest/issues>
 - [ ] Ô quảng cáo nhỏ (tùy chọn)
 - [ ] Ô quảng cáo marquee (tùy chọn)
 - [ ] Kiểm tra lại tất cả nội dung

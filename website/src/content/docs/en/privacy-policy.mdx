@@ -120,6 +120,36 @@ TabRest requires these permissions:
 - Modify or create tab groups
 - Share group information
 
+### Optional Host Permissions (v0.0.4+)
+
+TabRest requests **optional** host permissions only when you enable certain features:
+
+**`http://*/*` and `https://*/*` (Optional)**
+
+**When requested**: Only if you enable one of these features:
+- Form protection ("Protect tabs with unsaved forms" setting)
+- Discarded tab title prefix (to prepend symbol to unloaded tab titles)
+
+**What it does**:
+- Inject form-detection script when form protection is enabled
+- Inject title-update script when prefix setting is enabled
+
+**What it does NOT do**:
+- Runs only when the feature is enabled, not always
+- Collect or store page content
+- Access sensitive data
+
+**How to control**:
+- Enable/disable in Settings → "Protect tabs with unsaved forms" or "Show discarded prefix"
+- If you disable the feature, you can revoke the permission in Chrome:
+  1. Go to `chrome://extensions`
+  2. Find TabRest → **Details**
+  3. Scroll to **Host permissions**
+  4. Click **Remove** if the feature is disabled
+- Chrome will re-prompt if you re-enable the feature
+
+**Why optional**: Only extensions that truly need host access request it. TabRest respects your privacy by asking only when needed.
+
 ## Third-Party Services
 
 TabRest does **not** use:

@@ -137,23 +137,67 @@ Danh sách trắng hoạt động cùng các bảo vệ tab khác:
 - Tab đang phát audio (và "Bảo vệ tab audio" được bật)
 - Tab có dữ liệu form chưa lưu (và "Bảo vệ tab form" được bật)
 
-## Import/Export danh sách trắng
+## Import/Export danh sách + Sessions
 
-Hiện tại, danh sách trắng được lưu trong Chrome sync storage và tự động đồng bộ giữa các thiết bị.
+TabRest hỗ trợ xuất/nhập danh sách trắng, danh sách đen, và phiên được lưu:
 
-**Sao lưu thủ công**:
+### Xuất (Export)
+
+1. Mở **popup TabRest**
+2. Kéo xuống phần **Sessions** hoặc **More Actions**
+3. Nhấn nút **Export** (Xuất)
+4. Chọn loại dữ liệu:
+   - Whitelist (danh sách trắng)
+   - Blacklist (danh sách đen)
+   - Sessions (phiên)
+5. JSON sẽ được sao chép vào clipboard
+6. Lưu vào tệp tin hoặc ghi chú
+
+### Nhập (Import)
+
+1. Mở **popup TabRest**
+2. Kéo xuống **Sessions** hoặc **More Actions**
+3. Nhấn **Import** (Nhập)
+4. Dán JSON vào trường nhập
+5. Nhấn **Confirm** (Xác nhận)
+6. TabRest sẽ hợp nhất dữ liệu (loại bỏ trùng lặp)
+
+### Định dạng JSON
+
+JSON có sơ đồ phiên bản để tương thích trong tương lai:
+
+```json
+{
+  "version": 1,
+  "whitelist": ["github.com", "localhost"],
+  "blacklist": ["ads.example.com"],
+  "sessions": [
+    {
+      "id": "session-1",
+      "name": "Work",
+      "timestamp": 1609459200000,
+      "tabs": [...]
+    }
+  ]
+}
+```
+
+### Sao lưu thủ công (Nâng cao)
+
+Nếu muốn sao lưu bằng console:
+
 1. Mở `chrome://extensions`
 2. Tìm TabRest → **Chi tiết**
 3. Cuộn đến **Kiểm tra views: service worker**
 4. Trong console, chạy:
    ```javascript
    chrome.storage.sync.get('settings', (data) => {
-     console.log(data.settings.whitelist);
+     console.log(JSON.stringify(data.settings));
    });
    ```
-5. Sao chép mảng kết quả
+5. Sao chép kết quả JSON
 
-**Khôi phục thủ công**: Chỉnh sửa mảng trong UI cài đặt hoặc dùng console:
+**Khôi phục**: Chỉnh sửa mảng trong UI cài đặt hoặc dùng console:
 ```javascript
 chrome.storage.sync.set({
   settings: {

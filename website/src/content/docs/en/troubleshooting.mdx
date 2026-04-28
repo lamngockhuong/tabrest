@@ -262,6 +262,67 @@ If a form is filled very quickly after page load, TabRest may not detect it yet.
 
 **Solution**: Wait a few seconds after filling the form before switching tabs.
 
+## Side Panel Issues
+
+### Side Panel Doesn't Open
+
+**Issue**: Clicking toolbar icon opens popup instead of side panel, or side panel toggle is unavailable.
+
+**Possible causes**:
+
+1. **Browser too old**: Side panel API requires Chrome 114+
+2. **Setting not enabled**: Check if "Open in side panel" toggle is ON in Settings
+
+**Solution**:
+- Update Chrome to version 114 or later
+- Open Settings and enable the side panel toggle
+- Reload the extension (`chrome://extensions` → Refresh)
+
+### Side Panel Closes or Disappears
+
+**Issue**: Side panel closes when switching tabs or disappears unexpectedly.
+
+**Possible causes**:
+
+1. **Panel collapsed**: Check if the panel is collapsed at the edge
+2. **Service worker crash**: Reload the extension
+
+**Solution**:
+1. If panel is at the edge, click to expand
+2. Reload extension: Go to `chrome://extensions` → TabRest → Refresh
+3. Toggle "Open in side panel" off and back on
+
+## Form Protection Issues
+
+### Form Protection Asks for Permission
+
+**Issue**: Enabling "Protect tabs with unsaved forms" prompts for host permissions.
+
+**Explanation**: Form protection requires injecting a detection script into webpages. This requires optional host permissions.
+
+**Solution**:
+1. Click **Allow** when Chrome prompts
+2. If you accidentally clicked **Block**, you can restore:
+   - Go to `chrome://extensions`
+   - Find TabRest → **Details**
+   - Scroll to **Host permissions**
+   - Click **Allow** or change to "All sites"
+
+### Suspend Warning Doesn't Appear
+
+**Issue**: No warning toast shows before auto-suspend.
+
+**Possible causes**:
+
+1. **Host permissions not granted**: Suspend warning injection requires host access
+2. **Setting disabled**: Check if "Show suspend warning" is enabled
+3. **Service worker crashed**: Reload the extension
+
+**Solution**:
+1. Open Settings and enable "Show suspend warning"
+2. Check host permissions (see "Form Protection Asks for Permission" above)
+3. Reload extension: `chrome://extensions` → TabRest → Refresh
+
 ## Bug Reporting
 
 If you encounter a bug not listed here:

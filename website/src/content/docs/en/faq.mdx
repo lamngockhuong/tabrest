@@ -165,6 +165,59 @@ TabRest should work on Chromium-based browsers with Manifest V3 support:
 
 ## Feature Questions
 
+### How do I enable side panel mode?
+
+TabRest can open in a persistent sidebar instead of a popup:
+
+1. Click TabRest icon → **⚙️ Settings** button
+2. Scroll to **Toolbar Action** section
+3. Toggle **Open in side panel** ON
+4. Next click will open TabRest in the sidebar instead of a popup
+5. The panel stays open while you switch between tabs
+
+**Note**: Requires Chrome 114+. If unavailable, your browser is too old.
+
+### How do I close duplicate tabs?
+
+Use the built-in duplicate tab closer:
+
+1. Open TabRest popup
+2. Scroll to **More Actions** section
+3. Click **Close Duplicates**
+4. TabRest scans the current window and closes newer duplicate tabs, keeping the oldest one
+
+**Example**: If you accidentally opened `github.com` three times, TabRest closes tabs #2 and #3, keeping tab #1.
+
+### How do I back up my whitelist or sessions?
+
+Export your configuration to JSON and save/share it:
+
+1. Click TabRest icon → **⚙️ Settings** (or open Popup → Sessions section)
+2. Scroll to **Whitelist** or **Sessions** section
+3. Click **Export**
+4. JSON is copied to clipboard
+5. Save it to a file or email it
+
+To restore on another device:
+1. Click **Import**
+2. Paste the JSON from clipboard
+3. New items are added to your existing list (duplicates removed automatically)
+
+### What is the suspend warning toast?
+
+A 3-second on-page notification that appears before TabRest auto-unloads a tab:
+
+- **What it shows**: "Suspending tab in 3 seconds..." message on the page
+- **Why**: Gives you a chance to save work or cancel the unload
+- **How to cancel**: 
+  - Click on the tab (switch focus to it)
+  - Play audio on the page
+  - Edit a form field
+  - Snooze the tab
+- **Customizable**: Adjust delay in Settings (1-10 seconds)
+
+**Example**: You step away from your browser and a tab is about to be unloaded for memory. The warning appears, giving you 3 seconds to cancel if you were still using it.
+
 ### Can TabRest auto-unload tabs after X number of tabs are open?
 
 Not currently. TabRest triggers based on:
@@ -183,6 +236,19 @@ Yes, using **blacklist mode**:
 4. Only those domains will be unloaded; all others are protected
 
 See [Whitelist Configuration](/docs/whitelist-config) for details.
+
+### Does TabRest support localhost and IP addresses in whitelist?
+
+Yes. You can whitelist local development servers:
+
+```
+localhost
+127.0.0.1
+192.168.1.100
+::1 (IPv6 loopback)
+```
+
+**Use case**: Protect your local development environment from auto-unload while keeping other sites unloaded.
 
 ### Can TabRest restore all unloaded tabs at once?
 

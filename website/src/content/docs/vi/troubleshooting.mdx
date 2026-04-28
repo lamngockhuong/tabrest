@@ -262,6 +262,88 @@ Nếu form được điền rất nhanh sau khi trang tải, TabRest có thể c
 
 **Giải pháp**: Đợi vài giây sau khi điền form trước khi chuyển tab.
 
+## Side Panel không mở
+
+**Vấn đề**: Side Panel (bảng bên) không xuất hiện hoặc không phản hồi.
+
+### Kiểm tra cài đặt Side Panel
+
+1. Mở **Cài đặt** (nhấn ⚙️ trong popup)
+2. Tìm phần **Toolbar Action**
+3. Xác minh nút **"Mở trong Side Panel"** được bật
+4. Nếu tắt, hãy bật nó
+
+### Tải lại tiện ích
+
+Nếu Side Panel không mở dù đã bật:
+
+1. Vào `chrome://extensions`
+2. Tìm TabRest → Nhấn biểu tượng làm mới
+3. Thử lại
+
+### Chrome yêu cầu phiên bản mới
+
+Side Panel yêu cầu Chrome 114+. Kiểm tra phiên bản:
+
+1. Vào `chrome://version`
+2. Nếu phiên bản < 114, cập nhật Chrome (menu → Giúp → Thông tin về Google Chrome)
+
+## Cảnh báo suspend không xuất hiện
+
+**Vấn đề**: Không nhìn thấy thông báo cảnh báo trước khi tab bị giải phóng.
+
+### Kiểm tra cài đặt cảnh báo
+
+1. Mở **Cài đặt**
+2. Tìm phần **Behavior**
+3. Xác minh **"Show suspend warning"** được bật
+4. Kiểm tra **"Suspend warning delay"** > 0 (nên ≥ 1000 ms)
+
+### Xác minh tab đang bị tự động giải phóng
+
+Cảnh báo chỉ xuất hiện khi tab **tự động** giải phóng (không giải phóng thủ công):
+
+1. Kiểm tra cài đặt hẹn giờ (ví dụ: 30 phút)
+2. Không tương tác với tab trong thời gian hẹn giờ
+3. Sau khi hẹn giờ hết, bạn sẽ thấy cảnh báo trước 3 giây
+
+**Ghi chú**: Giải phóng thủ công không hiển thị cảnh báo.
+
+### Trang web chặn toast
+
+Một số trang web có thể chặn toast notification:
+
+**Giải pháp**: Cảnh báo vẫn hoạt động nếu bạn nhìn thấy nó trên một số trang khác.
+
+## Form Protection xin quyền
+
+**Vấn đề**: TabRest yêu cầu quyền host (`http://*/*`, `https://*/*`) cho form protection.
+
+### Tại sao cần quyền này?
+
+Để phát hiện form chưa lưu, TabRest cần inject content script vào các trang web. Quyền này là **tùy chọn** - bạn có thể từ chối nó.
+
+### Cấp quyền
+
+1. Khi TabRest yêu cầu, nhấn **Cho phép** (Allow)
+2. Hoặc trong **Cài đặt** → Behavior → Bật "Protect tabs with unsaved forms"
+3. Chrome sẽ nhắc bạn cấp quyền
+
+### Từ chối quyền
+
+- Nhấn **Từ chối** (Block) hoặc **Tất cả các trang trên trang web này**
+- Form protection sẽ bị vô hiệu
+- Bạn vẫn có thể dùng các tính năng khác
+
+### Khôi phục quyền đã từ chối
+
+Nếu bạn đã từ chối và muốn cho phép lại:
+
+1. Vào `chrome://extensions`
+2. Tìm TabRest → **Chi tiết**
+3. Cuộn xuống **Quyền** (Permissions)
+4. Nhấn **Cho phép trên tất cả các trang** (Allow on all sites)
+
 ## Báo cáo lỗi
 
 Nếu bạn gặp lỗi không có trong danh sách này:

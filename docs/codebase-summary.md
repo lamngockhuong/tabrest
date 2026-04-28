@@ -5,7 +5,7 @@
 - **Type:** Chrome Extension (Manifest V3)
 - **Language:** Vanilla JavaScript (ES Modules)
 - **Build:** No build step required
-- **Lines of Code:** ~5,400 (src/)
+- **Lines of Code:** ~6,400 (src/) as of v0.0.4
 - **Package Manager:** pnpm
 
 ## Directory Structure
@@ -34,16 +34,16 @@ tabrest/
 
 ### Background (Service Worker)
 
-| File                 | LOC  | Purpose                                          |
-| -------------------- | ---- | ------------------------------------------------ |
-| `service-worker.js`  | 564  | Orchestrator: events, alarms, message routing    |
-| `unload-manager.js`  | 238  | Core discard logic, protection checks, batch ops |
-| `tab-tracker.js`     | 173  | LRU activity tracking, inactivity timer checks   |
-| `memory-monitor.js`  | 157  | System RAM monitoring, per-tab JS heap tracking  |
-| `snooze-manager.js`  | ~120 | Temporary tab/domain protection                  |
-| `session-manager.js` | ~130 | Save/restore tab sessions, import with merge & dedup |
-| `stats-collector.js` | ~80  | Usage statistics tracking                        |
-| `form-injector.js`  | ~60  | On-demand form-checker injection + caching       |
+| File                 | LOC | Purpose                                          |
+| -------------------- | --- | ------------------------------------------------ |
+| `service-worker.js`  | 618 | Orchestrator: events, alarms, message routing    |
+| `unload-manager.js`  | 348 | Core discard logic, protection checks, batch ops |
+| `tab-tracker.js`     | 172 | LRU activity tracking, inactivity timer checks   |
+| `memory-monitor.js`  | 196 | System RAM monitoring, per-tab JS heap tracking  |
+| `snooze-manager.js`  | 164 | Temporary tab/domain protection                  |
+| `session-manager.js` | 209 | Save/restore tab sessions, import with merge & dedup |
+| `stats-collector.js` | 99  | Usage statistics tracking                        |
+| `form-injector.js`   | 24  | On-demand form-checker injection (lazy-loaded)   |
 
 ### Content Scripts
 
@@ -54,27 +54,29 @@ tabrest/
 
 ### UI Components
 
-| File                   | LOC  | Purpose                             |
-| ---------------------- | ---- | ----------------------------------- |
-| `popup/popup.js`       | 715  | Main popup logic, tab list, actions |
-| `popup/popup.html`     | 238  | Popup markup                        |
-| `popup/popup.css`      | 1053 | Popup styles                        |
-| `options/options.js`   | 297  | Settings management                 |
-| `options/options.html` | 267  | Options page markup                 |
-| `options/options.css`  | 401  | Options styles                      |
+| File                   | LOC | Purpose                             |
+| ---------------------- | --- | ----------------------------------- |
+| `popup/popup.js`       | 974 | Main popup logic, tab list, actions |
+| `popup/popup.html`     | 238 | Popup markup (reused for side panel)|
+| `popup/popup.css`      | 1053| Popup styles                        |
+| `options/options.js`   | 428 | Settings management                 |
+| `options/options.html` | 267 | Options page markup                 |
+| `options/options.css`  | 401 | Options styles                      |
 
 ### Shared Utilities
 
-| File           | LOC | Purpose                                     |
-| -------------- | --- | ------------------------------------------- |
-| `constants.js` | 99  | Default settings, alarm names, storage keys |
-| `storage.js`   | 39  | Chrome storage wrapper with caching         |
-| `utils.js`     | 51  | formatBytes, notification helper, semver parsing |
-| `permissions.js` | 32 | Check/request/remove host permissions       |
-| `i18n.js`      | 48  | Internationalization helpers                |
-| `theme.js`     | 88  | Dark/light mode management                  |
-| `icons.js`     | 64  | SVG icon definitions                        |
-| `import-export.js` | 45 | Session/config export/import with schema validation |
+| File                | LOC | Purpose                                     |
+| ------------------- | --- | ------------------------------------------- |
+| `constants.js`      | 98  | Default settings, alarm names, storage keys |
+| `storage.js`        | 39  | Chrome storage wrapper with caching         |
+| `utils.js`          | 141 | formatBytes, notification, semver, tab search helpers |
+| `permissions.js`    | 43  | Check/request/remove host permissions       |
+| `i18n.js`           | 48  | Internationalization helpers                |
+| `theme.js`          | 91  | Dark/light mode management                  |
+| `icons.js`          | 83  | SVG icon definitions                        |
+| `import-export.js`  | 43  | Session/config export/import with schema validation |
+| `error-reporter.js` | 232 | Anonymous error reporting                   |
+| `log-collector.js`  | 155 | Diagnostic log aggregation                  |
 
 ### Pages
 
@@ -108,11 +110,19 @@ service-worker.js (orchestrator)
 ```javascript
 {
   autoUnloadOnStartup: boolean,
-  unloadDelayMinutes: number,      // 0-240
-  memoryThresholdPercent: number,  // 0-100
-  whitelist: string[],             // domains
+  unloadDelayMinutes: number,        // 0-240
+  memoryThresholdPercent: number,    // 0-100
+  whitelist: string[],               // domains
   blacklist: string[],
-  // ... see constants.js SETTINGS_DEFAULTS
+  perTabJsHeapThresholdMB: number,   // 0-1024, 0=disabled
+  powerMode: string,                 // 'battery-saver'|'normal'|'performance'
+  onlyDiscardWhenIdle: boolean,
+  idleThresholdMinutes: number,
+  skipWhenOffline: boolean,
+  useSidePanel: boolean,             // Phase 09: side panel mode toggle
+  showSuspendWarning: boolean,       // Phase 08: pre-discard toast
+  suspendWarningDelayMs: number,     // 3000ms default
+  // ... see constants.js SETTINGS_DEFAULTS for complete list
 }
 ```
 
@@ -132,6 +142,13 @@ service-worker.js (orchestrator)
   domains: { [hostname]: expiresAt }
 }
 ```
+
+### Other Storage Keys (chrome.storage.local)
+- `popup_section_state` — Persistent collapse state for popup sections (Phase 03)
+- `tabrest_lastVersion` — Current version for changelog gating (Phase 06)
+- `tabrest_snooze` — Active snooze timers
+- `tabrest_scroll_positions` — Cached scroll positions (max 100)
+- `youtube_timestamps` — YouTube playback positions (7-day max age)
 
 ## External Dependencies
 
@@ -156,8 +173,22 @@ pnpm run format     # Format code
 pnpm run ci         # Full CI check
 ```
 
+## Important Implementation Notes
+
+### Optional Host Permissions (v0.0.4+)
+- `http://*/*` and `https://*/*` declared as `optional_host_permissions` in manifest
+- Requested on-demand only if `protectFormTabs` is enabled
+- `form-injector.js` uses `permissions.requestHostPermissions()` to recover access after updates
+- On-demand injection via `chrome.scripting.executeScript()` reduces manifest impact
+
+### Side Panel (v0.0.4+)
+- Reuses `popup.html/js/css` when `useSidePanel` setting is true
+- Controlled by `chrome.sidePanel.setOptions()` during `runtime.onInstalled`
+- New `windows.onFocusChanged` listener updates badge across side panel and main window
+- Popup and side panel communicate via standard `chrome.runtime.sendMessage()`
+
 ## File Size Limits
 
 - Target: < 200 LOC per file for maintainability
-- Current largest: `popup.js` (715 LOC), `popup.css` (1053 LOC)
+- Current largest: `popup.js` (974 LOC), `popup.css` (1053 LOC)
 - Consider splitting popup into components if it grows further

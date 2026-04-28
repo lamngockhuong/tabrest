@@ -23,13 +23,25 @@
 - **Per-tab memory limit** - Unload tabs using >100MB-1GB JS heap
 - **Startup unload** - Free memory when browser opens
 - **Manual controls** - Unload current/left/right/other tabs
+- **Close duplicate tabs** - One-click dedup in current window
+- **Tab search** - Live filter tab list by title or URL
 - **Tab groups** - Unload entire tab groups
+- **Side panel mode** - Open TabRest in Chrome's side panel (opt-in)
 - **Snooze tabs/sites** - Temporarily protect tabs or domains (30min-2hrs)
+- **Suspend warning toast** - 3s on-page warning before auto-discard
 - **Visual indicator** - Customizable prefix (💤) on discarded tab titles
-- **Whitelist** - Protect sites from auto-unload
+- **Whitelist** - Protect sites from auto-unload (supports localhost & IP)
+- **Import/Export** - Back up whitelists, blacklists, and sessions to JSON
+- **Sessions** - Save and restore tab sets
 - **Scroll restore** - Restore scroll position when tabs reload
+- **YouTube timestamp** - Resume videos at last position after reload
 - **Skip when offline** - Don't discard tabs when network unavailable
+- **Idle-only mode** - Only auto-unload when computer is idle
+- **Power Mode** - Battery-saver, normal, or performance profiles
 - **Auto-unload notifications** - Get notified when tabs are unloaded
+- **Memory tooltip** - Hover stats to see estimated RAM saved per tab
+- **Auto-open changelog** - Opens release notes on minor/major updates
+- **Optional host permissions** - Form protection only requests access when enabled
 - **RAM usage display** - Live RAM % in popup header
 - **Statistics** - Track tabs unloaded and memory saved
 - **Multi-language** - English and Vietnamese supported
@@ -68,17 +80,20 @@ TabRest uses Chrome's native `chrome.tabs.discard()` API to unload tabs. Discard
 
 ## Project Structure
 
-```
+```text
 tabrest/
 ├── manifest.json           # Extension config (MV3)
 ├── _locales/               # i18n translations (en, vi)
 ├── src/
 │   ├── background/         # Service worker modules
-│   ├── popup/              # Popup UI
+│   ├── content/            # Form checker, YouTube tracker
+│   ├── popup/              # Popup / side panel UI
 │   ├── options/            # Settings page
+│   ├── pages/              # Onboarding, changelog
 │   └── shared/             # Shared utilities
 ├── icons/                  # Extension icons
-└── docs/                   # Store assets
+├── website/                # Astro docs site (tabrest.ohnice.app)
+└── docs/                   # Project documentation
 ```
 
 ## Development

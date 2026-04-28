@@ -120,6 +120,26 @@ TabRest yêu cầu các quyền sau:
 - Sửa đổi hoặc tạo nhóm tab
 - Chia sẻ thông tin nhóm
 
+## Quyền tùy chọn (Optional Permissions)
+
+TabRest yêu cầu quyền **tùy chọn** cho một số tính năng. Bạn có toàn quyền kiểm soát:
+
+### `http://*/*` và `https://*/*` - Kiểm tra form chưa lưu
+
+**Khi cần**:
+- Bật "Bảo vệ tab với form chưa lưu" trong Cài đặt
+- Bật tính năng "Prepend symbol to discarded tabs" (thêm ký hiệu vào tab đã giải phóng)
+
+**Làm gì**:
+- Injection content script để phát hiện trường input đã thay đổi
+- Thêm ký hiệu vào tiêu đề tab đã giải phóng
+
+**Bạn có thể**:
+- Tắt tính năng bất kỳ lúc nào → quyền sẽ được gỡ bỏ
+- Chọn từ chối quyền → tính năng vẫn hoạt động nhưng form protection bị vô hiệu
+
+**Ghi chú**: Quyền này là **tùy chọn** - bạn chỉ cấp nó khi cần tính năng.
+
 ## Dịch vụ bên thứ ba
 
 TabRest **không** sử dụng:
