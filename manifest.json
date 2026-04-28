@@ -17,6 +17,9 @@
     "notifications",
     "sidePanel"
   ],
+  "host_permissions": [
+    "https://*.ingest.us.sentry.io/*"
+  ],
   "optional_host_permissions": [
     "http://*/*",
     "https://*/*"

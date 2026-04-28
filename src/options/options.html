@@ -317,14 +317,6 @@
         <h2 data-i18n="supportFeedback">Support & Feedback</h2>
       </header>
 
-      <div class="setting">
-        <label class="toggle-label">
-          <input type="checkbox" id="enable-error-reporting" checked>
-          <span data-i18n="enableErrorReporting">Send anonymous error reports</span>
-        </label>
-        <p class="help" data-i18n="errorReportingHelp">Automatically report crashes to help improve TabRest. No personal data collected.</p>
-      </div>
-
       <div class="support-links">
         <a href="https://github.com/lamngockhuong/tabrest/issues" target="_blank" class="support-link">
           <span data-icon="github" data-icon-size="16"></span>
@@ -335,6 +327,27 @@
           <span data-i18n="askQuestion">Ask a Question</span>
         </a>
       </div>
+    </section>
+
+    <section class="card" id="privacy-section">
+      <header class="card-header">
+        <span class="card-header-icon" data-icon="shieldCheck" data-icon-size="18"></span>
+        <h2 data-i18n="privacyDiagnosticsHeader">Privacy &amp; Diagnostics</h2>
+      </header>
+      <p class="help" data-i18n="errorReportingHint">Help improve TabRest by sending anonymous error reports. Disabled by default. No URLs, page titles, or personal data are sent.</p>
+      <div class="setting">
+        <label class="toggle-row">
+          <input type="checkbox" id="enable-error-reporting" />
+          <span data-i18n="enableErrorReportingLabel">Enable anonymous error reporting</span>
+        </label>
+      </div>
+      <details class="advanced-block">
+        <summary data-i18n="advancedDsnSummary">Advanced: Custom Sentry DSN</summary>
+        <input type="text" id="custom-sentry-dsn" placeholder="https://...@sentry.io/..." spellcheck="false" />
+        <p class="hint" data-i18n="customDsnHint">Leave empty to use the default. Only HTTPS DSNs are accepted.</p>
+        <p id="dsn-validation-msg" class="error-msg" hidden></p>
+      </details>
+      <a href="https://tabrest.ohnice.app/en/privacy-policy/#error-reporting" target="_blank" rel="noopener" class="privacy-policy-link" data-i18n="viewPrivacyPolicy">View privacy policy</a>
     </section>
 
     <div class="grid-2">

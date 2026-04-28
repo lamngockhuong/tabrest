@@ -1,10 +1,11 @@
 # TabRest - Project Roadmap
 
-## Current Version: 0.0.4
+## Current Version: 0.0.5
 
 ### Completed Features
 
 #### Core Functionality
+
 - [x] Auto-unload inactive tabs (configurable 15min-4hrs)
 - [x] Memory threshold monitoring (60-90% RAM)
 - [x] Per-tab JS heap limit (100MB-1GB)
@@ -13,6 +14,7 @@
 - [x] Minimum tab count threshold
 
 #### Manual Controls
+
 - [x] Unload current tab (switches to adjacent)
 - [x] Unload other tabs
 - [x] Unload tabs to left/right
@@ -22,6 +24,7 @@
 - [x] Configurable toolbar click action
 
 #### Protection Rules
+
 - [x] Domain whitelist
 - [x] Domain blacklist (immediate unload)
 - [x] Pinned tab protection
@@ -31,6 +34,7 @@
 - [x] Snooze domain (30min-2hrs)
 
 #### Quality of Life
+
 - [x] Visual prefix on discarded tabs (💤)
 - [x] Scroll position restore
 - [x] YouTube timestamp save/restore
@@ -43,6 +47,7 @@
 - [x] Copy tab list to clipboard
 
 #### UI/UX
+
 - [x] Popup with tab list and status
 - [x] Options page with all settings
 - [x] Onboarding page for new users
@@ -51,12 +56,39 @@
 - [x] Internationalization (EN, VI)
 
 #### Infrastructure
+
 - [x] Manifest V3 compliance
 - [x] No build step (vanilla JS)
 - [x] Biome linting
 - [x] CI pipeline (GitHub Actions)
 - [x] Release-please automation
 - [x] Astro documentation website
+
+---
+
+## Version History (Recent)
+
+### v0.1.0 (Upcoming - Error Reporting)
+
+#### Major Features
+
+- [x] Optional anonymous error reporting via Sentry SaaS (opt-in, default OFF)
+- [x] "Send to Sentry" button in bug report modal alongside GitHub copy
+- [x] Privacy & Diagnostics section in options page
+- [x] Custom Sentry DSN advanced setting for power users
+
+#### Changes
+
+- Force-flip `enableErrorReporting` to `false` on install + update (v0.0.5 never sent data remotely)
+- New `host_permissions: ["https://*.ingest.us.sentry.io/*"]` — existing users see Chrome permission acceptance prompt on update
+
+#### Privacy & Security
+
+- Client-side PII redaction (URLs, emails, IPs) → `[REDACTED]`
+- Server-side IP anonymization via Sentry dashboard setting
+- Rate limiting: 100 events/day/user, 24h dedup window, 0.1 sample rate for repeats
+- Data retention: 30 days on Sentry (free tier default)
+- Full disclosure: <https://tabrest.ohnice.app/en/privacy-policy/#error-reporting>
 
 ---
 
@@ -79,12 +111,12 @@
 
 **Goal:** Stabilize before Web Store launch
 
-| Task                       | Priority | Status      |
-| -------------------------- | -------- | ----------- |
-| Bug fixes from user testing| High     | In Progress |
-| Performance optimization   | Medium   | Pending     |
-| Accessibility audit        | Medium   | Pending     |
-| Edge case handling         | Medium   | Pending     |
+| Task                        | Priority | Status      |
+| --------------------------- | -------- | ----------- |
+| Bug fixes from user testing | High     | In Progress |
+| Performance optimization    | Medium   | Pending     |
+| Accessibility audit         | Medium   | Pending     |
+| Edge case handling          | Medium   | Pending     |
 
 ### Phase 3: Advanced Features (Q4 2026)
 
@@ -123,11 +155,13 @@
 - Import/export — clipboard-based JSON for whitelists, blacklists, and sessions; versioned schema for forward compat; merge strategy on import
 
 ### v0.0.3
+
 - Added tab filter chips (All/Sleeping/Snoozed/Protected)
 - Fixed cancel snooze for domain-snoozed tabs
 - Improved snooze button UX (show on hover)
 
 ### v0.0.2
+
 - Added snooze functionality (tabs and domains)
 - Added scroll position restore
 - Added skip when offline option
@@ -136,6 +170,7 @@
 - Bug fixes and performance improvements
 
 ### v0.0.1 (Initial)
+
 - Core auto-unload functionality
 - Timer and memory-based unloading
 - Whitelist/blacklist protection
@@ -171,6 +206,7 @@
 ## Contributing
 
 Contributions welcome! Priority areas:
+
 1. Bug reports and fixes
 2. New language translations
 3. Documentation improvements

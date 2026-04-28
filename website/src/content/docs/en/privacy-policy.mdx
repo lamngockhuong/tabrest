@@ -232,6 +232,41 @@ We may update this policy occasionally. Changes will be:
 - GitHub release notes
 - Extension update description (Chrome Web Store)
 
+## Error Reporting
+
+_Crash reports via Sentry SaaS (US region)._
+
+TabRest can send anonymous crash reports to help fix bugs faster. **This feature is OFF by default** — you must opt in via Options → Privacy & Diagnostics.
+
+**What is sent when enabled:**
+
+- Sanitized error name, message, and stack trace (URLs, email addresses, and IP addresses replaced with `[REDACTED]`)
+- Extension version, browser name and version, OS platform string
+- Tab counts only: total, discarded, pinned, audible, and window count — no URLs or page titles
+- System memory statistics: usage percentage, total RAM, available RAM
+- Settings values (auto-unload timer, RAM threshold, feature flags, etc.) — whitelist and blacklist domains are **excluded**; only their entry counts are included
+- Cumulative stats: tabs suspended all-time and today, install date
+
+**What is NEVER sent:**
+
+- URLs of pages you visit
+- Page titles, content, form data, or scroll positions
+- Email addresses or IP addresses (redacted client-side before transmission)
+- Your whitelist or blacklist domains
+- Any identifier that can link a report to you
+
+**Manual bug reports:** When you click "Send to Sentry" in the popup bug-report modal, a sanitized description (PII stripped) plus the diagnostics snapshot above is included — nothing more.
+
+**Third party:** Reports are sent to [Sentry](https://sentry.io) (US region, `*.ingest.us.sentry.io`). See [Sentry's Privacy Policy](https://sentry.io/privacy/) for their data practices.
+
+**Your IP address:** The Sentry payload explicitly sets `user.ip_address: null` so Sentry does not associate your IP with error events.
+
+**Data retention:** Sentry retains events for 30 days by default, then auto-deletes them.
+
+**How to disable:** Open the extension Options page → Privacy & Diagnostics → uncheck "Enable anonymous error reporting". Already-sent reports will be deleted on retention expiry and cannot be recalled.
+
+**Custom DSN:** Advanced users may supply their own Sentry DSN in Options. The same sanitization rules apply regardless of destination.
+
 ## Contact
 
 Questions or concerns about privacy?

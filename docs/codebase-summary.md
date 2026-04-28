@@ -34,49 +34,49 @@ tabrest/
 
 ### Background (Service Worker)
 
-| File                 | LOC | Purpose                                          |
-| -------------------- | --- | ------------------------------------------------ |
-| `service-worker.js`  | 618 | Orchestrator: events, alarms, message routing    |
-| `unload-manager.js`  | 348 | Core discard logic, protection checks, batch ops |
-| `tab-tracker.js`     | 172 | LRU activity tracking, inactivity timer checks   |
-| `memory-monitor.js`  | 196 | System RAM monitoring, per-tab JS heap tracking  |
-| `snooze-manager.js`  | 164 | Temporary tab/domain protection                  |
-| `session-manager.js` | 209 | Save/restore tab sessions, import with merge & dedup |
-| `stats-collector.js` | 99  | Usage statistics tracking                        |
-| `form-injector.js`   | 24  | Form-checker injection (eager on page load + lazy on demand) |
+| File                 | LOC | Purpose                                                                                                           |
+| -------------------- | --- | ----------------------------------------------------------------------------------------------------------------- |
+| `service-worker.js`  | 618 | Orchestrator: events, alarms, message routing; error capture handler for `captureError`/`captureMessage` commands |
+| `unload-manager.js`  | 348 | Core discard logic, protection checks, batch ops                                                                  |
+| `tab-tracker.js`     | 172 | LRU activity tracking, inactivity timer checks                                                                    |
+| `memory-monitor.js`  | 196 | System RAM monitoring, per-tab JS heap tracking                                                                   |
+| `snooze-manager.js`  | 164 | Temporary tab/domain protection                                                                                   |
+| `session-manager.js` | 209 | Save/restore tab sessions, import with merge & dedup                                                              |
+| `stats-collector.js` | 99  | Usage statistics tracking                                                                                         |
+| `form-injector.js`   | 24  | Form-checker injection (eager on page load + lazy on demand)                                                      |
 
 ### Content Scripts
 
-| File                 | LOC | Purpose                                     |
-| -------------------- | --- | ------------------------------------------- |
-| `form-checker.js`    | 201 | Detect unsaved forms (global flag on first input), report JS heap memory |
-| `youtube-tracker.js` | 132 | Save/restore YouTube playback position      |
+| File                 | LOC | Purpose                                                                                          |
+| -------------------- | --- | ------------------------------------------------------------------------------------------------ |
+| `form-checker.js`    | 201 | Detect unsaved forms (global flag on first input), report JS heap memory, error bridge to Sentry |
+| `youtube-tracker.js` | 132 | Save/restore YouTube playback position, error bridge to Sentry                                   |
 
 ### UI Components
 
-| File                   | LOC | Purpose                             |
-| ---------------------- | --- | ----------------------------------- |
-| `popup/popup.js`       | 974 | Main popup logic, tab list, actions |
-| `popup/popup.html`     | 238 | Popup markup (reused for side panel)|
-| `popup/popup.css`      | 1053| Popup styles                        |
-| `options/options.js`   | 428 | Settings management                 |
-| `options/options.html` | 267 | Options page markup                 |
-| `options/options.css`  | 401 | Options styles                      |
+| File                   | LOC  | Purpose                                                                               |
+| ---------------------- | ---- | ------------------------------------------------------------------------------------- |
+| `popup/popup.js`       | 974  | Main popup logic, tab list, actions, "Send to Sentry" button in bug report modal      |
+| `popup/popup.html`     | 238  | Popup markup (reused for side panel)                                                  |
+| `popup/popup.css`      | 1053 | Popup styles                                                                          |
+| `options/options.js`   | 428  | Settings management, Privacy & Diagnostics section with error reporting toggle        |
+| `options/options.html` | 267  | Options page markup, new Privacy & Diagnostics section with toggle + custom DSN field |
+| `options/options.css`  | 401  | Options styles                                                                        |
 
 ### Shared Utilities
 
-| File                | LOC | Purpose                                     |
-| ------------------- | --- | ------------------------------------------- |
-| `constants.js`      | 98  | Default settings, alarm names, storage keys |
-| `storage.js`        | 39  | Chrome storage wrapper with caching         |
-| `utils.js`          | 141 | formatBytes, notification, semver, tab search helpers |
-| `permissions.js`    | 43  | Check/request/remove host permissions       |
-| `i18n.js`           | 48  | Internationalization helpers                |
-| `theme.js`          | 91  | Dark/light mode management                  |
-| `icons.js`          | 83  | SVG icon definitions                        |
-| `import-export.js`  | 43  | Session/config export/import with schema validation |
-| `error-reporter.js` | 232 | Anonymous error reporting                   |
-| `log-collector.js`  | 155 | Diagnostic log aggregation                  |
+| File                | LOC | Purpose                                                                                                              |
+| ------------------- | --- | -------------------------------------------------------------------------------------------------------------------- |
+| `constants.js`      | 98  | Default settings, alarm names, storage keys, Sentry DSN, error quota/dedup constants                                 |
+| `storage.js`        | 39  | Chrome storage wrapper with caching                                                                                  |
+| `utils.js`          | 141 | formatBytes, notification, semver, tab search helpers                                                                |
+| `permissions.js`    | 43  | Check/request/remove host permissions                                                                                |
+| `i18n.js`           | 48  | Internationalization helpers                                                                                         |
+| `theme.js`          | 91  | Dark/light mode management                                                                                           |
+| `icons.js`          | 83  | SVG icon definitions                                                                                                 |
+| `import-export.js`  | 43  | Session/config export/import with schema validation                                                                  |
+| `error-reporter.js` | 743 | Anonymous error reporting via Sentry; parseDsn, buildEnvelope, sendEnvelope, FNV-1a fingerprint, dedup/quota helpers |
+| `log-collector.js`  | 155 | Diagnostic log aggregation                                                                                           |
 
 ### Pages
 
@@ -107,6 +107,7 @@ service-worker.js (orchestrator)
 ## Key Data Structures
 
 ### Settings (chrome.storage.sync)
+
 ```javascript
 {
   autoUnloadOnStartup: boolean,
@@ -127,6 +128,7 @@ service-worker.js (orchestrator)
 ```
 
 ### Tab Activity (chrome.storage.local)
+
 ```javascript
 {
   tabActivity: {
@@ -136,6 +138,7 @@ service-worker.js (orchestrator)
 ```
 
 ### Snooze Data (chrome.storage.local)
+
 ```javascript
 {
   tabs: { [tabId]: expiresAt },
@@ -154,13 +157,16 @@ service-worker.js (orchestrator)
 ## External Dependencies
 
 ### Runtime (none)
+
 Core extension has zero runtime dependencies.
 
 ### Development
+
 - `@biomejs/biome` - Linting and formatting
 - `release-please` - Version management
 
 ### Website (website/)
+
 - Astro framework
 - Various Astro plugins
 
@@ -177,12 +183,14 @@ pnpm run ci         # Full CI check
 ## Important Implementation Notes
 
 ### Optional Host Permissions (v0.0.4+)
+
 - `http://*/*` and `https://*/*` declared as `optional_host_permissions` in manifest
 - Requested on-demand only if `protectFormTabs` is enabled
 - `form-injector.js` uses `permissions.requestHostPermissions()` to recover access after updates
 - On-demand injection via `chrome.scripting.executeScript()` reduces manifest impact
 
 ### Side Panel (v0.0.4+)
+
 - Reuses `popup.html/js/css` when `useSidePanel` setting is true
 - Controlled by `chrome.sidePanel.setOptions()` during `runtime.onInstalled`
 - New `windows.onFocusChanged` listener updates badge across side panel and main window

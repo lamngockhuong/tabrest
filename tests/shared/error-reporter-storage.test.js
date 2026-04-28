@@ -108,7 +108,7 @@ describe("error-reporter (storage + capture)", () => {
       chrome.storage.local.set.mockResolvedValue();
       chrome.runtime.getManifest.mockReturnValue({ version: "0.0.5" });
 
-      const ok = reportBug("Bug at https://leak.com", { tabs: 5 });
+      const ok = await reportBug("Bug at https://leak.com", { tabs: 5 });
       expect(ok).toBe(true);
 
       await vi.waitFor(() => expect(chrome.storage.local.set).toHaveBeenCalled());

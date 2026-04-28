@@ -130,3 +130,38 @@ if (document.readyState === "loading") {
 } else {
   restoreTimestamp();
 }
+
+// Error bridge: forward extension-origin errors to SW for Sentry reporting
+// Load-once guard prevents duplicate listeners on injection re-runs
+if (!window.__tabrestYoutubeErrorBridgeLoaded) {
+  window.__tabrestYoutubeErrorBridgeLoaded = true;
+
+  const SENTRY_SURFACE_TAG = "content_youtube";
+  const isExtensionFrame = (stack) =>
+    typeof stack === "string" &&
+    (stack.includes("chrome-extension://") || stack.includes(chrome.runtime.id));
+
+  function forwardError(err, source) {
+    try {
+      const stack = err?.stack || "";
+      if (!isExtensionFrame(stack)) return;
+      chrome.runtime
+        .sendMessage({
+          command: "captureError",
+          error: { name: err?.name || "Error", message: err?.message || String(err), stack },
+          context: { surface: SENTRY_SURFACE_TAG, source },
+        })
+        .catch(() => {}); // extension context invalidated → swallow
+    } catch {
+      // never crash content script over telemetry
+    }
+  }
+
+  window.addEventListener("error", (e) => {
+    forwardError(e.error || new Error(e.message), "uncaught");
+  });
+  window.addEventListener("unhandledrejection", (e) => {
+    const reason = e.reason instanceof Error ? e.reason : new Error(String(e.reason));
+    forwardError(reason, "unhandledrejection");
+  });
+}

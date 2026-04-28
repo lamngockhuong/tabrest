@@ -425,6 +425,89 @@ service-worker.js
 
 ### Data Security
 
-- No external network requests
+- No external network requests (except optional Sentry error reporting)
 - All data stored locally
 - No user tracking or analytics
+
+## Error Reporting (Sentry, v0.1.0+)
+
+### Overview
+
+Optional anonymous error reporting via Sentry SaaS (disabled by default). Helps identify and fix bugs faster while maintaining privacy.
+
+### Data Flow
+
+```text
+content-script.js (form-checker, youtube-tracker)
+        │ chrome.runtime.sendMessage({command: "captureError"})
+        ▼
+service-worker.js (onMessage handler)
+        │
+        ▼
+error-reporter.js
+        ├── sanitizeString() — strip URLs, emails, IPs → [REDACTED]
+        ├── computeFingerprint() — FNV-1a hash of name + first 3 stack frames
+        ├── checkDedup() — skip if identical error within 24h window
+        ├── checkAndIncrementQuota() — 100 events/day/user cap, LRU evict at 100 dedup entries
+        ├── sample() — 0.1 sample rate for repeated errors
+        │
+        ├─► fetch(SENTRY_INGEST_URL) — POST JSON envelope
+        │   └─► Sentry ingest (200 OK = success)
+        │
+        └─► chrome.storage.local buffer — fallback when offline/disabled/quota exceeded
+```
+
+### Configuration
+
+**DSN (public constant):**
+
+```
+https://o4511298350612480.ingest.us.sentry.io/api/4511298353496064/envelope/
+```
+
+Embedded in `src/shared/constants.js:SENTRY_DSN`. Users can optionally override via `customSentryDsn` setting.
+
+**Manifest Host Permission:**
+
+```
+"host_permissions": ["https://*.ingest.us.sentry.io/*"]
+```
+
+### Privacy Contract
+
+- **Client-side sanitization:** All error payloads run through `sanitizeString()` before dispatch. URLs, emails, IPv4, IPv6 → `[REDACTED]`. Whitelist/blacklist domain counts never sent.
+- **No IP tracking:** Server-side `user.ip_address: null` + Sentry dashboard "Prevent Storing of IP Addresses" setting.
+- **Opt-in default OFF:** Setting `enableErrorReporting: false` on fresh install + update. No events sent until explicitly enabled in Options → Privacy & Diagnostics.
+- **Consent persistence:** Force-flipped to `false` on `chrome.runtime.onInstalled` (install + update events) to prevent stale user settings from v0.0.5.
+
+### Rate Limiting & Dedup
+
+| Aspect              | Limit                                                              |
+| ------------------- | ------------------------------------------------------------------ |
+| **Daily cap**       | 100 events/day/user, UTC midnight reset                            |
+| **Dedup window**    | 24 hours (FNV-1a fingerprint of error name + first 3 stack frames) |
+| **Repeat sampling** | 0.1 sample rate for duplicate fingerprints (send 10% of repeats)   |
+| **Dedup table max** | LRU evict at 100 entries to prevent unbounded memory               |
+
+### Error Surfaces (Tags)
+
+Five surfaces report errors:
+
+- `service_worker` — Background service worker exceptions
+- `popup` — Popup UI errors
+- `options` — Options page errors
+- `content_form` — Form-checker content script
+- `content_youtube` — YouTube-tracker content script
+
+### Storage (Fallback Buffer)
+
+When Sentry endpoint unreachable (offline, 4xx/5xx), error saved to `chrome.storage.local` buffer under `error_buffer_*` keys (max 10 entries per surface, auto-evict oldest on overflow).
+
+### Settings
+
+| Key                    | Type   | Default | Description                                   |
+| ---------------------- | ------ | ------- | --------------------------------------------- |
+| `enableErrorReporting` | bool   | `false` | Master toggle for error reporting             |
+| `customSentryDsn`      | string | `""`    | Advanced: override DSN (empty = use built-in) |
+
+Both stored in `chrome.storage.sync` (cross-device) so setting persists across browsers.
