@@ -51,7 +51,7 @@
       <!-- Timer -->
       <g transform="translate(0, 0)">
         <circle cx="20" cy="20" r="20" fill="rgba(99,102,241,0.2)"/>
-        <text x="20" y="27" font-family="system-ui, sans-serif" font-size="18" fill="#A5B4FC" text-anchor="middle">⏱️</text>
+        <text x="20" y="20" font-family="system-ui, sans-serif" font-size="20" fill="#A5B4FC" text-anchor="middle" dominant-baseline="central">⏱️</text>
         <text x="55" y="18" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4">Auto-unload Timer</text>
         <text x="55" y="40" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD">5 minutes to 4 hours, your choice</text>
       </g>
@@ -59,7 +59,7 @@
       <!-- RAM threshold -->
       <g transform="translate(0, 80)">
         <circle cx="20" cy="20" r="20" fill="rgba(99,102,241,0.2)"/>
-        <text x="20" y="27" font-family="system-ui, sans-serif" font-size="18" fill="#A5B4FC" text-anchor="middle">📊</text>
+        <text x="20" y="20" font-family="system-ui, sans-serif" font-size="20" fill="#A5B4FC" text-anchor="middle" dominant-baseline="central">📊</text>
         <text x="55" y="18" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4">RAM Threshold</text>
         <text x="55" y="40" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD">Auto-act when RAM hits 60-95%</text>
       </g>
@@ -67,7 +67,7 @@
       <!-- Smart protection -->
       <g transform="translate(0, 160)">
         <circle cx="20" cy="20" r="20" fill="rgba(99,102,241,0.2)"/>
-        <text x="20" y="27" font-family="system-ui, sans-serif" font-size="18" fill="#A5B4FC" text-anchor="middle">🎵</text>
+        <text x="20" y="20" font-family="system-ui, sans-serif" font-size="20" fill="#A5B4FC" text-anchor="middle" dominant-baseline="central">🎵</text>
         <text x="55" y="18" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4">Smart Protection</text>
         <text x="55" y="40" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD">Audio, pinned, forms auto-protected</text>
       </g>
