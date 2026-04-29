@@ -68,6 +68,9 @@ global.chrome = {
   scripting: {
     executeScript: vi.fn(() => Promise.resolve([])),
   },
+  action: {
+    getUserSettings: vi.fn(() => Promise.resolve({ isOnToolbar: false })),
+  },
   notifications: {
     create: vi.fn((id, _opts, cb) => {
       if (cb) cb(id);

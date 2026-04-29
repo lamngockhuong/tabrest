@@ -1,8 +1,9 @@
 import { POWER_MODE_NAME_KEY, WHITELIST_SUGGESTIONS } from "../../shared/constants.js";
 import { t } from "../../shared/i18n.js";
 import { icon } from "../../shared/icons.js";
+import { fireConfetti } from "./confetti.js";
 import { clearChildren, createEl } from "./dom-helpers.js";
-import { fireConfetti, getPinStatus, watchUntilPinned } from "./pin-watcher.js";
+import { getPinStatus, watchUntilPinned } from "./pin-watcher.js";
 
 const SUMMARY_ROWS = [
   ["clock", "obDoneSummaryDelay"],
