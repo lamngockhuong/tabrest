@@ -444,8 +444,9 @@ footer {
   padding: 4px;
   cursor: pointer;
   font-size: 12px;
+  color: var(--text-muted);
   opacity: 0;
-  transition: opacity 0.15s, background 0.15s;
+  transition: opacity 0.15s, background 0.15s, color 0.15s;
   border-radius: 4px;
 }
 
@@ -455,6 +456,7 @@ footer {
 
 .tab-snooze-btn:hover {
   background: var(--border);
+  color: var(--text);
 }
 
 .snooze-menu {
@@ -538,6 +540,11 @@ footer {
   color: #fff;
 }
 
+[data-theme="dark"] .badge-timer {
+  background: rgba(251, 191, 36, 0.18);
+  color: #FCD34D;
+}
+
 .tab-unload-btn {
   background: none;
   border: none;
@@ -545,8 +552,9 @@ footer {
   padding: 2px 4px;
   border-radius: 4px;
   font-size: 12px;
+  color: var(--text-muted);
   opacity: 0;
-  transition: opacity 0.15s, background 0.15s;
+  transition: opacity 0.15s, background 0.15s, color 0.15s;
 }
 
 .tab-item:hover .tab-unload-btn {
@@ -555,6 +563,7 @@ footer {
 
 .tab-unload-btn:hover {
   background: var(--border);
+  color: var(--text);
 }
 
 .tab-item-empty {
