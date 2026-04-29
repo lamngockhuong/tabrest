@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("../../src/shared/storage.js", () => ({
   getSettings: vi.fn(),
@@ -88,9 +88,7 @@ describe("error-reporter (storage + capture)", () => {
   describe("captureMessage", () => {
     it("logs sanitized message at given level", () => {
       captureMessage("Visited https://leak.com", "warning");
-      expect(logSpy).toHaveBeenCalledWith(
-        expect.stringContaining("WARNING"),
-      );
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("WARNING"));
       const logged = logSpy.mock.calls[0][0];
       expect(logged).not.toContain("leak.com");
     });
@@ -149,10 +147,7 @@ describe("error-reporter (storage + capture)", () => {
     it("clearStoredErrors removes both buffers", async () => {
       chrome.storage.local.remove.mockResolvedValue();
       await clearStoredErrors();
-      expect(chrome.storage.local.remove).toHaveBeenCalledWith([
-        ERROR_BUFFER_KEY,
-        BUG_REPORTS_KEY,
-      ]);
+      expect(chrome.storage.local.remove).toHaveBeenCalledWith([ERROR_BUFFER_KEY, BUG_REPORTS_KEY]);
     });
   });
 

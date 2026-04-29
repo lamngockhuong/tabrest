@@ -1,11 +1,7 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { __test__, sanitizeError, sanitizeString } from "../../src/shared/error-reporter.js";
 
-const {
-  buildEventPayload,
-  buildMessagePayload,
-  buildManualReportPayload,
-} = __test__;
+const { buildEventPayload, buildMessagePayload, buildManualReportPayload } = __test__;
 
 /**
  * Privacy Invariant Tests
@@ -50,7 +46,8 @@ describe("error-reporter privacy invariants", () => {
 
     it("redacts URLs in stack trace after sanitization", () => {
       const rawError = new Error("Test error");
-      rawError.stack = "Error: Test\n    at fetch (https://internal.net/api:1:1)\n    at main (file.js:10:5)";
+      rawError.stack =
+        "Error: Test\n    at fetch (https://internal.net/api:1:1)\n    at main (file.js:10:5)";
       const error = sanitizeError(rawError);
       const payload = buildEventPayload(error, {}, "error");
 
@@ -268,7 +265,9 @@ describe("error-reporter privacy invariants", () => {
     });
 
     it("redacts URLs and emails together", () => {
-      const rawError = new Error("User user@example.com from https://api.example.com reported error");
+      const rawError = new Error(
+        "User user@example.com from https://api.example.com reported error",
+      );
       const error = sanitizeError(rawError);
       const payload = buildEventPayload(error, {});
       const json = JSON.stringify(payload);

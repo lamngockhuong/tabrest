@@ -1,8 +1,8 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  calculateMemoryUsagePercent,
   checkMemoryAndUnload,
   checkPerTabMemory,
-  calculateMemoryUsagePercent,
 } from "../../src/background/memory-monitor.js";
 
 // Mock dependencies
@@ -27,10 +27,10 @@ vi.mock("../../src/shared/utils.js", () => ({
   notifyAutoUnload: vi.fn(),
 }));
 
-import { getSettings } from "../../src/shared/storage.js";
 import { getSnoozeData, isTabSnoozed } from "../../src/background/snooze-manager.js";
 import { getLRUSortedTabs } from "../../src/background/tab-tracker.js";
 import { discardTab } from "../../src/background/unload-manager.js";
+import { getSettings } from "../../src/shared/storage.js";
 
 describe("memory-monitor", () => {
   beforeEach(() => {
@@ -91,7 +91,7 @@ describe("memory-monitor", () => {
           id: tabId,
           url: `https://example${tabId}.com`,
           title: `Tab ${tabId}`,
-        })
+        }),
       );
     });
 
@@ -147,7 +147,11 @@ describe("memory-monitor", () => {
     it("continues to next tab when chrome.tabs.get fails", async () => {
       chrome.tabs.get.mockImplementation((tabId) => {
         if (tabId === 1) return Promise.reject(new Error("Tab not found"));
-        return Promise.resolve({ id: tabId, url: `https://example${tabId}.com`, title: `Tab ${tabId}` });
+        return Promise.resolve({
+          id: tabId,
+          url: `https://example${tabId}.com`,
+          title: `Tab ${tabId}`,
+        });
       });
 
       await checkMemoryAndUnload();

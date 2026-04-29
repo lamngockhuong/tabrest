@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CONSENT_RESET_MIGRATION_KEY } from "../../src/shared/constants.js";
 
 /**
@@ -18,7 +18,7 @@ describe("migration: onInstalled handler", () => {
 
   it("force-disables enableErrorReporting on install", async () => {
     // Simulate: chrome.runtime.onInstalled({ reason: "install" })
-    const details = { reason: "install" };
+    const _details = { reason: "install" };
 
     // Mock storage returning current settings
     chrome.storage.sync.get.mockResolvedValue({
@@ -43,7 +43,7 @@ describe("migration: onInstalled handler", () => {
   });
 
   it("force-disables enableErrorReporting on update", async () => {
-    const details = { reason: "update", previousVersion: "0.0.4" };
+    const _details = { reason: "update", previousVersion: "0.0.4" };
 
     // Simulate: settings had enableErrorReporting: true before
     chrome.storage.sync.get.mockResolvedValue({
@@ -105,7 +105,7 @@ describe("migration: onInstalled handler", () => {
     expect(chrome.storage.sync.set).not.toHaveBeenCalled();
   });
 
-  it("is idempotent — multiple calls produce same result", async () => {
+  it("is idempotent - multiple calls produce same result", async () => {
     chrome.storage.sync.get.mockResolvedValue({
       settings: { enableErrorReporting: true },
     });

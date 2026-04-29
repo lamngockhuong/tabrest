@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { __test__ } from "../../src/shared/error-reporter.js";
 
 const {
@@ -94,10 +94,7 @@ describe("parseStackFrames", () => {
   });
 
   it("caps frames at 50", () => {
-    const lines = Array.from(
-      { length: 60 },
-      (_, i) => `    at fn${i} (file.js:${i}:0)`,
-    ).join("\n");
+    const lines = Array.from({ length: 60 }, (_, i) => `    at fn${i} (file.js:${i}:0)`).join("\n");
     const frames = parseStackFrames(`Error\n${lines}`);
     expect(frames.length).toBe(50);
   });
@@ -227,7 +224,11 @@ describe("sendEnvelope", () => {
       headers: { get: () => null },
     });
 
-    const result = await sendEnvelope("envelope-body", "https://host/api/1/envelope/", "Sentry sentry_key=k");
+    const result = await sendEnvelope(
+      "envelope-body",
+      "https://host/api/1/envelope/",
+      "Sentry sentry_key=k",
+    );
     expect(fetch).toHaveBeenCalledWith(
       "https://host/api/1/envelope/",
       expect.objectContaining({

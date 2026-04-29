@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { icon, injectIcons } from "../../src/shared/icons.js";
 
 describe("icon", () => {

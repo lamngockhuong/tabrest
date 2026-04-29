@@ -1,9 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-  SETTINGS_DEFAULTS,
   ALARM_NAMES,
-  STORAGE_KEYS,
   POWER_MODE_CONFIG,
+  SETTINGS_DEFAULTS,
+  STORAGE_KEYS,
 } from "../../src/shared/constants.js";
 
 describe("SETTINGS_DEFAULTS", () => {

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { collectDiagnostics, formatDiagnosticsText } from "../../src/shared/log-collector.js";
 
 // Mock chrome APIs

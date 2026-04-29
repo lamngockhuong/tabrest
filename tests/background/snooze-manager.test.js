@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { isTabSnoozed, getTabSnoozeInfo } from "../../src/background/snooze-manager.js";
+import { describe, expect, it } from "vitest";
+import { getTabSnoozeInfo, isTabSnoozed } from "../../src/background/snooze-manager.js";
 
 describe("snooze-manager", () => {
   describe("isTabSnoozed with preloaded data", () => {
@@ -129,7 +129,7 @@ describe("snooze-manager", () => {
       it("handles chrome:// URLs", async () => {
         const snoozeData = {
           tabs: {},
-          domains: { "extensions": { until: futureTime } },
+          domains: { extensions: { until: futureTime } },
         };
         expect(await isTabSnoozed(123, "chrome://extensions", snoozeData)).toBe(true);
       });

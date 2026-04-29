@@ -1,15 +1,15 @@
-import { vi, beforeEach } from "vitest";
+import { beforeEach, vi } from "vitest";
 
 const createStorageMock = () => ({
-  get: vi.fn((keys, cb) => {
+  get: vi.fn((_keys, cb) => {
     if (cb) cb({});
     return Promise.resolve({});
   }),
-  set: vi.fn((items, cb) => {
+  set: vi.fn((_items, cb) => {
     if (cb) cb();
     return Promise.resolve();
   }),
-  remove: vi.fn((keys, cb) => {
+  remove: vi.fn((_keys, cb) => {
     if (cb) cb();
     return Promise.resolve();
   }),
@@ -69,12 +69,12 @@ global.chrome = {
     executeScript: vi.fn(() => Promise.resolve([])),
   },
   notifications: {
-    create: vi.fn((id, opts, cb) => {
+    create: vi.fn((id, _opts, cb) => {
       if (cb) cb(id);
     }),
   },
   i18n: {
-    getMessage: vi.fn((key, _subs) => ""),
+    getMessage: vi.fn((_key, _subs) => ""),
     getUILanguage: vi.fn(() => "en"),
   },
   idle: {

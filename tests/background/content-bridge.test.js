@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { captureError, captureMessage } from "../../src/shared/error-reporter.js";
 
 /**
@@ -113,11 +113,7 @@ describe("content-bridge: message routing", () => {
       // Simulate the bridge routing
       await expect(
         (async () => {
-          captureMessage(
-            message.message || "",
-            message.level || "info",
-            message.context || {},
-          );
+          captureMessage(message.message || "", message.level || "info", message.context || {});
         })(),
       ).resolves.not.toThrow();
     });
@@ -254,7 +250,7 @@ describe("content-bridge: message routing", () => {
 
   describe("sendResponse contract", () => {
     it("responds with {ok: true} for captureError", async () => {
-      const message = {
+      const _message = {
         command: "captureError",
         error: { name: "Error", message: "test", stack: "" },
         context: {},
@@ -265,7 +261,7 @@ describe("content-bridge: message routing", () => {
     });
 
     it("responds with {ok: true} for captureMessage", async () => {
-      const message = {
+      const _message = {
         command: "captureMessage",
         message: "test",
         level: "info",
@@ -279,7 +275,7 @@ describe("content-bridge: message routing", () => {
     it("captureError response is sync (returnValue: false)", async () => {
       // Per service-worker.js: "return false; // sync response"
       // This documents that captureError is synchronous
-      const message = { command: "captureError" };
+      const _message = { command: "captureError" };
       const isSync = false;
 
       // Returning false means sync response; true would keep channel open
@@ -288,7 +284,7 @@ describe("content-bridge: message routing", () => {
 
     it("captureMessage response is sync (returnValue: false)", async () => {
       // Per service-worker.js: "return false; // sync response"
-      const message = { command: "captureMessage" };
+      const _message = { command: "captureMessage" };
       const isSync = false;
 
       expect(isSync).toBe(false);

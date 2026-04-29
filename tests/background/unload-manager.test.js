@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../src/shared/storage.js", () => ({
   getSettings: vi.fn(),
@@ -12,10 +12,8 @@ vi.mock("../../src/background/stats-collector.js", () => ({
   recordUnload: vi.fn(),
 }));
 
-import { getSettings } from "../../src/shared/storage.js";
 import { ensureFormCheckerInjected } from "../../src/background/form-injector.js";
 import { recordUnload } from "../../src/background/stats-collector.js";
-
 import {
   closeDuplicateTabs,
   discardAllTabsOnStartup,
@@ -28,6 +26,7 @@ import {
   isUrlBlacklisted,
   isUrlWhitelisted,
 } from "../../src/background/unload-manager.js";
+import { getSettings } from "../../src/shared/storage.js";
 
 const baseSettings = {
   unloadPinnedTabs: false,
