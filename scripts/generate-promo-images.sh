@@ -1,11 +1,18 @@
 #!/bin/bash
 # Generate high-quality PNG promo images from SVG sources
-# Requires: rsvg-convert, imagemagick (convert)
+# Requires: rsvg-convert, imagemagick v7+ (magick)
 
 set -e
 
 ASSETS_DIR="$(dirname "$0")/../assets"
 cd "$ASSETS_DIR"
+
+# Prefer ImageMagick v7 `magick`; fall back to legacy `convert` if v7 missing.
+if command -v magick >/dev/null 2>&1; then
+  MAGICK="magick"
+else
+  MAGICK="convert"
+fi
 
 echo "Generating promo images..."
 
@@ -18,7 +25,7 @@ convert_svg() {
 
   echo "  $svg -> $png"
   rsvg-convert -w $((width * 2)) -h $((height * 2)) "$svg" | \
-    convert - -filter Lanczos -resize ${width}x${height} -quality 100 "$png"
+    "$MAGICK" - -filter Lanczos -resize ${width}x${height} -quality 100 "$png"
 }
 
 # Main banners (1280x800)
