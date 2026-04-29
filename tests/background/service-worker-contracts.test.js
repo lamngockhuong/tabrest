@@ -223,6 +223,7 @@ const ROUTED_COMMANDS = [
   "restore-session",
   "import-sessions",
   "get-stats",
+  "reset-stats",
   "snooze-tab",
   "snooze-domain",
   "cancel-tab-snooze",
@@ -265,6 +266,8 @@ function buildRouter(handlers) {
         return await handlers.importSessions(sessions);
       case "get-stats":
         return await handlers.getStats();
+      case "reset-stats":
+        return await handlers.resetStats();
       case "snooze-tab":
         await handlers.snoozeTab(tabId, minutes);
         return { success: true };
@@ -307,7 +310,8 @@ describe("service-worker-contracts: handleMessage routing", () => {
       deleteSession: vi.fn().mockResolvedValue(),
       restoreSession: vi.fn().mockResolvedValue({ success: true }),
       importSessions: vi.fn().mockResolvedValue({ added: 1, skipped: 0 }),
-      getStats: vi.fn().mockResolvedValue({ tabsUnloaded: 0 }),
+      getStats: vi.fn().mockResolvedValue({ totalTabsSuspended: 0 }),
+      resetStats: vi.fn().mockResolvedValue({ totalTabsSuspended: 0 }),
       snoozeTab: vi.fn().mockResolvedValue(),
       snoozeDomain: vi.fn().mockResolvedValue(),
       cancelTabSnooze: vi.fn().mockResolvedValue(),

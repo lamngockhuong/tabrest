@@ -190,9 +190,9 @@ function renderBlacklist() {
 // Load statistics
 async function loadStats() {
   const result = await chrome.storage.local.get("stats");
-  const stats = result.stats || { tabsUnloaded: 0, memorySaved: 0 };
+  const stats = result.stats || {};
 
-  elements.totalUnloaded.textContent = stats.tabsUnloaded || 0;
+  elements.totalUnloaded.textContent = stats.totalTabsSuspended || 0;
   elements.totalSaved.textContent = formatBytes(stats.memorySaved || 0);
 }
 
@@ -349,7 +349,7 @@ function setupEventListeners() {
 
   // Reset stats
   elements.resetStats.addEventListener("click", async () => {
-    await chrome.storage.local.set({ stats: { tabsUnloaded: 0, memorySaved: 0 } });
+    await chrome.runtime.sendMessage({ command: "reset-stats" });
     await loadStats();
     showStatus(t("statsReset"));
   });

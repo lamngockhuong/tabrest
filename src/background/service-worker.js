@@ -40,7 +40,7 @@ import {
   snoozeDomain,
   snoozeTab,
 } from "./snooze-manager.js";
-import { getStats, initStats } from "./stats-collector.js";
+import { getStats, initStats, resetStats } from "./stats-collector.js";
 import {
   checkAndUnloadInactiveTabs,
   cleanupStaleActivity,
@@ -563,6 +563,8 @@ async function handleMessage(message) {
     // Stats commands
     case "get-stats":
       return await getStats();
+    case "reset-stats":
+      return await resetStats();
     // Snooze commands
     case "snooze-tab":
       await snoozeTab(tabId, minutes);
