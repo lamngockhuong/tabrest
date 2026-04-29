@@ -15,6 +15,12 @@ export default defineConfig({
         // Content scripts: IIFE-loaded against live DOM/window, exercised via
         // browser integration testing rather than node-environment unit tests.
         "src/content/**",
+        // Onboarding wizard: DOM-only renderers and mount glue. Pure logic
+        // (decide-action, state, persist, steps) is covered separately.
+        "src/pages/onboarding/wizard.js",
+        "src/pages/onboarding/step-renderers.js",
+        "src/pages/onboarding/render-done.js",
+        "src/pages/onboarding/dom-helpers.js",
       ],
       reporter: ["text", "html"],
       reportsDirectory: "./coverage",

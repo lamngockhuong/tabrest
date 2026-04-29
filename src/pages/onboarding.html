@@ -4,66 +4,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="pages.css">
+  <link rel="stylesheet" href="onboarding/onboarding.css">
   <title>Welcome to TabRest</title>
 </head>
 <body>
-  <div class="page-container">
-    <header class="page-header">
-      <img src="../../icons/icon-128.png" alt="TabRest" class="page-logo">
-      <h1 class="page-title">Welcome to TabRest</h1>
-      <p class="page-subtitle">Rest your tabs, free your memory</p>
-    </header>
-
-    <div class="feature-list">
-      <div class="feature-item">
-        <div class="feature-icon">
-          <span data-icon="moon" data-icon-size="18"></span>
-        </div>
-        <div class="feature-content">
-          <h3>Automatic Tab Unloading</h3>
-          <p>Inactive tabs are automatically unloaded after a set time, freeing up memory while preserving your browsing state.</p>
-        </div>
+  <div class="page-container wizard-root">
+    <div class="wizard-header">
+      <div class="wizard-title-block">
+        <img src="../../icons/icon-128.png" alt="TabRest" class="page-logo" style="width: 40px; height: 40px;">
+        <h1 class="page-title" style="font-size: 18px;" data-i18n="obWizardTitle">TabRest setup</h1>
       </div>
-
-      <div class="feature-item">
-        <div class="feature-icon">
-          <span data-icon="shield" data-icon-size="18"></span>
-        </div>
-        <div class="feature-content">
-          <h3>Smart Protection</h3>
-          <p>Pinned tabs, tabs playing audio, and tabs with unsaved forms are automatically protected from unloading.</p>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon">
-          <span data-icon="folderOpen" data-icon-size="18"></span>
-        </div>
-        <div class="feature-content">
-          <h3>Session Management</h3>
-          <p>Save your current tabs as a session and restore them anytime. Never lose your workflow again.</p>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon">
-          <span data-icon="barChart" data-icon-size="18"></span>
-        </div>
-        <div class="feature-content">
-          <h3>Usage Statistics</h3>
-          <p>Track how many tabs you've unloaded and estimate your memory savings over time.</p>
-        </div>
-      </div>
+      <button type="button" class="skip-all-link" data-action="skip-all" data-i18n="obSkipAll">Skip all</button>
     </div>
 
-    <div class="cta-section">
-      <button class="btn-large btn-primary" id="btn-get-started">
-        Get Started
-      </button>
-      <p style="margin-top: 12px; font-size: 12px; color: var(--text-muted);">
-        Click the TabRest icon in your toolbar to begin
-      </p>
+    <div class="wizard-progress" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1">
+      <div class="wizard-progress-fill"></div>
     </div>
+
+    <main class="wizard-stage">
+      <section class="wizard-step is-active" data-step-id="welcome">
+        <h2 data-i18n="obWelcomeTitle">Welcome to TabRest</h2>
+        <p data-i18n="obWelcomeBody">A quick setup tunes TabRest for the way you browse. You can change anything later in Settings.</p>
+        <div class="wizard-nav">
+          <span class="wizard-nav-spacer"></span>
+          <button type="button" class="btn-large btn-primary" data-action="next" data-i18n="obWelcomeStart">Let's set up</button>
+        </div>
+      </section>
+
+      <section class="wizard-step" data-step-id="auto-unload" inert>
+        <h2 data-i18n="obAutoUnloadTitle">Auto-unload inactive tabs</h2>
+        <p data-i18n="obAutoUnloadDesc">Pick how long an inactive tab waits before being unloaded.</p>
+        <div data-step-body></div>
+        <div class="wizard-nav">
+          <button type="button" class="btn-outline" data-action="back" data-i18n="obBack">Back</button>
+          <span class="wizard-nav-spacer"></span>
+          <button type="button" class="btn-ghost" data-action="skip" data-i18n="obSkip">Skip</button>
+          <button type="button" class="btn-large btn-primary" data-action="next" data-i18n="obNext">Next</button>
+        </div>
+      </section>
+
+      <section class="wizard-step" data-step-id="whitelist" inert>
+        <h2 data-i18n="obWhitelistTitle">Always keep these awake</h2>
+        <p data-i18n="obWhitelistDesc">Sites you check are protected from auto-unload.</p>
+        <div data-step-body></div>
+        <p class="hint" data-i18n="obWhitelistHint">You can edit this list later in Settings.</p>
+        <div class="wizard-nav">
+          <button type="button" class="btn-outline" data-action="back" data-i18n="obBack">Back</button>
+          <span class="wizard-nav-spacer"></span>
+          <button type="button" class="btn-ghost" data-action="skip" data-i18n="obSkip">Skip</button>
+          <button type="button" class="btn-large btn-primary" data-action="next" data-i18n="obNext">Next</button>
+        </div>
+      </section>
+
+      <section class="wizard-step" data-step-id="power-mode" inert>
+        <h2 data-i18n="obPowerModeTitle">Pick a power mode</h2>
+        <p data-i18n="obPowerModeDesc">Choose how aggressively TabRest unloads.</p>
+        <div data-step-body></div>
+        <div class="wizard-nav">
+          <button type="button" class="btn-outline" data-action="back" data-i18n="obBack">Back</button>
+          <span class="wizard-nav-spacer"></span>
+          <button type="button" class="btn-ghost" data-action="skip" data-i18n="obSkip">Skip</button>
+          <button type="button" class="btn-large btn-primary" data-action="next" data-i18n="obNext">Next</button>
+        </div>
+      </section>
+
+      <section class="wizard-step" data-step-id="notifications" inert>
+        <h2 data-i18n="obNotificationsTitle">Get notified on auto-unload</h2>
+        <p data-i18n="obNotificationsDesc">Show a system notification when TabRest unloads tabs in the background.</p>
+        <div data-step-body></div>
+        <div class="wizard-nav">
+          <button type="button" class="btn-outline" data-action="back" data-i18n="obBack">Back</button>
+          <span class="wizard-nav-spacer"></span>
+          <button type="button" class="btn-ghost" data-action="skip" data-i18n="obSkip">Skip</button>
+          <button type="button" class="btn-large btn-primary" data-action="next" data-i18n="obNext">Next</button>
+        </div>
+      </section>
+
+      <section class="wizard-step" data-step-id="done" inert>
+        <span class="ob-done-badge" aria-hidden="true" data-icon="check" data-icon-size="24"></span>
+        <h2 data-i18n="obDoneTitle">You're all set</h2>
+        <p data-i18n="obDoneSubtitle">Your settings have been saved.</p>
+        <div data-step-body></div>
+        <div class="wizard-nav">
+          <button type="button" class="btn-outline" data-action="back" data-i18n="obBack">Back</button>
+          <span class="wizard-nav-spacer"></span>
+          <button type="button" class="btn-large btn-primary" data-action="finish" data-i18n="obFinish">Finish</button>
+        </div>
+      </section>
+    </main>
+
+    <div class="sr-only" aria-live="polite" id="wizard-announcer"></div>
   </div>
 
   <script src="onboarding.js" type="module"></script>

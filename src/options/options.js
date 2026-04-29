@@ -60,6 +60,7 @@ const elements = {
   resetStats: document.getElementById("reset-stats"),
   status: document.getElementById("status"),
   shortcutsLink: document.getElementById("shortcuts-link"),
+  rerunOnboarding: document.getElementById("rerun-onboarding"),
   enableErrorReporting: document.getElementById("enable-error-reporting"),
   customSentryDsn: document.getElementById("custom-sentry-dsn"),
   dsnValidationMsg: document.getElementById("dsn-validation-msg"),
@@ -364,6 +365,11 @@ function setupEventListeners() {
   elements.themeToggle.addEventListener("click", async () => {
     const newTheme = await toggleTheme();
     updateThemeIcon(elements.themeIcon, elements.themeToggle, newTheme);
+  });
+
+  // Re-run onboarding wizard
+  elements.rerunOnboarding?.addEventListener("click", () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL("src/pages/onboarding.html") });
   });
 }
 

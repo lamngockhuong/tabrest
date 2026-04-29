@@ -729,5 +729,193 @@
   "reportDailyCap": {
     "message": "Daily report limit reached. Use GitHub copy instead.",
     "description": "Toast shown when user has reached daily manual report cap"
+  },
+  "optionsSetupHeading": {
+    "message": "Setup",
+    "description": "Options page section heading for onboarding re-run"
+  },
+  "optionsRerunOnboarding": {
+    "message": "Run setup again",
+    "description": "Options page button to reopen the onboarding wizard"
+  },
+  "optionsRerunOnboardingHelp": {
+    "message": "Run the welcome tour again to retune the most-used settings.",
+    "description": "Options page help text under the rerun-onboarding button"
+  },
+  "obWizardTitle": {
+    "message": "TabRest setup",
+    "description": "Onboarding wizard header title"
+  },
+  "obSkipAll": {
+    "message": "Skip all",
+    "description": "Header link to close the entire onboarding wizard without configuring"
+  },
+  "obBack": {
+    "message": "Back",
+    "description": "Onboarding wizard back button"
+  },
+  "obNext": {
+    "message": "Next",
+    "description": "Onboarding wizard next button"
+  },
+  "obSkip": {
+    "message": "Skip",
+    "description": "Onboarding wizard per-step skip button"
+  },
+  "obFinish": {
+    "message": "Finish",
+    "description": "Onboarding wizard final-step finish button"
+  },
+  "obProgressLabel": {
+    "message": "Step $1 of $2",
+    "description": "Onboarding aria-live progress announcement",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "Welcome to TabRest",
+    "description": "Onboarding step 1 heading"
+  },
+  "obWelcomeBody": {
+    "message": "A quick setup tunes TabRest for the way you browse. You can change anything later in Settings.",
+    "description": "Onboarding step 1 body paragraph"
+  },
+  "obWelcomeStart": {
+    "message": "Let's set up",
+    "description": "Onboarding step 1 primary CTA"
+  },
+  "obAutoUnloadTitle": {
+    "message": "Auto-unload inactive tabs",
+    "description": "Onboarding step 2 heading"
+  },
+  "obAutoUnloadDesc": {
+    "message": "Pick how long an inactive tab waits before being unloaded.",
+    "description": "Onboarding step 2 description"
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 minutes",
+    "description": "Onboarding auto-unload 30 minute option"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 hour",
+    "description": "Onboarding auto-unload 60 minute option"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 hours",
+    "description": "Onboarding auto-unload 120 minute option"
+  },
+  "obWhitelistTitle": {
+    "message": "Always keep these awake",
+    "description": "Onboarding step 3 heading"
+  },
+  "obWhitelistDesc": {
+    "message": "Sites you check are protected from auto-unload.",
+    "description": "Onboarding step 3 description"
+  },
+  "obWhitelistHint": {
+    "message": "You can edit this list later in Settings.",
+    "description": "Onboarding step 3 footer hint"
+  },
+  "obPowerModeTitle": {
+    "message": "Pick a power mode",
+    "description": "Onboarding step 4 heading"
+  },
+  "obPowerModeDesc": {
+    "message": "Choose how aggressively TabRest unloads.",
+    "description": "Onboarding step 4 description"
+  },
+  "obNotificationsTitle": {
+    "message": "Get notified on auto-unload",
+    "description": "Onboarding step 5 heading"
+  },
+  "obNotificationsDesc": {
+    "message": "Show a system notification when TabRest unloads tabs in the background.",
+    "description": "Onboarding step 5 description"
+  },
+  "obNotificationsToggle": {
+    "message": "Notify me when tabs are auto-unloaded",
+    "description": "Onboarding step 5 toggle label"
+  },
+  "obDoneTitle": {
+    "message": "You're all set",
+    "description": "Onboarding step 6 heading"
+  },
+  "obDoneSubtitle": {
+    "message": "Your settings have been saved.",
+    "description": "Onboarding step 6 subtitle"
+  },
+  "obPinTitle": {
+    "message": "Pin TabRest to your toolbar",
+    "description": "Done step pin reminder card title (not pinned yet)"
+  },
+  "obPinDesc": {
+    "message": "Click the puzzle icon in the top-right of your browser, then pin TabRest for one-click access.",
+    "description": "Done step pin reminder card description (not pinned yet)"
+  },
+  "obPinnedTitle": {
+    "message": "Pinned!",
+    "description": "Done step pin card title after the user has pinned the extension"
+  },
+  "obPinnedDesc": {
+    "message": "Click the TabRest icon any time to manage your tabs.",
+    "description": "Done step pin card description after the user has pinned the extension"
+  },
+  "obDoneSummaryDelay": {
+    "message": "Auto-unload after",
+    "description": "Done step summary row label for delay"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "Always keep awake",
+    "description": "Done step summary row label for whitelist count"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 sites",
+    "description": "Done step summary value for whitelist count",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "Power mode",
+    "description": "Done step summary row label for power mode"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "Notifications",
+    "description": "Done step summary row label for notifications"
+  },
+  "obDoneOpenSettings": {
+    "message": "Open all settings",
+    "description": "Done step link to options page"
+  },
+  "obDoneShortcutsHint": {
+    "message": "Tip: $1 unloads the current tab.",
+    "description": "Done step keyboard shortcuts hint",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "On",
+    "description": "Generic on indicator for done summary"
+  },
+  "obOffState": {
+    "message": "Off",
+    "description": "Generic off indicator for done summary"
+  },
+  "obMinutes": {
+    "message": "$1 min",
+    "description": "Duration in minutes for done summary",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 hr",
+    "description": "Duration in hours for done summary",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
   }
 }
