@@ -119,8 +119,19 @@ const homeLink = getLocalizedPath('/', locale);
     </div>
 
     <!-- Bottom Bar -->
-    <div class="pt-8 border-t border-border-light dark:border-border-dark text-center text-sm text-text-muted dark:text-text-muted-dark">
+    <div class="pt-8 border-t border-border-light dark:border-border-dark text-center text-sm text-text-muted dark:text-text-muted-dark space-y-2">
       <p>{t.footer.copyright}</p>
+      <p>
+        {t.footer.builtBy}{' '}
+        <a
+          href="https://ohlab.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-semibold text-primary dark:text-primary-light hover:underline"
+        >
+          ohlab.dev
+        </a>
+      </p>
     </div>
   </div>
 </footer>

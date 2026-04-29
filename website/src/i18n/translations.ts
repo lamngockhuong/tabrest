@@ -205,6 +205,7 @@ export const translations = {
         license: 'License',
       },
       copyright: '© 2026 TabRest. Open source under MIT License.',
+      builtBy: 'Built by',
     },
     docs: {
       sidebar: {
@@ -414,6 +415,7 @@ export const translations = {
         license: 'Giấy phép',
       },
       copyright: '© 2026 TabRest. Mã nguồn mở theo giấy phép MIT.',
+      builtBy: 'Phát triển bởi',
     },
     docs: {
       sidebar: {
