@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.1.0](https://github.com/lamngockhuong/tabrest/compare/v0.0.5...v0.1.0) (2026-04-29)
+
+
+### Features
+
+* **error-reporter:** integrate Sentry SaaS for opt-in error reporting ([#50](https://github.com/lamngockhuong/tabrest/issues/50)) ([013ee7d](https://github.com/lamngockhuong/tabrest/commit/013ee7db342d11dea1e1cca69772c4613ca3195b))
+* **settings:** add more granular timer and RAM threshold options ([#46](https://github.com/lamngockhuong/tabrest/issues/46)) ([dd7ec6a](https://github.com/lamngockhuong/tabrest/commit/dd7ec6ad28296667221c348fa09e0f2aecab4034))
+
+
+### Bug Fixes
+
+* **background:** whitelist wins over blacklist precedence ([#44](https://github.com/lamngockhuong/tabrest/issues/44)) ([1e19940](https://github.com/lamngockhuong/tabrest/commit/1e199404f75ad5d748adfe9528e67ce52850c0df))
+* **error-reporter:** route manual bug reports through SW with anti-spam throttle ([#51](https://github.com/lamngockhuong/tabrest/issues/51)) ([203acf5](https://github.com/lamngockhuong/tabrest/commit/203acf589ca8df3e9794d65cfa9e9ddaf98d4f82))
+* **popup:** correct protection badges for pinned/audio/form tabs ([#48](https://github.com/lamngockhuong/tabrest/issues/48)) ([df9c6f5](https://github.com/lamngockhuong/tabrest/commit/df9c6f5cb4e4e4e30edefbb8bc3854d2221f5200))
+* **release-please:** bump minor for feat commits in pre-1.0.0 ([#52](https://github.com/lamngockhuong/tabrest/issues/52)) ([909c60b](https://github.com/lamngockhuong/tabrest/commit/909c60ba2879cb8858bf1f5dddacdf654d1e3084))
+* timer badge h/m format + theme toggle alignment ([#49](https://github.com/lamngockhuong/tabrest/issues/49)) ([6125753](https://github.com/lamngockhuong/tabrest/commit/612575390ee4b4507b7074ea64be54261cd9fb53))
+
 ## [0.0.5](https://github.com/lamngockhuong/tabrest/compare/v0.0.4...v0.0.5) (2026-04-28)
 
 
