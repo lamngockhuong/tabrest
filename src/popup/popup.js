@@ -398,7 +398,7 @@ function applySearch(tabs) {
 }
 
 // Filter tabs by current chip filter, then by search query (AND composition).
-// Filter chip counts intentionally reflect pre-search totals — they represent
+// Filter chip counts intentionally reflect pre-search totals - they represent
 // category sizes, not visible result count.
 function filterTabs(tabs) {
   const filtered =
@@ -654,7 +654,7 @@ function setupEventListeners() {
       elements.tabSearchRow.classList.add("hidden");
       return;
     }
-    // Search input lives inside the Tabs collapsible — force it open so the input is visible
+    // Search input lives inside the Tabs collapsible - force it open so the input is visible
     const tabsBody = document.getElementById("tabs-body");
     if (tabsBody && !tabsBody.classList.contains("open")) {
       applySectionState("tabs-toggle", true);
@@ -722,7 +722,7 @@ function setupEventListeners() {
         const containerRect = elements.tabList.getBoundingClientRect();
         const spaceBelow = containerRect.bottom - btnRect.bottom;
         const spaceAbove = btnRect.top - containerRect.top;
-        // Menu is ~180px tall — flip up only when below is too tight and above has more room
+        // Menu is ~180px tall - flip up only when below is too tight and above has more room
         if (spaceBelow < 200 && spaceAbove > spaceBelow) {
           dropdown.classList.add("flip-up");
         }
@@ -865,7 +865,7 @@ function setupEventListeners() {
     }
   });
 
-  // Session export — copy current sessions as JSON to clipboard
+  // Session export - copy current sessions as JSON to clipboard
   elements.exportSessions?.addEventListener("click", async () => {
     const sessions = (await sendCommand("get-sessions")) || [];
     try {
@@ -876,7 +876,7 @@ function setupEventListeners() {
     }
   });
 
-  // Session import — parse pasted JSON, additive merge by name
+  // Session import - parse pasted JSON, additive merge by name
   elements.importSessions?.addEventListener("click", async () => {
     const text = prompt(t("pasteImportJson"));
     if (!text) return;

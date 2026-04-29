@@ -260,7 +260,7 @@ export async function clearStoredErrors() {
 // --- Fingerprint, Quota, and Dedup Helpers ---
 
 /**
- * FNV-1a 32-bit hash — sync, no async, no Web Crypto.
+ * FNV-1a 32-bit hash - sync, no async, no Web Crypto.
  * @param {string} str
  * @returns {string} lowercase hex
  */
@@ -306,7 +306,7 @@ function getTodayUtc() {
 
 /**
  * Check daily quota and increment if allowed.
- * Caller must invoke this ONLY when actually about to send — sampled-out
+ * Caller must invoke this ONLY when actually about to send - sampled-out
  * events skip this so they don't burn the user's daily cap.
  * Resets counter at UTC midnight (lazy reset on first call of the new day).
  * @returns {Promise<{allowed: boolean, count: number, cap: number}>}
@@ -441,7 +441,7 @@ function parseDsn(dsn) {
 
 /**
  * Public DSN format check used by the options page validator.
- * Single source of truth — keeps options UI in lock-step with the transport.
+ * Single source of truth - keeps options UI in lock-step with the transport.
  * @param {string} dsn
  * @returns {boolean}
  */
@@ -620,7 +620,7 @@ function buildManualReportPayload(report) {
   const appVersion = cachedAppVersion || chrome.runtime.getManifest().version;
   const browserName = cachedBrowserName || getBrowserInfo().name;
 
-  // report.description was already sanitized by reportBug — don't re-sanitize.
+  // report.description was already sanitized by reportBug - don't re-sanitize.
   return {
     event_id: generateEventId(),
     timestamp: new Date().toISOString(),
@@ -712,7 +712,7 @@ async function sendToSentry(sanitizedError, context) {
     const fp = computeFingerprint(sanitizedError);
     const dedup = await checkDedup(fp);
     if (!dedup.shouldSend) {
-      // Sampled out — record the occurrence without burning quota.
+      // Sampled out - record the occurrence without burning quota.
       await persistDedup(dedup.map, fp, false);
       return;
     }
@@ -755,7 +755,7 @@ async function sendMessageToSentry(sanitizedMessage, level, context) {
 /**
  * Send a manual bug report to Sentry.
  * Manual reports have their own cap (checkManualReportThrottle) and must NOT
- * burn the shared error daily cap — otherwise a noisy reporter would crowd
+ * burn the shared error daily cap - otherwise a noisy reporter would crowd
  * out genuine error events.
  * @param {Object} report
  * @returns {Promise<boolean>}

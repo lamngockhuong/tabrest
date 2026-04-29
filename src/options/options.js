@@ -268,7 +268,7 @@ function setupEventListeners() {
     });
   }
 
-  // Custom Sentry DSN input — validation delegates to the same parser the
+  // Custom Sentry DSN input - validation delegates to the same parser the
   // transport uses, so UI and runtime can never disagree on what counts as valid.
   let dsnDebounce = null;
   elements.customSentryDsn.addEventListener("input", () => {
@@ -407,7 +407,7 @@ async function exportList(listKey) {
   }
 }
 
-// Import a domain list from clipboard text. Additive — duplicates and invalid
+// Import a domain list from clipboard text. Additive - duplicates and invalid
 // entries are skipped, never overwritten.
 async function importList(listKey, renderFn) {
   const text = prompt(t("pasteImportJson"));

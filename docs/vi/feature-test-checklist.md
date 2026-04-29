@@ -29,7 +29,7 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 - [ ] Đổi ngôn ngữ sang `vi` (Chrome → Settings → Languages → đặt tiếng Việt làm chính, reload extension); chuỗi popup + options chuyển sang tiếng Việt.
 - [ ] Đổi lại `en`; chuỗi quay lại tiếng Anh.
 
-## 1. Auto-Unload — Hẹn giờ không hoạt động
+## 1. Auto-Unload - Hẹn giờ không hoạt động
 
 - [ ] Đặt `Unload after` = 1 phút (Options → Auto-Unload), `Min inactive tabs before discard` = 0.
 - [ ] Mở 3 tab (site bất kỳ không nằm trong whitelist). Focus tab A.
@@ -38,14 +38,14 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 - [ ] Click tab B đã discard → tải lại tức thì, scroll giữ nguyên (nếu bật `restoreScrollPosition`).
 - [ ] Đặt delay = 0 → tắt auto-unload; xác nhận tab không còn discard sau 1 phút.
 
-## 2. Auto-Unload — Ngưỡng RAM
+## 2. Auto-Unload - Ngưỡng RAM
 
 - [ ] Đặt `Memory threshold` = 60% (Options → Memory Management).
 - [ ] Mở đủ tab để RAM > 60% (hoặc tạm hạ ngưỡng = RAM hiện tại −5%).
 - [ ] Trong 30s, tab LRU bị discard cho tới khi RAM tụt dưới ngưỡng.
 - [ ] Đặt threshold = 0 → tắt discard theo memory.
 
-## 3. Auto-Unload — Giới hạn JS Heap mỗi tab
+## 3. Auto-Unload - Giới hạn JS Heap mỗi tab
 
 - [ ] Đặt `Per-tab JS heap limit` = 100 MB (Options).
 - [ ] Nếu host permission cho form-checker đã cấp trước đó, `chrome.scripting` inject reporter; ngược lại, banner phục hồi xuất hiện trong popup.
@@ -53,7 +53,7 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 - [ ] Tab discard khi heap > 100 MB.
 - [ ] Đặt limit = 0 → tắt giám sát heap.
 
-## 4. Auto-Unload — Khi khởi động
+## 4. Auto-Unload - Khi khởi động
 
 - [ ] Bật `Auto-unload on startup` (Options).
 - [ ] Thoát Chrome rồi mở lại với nhiều tab từ phiên trước.
@@ -87,7 +87,7 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 - [ ] Chuyển **Performance**: chu kỳ ngắn nhất, ưu tiên discard cao.
 - [ ] Sau mỗi lần chuyển, kiểm tra alarm period đổi (DevTools `chrome.alarms.getAll`).
 
-## 9. Điều khiển thủ công — Nút trong popup
+## 9. Điều khiển thủ công - Nút trong popup
 
 - [ ] **Unload Current** → discard tab đang focus; popup đóng; tab có prefix.
 - [ ] **Unload Others** → mọi tab khác active đều discard.
@@ -100,10 +100,10 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 
 Cấu hình tại `chrome://extensions/shortcuts`.
 
-- [ ] `Alt+Shift+D` — unload tab hiện tại.
-- [ ] `Alt+Shift+O` — unload các tab khác.
-- [ ] `Alt+Shift+→` — unload tab bên phải.
-- [ ] `Alt+Shift+←` — unload tab bên trái.
+- [ ] `Alt+Shift+D` - unload tab hiện tại.
+- [ ] `Alt+Shift+O` - unload các tab khác.
+- [ ] `Alt+Shift+→` - unload tab bên phải.
+- [ ] `Alt+Shift+←` - unload tab bên trái.
 - [ ] Đổi binding một phím tắt → vẫn fire đúng lệnh.
 
 ## 11. Hành động click toolbar
@@ -168,7 +168,7 @@ Cấu hình tại `chrome://extensions/shortcuts`.
 - [ ] Tab phát YouTube + `Protect audio tabs` → không discard.
 - [ ] Tab có form chưa lưu (ví dụ Google Form điền dở) + `Protect form tabs` → không discard; dòng popup hiển thị badge "Form".
 - [ ] Tab có form chưa lưu trên React/contenteditable editor (ví dụ body issue GitHub) → sau khi gõ, dòng popup hiển thị badge "Form" (eager-injection bắt được keystroke).
-- [ ] Tab vừa whitelist vừa pin/audio/form → popup ưu tiên badge cụ thể (pin/audio/form), không hiển thị "safe" — whitelist là priority thấp nhất.
+- [ ] Tab vừa whitelist vừa pin/audio/form → popup ưu tiên badge cụ thể (pin/audio/form), không hiển thị "safe" - whitelist là priority thấp nhất.
 - [ ] Tắt một protection → tab khớp trở lại đủ điều kiện.
 - [ ] **Force unload** (menu mỗi tab trong popup) override mọi protection.
 

@@ -66,7 +66,7 @@ See `docs/system-architecture.md` and `CLAUDE.md` for module dependency flow.
 
 ## Code Style
 
-- Vanilla JavaScript (ES Modules) — no build step for extension code
+- Vanilla JavaScript (ES Modules) - no build step for extension code
 - Keep files under 200 lines; split by concern
 - Follow existing patterns in the codebase
 - Run `pnpm lint` before committing

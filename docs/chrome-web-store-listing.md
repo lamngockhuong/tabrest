@@ -19,7 +19,7 @@ PRIVACY COMMITMENT:
 • No URLs, emails, IPs, or browsing data collected
 • Error reports sanitized before sending (sensitive data redacted)
 • Max 100 reports per user per day
-• Full transparency: https://tabrest.ohnice.app/en/privacy-policy/#error-reporting
+• Full transparency: https://tabrest.ohnice.app/docs/privacy-policy/#error-reporting
 
 NEW PERMISSION:
 We've added "Read your data on sentry.io" to send error reports. This permission is only used when you explicitly enable error reporting in Settings → Privacy & Diagnostics.

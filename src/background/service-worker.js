@@ -66,7 +66,7 @@ import {
 // MV3 service workers can be killed and re-awoken by events (messages, alarms)
 // without firing onStartup/onInstalled. Kick init off on every script load so a
 // cold-wake message handler still has parsedDsn ready. initErrorReporter is
-// idempotent — subsequent calls return early.
+// idempotent - subsequent calls return early.
 initErrorReporter().catch((e) => console.error("[ErrorReporter] eager init failed:", e));
 
 // Side-panel mode takes precedence over toolbarClickAction.
@@ -112,7 +112,7 @@ chrome.runtime.onStartup.addListener(async () => {
   await configureToolbarAction();
   await setupSnoozeCleanupAlarm();
   // Catch the case where the user revoked host permission via chrome://extensions
-  // between sessions; silently flip dependent toggles off (no banner — not an upgrade).
+  // between sessions; silently flip dependent toggles off (no banner - not an upgrade).
   await syncHostPermissionState(false);
   await discardAllTabsOnStartup();
   updateBadge();
@@ -362,7 +362,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     updateTabActivity(tabId);
   }
   if (changeInfo.status === "loading" || changeInfo.discarded === true) {
-    // Page navigating or Chrome dropped the tab — injected form-checker is
+    // Page navigating or Chrome dropped the tab - injected form-checker is
     // gone; force re-inject next check.
     clearInjectedTab(tabId);
   }
@@ -509,7 +509,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return false;
   }
   if (message.command === REPORTER_COMMANDS.REPORT_BUG) {
-    // Await init so a cold-wake message doesn't race with DSN setup —
+    // Await init so a cold-wake message doesn't race with DSN setup -
     // otherwise reportBug returns {ok:true, reason:"no_dsn"} and the popup
     // shows a misleading success toast while Sentry receives nothing.
     initErrorReporter()

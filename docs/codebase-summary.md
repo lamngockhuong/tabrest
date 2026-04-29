@@ -148,11 +148,11 @@ service-worker.js (orchestrator)
 
 ### Other Storage Keys (chrome.storage.local)
 
-- `popup_section_state` — Persistent collapse state for popup sections
-- `tabrest_lastVersion` — Current version for changelog gating
-- `tabrest_snooze` — Active snooze timers
-- `tabrest_scroll_positions` — Cached scroll positions (max 100)
-- `youtube_timestamps` — YouTube playback positions (7-day max age)
+- `popup_section_state` - Persistent collapse state for popup sections
+- `tabrest_lastVersion` - Current version for changelog gating
+- `tabrest_snooze` - Active snooze timers
+- `tabrest_scroll_positions` - Cached scroll positions (max 100)
+- `youtube_timestamps` - YouTube playback positions (7-day max age)
 
 ## External Dependencies
 

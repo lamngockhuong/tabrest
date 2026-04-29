@@ -71,3 +71,8 @@ content/
 | `chrome.idle`               | Idle state detection                   |
 | `chrome.action`             | Toolbar icon click handling            |
 | `chrome.scripting`          | Inject title prefix for discarded tabs |
+
+## Writing Style
+
+- **No em dash or en dash**: Never use `—` (U+2014) or `–` (U+2013) in any output - prose, code comments, docs, commit messages, PR descriptions, or chat replies. Use a hyphen-minus `-` (with surrounding spaces when used as a sentence break) or rephrase the sentence.
+- **Exception**: UI placeholder values that intentionally render `—` as a "no value" indicator (e.g., `src/popup/popup.html` stat cells, `src/popup/popup.js` `textContent = "—"`). Do not change those.
