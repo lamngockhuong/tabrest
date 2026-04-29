@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import { SETTINGS_DEFAULTS } from "../../src/shared/constants.js";
 import { isValidDsn } from "../../src/shared/error-reporter.js";
 import { HOST_PERM_DEPENDENT_FLAGS } from "../../src/shared/permissions.js";
 import { isValidDomainOrIp } from "../../src/shared/utils.js";
@@ -206,8 +207,6 @@ describe("options-contracts: DSN validation matches transport parser", () => {
 
 // --- prefix input fallback (options.js:308-317) -------------------------------
 // Empty trimmed input falls back to SETTINGS_DEFAULTS.discardedPrefix.
-import { SETTINGS_DEFAULTS } from "../../src/shared/constants.js";
-
 function resolvePrefixInput(raw) {
   return raw.trim() || SETTINGS_DEFAULTS.discardedPrefix;
 }

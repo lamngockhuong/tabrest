@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
+import { YOUTUBE_TIMESTAMP_MAX_AGE_MS as MAX_AGE_MS } from "../../src/shared/constants.js";
 
 // Approach A: youtube-tracker.js is excluded (IIFE content script). These tests
-// pin the eligibility / pruning / restore-window contracts.
-
-const MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+// pin the eligibility / pruning / restore-window contracts. Importing the
+// canonical MAX_AGE_MS from shared/constants doubles as a drift detector
+// against the source-side local copy (content scripts can't ES-import).
 
 // --- getCurrentTimestamp eligibility (youtube-tracker.js:8-22) ----------------
 function getCurrentTimestamp({ video, search, href }) {

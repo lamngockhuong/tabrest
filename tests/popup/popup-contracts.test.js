@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { isSafeHttpUrl } from "../../src/shared/utils.js";
 
 // Approach A: popup.js is excluded from coverage (DOM entry script). These tests
@@ -18,7 +18,7 @@ function getBadgeKind(tab) {
     const map = { whitelist: "safe", audio: "audio", form: "form", snooze: "snooze" };
     return { kind: "protected", reason: map[tab.protectionReason] || map.whitelist };
   }
-  if (tab.timeUntilUnload != null && tab.timeUntilUnload > 0) {
+  if (tab.timeUntilUnload !== null && tab.timeUntilUnload > 0) {
     const mins = Math.ceil(tab.timeUntilUnload / 60000);
     const h = Math.floor(mins / 60);
     const m = mins % 60;
@@ -240,6 +240,7 @@ function leadingDebounce(fn, delay = 150) {
 
 describe("popup-contracts: leadingDebounce (trailing-edge invocation)", () => {
   beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
 
   it("first call schedules invocation; subsequent calls during pending are dropped", () => {
     const fn = vi.fn();
@@ -315,6 +316,10 @@ describe("popup-contracts: review prompt gating", () => {
 // Already covered by tests/popup/bug-report-modal.test.js - sanity-pinning the
 // strict-equality check here too because misuse (truthy instead of ===true)
 // would silently leak the button on any truthy non-true value.
+function isConsentOn(enableErrorReporting) {
+  return enableErrorReporting === true;
+}
+
 describe("popup-contracts: bug-report sentry button strict consent", () => {
   it.each([
     [true, true],
@@ -323,8 +328,7 @@ describe("popup-contracts: bug-report sentry button strict consent", () => {
     [false, false],
     [undefined, false],
     [null, false],
-  ])("enableErrorReporting=%p → consentOn=%p", (val, expected) => {
-    const consentOn = val === true;
-    expect(consentOn).toBe(expected);
+  ])("enableErrorReporting=%p -> consentOn=%p", (val, expected) => {
+    expect(isConsentOn(val)).toBe(expected);
   });
 });

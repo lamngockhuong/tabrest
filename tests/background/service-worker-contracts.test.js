@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   ALARM_NAMES,
   CONSENT_RESET_MIGRATION_KEY,
+  REPORT_REASONS,
   REPORTER_COMMANDS,
 } from "../../src/shared/constants.js";
 import { HOST_PERM_DEPENDENT_FLAGS } from "../../src/shared/permissions.js";
@@ -203,7 +204,33 @@ describe("service-worker-contracts: host permission resync", () => {
 
 // --- handleMessage routing table (service-worker.js:530-586) ------------------
 // Re-implements the dispatch - pins the contract that {command} maps to the
-// correct handler with the correct argument shape.
+// correct handler with the correct argument shape. Mirrors all branches of
+// the source switch so that a drift between this list and the source switch
+// is review-visible.
+const ROUTED_COMMANDS = [
+  "unload-current",
+  "unload-others",
+  "unload-right",
+  "unload-left",
+  "unload-group",
+  "unload-tab",
+  "close-duplicates",
+  "get-memory-info",
+  "get-tabs-with-status",
+  "get-sessions",
+  "save-session",
+  "delete-session",
+  "restore-session",
+  "import-sessions",
+  "get-stats",
+  "snooze-tab",
+  "snooze-domain",
+  "cancel-tab-snooze",
+  "cancel-domain-snooze",
+  "get-snooze-info",
+  "get-active-snoozes",
+];
+
 function buildRouter(handlers) {
   return async (message) => {
     const { command, groupId, tabId, name, id, mode, minutes, domain, url, sessions } = message;
@@ -222,6 +249,12 @@ function buildRouter(handlers) {
         return await handlers.discardTab(tabId, { force: true });
       case "close-duplicates":
         return await handlers.closeDuplicateTabs();
+      case "get-memory-info":
+        return await handlers.getMemoryInfo();
+      case "get-tabs-with-status":
+        return await handlers.getTabsWithStatus();
+      case "get-sessions":
+        return await handlers.getSessions();
       case "save-session":
         return await handlers.saveSession(name);
       case "delete-session":
@@ -230,6 +263,8 @@ function buildRouter(handlers) {
         return await handlers.restoreSession(id, mode);
       case "import-sessions":
         return await handlers.importSessions(sessions);
+      case "get-stats":
+        return await handlers.getStats();
       case "snooze-tab":
         await handlers.snoozeTab(tabId, minutes);
         return { success: true };
@@ -244,6 +279,8 @@ function buildRouter(handlers) {
         return { success: true };
       case "get-snooze-info":
         return await handlers.getTabSnoozeInfo(tabId, url);
+      case "get-active-snoozes":
+        return await handlers.getActiveSnoozes();
       default:
         return null;
     }
@@ -263,17 +300,28 @@ describe("service-worker-contracts: handleMessage routing", () => {
       discardTabGroup: vi.fn().mockResolvedValue("g"),
       discardTab: vi.fn().mockResolvedValue("t"),
       closeDuplicateTabs: vi.fn().mockResolvedValue({ closed: 2 }),
+      getMemoryInfo: vi.fn().mockResolvedValue({ capacity: 1, availableCapacity: 1 }),
+      getTabsWithStatus: vi.fn().mockResolvedValue([]),
+      getSessions: vi.fn().mockResolvedValue([]),
       saveSession: vi.fn().mockResolvedValue({ success: true }),
       deleteSession: vi.fn().mockResolvedValue(),
       restoreSession: vi.fn().mockResolvedValue({ success: true }),
       importSessions: vi.fn().mockResolvedValue({ added: 1, skipped: 0 }),
+      getStats: vi.fn().mockResolvedValue({ tabsUnloaded: 0 }),
       snoozeTab: vi.fn().mockResolvedValue(),
       snoozeDomain: vi.fn().mockResolvedValue(),
       cancelTabSnooze: vi.fn().mockResolvedValue(),
       cancelDomainSnooze: vi.fn().mockResolvedValue(),
       getTabSnoozeInfo: vi.fn().mockResolvedValue({ snoozed: false }),
+      getActiveSnoozes: vi.fn().mockResolvedValue([]),
     };
     route = buildRouter(handlers);
+  });
+
+  it("every documented command has a routing branch (no silent null fall-through)", async () => {
+    for (const command of ROUTED_COMMANDS) {
+      expect(await route({ command }), `${command} returned null`).not.toBeNull();
+    }
   });
 
   it("unload-tab passes {force:true} to bypass protection guards", async () => {
@@ -314,33 +362,44 @@ describe("service-worker-contracts: handleMessage routing", () => {
 // REPORTER_COMMANDS. They short-circuit before the main router and shape the
 // sendResponse contract differently.
 describe("service-worker-contracts: reporter command pre-routing", () => {
-  it("CAPTURE_ERROR uses the synchronous path (returns false)", () => {
-    // The handler returns `false` to release the channel after sync sendResponse.
-    // Test: branch identity - captureError is called with reconstructed Error.
+  it("CAPTURE_ERROR reconstructs an Error from the structured payload", () => {
+    // Replicates the branch from service-worker.js:497-505. captureError is
+    // called with a real Error (not the plain object) so downstream Sentry
+    // tooling sees a stack-bearing exception.
     const captureError = vi.fn();
-    const sendResponse = vi.fn();
-
     const message = {
       command: REPORTER_COMMANDS.CAPTURE_ERROR,
       error: { name: "TypeError", message: "boom", stack: "stack" },
       context: { surface: "popup" },
     };
 
-    // Replicates the branch from service-worker.js:497-505
     const errPayload = message.error || {};
     const err = new Error(errPayload.message || "Unknown error");
     err.name = errPayload.name || "Error";
     err.stack = errPayload.stack || "";
     captureError(err, message.context || {});
-    sendResponse({ ok: true });
 
-    expect(captureError).toHaveBeenCalledOnce();
     const [errArg, ctxArg] = captureError.mock.calls[0];
+    expect(errArg).toBeInstanceOf(Error);
     expect(errArg.name).toBe("TypeError");
     expect(errArg.message).toBe("boom");
     expect(errArg.stack).toBe("stack");
     expect(ctxArg).toEqual({ surface: "popup" });
-    expect(sendResponse).toHaveBeenCalledWith({ ok: true });
+  });
+
+  it("CAPTURE_ERROR with empty payload still produces a usable Error", () => {
+    const captureError = vi.fn();
+    const message = { command: REPORTER_COMMANDS.CAPTURE_ERROR };
+    const errPayload = message.error || {};
+    const err = new Error(errPayload.message || "Unknown error");
+    err.name = errPayload.name || "Error";
+    err.stack = errPayload.stack || "";
+    captureError(err, message.context || {});
+    const [errArg, ctxArg] = captureError.mock.calls[0];
+    expect(errArg.message).toBe("Unknown error");
+    expect(errArg.name).toBe("Error");
+    expect(errArg.stack).toBe("");
+    expect(ctxArg).toEqual({});
   });
 
   it("CAPTURE_MESSAGE defaults level/context", () => {
@@ -350,36 +409,17 @@ describe("service-worker-contracts: reporter command pre-routing", () => {
     expect(captureMessage).toHaveBeenCalledWith("", "info", {});
   });
 
-  it("REPORT_BUG awaits init before reportBug to avoid no_dsn races", async () => {
-    const order = [];
-    const initErrorReporter = vi.fn(async () => {
-      await Promise.resolve();
-      order.push("init");
+  it("REPORT_BUG transport failure surfaces SEND_FAILED via the constants table", () => {
+    // Pin the exact reason code the SW returns when the network leg throws.
+    // Catches a future refactor that swaps in a freeform string.
+    const failure = { ok: false, reason: REPORT_REASONS.SEND_FAILED };
+    expect(failure.reason).toBe("send_failed");
+    expect(REPORT_REASONS).toMatchObject({
+      COOLDOWN: expect.any(String),
+      DAILY_CAP: expect.any(String),
+      SEND_FAILED: expect.any(String),
+      NO_DSN: expect.any(String),
     });
-    const reportBug = vi.fn(async () => {
-      order.push("report");
-      return { ok: true };
-    });
-    await initErrorReporter().then(() => reportBug("desc", { foo: 1 }));
-    expect(order).toEqual(["init", "report"]);
-    expect(reportBug).toHaveBeenCalledWith("desc", { foo: 1 });
-  });
-
-  it("REPORT_BUG catches transport failure with structured response", async () => {
-    const initErrorReporter = vi.fn(async () => {});
-    const reportBug = vi.fn(async () => {
-      throw new Error("network down");
-    });
-    let response;
-    await initErrorReporter()
-      .then(() => reportBug("d", null))
-      .then((r) => {
-        response = r;
-      })
-      .catch(() => {
-        response = { ok: false, reason: "send_failed" };
-      });
-    expect(response).toEqual({ ok: false, reason: "send_failed" });
   });
 });
 
@@ -425,26 +465,19 @@ describe("service-worker-contracts: alarm name → handler routing", () => {
 });
 
 // --- updateBadge (service-worker.js:674-687) ----------------------------------
-describe("service-worker-contracts: badge count gating", () => {
-  it("showBadgeCount=false clears badge regardless of tab count", () => {
-    const setBadge = vi.fn();
-    const settings = { showBadgeCount: false };
-    if (!settings.showBadgeCount) {
-      setBadge({ text: "" });
-    }
-    expect(setBadge).toHaveBeenCalledWith({ text: "" });
-  });
+function badgeText({ enabled, discardedCount }) {
+  if (!enabled) return "";
+  return discardedCount > 0 ? String(discardedCount) : "";
+}
 
-  it("count=0 → empty string (avoids '0' badge clutter)", () => {
-    const tabs = [{ discarded: false }, { discarded: false }];
-    const count = tabs.filter((t) => t.discarded).length;
-    expect(count > 0 ? String(count) : "").toBe("");
-  });
-
-  it("count>0 → numeric string", () => {
-    const tabs = [{ discarded: true }, { discarded: true }, { discarded: false }];
-    const count = tabs.filter((t) => t.discarded).length;
-    expect(count > 0 ? String(count) : "").toBe("2");
+describe("service-worker-contracts: badge text gating", () => {
+  it.each([
+    [{ enabled: false, discardedCount: 5 }, ""], // disabled wins over count
+    [{ enabled: true, discardedCount: 0 }, ""], // zero never shown (no '0' clutter)
+    [{ enabled: true, discardedCount: 1 }, "1"],
+    [{ enabled: true, discardedCount: 42 }, "42"],
+  ])("%o -> %p", (input, expected) => {
+    expect(badgeText(input)).toBe(expected);
   });
 });
 

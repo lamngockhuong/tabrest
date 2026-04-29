@@ -1,54 +1,57 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { REPORTER_COMMANDS, SCROLL_MAX_ENTRIES } from "../../src/shared/constants.js";
 
 // Approach A: form-checker.js is excluded (IIFE content script bound to live
 // DOM/window). These tests pin the pure-logic contracts: storage pruning,
 // extension-frame error filtering, and the form-modified detection algorithm.
 
-// --- saveScrollPosition pruning (form-checker.js:26-54) -----------------------
-const SCROLL_MAX_ENTRIES = 100;
+// Importing SCROLL_MAX_ENTRIES from shared/constants is deliberate even though
+// the source duplicates it locally (content scripts can't use ES imports).
+// This test then doubles as a drift detector for the source-side copy.
 
-function pruneScrollPositions(positions) {
+// --- saveScrollPosition pruning (form-checker.js:26-54) -----------------------
+function pruneScrollPositions(positions, max = SCROLL_MAX_ENTRIES) {
   const keys = Object.keys(positions);
-  if (keys.length <= SCROLL_MAX_ENTRIES) return positions;
+  if (keys.length <= max) return positions;
   const sorted = keys.sort((a, b) => positions[a].savedAt - positions[b].savedAt);
-  const toRemove = sorted.slice(0, keys.length - SCROLL_MAX_ENTRIES);
+  const toRemove = sorted.slice(0, keys.length - max);
   for (const k of toRemove) delete positions[k];
   return positions;
 }
 
 describe("form-checker-contracts: scroll position pruning", () => {
+  // Use a small MAX so the contract is exercised without 300+ allocations
+  const MAX = 5;
+
   it("noop when at or below limit", () => {
     const positions = {};
-    for (let i = 0; i < SCROLL_MAX_ENTRIES; i++) {
+    for (let i = 0; i < MAX; i++) {
       positions[i] = { savedAt: i, x: 0, y: 0, url: "u" };
     }
-    pruneScrollPositions(positions);
-    expect(Object.keys(positions)).toHaveLength(SCROLL_MAX_ENTRIES);
+    pruneScrollPositions(positions, MAX);
+    expect(Object.keys(positions)).toHaveLength(MAX);
   });
 
   it("removes oldest entries (lowest savedAt) when over limit", () => {
     const positions = {};
-    for (let i = 0; i < SCROLL_MAX_ENTRIES + 5; i++) {
+    for (let i = 0; i < MAX + 3; i++) {
       positions[String(i)] = { savedAt: i * 1000, x: 0, y: 0, url: "u" };
     }
-    pruneScrollPositions(positions);
-    expect(Object.keys(positions)).toHaveLength(SCROLL_MAX_ENTRIES);
-    // 5 oldest gone
-    for (let i = 0; i < 5; i++) {
+    pruneScrollPositions(positions, MAX);
+    expect(Object.keys(positions)).toHaveLength(MAX);
+    for (let i = 0; i < 3; i++) {
       expect(positions[String(i)]).toBeUndefined();
     }
-    // newest survive
-    expect(positions[String(SCROLL_MAX_ENTRIES + 4)]).toBeDefined();
+    expect(positions[String(MAX + 2)]).toBeDefined();
   });
 
-  it("breaks ties by sort stability - but always keeps exactly MAX entries", () => {
+  it("always keeps exactly MAX entries when timestamps are tied", () => {
     const positions = {};
-    for (let i = 0; i < SCROLL_MAX_ENTRIES + 3; i++) {
-      // All same timestamp
+    for (let i = 0; i < MAX + 2; i++) {
       positions[String(i)] = { savedAt: 1000, x: 0, y: 0, url: "u" };
     }
-    pruneScrollPositions(positions);
-    expect(Object.keys(positions)).toHaveLength(SCROLL_MAX_ENTRIES);
+    pruneScrollPositions(positions, MAX);
+    expect(Object.keys(positions)).toHaveLength(MAX);
   });
 });
 
@@ -117,7 +120,7 @@ describe("form-checker-contracts: extension-frame error filter", () => {
 // Pin the message shape sent to the SW: command + error + context.
 function buildForwardPayload(err, source, surface) {
   return {
-    command: "captureError",
+    command: REPORTER_COMMANDS.CAPTURE_ERROR,
     error: {
       name: err?.name || "Error",
       message: err?.message || String(err),
@@ -132,7 +135,7 @@ describe("form-checker-contracts: forwardError payload shape", () => {
     const e = new TypeError("boom");
     e.stack = "stack-line";
     expect(buildForwardPayload(e, "uncaught", "content_form")).toEqual({
-      command: "captureError",
+      command: REPORTER_COMMANDS.CAPTURE_ERROR,
       error: { name: "TypeError", message: "boom", stack: "stack-line" },
       context: { surface: "content_form", source: "uncaught" },
     });
@@ -140,7 +143,7 @@ describe("form-checker-contracts: forwardError payload shape", () => {
 
   it("falls back to defaults for non-Error values", () => {
     expect(buildForwardPayload(undefined, "unhandledrejection", "content_form")).toEqual({
-      command: "captureError",
+      command: REPORTER_COMMANDS.CAPTURE_ERROR,
       error: { name: "Error", message: "undefined", stack: "" },
       context: { surface: "content_form", source: "unhandledrejection" },
     });
@@ -167,7 +170,7 @@ function isPageModified({
   if (globalFlag) return true;
 
   for (const i of inputs) {
-    if (i.hidden || i.readOnly || i.disabled || i.notVisible) continue;
+    if (i.type === "hidden" || i.readOnly || i.disabled || i.notVisible) continue;
     const cur = (i.value || "").trim();
     const def = (i.defaultValue || "").trim();
     if (cur !== def && cur.length > 0) return true;
@@ -214,11 +217,11 @@ describe("form-checker-contracts: form-modified detection", () => {
     ).toBe(false);
   });
 
-  it("hidden / readonly / disabled inputs ignored", () => {
+  it("hidden / readonly / disabled / off-screen inputs ignored", () => {
     expect(
       isPageModified({
         inputs: [
-          { value: "x", defaultValue: "", hidden: true },
+          { value: "x", defaultValue: "", type: "hidden" },
           { value: "y", defaultValue: "", readOnly: true },
           { value: "z", defaultValue: "", disabled: true },
           { value: "w", defaultValue: "", notVisible: true },
