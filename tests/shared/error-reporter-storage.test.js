@@ -103,13 +103,13 @@ describe("error-reporter (storage + capture)", () => {
   });
 
   describe("reportBug", () => {
-    it("returns true and stores sanitized report", async () => {
+    it("returns ok and stores sanitized report", async () => {
       chrome.storage.local.get.mockResolvedValue({});
       chrome.storage.local.set.mockResolvedValue();
       chrome.runtime.getManifest.mockReturnValue({ version: "0.0.5" });
 
-      const ok = await reportBug("Bug at https://leak.com", { tabs: 5 });
-      expect(ok).toBe(true);
+      const result = await reportBug("Bug at https://leak.com", { tabs: 5 });
+      expect(result).toEqual({ ok: true, reason: "no_dsn" });
 
       await vi.waitFor(() => expect(chrome.storage.local.set).toHaveBeenCalled());
       const written = chrome.storage.local.set.mock.calls[0][0][BUG_REPORTS_KEY];

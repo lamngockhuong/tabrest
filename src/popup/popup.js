@@ -1,4 +1,5 @@
-import { reportBug, sanitizeString } from "../shared/error-reporter.js";
+import { REPORT_REASONS, REPORTER_COMMANDS } from "../shared/constants.js";
+import { sanitizeString } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { icon, injectIcons } from "../shared/icons.js";
 import { exportPayload, parseImport } from "../shared/import-export.js";
@@ -547,6 +548,8 @@ async function renderDetailedStats() {
 // Review prompt URLs
 const REVIEW_URL = "https://chromewebstore.google.com/detail/tabrest/placeholder-id/reviews";
 const ISSUES_URL = "https://github.com/lamngockhuong/tabrest/issues";
+const NEW_BUG_ISSUE_URL =
+  "https://github.com/lamngockhuong/tabrest/issues/new?template=bug_report.md";
 
 // Check and show review prompt
 async function checkReviewPrompt() {
@@ -963,7 +966,7 @@ function setupEventListeners() {
     } catch {
       showToast("Failed to copy. Please copy manually.");
     }
-    chrome.tabs.create({ url: "https://github.com/lamngockhuong/tabrest/issues/new" });
+    chrome.tabs.create({ url: NEW_BUG_ISSUE_URL });
     elements.bugReportModal.style.display = "none";
     elements.bugDescription.value = "";
   });
@@ -973,11 +976,19 @@ function setupEventListeners() {
     const description = sanitizeString(elements.bugDescription.value.trim());
     elements.sendToSentryBtn.disabled = true;
     try {
-      const ok = await reportBug(description, cachedDiagnostics);
-      if (ok) {
+      const response = await chrome.runtime.sendMessage({
+        command: REPORTER_COMMANDS.REPORT_BUG,
+        description,
+        diagnostics: cachedDiagnostics,
+      });
+      if (response?.ok === true) {
         showToast(t("reportSentSuccess") || "Report sent. Thank you!");
         elements.bugReportModal.style.display = "none";
         elements.bugDescription.value = "";
+      } else if (response?.reason === REPORT_REASONS.COOLDOWN) {
+        showToast(t("reportCooldown") || "Please wait a minute before sending another report.");
+      } else if (response?.reason === REPORT_REASONS.DAILY_CAP) {
+        showToast(t("reportDailyCap") || "Daily report limit reached. Use GitHub copy instead.");
       } else {
         showToast(t("reportSentFailed") || "Failed to send. Try GitHub copy instead.");
       }

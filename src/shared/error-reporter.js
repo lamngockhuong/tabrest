@@ -9,6 +9,10 @@ import {
   ERROR_DEDUP_WINDOW_MS,
   ERROR_QUOTA_KEY,
   ERROR_REPEAT_SAMPLE_RATE,
+  MANUAL_REPORT_COOLDOWN_MS,
+  MANUAL_REPORT_DAILY_CAP,
+  MANUAL_REPORT_STATE_KEY,
+  REPORT_REASONS,
   SENTRY_DSN,
   SURFACES,
 } from "./constants.js";
@@ -159,10 +163,9 @@ export function captureMessage(message, level = "info", context = {}) {
 
 /**
  * Submit a manual bug report.
- * Always returns a Promise<boolean> so callers have a uniform contract.
  * @param {string} description - User's description of the issue
  * @param {Object} diagnostics - Sanitized diagnostic data from log-collector
- * @returns {Promise<boolean>} true on success (or local-only fallback when DSN absent)
+ * @returns {Promise<{ok: boolean, reason?: "cooldown"|"daily_cap"|"send_failed"|"no_dsn"}>}
  */
 export async function reportBug(description, diagnostics) {
   const sanitizedDescription = sanitizeString(description);
@@ -179,11 +182,19 @@ export async function reportBug(description, diagnostics) {
 
   storeReport(report);
 
-  if (parsedDsn && sentryInitialized) {
-    return sendReportToSentry(report);
+  if (!(parsedDsn && sentryInitialized)) {
+    return { ok: true, reason: REPORT_REASONS.NO_DSN };
   }
 
-  return true;
+  const throttle = await checkManualReportThrottle();
+  if (!throttle.allowed) return { ok: false, reason: throttle.reason };
+
+  const sent = await sendReportToSentry(report);
+  if (!sent) return { ok: false, reason: REPORT_REASONS.SEND_FAILED };
+
+  // Fire-and-forget: popup doesn't need to wait for storage write.
+  commitManualReportThrottle(throttle.state).catch(() => {});
+  return { ok: true };
 }
 
 // --- Internal Storage ---
@@ -311,6 +322,39 @@ async function checkAndIncrementQuota() {
   quota.count++;
   await chrome.storage.local.set({ [ERROR_QUOTA_KEY]: quota });
   return { allowed: true, count: quota.count, cap: ERROR_DAILY_CAP };
+}
+
+/**
+ * Anti-spam guard for manual bug reports. Two-phase: caller invokes this to
+ * check eligibility, then commitManualReportThrottle after a successful send
+ * so failed sends don't burn the daily cap.
+ * @returns {Promise<{allowed: boolean, reason?: "cooldown"|"daily_cap", state: Object}>}
+ */
+async function checkManualReportThrottle() {
+  const today = getTodayUtc();
+  const now = Date.now();
+  const data = await chrome.storage.local.get(MANUAL_REPORT_STATE_KEY);
+  let state = data[MANUAL_REPORT_STATE_KEY] || { date: today, count: 0, lastAt: 0 };
+  if (state.date !== today) state = { date: today, count: 0, lastAt: 0 };
+
+  if (now - state.lastAt < MANUAL_REPORT_COOLDOWN_MS) {
+    return { allowed: false, reason: REPORT_REASONS.COOLDOWN, state };
+  }
+  if (state.count >= MANUAL_REPORT_DAILY_CAP) {
+    return { allowed: false, reason: REPORT_REASONS.DAILY_CAP, state };
+  }
+  return { allowed: true, state };
+}
+
+/**
+ * Persist throttle state after a successful manual report send.
+ * Non-mutating: writes a fresh object so callers can't accidentally observe
+ * mid-flight mutations.
+ * @param {Object} state - state object returned by checkManualReportThrottle
+ */
+async function commitManualReportThrottle(state) {
+  const next = { ...state, count: state.count + 1, lastAt: Date.now() };
+  await chrome.storage.local.set({ [MANUAL_REPORT_STATE_KEY]: next });
 }
 
 /**
@@ -710,15 +754,14 @@ async function sendMessageToSentry(sanitizedMessage, level, context) {
 
 /**
  * Send a manual bug report to Sentry.
- * Bypasses dedup (manual reports are intentional); still respects daily cap.
- * Returns a promise resolving to true if the send succeeded, false otherwise.
+ * Manual reports have their own cap (checkManualReportThrottle) and must NOT
+ * burn the shared error daily cap — otherwise a noisy reporter would crowd
+ * out genuine error events.
  * @param {Object} report
  * @returns {Promise<boolean>}
  */
 async function sendReportToSentry(report) {
   try {
-    const quota = await checkAndIncrementQuota();
-    if (!quota.allowed) return false; // quota exhausted — signal to caller
     const payload = buildManualReportPayload(report);
     const envelope = buildEnvelope(payload, rawDsn);
     const result = await sendEnvelope(envelope, parsedDsn.ingestUrl, cachedAuthHeader);
@@ -749,4 +792,6 @@ export const __test__ = {
   checkDedup,
   recordSend,
   persistDedup,
+  checkManualReportThrottle,
+  commitManualReportThrottle,
 };
