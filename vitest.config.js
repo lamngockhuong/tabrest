@@ -21,6 +21,7 @@ export default defineConfig({
         "src/pages/onboarding/step-renderers.js",
         "src/pages/onboarding/render-done.js",
         "src/pages/onboarding/dom-helpers.js",
+        "src/pages/onboarding/pin-watcher.js",
       ],
       reporter: ["text", "html"],
       reportsDirectory: "./coverage",
