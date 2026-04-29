@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/lamngockhuong/tabrest/compare/v0.2.0...v0.2.1) (2026-04-29)
+
+
+### Bug Fixes
+
+* **options:** show correct Tabs Unloaded count and route reset through stats-collector ([#62](https://github.com/lamngockhuong/tabrest/issues/62)) ([0420a23](https://github.com/lamngockhuong/tabrest/commit/0420a23bdc130b163ff13eeba5f8b70bab5cd820))
+* **popup:** improve dark-mode contrast for tab action icons and timer badge ([#60](https://github.com/lamngockhuong/tabrest/issues/60)) ([3cabd6c](https://github.com/lamngockhuong/tabrest/commit/3cabd6c7161793a90d0c88ebd17ae8f45664735b))
+
 ## [0.2.0](https://github.com/lamngockhuong/tabrest/compare/v0.1.0...v0.2.0) (2026-04-29)
 
 
