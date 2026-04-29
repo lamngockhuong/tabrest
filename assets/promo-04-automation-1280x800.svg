@@ -51,7 +51,11 @@
       <!-- Timer -->
       <g transform="translate(0, 0)">
         <circle cx="20" cy="20" r="20" fill="rgba(99,102,241,0.2)"/>
-        <text x="20" y="20" font-family="system-ui, sans-serif" font-size="20" fill="#A5B4FC" text-anchor="middle" dominant-baseline="central">⏱️</text>
+        <g transform="translate(8, 8)" stroke="#A5B4FC" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="13" r="8.5"/>
+          <path d="M12 9v4.5l3 2"/>
+          <path d="M9.5 3h5"/>
+        </g>
         <text x="55" y="18" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4">Auto-unload Timer</text>
         <text x="55" y="40" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD">5 minutes to 4 hours, your choice</text>
       </g>
@@ -59,7 +63,12 @@
       <!-- RAM threshold -->
       <g transform="translate(0, 80)">
         <circle cx="20" cy="20" r="20" fill="rgba(99,102,241,0.2)"/>
-        <text x="20" y="20" font-family="system-ui, sans-serif" font-size="20" fill="#A5B4FC" text-anchor="middle" dominant-baseline="central">📊</text>
+        <g transform="translate(8, 8)" stroke="#A5B4FC" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 19h18"/>
+          <rect x="5" y="12" width="3.2" height="6"/>
+          <rect x="10.4" y="7" width="3.2" height="11"/>
+          <rect x="15.8" y="14" width="3.2" height="4"/>
+        </g>
         <text x="55" y="18" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4">RAM Threshold</text>
         <text x="55" y="40" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD">Auto-act when RAM hits 60-95%</text>
       </g>
@@ -67,7 +76,11 @@
       <!-- Smart protection -->
       <g transform="translate(0, 160)">
         <circle cx="20" cy="20" r="20" fill="rgba(99,102,241,0.2)"/>
-        <text x="20" y="20" font-family="system-ui, sans-serif" font-size="20" fill="#A5B4FC" text-anchor="middle" dominant-baseline="central">🎵</text>
+        <g transform="translate(8, 8)" stroke="#A5B4FC" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="7" cy="17" r="2.5"/>
+          <circle cx="17" cy="15" r="2.5"/>
+          <path d="M9.5 17V5l10-2v12"/>
+        </g>
         <text x="55" y="18" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4">Smart Protection</text>
         <text x="55" y="40" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD">Audio, pinned, forms auto-protected</text>
       </g>
@@ -78,7 +91,7 @@
   <g transform="translate(700, 80)">
     <rect x="0" y="0" width="500" height="640" rx="16" fill="rgba(26,21,40,0.85)" stroke="#4338CA" stroke-width="2.5" stroke-dasharray="10,5"/>
 
-    <text x="250" y="300" font-family="system-ui, sans-serif" font-size="20" fill="#6366F1" text-anchor="middle">📸 SETTINGS SCREENSHOT</text>
+    <text x="250" y="300" font-family="system-ui, sans-serif" font-size="20" fill="#6366F1" text-anchor="middle">□ SETTINGS SCREENSHOT</text>
     <text x="250" y="335" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Show timer &amp; threshold options</text>
     <text x="250" y="365" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle" opacity="0.6">500 x 640 px</text>
 

@@ -58,7 +58,10 @@
       <!-- No tracking -->
       <g transform="translate(0, 0)">
         <circle cx="130" cy="30" r="28" fill="rgba(99,102,241,0.15)"/>
-        <text x="130" y="38" font-family="system-ui, sans-serif" font-size="24" fill="#A5B4FC" text-anchor="middle">🚫</text>
+        <g transform="translate(118, 18)" stroke="#A5B4FC" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <line x1="5.5" y1="18.5" x2="18.5" y2="5.5"/>
+        </g>
         <text x="130" y="80" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4" text-anchor="middle">No Auto-Collect</text>
         <text x="130" y="105" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Reporting is opt-in</text>
       </g>
@@ -66,7 +69,11 @@
       <!-- Local storage -->
       <g transform="translate(270, 0)">
         <circle cx="130" cy="30" r="28" fill="rgba(99,102,241,0.15)"/>
-        <text x="130" y="38" font-family="system-ui, sans-serif" font-size="24" fill="#A5B4FC" text-anchor="middle">💾</text>
+        <g transform="translate(118, 18)" stroke="#A5B4FC" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="6" rx="8" ry="2.5"/>
+          <path d="M4 6v12c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V6"/>
+          <path d="M4 12c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5"/>
+        </g>
         <text x="130" y="80" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4" text-anchor="middle">Local Storage</text>
         <text x="130" y="105" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Data never leaves</text>
       </g>
@@ -74,7 +81,10 @@
       <!-- Open source -->
       <g transform="translate(540, 0)">
         <circle cx="130" cy="30" r="28" fill="rgba(99,102,241,0.15)"/>
-        <text x="130" y="38" font-family="system-ui, sans-serif" font-size="24" fill="#A5B4FC" text-anchor="middle">📖</text>
+        <g transform="translate(118, 18)" stroke="#A5B4FC" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 6c-1.8-1.2-4.2-1.8-7-1.5v14c2.8-0.3 5.2 0.3 7 1.5z"/>
+          <path d="M12 6c1.8-1.2 4.2-1.8 7-1.5v14c-2.8-0.3-5.2 0.3-7 1.5z"/>
+        </g>
         <text x="130" y="80" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4" text-anchor="middle">Open Source</text>
         <text x="130" y="105" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Fully transparent</text>
       </g>
