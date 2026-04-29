@@ -549,14 +549,8 @@
   "reportDailyCap": {
     "message": "Đã đạt giới hạn báo cáo trong ngày. Hãy sao chép cho GitHub."
   },
-  "optionsSetupHeading": {
-    "message": "Cài đặt nhanh"
-  },
   "optionsRerunOnboarding": {
     "message": "Chạy lại cài đặt nhanh"
-  },
-  "optionsRerunOnboardingHelp": {
-    "message": "Chạy lại trình hướng dẫn để chỉnh các tuỳ chọn hay dùng nhất."
   },
   "obWizardTitle": {
     "message": "Cài đặt TabRest"

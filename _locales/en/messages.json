@@ -730,17 +730,9 @@
     "message": "Daily report limit reached. Use GitHub copy instead.",
     "description": "Toast shown when user has reached daily manual report cap"
   },
-  "optionsSetupHeading": {
-    "message": "Setup",
-    "description": "Options page section heading for onboarding re-run"
-  },
   "optionsRerunOnboarding": {
     "message": "Run setup again",
-    "description": "Options page button to reopen the onboarding wizard"
-  },
-  "optionsRerunOnboardingHelp": {
-    "message": "Run the welcome tour again to retune the most-used settings.",
-    "description": "Options page help text under the rerun-onboarding button"
+    "description": "Options page footer link to reopen the onboarding wizard"
   },
   "obWizardTitle": {
     "message": "TabRest setup",
