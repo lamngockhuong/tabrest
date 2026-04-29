@@ -31,12 +31,12 @@ Legend: `[ ]` not tested · `[x]` pass · `[!]` fail · `[~]` skip / N/A.
 
 ## 1. Auto-Unload - Inactivity Timer
 
-- [ ] Set `Unload after` = 1 min (Options → Auto-Unload), `Min inactive tabs before discard` = 0.
+- [ ] Set `Unload after` = 5 min (Options → Auto-Unload), `Min inactive tabs before discard` = Disabled.
 - [ ] Open 3 tabs (any non-whitelisted sites). Focus tab A.
-- [ ] Wait 1 min while staying on tab A.
+- [ ] Wait 5 min while staying on tab A.
 - [ ] Tabs B and C are discarded (favicon dimmed, prefix shown). Tab A stays loaded.
 - [ ] Click discarded tab B → reloads instantly, scroll position preserved (if `restoreScrollPosition` on).
-- [ ] Set delay = 0 → auto-unload disabled; verify tabs no longer discard after a minute.
+- [ ] Set delay = Disabled → auto-unload disabled; verify tabs no longer discard after 5 minutes.
 
 ## 2. Auto-Unload - Memory Threshold
 
@@ -68,9 +68,9 @@ Legend: `[ ]` not tested · `[x]` pass · `[!]` fail · `[~]` skip / N/A.
 
 ## 6. Idle-Only Mode
 
-- [ ] Toggle `Only auto-unload when idle` ON; `Idle threshold` = 1 min.
+- [ ] Toggle `Only auto-unload when idle` ON; `Idle threshold` = 2 min.
 - [ ] Keep typing/moving mouse → no auto-unload triggers.
-- [ ] Stop interaction for ≥ 1 min → auto-unload runs on next alarm.
+- [ ] Stop interaction for ≥ 2 min → auto-unload runs on next alarm.
 - [ ] Toggle OFF → auto-unload runs regardless of idle state.
 
 ## 7. Skip When Offline

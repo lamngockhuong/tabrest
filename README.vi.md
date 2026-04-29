@@ -20,8 +20,8 @@
 
 ## Tính năng
 
-- **Tự động unload tab không hoạt động** - Hẹn giờ tuỳ chỉnh (15 phút đến 4 giờ)
-- **Ngưỡng bộ nhớ** - Unload khi RAM vượt 60-90%
+- **Tự động unload tab không hoạt động** - Hẹn giờ tuỳ chỉnh (5 phút đến 4 giờ)
+- **Ngưỡng bộ nhớ** - Unload khi RAM vượt 60-95%
 - **Giới hạn bộ nhớ mỗi tab** - Unload tab dùng >100MB-1GB JS heap
 - **Unload khi khởi động** - Giải phóng bộ nhớ khi mở trình duyệt
 - **Điều khiển thủ công** - Unload tab hiện tại/trái/phải/khác
@@ -42,6 +42,8 @@
 - **Power Mode** - Chế độ tiết kiệm pin, bình thường, hoặc hiệu năng cao
 - **Thông báo auto-unload** - Nhận thông báo khi tab được unload
 - **Tooltip bộ nhớ** - Hover thống kê để xem ước tính RAM tiết kiệm trên mỗi tab
+- **Trình hướng dẫn cài đặt** - Wizard nhiều bước tương tác khi mở lần đầu
+- **Báo lỗi tuỳ chọn** - Gửi báo cáo sự cố ẩn danh qua Sentry (mặc định tắt) và form gửi báo lỗi thủ công
 - **Tự mở changelog** - Mở release notes khi cập nhật minor/major
 - **Host permissions tuỳ chọn** - Bảo vệ form chỉ yêu cầu quyền khi bật
 - **Hiển thị RAM** - Phần trăm RAM trực tiếp trên popup
