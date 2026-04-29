@@ -100,26 +100,8 @@
     </g>
   </g>
 
-  <!-- Right side: PLACEHOLDER for popup screenshot -->
+  <!-- Right side: Popup screenshot -->
   <g transform="translate(640, 60)">
-    <!-- Placeholder container with dashed border -->
-    <rect x="0" y="0" width="560" height="680" rx="16" fill="rgba(26,21,40,0.8)" stroke="#4338CA" stroke-width="3" stroke-dasharray="12,6"/>
-
-    <!-- Placeholder text -->
-    <text x="280" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#6366F1" text-anchor="middle" opacity="0.8">
-      □ SCREENSHOT PLACEHOLDER
-    </text>
-    <text x="280" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#9B8FAD" text-anchor="middle">
-      Insert popup screenshot here
-    </text>
-    <text x="280" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle" opacity="0.6">
-      Recommended: 560 x 680 px
-    </text>
-
-    <!-- Corner guides -->
-    <path d="M 20 0 L 0 0 L 0 20" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 540 0 L 560 0 L 560 20" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 0 660 L 0 680 L 20 680" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 560 660 L 560 680 L 540 680" fill="none" stroke="#818CF8" stroke-width="2"/>
+    <image href="screenshots/screenshot-01-popup-left-tilt.png" x="0" y="0" width="560" height="680" preserveAspectRatio="xMidYMid meet"/>
   </g>
 </svg>

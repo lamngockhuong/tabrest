@@ -10,8 +10,9 @@ build/
 # Test coverage
 coverage/
 
-# Generated assets (PNG exports + screenshots, regenerable from SVG sources or capture guide)
+# Generated promo PNG exports (regenerable from SVG via scripts/generate-promo-images.sh)
 assets/**/*.png
+!assets/screenshots/*.png
 
 # IDE
 .idea/
