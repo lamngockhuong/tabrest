@@ -88,7 +88,7 @@
 - Server-side IP anonymization via Sentry dashboard setting
 - Rate limiting: 100 events/day/user, 24h dedup window, 0.1 sample rate for repeats
 - Data retention: 30 days on Sentry (free tier default)
-- Full disclosure: <https://tabrest.ohnice.app/en/privacy-policy/#error-reporting>
+- Full disclosure: <https://tabrest.ohnice.app/docs/privacy-policy/#error-reporting>
 
 ---
 
