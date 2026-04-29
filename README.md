@@ -20,8 +20,8 @@
 
 ## Features
 
-- **Auto-unload inactive tabs** - Configurable timer (15min to 4hrs)
-- **Memory threshold** - Unload when RAM exceeds 60-90%
+- **Auto-unload inactive tabs** - Configurable timer (5min to 4hrs)
+- **Memory threshold** - Unload when RAM exceeds 60-95%
 - **Per-tab memory limit** - Unload tabs using >100MB-1GB JS heap
 - **Startup unload** - Free memory when browser opens
 - **Manual controls** - Unload current/left/right/other tabs
@@ -42,6 +42,8 @@
 - **Power Mode** - Battery-saver, normal, or performance profiles
 - **Auto-unload notifications** - Get notified when tabs are unloaded
 - **Memory tooltip** - Hover stats to see estimated RAM saved per tab
+- **Onboarding wizard** - Interactive multi-step setup on first run
+- **Opt-in error reporting** - Anonymous crash reports via Sentry (off by default) plus manual bug-report submit
 - **Auto-open changelog** - Opens release notes on minor/major updates
 - **Optional host permissions** - Form protection only requests access when enabled
 - **RAM usage display** - Live RAM % in popup header

@@ -31,12 +31,12 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 
 ## 1. Auto-Unload - Hẹn giờ không hoạt động
 
-- [ ] Đặt `Unload after` = 1 phút (Options → Auto-Unload), `Min inactive tabs before discard` = 0.
+- [ ] Đặt `Unload after` = 5 phút (Options → Auto-Unload), `Min inactive tabs before discard` = Disabled.
 - [ ] Mở 3 tab (site bất kỳ không nằm trong whitelist). Focus tab A.
-- [ ] Đợi 1 phút trên tab A.
+- [ ] Đợi 5 phút trên tab A.
 - [ ] Tab B và C bị discard (favicon mờ, có prefix). Tab A vẫn loaded.
 - [ ] Click tab B đã discard → tải lại tức thì, scroll giữ nguyên (nếu bật `restoreScrollPosition`).
-- [ ] Đặt delay = 0 → tắt auto-unload; xác nhận tab không còn discard sau 1 phút.
+- [ ] Đặt delay = Disabled → tắt auto-unload; xác nhận tab không còn discard sau 5 phút.
 
 ## 2. Auto-Unload - Ngưỡng RAM
 
@@ -68,9 +68,9 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 
 ## 6. Chế độ chỉ chạy khi máy idle
 
-- [ ] Bật `Only auto-unload when idle`; `Idle threshold` = 1 phút.
+- [ ] Bật `Only auto-unload when idle`; `Idle threshold` = 2 phút.
 - [ ] Liên tục gõ phím / di chuột → không có auto-unload.
-- [ ] Ngưng tương tác ≥ 1 phút → auto-unload chạy ở alarm kế tiếp.
+- [ ] Ngưng tương tác ≥ 2 phút → auto-unload chạy ở alarm kế tiếp.
 - [ ] Tắt → auto-unload chạy bất kể idle.
 
 ## 7. Bỏ qua khi offline
