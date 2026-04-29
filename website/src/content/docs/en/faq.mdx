@@ -129,9 +129,9 @@ No. TabRest is designed for minimal performance impact:
 
 **Proof**: Check Chrome Task Manager (`Shift+Esc`) - TabRest typically uses < 10 MB.
 
-### Can TabRest unload tabs faster than 15 minutes?
+### How fast can TabRest unload inactive tabs?
 
-No. The minimum auto-unload timer is **15 minutes**.
+The minimum auto-unload timer is **5 minutes**. Available presets: 5, 10, 15, 30 minutes; 1, 2, 4 hours.
 
 **Reasoning**:
 - Prevents disrupting active workflows
@@ -224,7 +224,7 @@ Not currently. TabRest triggers based on:
 - Time since last activity
 - System memory threshold
 
-**Workaround**: Set a low timer (15 minutes) or low memory threshold (60%) for aggressive unloading.
+**Workaround**: Set a low timer (5 minutes) or low memory threshold (60%) for aggressive unloading.
 
 ### Can TabRest unload tabs from specific websites only?
 
@@ -344,7 +344,7 @@ See [Whitelist Configuration](/docs/whitelist-config) for examples.
 ### What are the best settings for maximum memory savings?
 
 **Aggressive configuration**:
-- **Timer**: 15 minutes (minimum)
+- **Timer**: 5 minutes (minimum)
 - **Memory threshold**: 60% (aggressive)
 - **Startup unload**: Enabled
 - **Protect pinned tabs**: Disabled

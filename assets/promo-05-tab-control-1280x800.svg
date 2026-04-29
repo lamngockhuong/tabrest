@@ -19,7 +19,7 @@
   <g transform="translate(80, 50)">
     <rect x="0" y="0" width="1120" height="320" rx="16" fill="rgba(26,21,40,0.85)" stroke="#4338CA" stroke-width="2.5" stroke-dasharray="10,5"/>
 
-    <text x="560" y="145" font-family="system-ui, sans-serif" font-size="22" fill="#6366F1" text-anchor="middle">📸 TAB LIST SCREENSHOT</text>
+    <text x="560" y="145" font-family="system-ui, sans-serif" font-size="22" fill="#6366F1" text-anchor="middle">□ TAB LIST SCREENSHOT</text>
     <text x="560" y="180" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Show tab list with active, sleeping, protected badges</text>
     <text x="560" y="210" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle" opacity="0.6">1120 x 320 px</text>
 
@@ -43,11 +43,11 @@
     </text>
 
     <!-- Action buttons row -->
-    <g transform="translate(180, 180)">
+    <g transform="translate(270, 180)">
       <!-- Unload Others -->
       <g transform="translate(0, 0)">
         <rect x="0" y="0" width="180" height="50" rx="8" fill="#4338CA"/>
-        <text x="90" y="32" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#fff" text-anchor="middle">⏸ Unload Others</text>
+        <text x="90" y="32" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#fff" text-anchor="middle">Unload Others</text>
       </g>
 
       <!-- Unload Left -->
@@ -65,12 +65,12 @@
       <!-- Unload Current -->
       <g transform="translate(560, 0)">
         <rect x="0" y="0" width="180" height="50" rx="8" fill="rgba(99,102,241,0.2)" stroke="rgba(99,102,241,0.4)" stroke-width="1"/>
-        <text x="90" y="32" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#A5B4FC" text-anchor="middle">🌙 Unload Current</text>
+        <text x="90" y="32" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#A5B4FC" text-anchor="middle">Unload Current</text>
       </g>
     </g>
 
     <!-- Features row -->
-    <g transform="translate(280, 280)">
+    <g transform="translate(328, 280)">
       <rect x="0" y="0" width="140" height="36" rx="18" fill="rgba(99,102,241,0.15)"/>
       <text x="70" y="24" font-family="system-ui, sans-serif" font-size="13" fill="#A5B4FC" text-anchor="middle">Tab Groups</text>
 

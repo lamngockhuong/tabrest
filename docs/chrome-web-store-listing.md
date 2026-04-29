@@ -205,83 +205,132 @@ Làm với ❤️ cho những người "nghiện" mở tab.
 
 ---
 
-## Hướng dẫn tạo Screenshots (1280x800 hoặc 640x400)
+## Hướng dẫn tạo Screenshots
 
-### Screenshot 1: Popup chính
+### Yêu cầu kỹ thuật (Chrome Web Store)
 
-**Nội dung:** Giao diện popup với RAM usage và các nút điều khiển
-**Cách chụp:**
+| Mục | Spec |
+| --- | --- |
+| Định dạng | PNG hoặc JPEG (KHÔNG nhận SVG) |
+| Kích thước | **1280x800** (ưu tiên) hoặc 640x400 |
+| Số lượng | 1-5, store hiển thị tối đa 5 |
+| Output dir | `assets/screenshots/` (chưa tồn tại, cần tạo) |
 
-1. Mở extension popup
-2. Đảm bảo có một số tab đang mở để hiển thị danh sách
-3. Chụp màn hình popup đang hiển thị RAM % và các nút
-4. Thêm khung mockup Chrome và text highlight tính năng
+### Setup chung trước khi chụp
 
-### Screenshot 2: Tính năng Whitelist
+1. **Browser**: Chrome ở 1280x800 viewport (View → Actual Size, zoom 100%)
+2. **Theme**: Sáng hoặc tối nhất quán xuyên suốt 5 ảnh (đề xuất Dark - khớp branding indigo)
+3. **Tài khoản test**: Tạo profile Chrome trống, load extension unpacked từ HEAD sạch
+4. **Dữ liệu demo**: Mở 8-12 tab thật (gmail, youtube, github, docs, vài trang tin) để popup có nội dung phong phú; click qua từng tab để LRU có data; chờ vài phút cho stats sinh
+5. **Tool chụp**: macOS `Cmd+Shift+4` rồi `Space` để chụp window (bóng đẹp), hoặc dùng `Shottr`/`CleanShot X` để chụp đúng pixel
+6. **Crop**: Resize/crop về 1280x800 trước khi upload
+7. **Privacy**: Che blur email, tên file, nội dung tab nhạy cảm trước khi public
 
-**Nội dung:** Trang Options với danh sách whitelist
-**Cách chụp:**
+### Screenshot 1 - Popup chính (BẮT BUỘC)
 
-1. Mở Options page
-2. Thêm vài domain vào whitelist (gmail.com, youtube.com, etc.)
-3. Chụp màn hình phần whitelist
-4. Thêm mũi tên/text giải thích
+**Nội dung:** Hero shot của popup, đầy đủ stats + tab list + nút action
+**Steps:**
+1. Mở 10+ tab gồm 1-2 tab đang discarded (Right-click → Unload, hoặc đợi timer)
+2. Click icon TabRest mở popup
+3. Đảm bảo hiển thị: RAM bar trên cùng, vài tab "sleeping" badge, nút "Unload Others" / "Unload Current"
+4. Chụp riêng popup (popup ~360x600) rồi ghép lên background gradient indigo cho đủ 1280x800
+5. Optional: thêm callout text "📊 Live RAM usage" và "💤 Sleeping tabs"
 
-### Screenshot 3: Keyboard Shortcuts
+### Screenshot 2 - Options/Settings (BẮT BUỘC)
 
-**Nội dung:** Minh họa các phím tắt
-**Cách tạo:**
+**Nội dung:** Trang options với Auto-Unload + Power Mode + Whitelist visible
+**Steps:**
+1. Mở `chrome-extension://<ID>/src/options/options.html`
+2. Scroll đến phần có Auto-Unload timer + Power Mode cards + Whitelist (nhiều domain mẫu: youtube.com, gmail.com, docs.google.com, github.com, figma.com)
+3. Chụp viewport 1280x800 trực tiếp
+4. Optional callout: "⚙️ Granular control"
 
-1. Thiết kế graphic hiển thị 4 phím tắt:
-   - Alt+Shift+D → Unload current
-   - Alt+Shift+O → Unload others
-   - Alt+Shift+→ → Unload right
-   - Alt+Shift+← → Unload left
-2. Dùng style keyboard keys đẹp
+### Screenshot 3 - Keyboard Shortcuts (graphic)
 
-### Screenshot 4: Memory Saved Statistics
+**Nội dung:** Visual 4 phím tắt
+**Steps:**
+1. Tạo graphic 1280x800 nền indigo gradient (lấy từ promo-banner SVG)
+2. Render 4 keycap design:
+   - `Alt + Shift + D` → Unload current tab
+   - `Alt + Shift + O` → Unload other tabs
+   - `Alt + Shift + →` → Unload tabs to right
+   - `Alt + Shift + ←` → Unload tabs to left
+3. Dùng Figma/Canva/SVG, export PNG 1280x800
 
-**Nội dung:** Hiển thị thống kê bộ nhớ đã tiết kiệm
-**Cách chụp:**
+### Screenshot 4 - Stats & Memory Saved
 
-1. Sử dụng extension một thời gian để có số liệu
-2. Chụp popup hiển thị "Tabs unloaded" và "Memory saved"
-3. Highlight các con số
+**Nội dung:** Popup section "Stats" với số liệu thật
+**Steps:**
+1. Dùng extension liên tục 1-2 ngày để có số liệu (Tabs unloaded today/all-time, RAM saved, Member since)
+2. Mở popup, scroll đến phần Stats
+3. Chụp popup zoom-in vào stats card
+4. Ghép lên background, highlight các số bằng glow indigo
 
-### Screenshot 5: Context Menu
+### Screenshot 5 - Context Menu / Snooze
 
-**Nội dung:** Right-click menu với các options
-**Cách chụp:**
+**Nội dung:** Right-click menu trên tab với các action TabRest
+**Steps:**
+1. Right-click trên 1 tab bất kỳ trong tab bar
+2. Chụp full menu hiển thị: "Snooze Tab (30 min)", "Snooze Tab (1 hour)", "Snooze Site (1 hour)", "Open Link in Suspended Tab"
+3. macOS: phải dùng `Cmd+Shift+5` ghi video rồi extract frame, vì context menu sẽ đóng khi mất focus
+4. Crop + ghép lên background indigo
 
-1. Click chuột phải trên bất kỳ tab
-2. Chụp context menu với các options TabRest
-3. Highlight các actions có sẵn
+### Quy trình export PNG cuối
+
+1. Lưu các file vào `assets/screenshots/screenshot-01-popup.png` ... `screenshot-05-context.png`
+2. Verify size: `sips -g pixelWidth -g pixelHeight assets/screenshots/*.png`
+3. Optimize: `pngquant --quality=80-95 assets/screenshots/*.png --ext .png --force`
+4. Upload thứ tự 1 → 5 trong Chrome Web Store dashboard
+
+### Ghép screenshot vào promo SVG
+
+Các file `promo-*.svg` có vùng `📸 SCREENSHOT PLACEHOLDER` (dashed border). Hai cách ghép:
+
+**A. Edit SVG trực tiếp**
+1. Mở SVG bằng editor
+2. Tìm `<g transform="translate(...)">` chứa `<rect ... stroke-dasharray>` (placeholder)
+3. Thay bằng `<image href="screenshots/screenshot-01-popup.png" width="..." height="..."/>`
+4. Chạy `bash scripts/generate-promo-images.sh` để export PNG
+
+**B. Composite trong tool design (đơn giản hơn)**
+1. Chạy `bash scripts/generate-promo-images.sh` lấy PNG nền
+2. Mở Figma/Photopea, import PNG nền + screenshot
+3. Đặt screenshot vào vị trí placeholder, export PNG flatten
 
 ---
 
-## Hướng dẫn tạo Promotional Tiles
+## Promotional Tiles (assets/)
 
-### Ô quảng cáo nhỏ (440x280)
+### File mapping
 
-**Nội dung gợi ý:**
+| Slot Chrome Web Store | Spec | File SVG | Trạng thái |
+| --- | --- | --- | --- |
+| Small promo tile | 440x280 PNG | `promo-small-440x280.svg` | Cần export PNG |
+| Marquee promo tile | 1400x560 PNG | `promo-marquee-1400x560.svg` | Cần export PNG (mới tạo) |
+| Screenshots | 1280x800 PNG x5 | `promo-banner/02/03/04/05-1280x800.svg` | Cần ghép screenshot thật + export PNG |
+| (không dùng cho store) | 920x680 | `promo-large-920x680.svg` | Tùy chọn cho social/web |
 
-- Logo TabRest ở giữa
-- Tagline: "Rest your tabs, free your RAM"
-- Background gradient nhẹ (tím/xanh dương)
-- Icon gối ngủ với Zzz
+### Build PNG
 
-### Ô quảng cáo marquee (1400x560)
+```bash
+# Cần: rsvg-convert + imagemagick
+brew install librsvg imagemagick
 
-**Nội dung gợi ý:**
+# Export tất cả banner SVG sang PNG (2x supersampling, Lanczos)
+bash scripts/generate-promo-images.sh
+```
 
-- Logo lớn bên trái
-- 3-4 feature highlights với icons:
-  - ⚡ Auto-unload inactive tabs
-  - 💾 Save up to 95% memory
-  - ⌨️ Keyboard shortcuts
-  - 🛡️ Whitelist protection
-- Screenshot popup nhỏ bên phải
-- Background: gradient tím → xanh dương
+### Trạng thái nội dung banner
+
+Đã align với tính năng thực:
+
+- **`promo-04-automation`**: timer text `5 minutes to 4 hours, your choice` (khớp options 5/10/15/30/60/120/240 min); RAM threshold `60-95%` (khớp options thực).
+- **`promo-03-privacy`**: bỏ `Zero analytics. Zero cloud.` + `We don't watch you` (sai do v0.1.0+ có Sentry error reporting opt-in). Thay bằng `Privacy-first. Local by default. Opt-in only.` + card `No Auto-Collect / Reporting is opt-in`.
+- **`80% RAM`**: claim nhất quán xuyên suốt banner + website (`website/src/content/docs/*/getting-started.mdx`). Listing description `60-95%` là threshold range, không phải savings claim - không xung đột.
+
+Còn lại trước khi submit:
+
+- Tất cả banner còn `📸 SCREENSHOT PLACEHOLDER` - phải ghép screenshot thật (xem section "Ghép screenshot vào promo SVG").
 
 ---
 

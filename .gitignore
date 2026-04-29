@@ -10,8 +10,8 @@ build/
 # Test coverage
 coverage/
 
-# Generated assets
-assets/*.png
+# Generated assets (PNG exports + screenshots, regenerable from SVG sources or capture guide)
+assets/**/*.png
 
 # IDE
 .idea/
@@ -39,3 +39,4 @@ plans/
 
 # Local scratch / notes
 .tmp/
+.gitnexus

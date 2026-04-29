@@ -107,7 +107,7 @@
 
     <!-- Placeholder text -->
     <text x="280" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#6366F1" text-anchor="middle" opacity="0.8">
-      📸 SCREENSHOT PLACEHOLDER
+      □ SCREENSHOT PLACEHOLDER
     </text>
     <text x="280" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#9B8FAD" text-anchor="middle">
       Insert popup screenshot here

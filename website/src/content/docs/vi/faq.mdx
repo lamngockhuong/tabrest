@@ -129,9 +129,9 @@ Không. TabRest được thiết kế với tác động hiệu suất tối thi
 
 **Chứng minh**: Kiểm tra Chrome Task Manager (`Shift+Esc`) - TabRest thường dùng < 10 MB.
 
-### TabRest có thể giải phóng tab nhanh hơn 15 phút không?
+### TabRest có thể giải phóng tab nhanh đến mức nào?
 
-Không. Hẹn giờ tự động giải phóng tối thiểu là **15 phút**.
+Hẹn giờ tự động giải phóng tối thiểu là **5 phút**. Các mức có sẵn: 5, 10, 15, 30 phút; 1, 2, 4 giờ.
 
 **Lý do**:
 - Tránh làm gián đoạn quy trình làm việc đang hoạt động
@@ -209,7 +209,7 @@ Hiện tại không. TabRest kích hoạt dựa trên:
 - Thời gian từ hoạt động cuối
 - Ngưỡng bộ nhớ hệ thống
 
-**Giải pháp thay thế**: Đặt hẹn giờ thấp (15 phút) hoặc ngưỡng bộ nhớ thấp (60%) để giải phóng tích cực.
+**Giải pháp thay thế**: Đặt hẹn giờ thấp (5 phút) hoặc ngưỡng bộ nhớ thấp (60%) để giải phóng tích cực.
 
 ### TabRest có thể chỉ giải phóng tab từ website cụ thể không?
 
@@ -332,7 +332,7 @@ Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết ví
 ### Cài đặt tốt nhất để tiết kiệm bộ nhớ tối đa là gì?
 
 **Cấu hình tích cực**:
-- **Hẹn giờ**: 15 phút (tối thiểu)
+- **Hẹn giờ**: 5 phút (tối thiểu)
 - **Ngưỡng bộ nhớ**: 60% (tích cực)
 - **Giải phóng khi khởi động**: Bật
 - **Bảo vệ tab ghim**: Tắt
