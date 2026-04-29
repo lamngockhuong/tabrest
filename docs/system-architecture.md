@@ -482,12 +482,18 @@ Embedded in `src/shared/constants.js:SENTRY_DSN`. Users can optionally override 
 
 ### Rate Limiting & Dedup
 
-| Aspect              | Limit                                                              |
-| ------------------- | ------------------------------------------------------------------ |
-| **Daily cap**       | 100 events/day/user, UTC midnight reset                            |
-| **Dedup window**    | 24 hours (FNV-1a fingerprint of error name + first 3 stack frames) |
-| **Repeat sampling** | 0.1 sample rate for duplicate fingerprints (send 10% of repeats)   |
-| **Dedup table max** | LRU evict at 100 entries to prevent unbounded memory               |
+Auto errors and manual bug reports have **independent caps** so a noisy user-initiated reporter cannot crowd out genuine error events.
+
+| Aspect                     | Limit                                                              |
+| -------------------------- | ------------------------------------------------------------------ |
+| **Auto-error daily cap**   | 100 events/day/user, UTC midnight reset                            |
+| **Dedup window**           | 24 hours (FNV-1a fingerprint of error name + first 3 stack frames) |
+| **Repeat sampling**        | 0.1 sample rate for duplicate fingerprints (send 10% of repeats)   |
+| **Dedup table max**        | LRU evict at 100 entries to prevent unbounded memory               |
+| **Manual report cap**      | 5/day/user, UTC midnight reset (separate from auto-error cap)      |
+| **Manual report cooldown** | 60 s between submits, blocks rapid-fire / double-click             |
+
+Manual reports bypass dedup (intentional submission) and skip the auto-error daily counter — exhausting the manual cap does not consume auto-error quota.
 
 ### Error Surfaces (Tags)
 

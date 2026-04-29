@@ -542,5 +542,11 @@
   },
   "reportSentFailed": {
     "message": "Gửi thất bại. Hãy thử sao chép cho GitHub."
+  },
+  "reportCooldown": {
+    "message": "Vui lòng chờ 1 phút trước khi gửi báo cáo tiếp theo."
+  },
+  "reportDailyCap": {
+    "message": "Đã đạt giới hạn báo cáo trong ngày. Hãy sao chép cho GitHub."
   }
 }

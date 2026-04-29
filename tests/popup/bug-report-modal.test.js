@@ -75,40 +75,33 @@ describe("bug-report-modal: reportBug behavior", () => {
     chrome.runtime.getManifest.mockReturnValue({ version: "0.0.5" });
   });
 
-  it("reportBug returns boolean or Promise<boolean>", async () => {
-    const result = reportBug("test report", { mock: true });
-
-    // Result can be boolean or Promise<boolean>
-    const normalized = await Promise.resolve(result);
-    expect(typeof normalized).toBe("boolean");
+  it("reportBug resolves to {ok, reason?}", async () => {
+    const result = await reportBug("test report", { mock: true });
+    expect(result).toMatchObject({ ok: expect.any(Boolean) });
   });
 
   it("reportBug accepts description and diagnostics", async () => {
     const description = "Bug description";
     const diagnostics = { tabCount: 5, memoryMB: 100 };
 
-    // Should not throw
-    await expect(Promise.resolve(reportBug(description, diagnostics))).resolves.toBeDefined();
+    await expect(reportBug(description, diagnostics)).resolves.toBeDefined();
   });
 
   it("reportBug sanitizes description with PII", async () => {
     const description = "Error from https://secret.com";
 
-    // reportBug internally sanitizes
-    const result = await Promise.resolve(reportBug(description, {}));
-    expect(typeof result).toBe("boolean");
+    const result = await reportBug(description, {});
+    expect(result).toMatchObject({ ok: expect.any(Boolean) });
   });
 
   it("reportBug handles empty description", async () => {
-    const result = reportBug("", {});
-    const normalized = await Promise.resolve(result);
-    expect(typeof normalized).toBe("boolean");
+    const result = await reportBug("", {});
+    expect(result).toMatchObject({ ok: expect.any(Boolean) });
   });
 
   it("reportBug handles null diagnostics gracefully", async () => {
-    const result = reportBug("test", null);
-    const normalized = await Promise.resolve(result);
-    expect(typeof normalized).toBe("boolean");
+    const result = await reportBug("test", null);
+    expect(result).toMatchObject({ ok: expect.any(Boolean) });
   });
 });
 

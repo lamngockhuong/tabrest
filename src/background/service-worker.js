@@ -4,7 +4,12 @@ import {
   FORM_CHECK_TIMEOUT_MS,
   REPORTER_COMMANDS,
 } from "../shared/constants.js";
-import { captureError, captureMessage, initErrorReporter } from "../shared/error-reporter.js";
+import {
+  captureError,
+  captureMessage,
+  initErrorReporter,
+  reportBug,
+} from "../shared/error-reporter.js";
 import { HOST_PERM_DEPENDENT_FLAGS, hasHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { isMinorOrMajorBump, isValidDomainOrIp, unwrapHostname } from "../shared/utils.js";
@@ -57,6 +62,12 @@ import {
   discardTabsToRight,
   isUrlWhitelisted,
 } from "./unload-manager.js";
+
+// MV3 service workers can be killed and re-awoken by events (messages, alarms)
+// without firing onStartup/onInstalled. Kick init off on every script load so a
+// cold-wake message handler still has parsedDsn ready. initErrorReporter is
+// idempotent — subsequent calls return early.
+initErrorReporter().catch((e) => console.error("[ErrorReporter] eager init failed:", e));
 
 // Side-panel mode takes precedence over toolbarClickAction.
 async function configureToolbarAction() {
@@ -496,6 +507,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     captureMessage(message.message || "", message.level || "info", message.context || {});
     sendResponse({ ok: true });
     return false;
+  }
+  if (message.command === REPORTER_COMMANDS.REPORT_BUG) {
+    // Await init so a cold-wake message doesn't race with DSN setup —
+    // otherwise reportBug returns {ok:true, reason:"no_dsn"} and the popup
+    // shows a misleading success toast while Sentry receives nothing.
+    initErrorReporter()
+      .then(() => reportBug(message.description || "", message.diagnostics || null))
+      .then((result) => sendResponse(result))
+      .catch(() => sendResponse({ ok: false, reason: "send_failed" }));
+    return true;
   }
 
   handleMessage(message).then((result) => {

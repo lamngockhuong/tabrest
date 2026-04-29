@@ -1,4 +1,5 @@
-import { reportBug, sanitizeString } from "../shared/error-reporter.js";
+import { REPORT_REASONS, REPORTER_COMMANDS } from "../shared/constants.js";
+import { sanitizeString } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { icon, injectIcons } from "../shared/icons.js";
 import { exportPayload, parseImport } from "../shared/import-export.js";
@@ -973,11 +974,19 @@ function setupEventListeners() {
     const description = sanitizeString(elements.bugDescription.value.trim());
     elements.sendToSentryBtn.disabled = true;
     try {
-      const ok = await reportBug(description, cachedDiagnostics);
-      if (ok) {
+      const response = await chrome.runtime.sendMessage({
+        command: REPORTER_COMMANDS.REPORT_BUG,
+        description,
+        diagnostics: cachedDiagnostics,
+      });
+      if (response?.ok === true) {
         showToast(t("reportSentSuccess") || "Report sent. Thank you!");
         elements.bugReportModal.style.display = "none";
         elements.bugDescription.value = "";
+      } else if (response?.reason === REPORT_REASONS.COOLDOWN) {
+        showToast(t("reportCooldown") || "Please wait a minute before sending another report.");
+      } else if (response?.reason === REPORT_REASONS.DAILY_CAP) {
+        showToast(t("reportDailyCap") || "Daily report limit reached. Use GitHub copy instead.");
       } else {
         showToast(t("reportSentFailed") || "Failed to send. Try GitHub copy instead.");
       }

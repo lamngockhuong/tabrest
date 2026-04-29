@@ -721,5 +721,13 @@
   "reportSentFailed": {
     "message": "Failed to send. Try GitHub copy instead.",
     "description": "Toast shown when Sentry bug report submission fails"
+  },
+  "reportCooldown": {
+    "message": "Please wait a minute before sending another report.",
+    "description": "Toast shown when user submits bug reports too quickly"
+  },
+  "reportDailyCap": {
+    "message": "Daily report limit reached. Use GitHub copy instead.",
+    "description": "Toast shown when user has reached daily manual report cap"
   }
 }

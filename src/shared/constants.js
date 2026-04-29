@@ -107,6 +107,13 @@ export const ERROR_DEDUP_WINDOW_MS = 86400000; // 24 hours
 export const ERROR_REPEAT_SAMPLE_RATE = 0.1;
 export const ERROR_DEDUP_MAX_ENTRIES = 100;
 
+// Anti-spam guards for user-initiated bug reports.
+// Manual reports bypass error dedup, so they need their own throttle to
+// prevent a malicious or impatient user from burning the shared daily cap.
+export const MANUAL_REPORT_STATE_KEY = "manual_report_throttle";
+export const MANUAL_REPORT_DAILY_CAP = 5;
+export const MANUAL_REPORT_COOLDOWN_MS = 60000; // 1 minute between submits
+
 // One-time flag: marks that consent was reset to opt-in default during the
 // v0.0.5 → v0.1.0 migration. Without this guard, every future extension update
 // would silently re-flip a user's enabled opt-in back to false.
@@ -127,6 +134,14 @@ export const SURFACES = Object.freeze({
 export const REPORTER_COMMANDS = Object.freeze({
   CAPTURE_ERROR: "captureError",
   CAPTURE_MESSAGE: "captureMessage",
+  REPORT_BUG: "reportBug",
+});
+
+export const REPORT_REASONS = Object.freeze({
+  COOLDOWN: "cooldown",
+  DAILY_CAP: "daily_cap",
+  SEND_FAILED: "send_failed",
+  NO_DSN: "no_dsn",
 });
 
 // Sentry DSN for anonymous crash reporting.
