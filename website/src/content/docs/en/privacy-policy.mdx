@@ -7,34 +7,38 @@ section: reference
 
 # Privacy Policy
 
-**Last updated**: April 7, 2026
+**Last updated**: April 29, 2026
 
 TabRest is committed to protecting your privacy. This policy explains what data we collect (or don't collect) and how it's used.
 
 ## Summary
 
-- ✅ **No personal data collected**
-- ✅ **No external servers or network requests**
-- ✅ **All data stored locally in your browser**
-- ✅ **No tracking, analytics, or telemetry**
+- ✅ **No personal data collected by default**
+- ✅ **No network requests by default - all data stays on your device**
+- ✅ **No tracking, analytics, or behavioral telemetry - ever**
+- ✅ **Anonymous crash reporting is fully opt-in (OFF by default, see [Error Reporting](#error-reporting))**
 - ✅ **Open source and auditable**
 
 ## Data Collection
 
-### We Do NOT Collect
+TabRest separates behavior into two distinct modes. By default, the extension is fully local. One feature - anonymous crash reporting - is opt-in and sends a sanitized payload to Sentry only after you explicitly enable it.
 
-TabRest does **not** collect, store, or transmit:
+### What we collect
 
-- ❌ Your browsing history
-- ❌ Website content or passwords
-- ❌ Personal information (name, email, etc.)
-- ❌ Usage analytics or telemetry
-- ❌ Crash reports
-- ❌ Device information
-- ❌ Location data
-- ❌ Any data whatsoever
+| Data type | By default (out of the box) | If you opt in to error reporting |
+| --- | --- | --- |
+| Browsing history (URLs you visit) | ❌ Never collected | ❌ Never collected (URLs in stack traces are redacted to `[REDACTED]` client-side) |
+| Page content, titles, form data | ❌ Never collected | ❌ Never collected |
+| Personal info (name, email, IP) | ❌ Never collected | ❌ Email/IP redacted client-side; Sentry payload sets `user.ip_address: null` |
+| Usage analytics / behavioral telemetry | ❌ Never collected | ❌ Never collected (no page-view, click, or feature-use tracking) |
+| Crash reports | ❌ Never collected | ✅ Sanitized error name, message, stack trace |
+| Device / environment | ❌ Never collected | ✅ Extension version, browser + OS string |
+| Aggregate counters | ❌ Never collected | ✅ Tab counts (total/discarded/pinned/audible), RAM stats, settings values, install date |
+| Whitelist / blacklist contents | ❌ Never collected | ❌ Excluded - only entry counts |
 
-### We DO Store Locally
+Opt-in error reporting is described in full detail in [Error Reporting](#error-reporting). You can disable it anytime in Options → Privacy & Diagnostics.
+
+### What we store locally
 
 TabRest stores the following data **only on your device**:
 
@@ -152,28 +156,24 @@ TabRest requests **optional** host permissions only when you enable certain feat
 
 ## Third-Party Services
 
-TabRest does **not** use:
+| Third-party service | By default | If you opt in |
+| --- | --- | --- |
+| Analytics (Google Analytics, etc.) | ❌ Never used | ❌ Never used |
+| Ad networks | ❌ Never used | ❌ Never used |
+| CDNs for loading code | ❌ Never used (extension code is bundled and runs locally) | ❌ Never used |
+| External APIs | ❌ None | ❌ None |
+| Error tracking (Sentry SaaS, US region) | ❌ Disabled - no requests sent | ✅ Enabled only after you tick the opt-in toggle. See [Error Reporting](#error-reporting) for the exact payload. |
 
-- ❌ Analytics services (Google Analytics, etc.)
-- ❌ Error tracking (Sentry, Rollbar, etc.)
-- ❌ Ad networks
-- ❌ CDNs for loading code
-- ❌ External APIs
-- ❌ Any third-party services whatsoever
-
-**All code runs locally in your browser.**
+**All other code runs locally in your browser.** The Sentry endpoint (`*.ingest.us.sentry.io`) is the only network destination TabRest can ever contact, and only if you enable error reporting.
 
 ## Data Sharing
 
-TabRest does **not** share any data with:
+TabRest does **not** share any data with third-party companies, advertisers, analytics providers, or other extensions.
 
-- Third-party companies
-- Advertisers
-- Analytics providers
-- Other extensions
-- Anyone
+**Two exceptions:**
 
-**Exception**: If you enable Chrome Sync, Chrome itself syncs settings and whitelist across your devices. We do not control or access this synced data.
+1. **Chrome Sync** (if you enable it in Chrome): Chrome itself syncs settings and whitelist across your devices. We do not control or access this synced data.
+2. **Sentry SaaS** (only if you opt in to error reporting): A sanitized crash payload is sent to Sentry's US-region ingest endpoint. See [Error Reporting](#error-reporting) for the full payload spec, retention, and opt-out instructions.
 
 ## Chrome Sync
 
@@ -188,13 +188,13 @@ TabRest uses `chrome.storage.sync` for settings and whitelist. If Chrome Sync is
 
 ## Data Security
 
-Since TabRest:
+By default, TabRest:
 
 - Stores data only locally
 - Makes no network requests
 - Contains no server-side components
 
-**There is no data to breach.** Your data never leaves your device (except via Chrome Sync if enabled).
+**With error reporting disabled (default), there is no data to breach.** Your data never leaves your device, except via Chrome Sync if you enable it. If you opt in to error reporting, sanitized crash payloads (no URLs, no PII) are transmitted over HTTPS to Sentry's US-region ingest endpoint and retained for 30 days.
 
 ### Code Integrity
 
@@ -304,12 +304,13 @@ All data is stored locally on your device and is under your full control.
 TabRest is built with transparency:
 
 - **Open source**: MIT licensed, public repository
-- **No tracking**: No analytics or telemetry code
-- **No external requests**: Audit network traffic, you'll find none from TabRest
-- **Simple architecture**: Vanilla JavaScript, no dependencies, easy to audit
+- **No analytics or behavioral telemetry**: No page-view, click, or feature-use tracking code anywhere in the codebase
+- **No external requests by default**: Audit network traffic with reporting disabled, you'll find none from TabRest
+- **One opt-in network destination**: Only Sentry's US ingest endpoint, only when you enable error reporting
+- **Simple architecture**: Vanilla JavaScript, minimal dependencies, easy to audit
 
-**Verify yourself**: Clone the repository and inspect the source code. You'll find no data collection, no tracking, and no network requests.
+**Verify yourself**: Clone the repository and inspect the source code. You'll find no analytics, no tracking, and no network requests outside the documented opt-in error reporter.
 
 ---
 
-**In short**: TabRest is a privacy-first extension. Your data stays on your device. We collect nothing, send nothing, and track nothing.
+**In short**: TabRest is a privacy-first extension. By default, your data stays on your device - we collect nothing, send nothing, track nothing. One feature, error reporting, is fully opt-in and clearly documented.

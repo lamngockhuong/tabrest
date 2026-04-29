@@ -50,7 +50,7 @@
 
     <!-- Subheadline -->
     <text x="0" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="26" fill="#9B8FAD" text-anchor="middle">
-      Zero tracking. Zero analytics. Zero cloud.
+      Privacy-first. Local by default. Opt-in only.
     </text>
 
     <!-- Privacy features - 3 columns -->
@@ -59,8 +59,8 @@
       <g transform="translate(0, 0)">
         <circle cx="130" cy="30" r="28" fill="rgba(99,102,241,0.15)"/>
         <text x="130" y="38" font-family="system-ui, sans-serif" font-size="24" fill="#A5B4FC" text-anchor="middle">🚫</text>
-        <text x="130" y="80" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4" text-anchor="middle">No Tracking</text>
-        <text x="130" y="105" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">We don't watch you</text>
+        <text x="130" y="80" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="#E8E2F4" text-anchor="middle">No Auto-Collect</text>
+        <text x="130" y="105" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Reporting is opt-in</text>
       </g>
 
       <!-- Local storage -->
