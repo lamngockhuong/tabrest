@@ -826,7 +826,10 @@ kbd {
 
 /* ---------- Footer ---------- */
 .page-footer {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   margin-top: 24px;
   padding-top: 16px;
   font-size: 12px;
@@ -841,6 +844,33 @@ kbd {
 
 .footer-brand svg {
   color: var(--accent);
+}
+
+.footer-sep {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.footer-link {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+  font-family: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 2px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: var(--primary);
+  text-decoration-color: currentColor;
+  outline: none;
 }
 
 /* ---------- Scrollbar polish ---------- */

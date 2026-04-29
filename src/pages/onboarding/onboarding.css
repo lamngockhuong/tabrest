@@ -1,0 +1,545 @@
+/* Wizard-specific styles. Layered on top of pages.css (which already imports
+ * popup.css for theme tokens: --primary, --card, --text, --border, --shadow). */
+
+.wizard-root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Visually hidden but available to assistive tech */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wizard-step h2:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Header: skip-all link sits to the right of the title row */
+.wizard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.wizard-title-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.wizard-title-block .page-logo {
+  width: 36px;
+  height: 36px;
+  margin: 0;
+}
+
+.wizard-title-block .page-title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.skip-all-link {
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.skip-all-link:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.skip-all-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+[data-current-step="done"] .skip-all-link {
+  visibility: hidden;
+}
+
+/* Progress bar */
+.wizard-progress {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.wizard-progress-fill {
+  height: 100%;
+  background: var(--primary);
+  width: 16.66%;
+  transition: width 0.25s ease-out;
+}
+
+/* Stage holds all step sections; only .is-active is visible */
+.wizard-stage {
+  position: relative;
+  min-height: 320px;
+}
+
+.wizard-step {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  pointer-events: none;
+}
+
+.wizard-step.is-active {
+  position: relative;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.wizard-stage.is-leaving-forward .wizard-step.is-active {
+  opacity: 0;
+  transform: translateX(-24px);
+}
+
+.wizard-stage.is-leaving-back .wizard-step.is-active {
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+.wizard-step h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.wizard-step [data-step-body] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wizard-step p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Per-step nav row sits at the bottom of every step */
+.wizard-nav {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding-top: 12px;
+}
+
+.wizard-nav-spacer {
+  flex: 1;
+}
+
+.btn-ghost {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.btn-ghost:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+/* Outline variant - used for Back (secondary action with weight) */
+.btn-outline {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-outline:hover {
+  background: var(--card-elevated);
+  border-color: var(--secondary);
+}
+
+.btn-outline:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.btn-ghost:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-ghost:focus-visible,
+.btn-large:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Radio + checkbox card grids (steps 2-4) */
+.ob-radio-grid,
+.ob-checkbox-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.ob-radio-grid {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.ob-checkbox-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.ob-radio-card,
+.ob-checkbox-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--card-elevated);
+  transition: border-color 0.15s, background 0.15s;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.ob-radio-card:hover,
+.ob-checkbox-card:hover {
+  border-color: var(--secondary);
+}
+
+.ob-radio-card input,
+.ob-checkbox-card input {
+  accent-color: var(--primary);
+  flex-shrink: 0;
+}
+
+.ob-radio-card-stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.ob-radio-card:has(input:checked),
+.ob-checkbox-card:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--card);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+.ob-radio-title {
+  font-weight: 600;
+}
+
+.ob-radio-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Notifications toggle row */
+.ob-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-elevated);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.ob-toggle-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+/* Done step: center the badge + heading + subtitle hero block */
+.wizard-step[data-step-id="done"] > .ob-done-badge,
+.wizard-step[data-step-id="done"] > h2,
+.wizard-step[data-step-id="done"] > p {
+  align-self: center;
+  text-align: center;
+}
+
+.wizard-step[data-step-id="done"] > h2 {
+  margin-bottom: -8px;
+}
+
+.wizard-step[data-step-id="done"] > p {
+  margin-bottom: 4px;
+}
+
+.ob-done-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(5, 150, 105, 0.12);
+  color: var(--success);
+}
+
+[data-theme="dark"] .ob-done-badge {
+  background: rgba(110, 231, 183, 0.15);
+}
+
+/* Done step: pin-to-toolbar reminder card */
+.ob-pin-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(124, 58, 237, 0.08));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  position: relative;
+}
+
+[data-theme="dark"] .ob-pin-card {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.12), rgba(167, 139, 250, 0.12));
+}
+
+.ob-pin-card:not(.is-pinned) .ob-pin-icon {
+  animation: ob-pin-pulse 2.4s ease-out infinite;
+}
+
+@keyframes ob-pin-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+}
+
+.ob-pin-card.is-pinned {
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(110, 231, 183, 0.12));
+  border-color: rgba(5, 150, 105, 0.3);
+}
+
+.ob-pin-card.is-pinned .ob-pin-icon {
+  background: var(--success);
+}
+
+.ob-pin-card.just-pinned {
+  animation: ob-pin-pop 0.5s ease-out;
+}
+
+@keyframes ob-pin-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* Confetti layer + emojis */
+.ob-confetti-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.ob-confetti {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-block;
+  will-change: transform, opacity;
+  animation-name: ob-confetti-fly;
+  animation-timing-function: cubic-bezier(0.16, 0.84, 0.44, 1);
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
+
+@keyframes ob-confetti-fly {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--rot)) scale(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ob-confetti-layer { display: none; }
+  .ob-pin-card.just-pinned { animation: none; }
+  .ob-pin-card:not(.is-pinned) .ob-pin-icon { animation: none; }
+}
+
+.ob-pin-icon {
+  flex-shrink: 0;
+}
+
+.ob-pin-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ob-pin-text strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.ob-pin-text p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Done step summary list */
+.ob-summary {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 18px;
+  background: var(--card-elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 0;
+}
+
+.ob-summary-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ob-summary-row:last-child {
+  border-bottom: none;
+}
+
+.ob-summary-row dt {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.ob-summary-row dd {
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 600;
+  margin: 0;
+}
+
+.ob-summary-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  color: var(--primary);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.ob-done-actions {
+  margin-top: 4px;
+}
+
+.ob-open-settings {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ob-open-settings .ob-summary-icon {
+  opacity: 1;
+  color: var(--primary);
+}
+
+.ob-shortcut-hint {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  background: var(--card-elevated);
+  border-radius: 6px;
+  border-left: 3px solid var(--primary);
+}
+
+.ob-shortcut-hint kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--text);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+  .ob-radio-grid,
+  .ob-checkbox-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wizard-step,
+  .wizard-progress-fill {
+    transition: none !important;
+  }
+  .wizard-step:not(.is-active) {
+    transform: none;
+  }
+}

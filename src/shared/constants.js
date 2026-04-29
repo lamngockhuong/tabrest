@@ -50,6 +50,33 @@ export const YOUTUBE_TIMESTAMPS_KEY = "youtube_timestamps";
 // YouTube timestamp max age (7 days in milliseconds)
 export const YOUTUBE_TIMESTAMP_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
+// Curated whitelist suggestions surfaced by the onboarding wizard step 3.
+// Single source of truth so future surfaces (options "starter pack" button,
+// help docs) reuse the same list.
+export const WHITELIST_SUGGESTIONS = Object.freeze([
+  "gmail.com",
+  "docs.google.com",
+  "github.com",
+  "notion.so",
+  "figma.com",
+  "youtube.com",
+]);
+
+// Maps powerMode setting value to the i18n key that names it. Reuses the
+// existing keys defined in _locales/* (batterySaver / normalMode /
+// performanceMode) so wizard + options page share one set of strings.
+export const POWER_MODE_NAME_KEY = Object.freeze({
+  "battery-saver": "batterySaver",
+  normal: "normalMode",
+  performance: "performanceMode",
+});
+
+export const POWER_MODE_DESC_KEY = Object.freeze({
+  "battery-saver": "batterySaverDesc",
+  normal: "normalModeDesc",
+  performance: "performanceModeDesc",
+});
+
 // Power mode configuration - affects delay and memory thresholds
 export const POWER_MODE_CONFIG = {
   "battery-saver": {

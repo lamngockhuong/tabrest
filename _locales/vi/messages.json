@@ -548,5 +548,144 @@
   },
   "reportDailyCap": {
     "message": "Đã đạt giới hạn báo cáo trong ngày. Hãy sao chép cho GitHub."
+  },
+  "optionsRerunOnboarding": {
+    "message": "Chạy lại cài đặt nhanh"
+  },
+  "obWizardTitle": {
+    "message": "Cài đặt TabRest"
+  },
+  "obSkipAll": {
+    "message": "Bỏ qua tất cả"
+  },
+  "obBack": {
+    "message": "Quay lại"
+  },
+  "obNext": {
+    "message": "Tiếp tục"
+  },
+  "obSkip": {
+    "message": "Bỏ qua"
+  },
+  "obFinish": {
+    "message": "Hoàn tất"
+  },
+  "obProgressLabel": {
+    "message": "Bước $1 trên $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "Chào mừng đến với TabRest"
+  },
+  "obWelcomeBody": {
+    "message": "Cài đặt nhanh giúp TabRest chạy hợp với cách bạn duyệt web. Bạn có thể đổi mọi tuỳ chọn trong Cài đặt sau."
+  },
+  "obWelcomeStart": {
+    "message": "Bắt đầu thôi"
+  },
+  "obAutoUnloadTitle": {
+    "message": "Tự động giải phóng tab không hoạt động"
+  },
+  "obAutoUnloadDesc": {
+    "message": "Chọn thời gian chờ trước khi tab không hoạt động được giải phóng."
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 phút"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 giờ"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 giờ"
+  },
+  "obWhitelistTitle": {
+    "message": "Luôn giữ những trang này hoạt động"
+  },
+  "obWhitelistDesc": {
+    "message": "Các trang được chọn sẽ không bị tự động giải phóng."
+  },
+  "obWhitelistHint": {
+    "message": "Bạn có thể chỉnh danh sách này trong Cài đặt sau."
+  },
+  "obPowerModeTitle": {
+    "message": "Chọn chế độ hoạt động"
+  },
+  "obPowerModeDesc": {
+    "message": "Chọn mức độ giải phóng tab của TabRest."
+  },
+  "obNotificationsTitle": {
+    "message": "Nhận thông báo khi tự động giải phóng"
+  },
+  "obNotificationsDesc": {
+    "message": "Hiển thị thông báo hệ thống khi TabRest giải phóng tab ở chế độ nền."
+  },
+  "obNotificationsToggle": {
+    "message": "Thông báo khi tab được tự động giải phóng"
+  },
+  "obDoneTitle": {
+    "message": "Hoàn tất rồi"
+  },
+  "obDoneSubtitle": {
+    "message": "Cài đặt của bạn đã được lưu."
+  },
+  "obPinTitle": {
+    "message": "Ghim TabRest lên thanh công cụ"
+  },
+  "obPinDesc": {
+    "message": "Bấm biểu tượng puzzle ở góc phải trên trình duyệt rồi ghim TabRest để truy cập nhanh."
+  },
+  "obPinnedTitle": {
+    "message": "Đã ghim!"
+  },
+  "obPinnedDesc": {
+    "message": "Bấm biểu tượng TabRest bất cứ lúc nào để quản lý tab."
+  },
+  "obDoneSummaryDelay": {
+    "message": "Tự động giải phóng sau"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "Luôn giữ hoạt động"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 trang",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "Chế độ hoạt động"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "Thông báo"
+  },
+  "obDoneOpenSettings": {
+    "message": "Mở toàn bộ cài đặt"
+  },
+  "obDoneShortcutsHint": {
+    "message": "Mẹo: $1 sẽ giải phóng tab hiện tại.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "Bật"
+  },
+  "obOffState": {
+    "message": "Tắt"
+  },
+  "obMinutes": {
+    "message": "$1 phút",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 giờ",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
   }
 }
