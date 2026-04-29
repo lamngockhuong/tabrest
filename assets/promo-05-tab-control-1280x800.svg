@@ -15,19 +15,9 @@
   <rect width="1280" height="800" fill="url(#bgGradient)"/>
   <rect width="1280" height="800" fill="url(#topGlow)"/>
 
-  <!-- Top: Tab list placeholder -->
+  <!-- Top: Tab list screenshot -->
   <g transform="translate(80, 50)">
-    <rect x="0" y="0" width="1120" height="320" rx="16" fill="rgba(26,21,40,0.85)" stroke="#4338CA" stroke-width="2.5" stroke-dasharray="10,5"/>
-
-    <text x="560" y="145" font-family="system-ui, sans-serif" font-size="22" fill="#6366F1" text-anchor="middle">□ TAB LIST SCREENSHOT</text>
-    <text x="560" y="180" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Show tab list with active, sleeping, protected badges</text>
-    <text x="560" y="210" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle" opacity="0.6">1120 x 320 px</text>
-
-    <!-- Corner guides -->
-    <path d="M 16 0 L 0 0 L 0 16" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 1104 0 L 1120 0 L 1120 16" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 0 304 L 0 320 L 16 320" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 1120 304 L 1120 320 L 1104 320" fill="none" stroke="#818CF8" stroke-width="2"/>
+    <image href="screenshots/screenshot-06-tab-list.png" x="0" y="0" width="1120" height="320" preserveAspectRatio="xMidYMid meet"/>
   </g>
 
   <!-- Bottom: Content -->

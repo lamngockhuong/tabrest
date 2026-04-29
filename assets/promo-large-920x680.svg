@@ -94,18 +94,8 @@
     </g>
   </g>
 
-  <!-- Right side: PLACEHOLDER for popup screenshot -->
+  <!-- Right side: Popup screenshot -->
   <g transform="translate(450, 40)">
-    <rect x="0" y="0" width="420" height="600" rx="14" fill="rgba(26,21,40,0.8)" stroke="#4338CA" stroke-width="2.5" stroke-dasharray="10,5"/>
-
-    <text x="210" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#6366F1" text-anchor="middle">□ SCREENSHOT PLACEHOLDER</text>
-    <text x="210" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Insert popup screenshot here</text>
-    <text x="210" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle" opacity="0.6">Recommended: 420 x 600 px</text>
-
-    <!-- Corner guides -->
-    <path d="M 16 0 L 0 0 L 0 16" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 404 0 L 420 0 L 420 16" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 0 584 L 0 600 L 16 600" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 420 584 L 420 600 L 404 600" fill="none" stroke="#818CF8" stroke-width="2"/>
+    <image href="screenshots/screenshot-01-popup-left-tilt.png" x="0" y="0" width="420" height="600" preserveAspectRatio="xMidYMid meet"/>
   </g>
 </svg>

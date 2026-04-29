@@ -87,18 +87,8 @@
     </g>
   </g>
 
-  <!-- Right side: Screenshot placeholder -->
+  <!-- Right side: Settings screenshot -->
   <g transform="translate(700, 80)">
-    <rect x="0" y="0" width="500" height="640" rx="16" fill="rgba(26,21,40,0.85)" stroke="#4338CA" stroke-width="2.5" stroke-dasharray="10,5"/>
-
-    <text x="250" y="300" font-family="system-ui, sans-serif" font-size="20" fill="#6366F1" text-anchor="middle">□ SETTINGS SCREENSHOT</text>
-    <text x="250" y="335" font-family="system-ui, sans-serif" font-size="14" fill="#9B8FAD" text-anchor="middle">Show timer &amp; threshold options</text>
-    <text x="250" y="365" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle" opacity="0.6">500 x 640 px</text>
-
-    <!-- Corner guides -->
-    <path d="M 16 0 L 0 0 L 0 16" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 484 0 L 500 0 L 500 16" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 0 624 L 0 640 L 16 640" fill="none" stroke="#818CF8" stroke-width="2"/>
-    <path d="M 500 624 L 500 640 L 484 640" fill="none" stroke="#818CF8" stroke-width="2"/>
+    <image href="screenshots/screenshot-05-options-left-tilt.png" x="0" y="0" width="500" height="640" preserveAspectRatio="xMidYMid meet"/>
   </g>
 </svg>

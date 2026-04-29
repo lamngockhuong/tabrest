@@ -15,40 +15,21 @@
   <rect width="1280" height="800" fill="url(#bgGradient)"/>
   <rect width="1280" height="800" fill="url(#indigoGlow)"/>
 
-  <!-- Top section: 3 feature placeholders -->
+  <!-- Top section: 3 feature screenshots -->
   <g transform="translate(60, 50)">
-    <!-- Sessions placeholder -->
+    <!-- Sessions -->
     <g transform="translate(0, 0)">
-      <rect x="0" y="0" width="360" height="280" rx="12" fill="rgba(26,21,40,0.9)" stroke="#4338CA" stroke-width="2" stroke-dasharray="8,4"/>
-      <text x="180" y="130" font-family="system-ui, sans-serif" font-size="16" fill="#6366F1" text-anchor="middle">□ SESSIONS</text>
-      <text x="180" y="155" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle">360 x 280 px</text>
-      <!-- Corner guides -->
-      <path d="M 12 0 L 0 0 L 0 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
-      <path d="M 348 0 L 360 0 L 360 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
-      <path d="M 0 268 L 0 280 L 12 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
-      <path d="M 360 268 L 360 280 L 348 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <image href="screenshots/screenshot-02-sessions.png" x="0" y="0" width="360" height="280" preserveAspectRatio="xMidYMid meet"/>
     </g>
 
-    <!-- Stats placeholder -->
+    <!-- Stats -->
     <g transform="translate(380, 0)">
-      <rect x="0" y="0" width="360" height="280" rx="12" fill="rgba(26,21,40,0.9)" stroke="#4338CA" stroke-width="2" stroke-dasharray="8,4"/>
-      <text x="180" y="130" font-family="system-ui, sans-serif" font-size="16" fill="#6366F1" text-anchor="middle">□ STATS</text>
-      <text x="180" y="155" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle">360 x 280 px</text>
-      <path d="M 12 0 L 0 0 L 0 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
-      <path d="M 348 0 L 360 0 L 360 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
-      <path d="M 0 268 L 0 280 L 12 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
-      <path d="M 360 268 L 360 280 L 348 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <image href="screenshots/screenshot-03-stats.png" x="0" y="0" width="360" height="280" preserveAspectRatio="xMidYMid meet"/>
     </g>
 
-    <!-- Settings placeholder -->
+    <!-- Settings -->
     <g transform="translate(760, 0)">
-      <rect x="0" y="0" width="400" height="280" rx="12" fill="rgba(26,21,40,0.9)" stroke="#4338CA" stroke-width="2" stroke-dasharray="8,4"/>
-      <text x="200" y="130" font-family="system-ui, sans-serif" font-size="16" fill="#6366F1" text-anchor="middle">□ SETTINGS</text>
-      <text x="200" y="155" font-family="system-ui, sans-serif" font-size="12" fill="#9B8FAD" text-anchor="middle">400 x 280 px</text>
-      <path d="M 12 0 L 0 0 L 0 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
-      <path d="M 388 0 L 400 0 L 400 12" fill="none" stroke="#818CF8" stroke-width="1.5"/>
-      <path d="M 0 268 L 0 280 L 12 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
-      <path d="M 400 268 L 400 280 L 388 280" fill="none" stroke="#818CF8" stroke-width="1.5"/>
+      <image href="screenshots/screenshot-04-settings.png" x="0" y="0" width="400" height="280" preserveAspectRatio="xMidYMid meet"/>
     </g>
   </g>
 
