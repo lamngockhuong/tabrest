@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/lamngockhuong/tabrest/compare/v0.1.0...v0.2.0) (2026-04-29)
+
+
+### Features
+
+* **onboarding:** interactive multi-step setup wizard ([#56](https://github.com/lamngockhuong/tabrest/issues/56)) ([6ae0dc3](https://github.com/lamngockhuong/tabrest/commit/6ae0dc3a0490f757053a0fdba2b1e3ab0cbb4aeb))
+
+
+### Bug Fixes
+
+* **deps:** update dependency astro to v6.1.10 ([#47](https://github.com/lamngockhuong/tabrest/issues/47)) ([c1ccdb0](https://github.com/lamngockhuong/tabrest/commit/c1ccdb07e6e001ab292d086a08a37d238eee3edd))
+
 ## [0.1.0](https://github.com/lamngockhuong/tabrest/compare/v0.0.5...v0.1.0) (2026-04-29)
 
 
