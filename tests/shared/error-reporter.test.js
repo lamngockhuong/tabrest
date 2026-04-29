@@ -1,5 +1,9 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { sanitizeString, sanitizeError, initErrorReporter } from "../../src/shared/error-reporter.js";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  initErrorReporter,
+  sanitizeError,
+  sanitizeString,
+} from "../../src/shared/error-reporter.js";
 
 describe("sanitizeString", () => {
   it("returns input unchanged if no PII patterns", () => {
@@ -14,25 +18,25 @@ describe("sanitizeString", () => {
 
   it("redacts HTTP URLs", () => {
     expect(sanitizeString("Error loading http://example.com/page")).toBe(
-      "Error loading [REDACTED]"
+      "Error loading [REDACTED]",
     );
   });
 
   it("redacts HTTPS URLs", () => {
     expect(sanitizeString("Error loading https://private.com/secret/page?token=abc")).toBe(
-      "Error loading [REDACTED]"
+      "Error loading [REDACTED]",
     );
   });
 
   it("redacts email addresses", () => {
     expect(sanitizeString("User email: user@example.com caused error")).toBe(
-      "User email: [REDACTED] caused error"
+      "User email: [REDACTED] caused error",
     );
   });
 
   it("redacts IP addresses", () => {
     expect(sanitizeString("Connected to 192.168.1.100 failed")).toBe(
-      "Connected to [REDACTED] failed"
+      "Connected to [REDACTED] failed",
     );
   });
 

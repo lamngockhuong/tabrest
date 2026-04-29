@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
   deleteSession,
   getSessions,
@@ -75,7 +75,11 @@ describe("session-manager", () => {
     });
 
     it("rejects when MAX_SESSIONS reached", async () => {
-      const sessions = Array.from({ length: 20 }, (_, i) => ({ id: `s${i}`, name: `n${i}`, tabs: [] }));
+      const sessions = Array.from({ length: 20 }, (_, i) => ({
+        id: `s${i}`,
+        name: `n${i}`,
+        tabs: [],
+      }));
       chrome.storage.local.get.mockResolvedValue({ [SESSIONS_KEY]: sessions });
       chrome.tabs.query.mockResolvedValue([{ url: "https://a.com" }]);
 
@@ -173,9 +177,7 @@ describe("session-manager", () => {
     });
 
     it("replace mode does not call tabs.remove when no old tabs to close", async () => {
-      const sessions = [
-        { id: "s1", name: "a", tabs: [{ url: "https://a.com", pinned: false }] },
-      ];
+      const sessions = [{ id: "s1", name: "a", tabs: [{ url: "https://a.com", pinned: false }] }];
       chrome.storage.local.get.mockResolvedValue({ [SESSIONS_KEY]: sessions });
       chrome.tabs.query.mockResolvedValue([]);
       chrome.tabs.create.mockResolvedValue({ id: 99 });
@@ -236,9 +238,7 @@ describe("session-manager", () => {
       }));
       chrome.storage.local.get.mockResolvedValue({ [SESSIONS_KEY]: existing });
 
-      const result = await importSessions([
-        { name: "ZZ", tabs: [{ url: "https://a.com" }] },
-      ]);
+      const result = await importSessions([{ name: "ZZ", tabs: [{ url: "https://a.com" }] }]);
 
       expect(result.added).toBe(0);
       expect(result.skipped).toBe(1);

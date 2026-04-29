@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ALARM_NAMES } from "../../src/shared/constants.js";
 
 vi.mock("../../src/shared/storage.js", () => ({
@@ -22,14 +22,14 @@ vi.mock("../../src/background/unload-manager.js", () => ({
   isUrlWhitelisted: vi.fn(),
 }));
 
-import { getSettings, getTabActivity, saveTabActivity } from "../../src/shared/storage.js";
-import { notifyAutoUnload } from "../../src/shared/utils.js";
 import { getSnoozeData, isTabSnoozed } from "../../src/background/snooze-manager.js";
 import {
   discardTab,
   isUrlBlacklisted,
   isUrlWhitelisted,
 } from "../../src/background/unload-manager.js";
+import { getSettings, getTabActivity, saveTabActivity } from "../../src/shared/storage.js";
+import { notifyAutoUnload } from "../../src/shared/utils.js";
 
 const importTracker = () => import("../../src/background/tab-tracker.js");
 
@@ -137,29 +137,38 @@ describe("tab-tracker", () => {
     };
 
     it("returns 0 when delay is 0", async () => {
-      const { checkAndUnloadInactiveTabs } = await setupTracker({}, {
-        ...baseSettings,
-        unloadDelayMinutes: 0,
-      });
+      const { checkAndUnloadInactiveTabs } = await setupTracker(
+        {},
+        {
+          ...baseSettings,
+          unloadDelayMinutes: 0,
+        },
+      );
       expect(await checkAndUnloadInactiveTabs()).toBe(0);
     });
 
     it("skips when offline + skipWhenOffline true", async () => {
       Object.defineProperty(navigator, "onLine", { value: false, configurable: true });
-      const { checkAndUnloadInactiveTabs } = await setupTracker({ 1: 0 }, {
-        ...baseSettings,
-        skipWhenOffline: true,
-      });
+      const { checkAndUnloadInactiveTabs } = await setupTracker(
+        { 1: 0 },
+        {
+          ...baseSettings,
+          skipWhenOffline: true,
+        },
+      );
       expect(await checkAndUnloadInactiveTabs()).toBe(0);
       expect(discardTab).not.toHaveBeenCalled();
     });
 
     it("skips when idle-only mode and user is active", async () => {
       chrome.idle.queryState.mockResolvedValue("active");
-      const { checkAndUnloadInactiveTabs } = await setupTracker({ 1: 0 }, {
-        ...baseSettings,
-        onlyDiscardWhenIdle: true,
-      });
+      const { checkAndUnloadInactiveTabs } = await setupTracker(
+        { 1: 0 },
+        {
+          ...baseSettings,
+          onlyDiscardWhenIdle: true,
+        },
+      );
       expect(await checkAndUnloadInactiveTabs()).toBe(0);
     });
 
@@ -238,7 +247,7 @@ describe("tab-tracker", () => {
       expect(await checkAndUnloadInactiveTabs()).toBe(1);
     });
 
-    it("whitelist wins over blacklist — never unloads", async () => {
+    it("whitelist wins over blacklist - never unloads", async () => {
       const oldTime = Date.now() - 60 * 60 * 1000;
       chrome.tabs.query.mockResolvedValue([
         { id: 1, url: "https://both.com", active: false, discarded: false, title: "X" },

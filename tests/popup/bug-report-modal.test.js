@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { reportBug } from "../../src/shared/error-reporter.js";
 
 /**
@@ -42,7 +42,9 @@ describe("bug-report-modal: button visibility logic", () => {
   });
 
   it("button hidden when enableErrorReporting is undefined", () => {
-    const settings = { /* enableErrorReporting missing */ };
+    const settings = {
+      /* enableErrorReporting missing */
+    };
 
     const consentOn = settings.enableErrorReporting === true;
     expect(consentOn).toBe(false);
@@ -179,7 +181,7 @@ describe("bug-report-modal: user interaction flow", () => {
     const clickHandler = async () => {
       buttonDisabled = true; // disable button
       try {
-        const ok = await Promise.resolve(mockReportBug());
+        const _ok = await Promise.resolve(mockReportBug());
       } finally {
         buttonDisabled = false; // re-enable button
       }

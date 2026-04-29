@@ -5,6 +5,7 @@
     "includes": [
       "**/src/**/*.js",
       "**/scripts/**/*.js",
+      "**/tests/**/*.js",
       "!**/node_modules/",
       "!**/plans/",
       "!**/docs/",

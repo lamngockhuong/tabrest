@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { matchesDomainList } from "../../src/background/unload-manager.js";
 
 describe("matchesDomainList", () => {
@@ -61,7 +61,9 @@ describe("matchesDomainList", () => {
     const whitelist = ["youtube.com", "gmail.com", "docs.google.com", "miro.com", "figma.com"];
 
     it("matches YouTube video URLs", () => {
-      expect(matchesDomainList("https://www.youtube.com/watch?v=dQw4w9WgXcQ", whitelist)).toBe(true);
+      expect(matchesDomainList("https://www.youtube.com/watch?v=dQw4w9WgXcQ", whitelist)).toBe(
+        true,
+      );
       expect(matchesDomainList("https://youtube.com/playlist?list=123", whitelist)).toBe(true);
     });
 

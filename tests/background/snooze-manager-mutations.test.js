@@ -1,5 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { SNOOZE_KEY } from "../../src/shared/constants.js";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   cancelDomainSnooze,
   cancelTabSnooze,
@@ -9,6 +8,7 @@ import {
   snoozeDomain,
   snoozeTab,
 } from "../../src/background/snooze-manager.js";
+import { SNOOZE_KEY } from "../../src/shared/constants.js";
 
 describe("snooze-manager (mutations)", () => {
   beforeEach(() => {

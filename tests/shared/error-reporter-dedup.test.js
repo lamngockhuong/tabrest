@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { __test__ } from "../../src/shared/error-reporter.js";
 
 const {
@@ -22,7 +22,7 @@ describe("fnv1a", () => {
     expect(fnv1a("hello")).toMatch(/^[0-9a-f]+$/);
   });
 
-  it("is deterministic — same input, same output", () => {
+  it("is deterministic - same input, same output", () => {
     expect(fnv1a("test input")).toBe(fnv1a("test input"));
   });
 
@@ -39,7 +39,10 @@ describe("fnv1a", () => {
 
 describe("computeFingerprint", () => {
   it("same name+stack → same fingerprint", () => {
-    const err = { name: "TypeError", stack: "TypeError: bad\n    at foo (a.js:1:1)\n    at bar (b.js:2:2)" };
+    const err = {
+      name: "TypeError",
+      stack: "TypeError: bad\n    at foo (a.js:1:1)\n    at bar (b.js:2:2)",
+    };
     expect(computeFingerprint(err)).toBe(computeFingerprint(err));
   });
 
@@ -49,7 +52,7 @@ describe("computeFingerprint", () => {
     expect(computeFingerprint(e1)).not.toBe(computeFingerprint(e2));
   });
 
-  it("handles null/missing stack — falls back to no-stack", () => {
+  it("handles null/missing stack - falls back to no-stack", () => {
     const e1 = { name: "Error", stack: null };
     const e2 = { name: "Error", stack: "" };
     // Both should use "no-stack" fallback → same fingerprint
@@ -58,7 +61,7 @@ describe("computeFingerprint", () => {
 
   it("uses only first 3 stack lines for fingerprint stability", () => {
     const base = "Error\n    at fn1 (a.js:1:1)\n    at fn2 (b.js:2:2)\n    at fn3 (c.js:3:3)";
-    const withExtra = base + "\n    at fn4 (d.js:4:4)\n    at fn5 (e.js:5:5)";
+    const withExtra = `${base}\n    at fn4 (d.js:4:4)\n    at fn5 (e.js:5:5)`;
     const e1 = { name: "Error", stack: base };
     const e2 = { name: "Error", stack: withExtra };
     // First 3 lines are identical, so fingerprints match
@@ -70,11 +73,15 @@ describe("computeFingerprint", () => {
 
 describe("computeMessageFingerprint", () => {
   it("same message+level → same fingerprint", () => {
-    expect(computeMessageFingerprint("hello", "info")).toBe(computeMessageFingerprint("hello", "info"));
+    expect(computeMessageFingerprint("hello", "info")).toBe(
+      computeMessageFingerprint("hello", "info"),
+    );
   });
 
   it("different level → different fingerprint", () => {
-    expect(computeMessageFingerprint("hello", "info")).not.toBe(computeMessageFingerprint("hello", "error"));
+    expect(computeMessageFingerprint("hello", "info")).not.toBe(
+      computeMessageFingerprint("hello", "error"),
+    );
   });
 
   it("handles null/undefined message gracefully", () => {
@@ -214,7 +221,12 @@ describe("checkDedup", () => {
     const now = Date.now();
     const map = {};
     for (let i = 0; i < 101; i++) {
-      map[`fp${i}`] = { firstSeenAt: now - (101 - i) * 1000, lastSeenAt: now - (101 - i) * 1000, count: 1, sentCount: 1 };
+      map[`fp${i}`] = {
+        firstSeenAt: now - (101 - i) * 1000,
+        lastSeenAt: now - (101 - i) * 1000,
+        count: 1,
+        sentCount: 1,
+      };
     }
     chrome.storage.local.get.mockResolvedValue({ [ERROR_DEDUP_KEY]: map });
 

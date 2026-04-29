@@ -1,11 +1,11 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { STORAGE_KEYS } from "../../src/shared/constants.js";
+import { describe, expect, it } from "vitest";
 import {
   getStats,
   initStats,
   recordUnload,
   resetStats,
 } from "../../src/background/stats-collector.js";
+import { STORAGE_KEYS } from "../../src/shared/constants.js";
 
 const KEY = STORAGE_KEYS.STATS;
 const MB_PER_TAB = 150;

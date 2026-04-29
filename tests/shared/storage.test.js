@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { SETTINGS_DEFAULTS, STORAGE_KEYS } from "../../src/shared/constants.js";
 
 // Fresh import needed per test to reset module-level settingsCache
