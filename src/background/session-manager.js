@@ -150,7 +150,7 @@ export async function restoreSession(id, mode = "open") {
 }
 
 /**
- * Import sessions from a parsed payload. Additive — duplicates by name and
+ * Import sessions from a parsed payload. Additive - duplicates by name and
  * malformed entries are skipped. Hard-caps at MAX_SESSIONS overall.
  * @param {Array} incoming
  * @returns {Promise<{added: number, skipped: number}>}

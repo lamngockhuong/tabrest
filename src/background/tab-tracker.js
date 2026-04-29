@@ -103,7 +103,7 @@ export async function checkAndUnloadInactiveTabs() {
     const tab = tabMap.get(tabId);
     if (!tab || tab.active || tab.discarded) continue;
 
-    // Whitelist wins over blacklist — skip entirely (matches discardTab gate)
+    // Whitelist wins over blacklist - skip entirely (matches discardTab gate)
     if (isUrlWhitelisted(tab.url, settings)) continue;
 
     // Blacklisted tabs: unload immediately regardless of activity time

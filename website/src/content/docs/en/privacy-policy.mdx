@@ -236,15 +236,15 @@ We may update this policy occasionally. Changes will be:
 
 _Crash reports via Sentry SaaS (US region)._
 
-TabRest can send anonymous crash reports to help fix bugs faster. **This feature is OFF by default** — you must opt in via Options → Privacy & Diagnostics.
+TabRest can send anonymous crash reports to help fix bugs faster. **This feature is OFF by default** - you must opt in via Options → Privacy & Diagnostics.
 
 **What is sent when enabled:**
 
 - Sanitized error name, message, and stack trace (URLs, email addresses, and IP addresses replaced with `[REDACTED]`)
 - Extension version, browser name and version, OS platform string
-- Tab counts only: total, discarded, pinned, audible, and window count — no URLs or page titles
+- Tab counts only: total, discarded, pinned, audible, and window count - no URLs or page titles
 - System memory statistics: usage percentage, total RAM, available RAM
-- Settings values (auto-unload timer, RAM threshold, feature flags, etc.) — whitelist and blacklist domains are **excluded**; only their entry counts are included
+- Settings values (auto-unload timer, RAM threshold, feature flags, etc.) - whitelist and blacklist domains are **excluded**; only their entry counts are included
 - Cumulative stats: tabs suspended all-time and today, install date
 
 **What is NEVER sent:**
@@ -255,7 +255,7 @@ TabRest can send anonymous crash reports to help fix bugs faster. **This feature
 - Your whitelist or blacklist domains
 - Any identifier that can link a report to you
 
-**Manual bug reports:** When you click "Send to Sentry" in the popup bug-report modal, a sanitized description (PII stripped) plus the diagnostics snapshot above is included — nothing more.
+**Manual bug reports:** When you click "Send to Sentry" in the popup bug-report modal, a sanitized description (PII stripped) plus the diagnostics snapshot above is included - nothing more.
 
 **Third party:** Reports are sent to [Sentry](https://sentry.io) (US region, `*.ingest.us.sentry.io`). See [Sentry's Privacy Policy](https://sentry.io/privacy/) for their data practices.
 

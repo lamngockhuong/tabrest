@@ -120,7 +120,7 @@ export const MANUAL_REPORT_COOLDOWN_MS = 60000; // 1 minute between submits
 export const CONSENT_RESET_MIGRATION_KEY = "consent_reset_migration_v1_done";
 
 // Sentry surface tags (event source). Content scripts duplicate these as
-// literals because they cannot import ES modules — keep in sync.
+// literals because they cannot import ES modules - keep in sync.
 export const SURFACES = Object.freeze({
   SERVICE_WORKER: "service_worker",
   POPUP: "popup",

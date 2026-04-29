@@ -80,7 +80,7 @@
 #### Changes
 
 - Force-flip `enableErrorReporting` to `false` on install + update (v0.0.5 never sent data remotely)
-- New `host_permissions: ["https://*.ingest.us.sentry.io/*"]` — existing users see Chrome permission acceptance prompt on update
+- New `host_permissions: ["https://*.ingest.us.sentry.io/*"]` - existing users see Chrome permission acceptance prompt on update
 
 #### Privacy & Security
 
@@ -137,22 +137,22 @@
 
 #### Sprint 1: Quick Wins
 
-- Close duplicate tabs — one-click dedup in popup "More Actions"
-- Tab search — live filter by title + URL, composable with status chips
-- Persistent section state — collapse/expand state remembered across popup closes
-- Whitelist localhost & IP — support `localhost`, IPv4, IPv6 in whitelist/blacklist
-- Memory estimate tooltip — hover RAM stats for per-tab memory breakdown
+- Close duplicate tabs - one-click dedup in popup "More Actions"
+- Tab search - live filter by title + URL, composable with status chips
+- Persistent section state - collapse/expand state remembered across popup closes
+- Whitelist localhost & IP - support `localhost`, IPv4, IPv6 in whitelist/blacklist
+- Memory estimate tooltip - hover RAM stats for per-tab memory breakdown
 
 #### Sprint 2: UX Optimization
 
-- Changelog auto-open — only on minor/major bumps, silent for patches (no noise)
-- Optional host permissions — moved to `optional_host_permissions`; form-checker injected on-demand via `chrome.scripting.executeScript()`; permission recovery banner on update
-- Suspend warning toast — 3s on-page warning before auto-discard, re-check protections after delay, configurable delay
+- Changelog auto-open - only on minor/major bumps, silent for patches (no noise)
+- Optional host permissions - moved to `optional_host_permissions`; form-checker injected on-demand via `chrome.scripting.executeScript()`; permission recovery banner on update
+- Suspend warning toast - 3s on-page warning before auto-discard, re-check protections after delay, configurable delay
 
 #### Sprint 3: Bigger Features
 
-- Side panel UI — Chrome side panel alternative to popup, reuses popup.html/js/css, stays open across tabs, responsive layout
-- Import/export — clipboard-based JSON for whitelists, blacklists, and sessions; versioned schema for forward compat; merge strategy on import
+- Side panel UI - Chrome side panel alternative to popup, reuses popup.html/js/css, stays open across tabs, responsive layout
+- Import/export - clipboard-based JSON for whitelists, blacklists, and sessions; versioned schema for forward compat; merge strategy on import
 
 ### v0.0.3
 

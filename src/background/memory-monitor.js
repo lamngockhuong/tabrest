@@ -143,7 +143,7 @@ export function getTabMemory(tabId) {
 }
 
 // Check individual tab memory and unload heavy tabs.
-// Memory reports come from form-checker.js — when form protection is off but
+// Memory reports come from form-checker.js - when form protection is off but
 // per-tab memory monitoring is on, we still need the script injected so the
 // 30s reporter loop fires. Bootstrap it here on tabs missing memory data.
 export async function checkPerTabMemory() {

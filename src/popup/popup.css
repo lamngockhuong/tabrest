@@ -1308,7 +1308,7 @@ footer {
   }
 }
 
-/* Secondary button — neutral style matching existing .btn aesthetic */
+/* Secondary button - neutral style matching existing .btn aesthetic */
 .btn-secondary {
   background: var(--card-elevated);
   border-color: var(--border);

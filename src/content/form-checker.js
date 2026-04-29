@@ -96,7 +96,7 @@ if (!window.__tabrestFormCheckLoaded) {
    * @returns {boolean}
    */
   function checkForUnsavedData() {
-    // Global flag set by input listener — most reliable signal across SPA
+    // Global flag set by input listener - most reliable signal across SPA
     // navigations, React re-renders, and rich editors (Lexical/ProseMirror).
     if (document.body?.dataset.tabrestFormModified === "true") return true;
 
@@ -139,7 +139,7 @@ if (!window.__tabrestFormCheckLoaded) {
       }
     }
 
-    // Pre-populated rich editor (e.g. GitHub edit-comment) — modern editors
+    // Pre-populated rich editor (e.g. GitHub edit-comment) - modern editors
     // render placeholders via CSS pseudo-elements, so non-empty text implies
     // user content. Post-injection typing is caught by the global flag above.
     const editables = document.querySelectorAll('[contenteditable="true"]');

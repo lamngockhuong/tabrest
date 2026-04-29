@@ -49,7 +49,7 @@ async function shouldProtectTab(tab, settings) {
 // @param {object} options - { settings, force, auto }
 //   - settings: Pre-fetched settings to avoid refetching in batch
 //   - force: Bypass protection checks (for user-initiated unloads)
-//   - auto: From alarm/memory-monitor — eligible for warning toast + recheck window
+//   - auto: From alarm/memory-monitor - eligible for warning toast + recheck window
 export async function discardTab(tabId, options = {}) {
   const { settings: providedSettings = null, force = false, auto = false } = options;
 
@@ -324,7 +324,7 @@ async function injectSuspendWarning(tabId, delayMs, message) {
       args: [delayMs, message],
     });
   } catch {
-    // Restricted page or no host permission — skip warning silently.
+    // Restricted page or no host permission - skip warning silently.
   }
 }
 

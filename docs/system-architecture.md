@@ -110,7 +110,7 @@ service-worker.js
 3. For each tab in tabActivity map:
        │
        ├── Verify tab exists, not active, not discarded
-       ├── Check whitelist (skip — wins over blacklist)
+       ├── Check whitelist (skip - wins over blacklist)
        ├── Check if blacklisted (immediate unload)
        ├── Check if exceeded inactivity threshold
        ├── Check if snoozed
@@ -298,9 +298,9 @@ service-worker.js
 1. Manifest declares `optional_host_permissions: ["http://*/*", "https://*/*"]`
 2. `protectFormTabs` setting gate: if false, form checking skipped
 3. Form checker injected via `chrome.scripting.executeScript()` from two paths:
-   - **Eager** (`tabs.onUpdated` with `status="complete"`): so the input listener registers before the user types — required for React-controlled inputs and contenteditable editors (Lexical/ProseMirror) where `value`/`defaultValue` tracking is unreliable
+   - **Eager** (`tabs.onUpdated` with `status="complete"`): so the input listener registers before the user types - required for React-controlled inputs and contenteditable editors (Lexical/ProseMirror) where `value`/`defaultValue` tracking is unreliable
    - **Lazy** (auto-unload timer / memory check): catches tabs already open before the extension loaded
-4. On any keystroke, form-checker sets a global `document.body.dataset.tabrestFormModified` flag — single robust signal that survives SPA navigation and React re-renders
+4. On any keystroke, form-checker sets a global `document.body.dataset.tabrestFormModified` flag - single robust signal that survives SPA navigation and React re-renders
 5. Permission recovery: if user revokes access, banner appears in options with "Grant permission" button
 6. `permissions.requestHostPermissions()` uses `chrome.permissions.request()` with silent fallback
 
@@ -445,16 +445,16 @@ service-worker.js (onMessage handler)
         │
         ▼
 error-reporter.js
-        ├── sanitizeString() — strip URLs, emails, IPs → [REDACTED]
-        ├── computeFingerprint() — FNV-1a hash of name + first 3 stack frames
-        ├── checkDedup() — skip if identical error within 24h window
-        ├── checkAndIncrementQuota() — 100 events/day/user cap, LRU evict at 100 dedup entries
-        ├── sample() — 0.1 sample rate for repeated errors
+        ├── sanitizeString() - strip URLs, emails, IPs → [REDACTED]
+        ├── computeFingerprint() - FNV-1a hash of name + first 3 stack frames
+        ├── checkDedup() - skip if identical error within 24h window
+        ├── checkAndIncrementQuota() - 100 events/day/user cap, LRU evict at 100 dedup entries
+        ├── sample() - 0.1 sample rate for repeated errors
         │
-        ├─► fetch(SENTRY_INGEST_URL) — POST JSON envelope
+        ├─► fetch(SENTRY_INGEST_URL) - POST JSON envelope
         │   └─► Sentry ingest (200 OK = success)
         │
-        └─► chrome.storage.local buffer — fallback when offline/disabled/quota exceeded
+        └─► chrome.storage.local buffer - fallback when offline/disabled/quota exceeded
 ```
 
 ### Configuration
@@ -493,17 +493,17 @@ Auto errors and manual bug reports have **independent caps** so a noisy user-ini
 | **Manual report cap**      | 5/day/user, UTC midnight reset (separate from auto-error cap)      |
 | **Manual report cooldown** | 60 s between submits, blocks rapid-fire / double-click             |
 
-Manual reports bypass dedup (intentional submission) and skip the auto-error daily counter — exhausting the manual cap does not consume auto-error quota.
+Manual reports bypass dedup (intentional submission) and skip the auto-error daily counter - exhausting the manual cap does not consume auto-error quota.
 
 ### Error Surfaces (Tags)
 
 Five surfaces report errors:
 
-- `service_worker` — Background service worker exceptions
-- `popup` — Popup UI errors
-- `options` — Options page errors
-- `content_form` — Form-checker content script
-- `content_youtube` — YouTube-tracker content script
+- `service_worker` - Background service worker exceptions
+- `popup` - Popup UI errors
+- `options` - Options page errors
+- `content_form` - Form-checker content script
+- `content_youtube` - YouTube-tracker content script
 
 ### Storage (Fallback Buffer)
 

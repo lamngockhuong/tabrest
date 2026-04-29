@@ -29,7 +29,7 @@ Legend: `[ ]` not tested · `[x]` pass · `[!]` fail · `[~]` skip / N/A.
 - [ ] Switch language to `vi` (Chrome → Settings → Languages → set Vietnamese as primary, then reload extension); popup + options strings reflect Vietnamese.
 - [ ] Switch back to `en`; strings revert.
 
-## 1. Auto-Unload — Inactivity Timer
+## 1. Auto-Unload - Inactivity Timer
 
 - [ ] Set `Unload after` = 1 min (Options → Auto-Unload), `Min inactive tabs before discard` = 0.
 - [ ] Open 3 tabs (any non-whitelisted sites). Focus tab A.
@@ -38,14 +38,14 @@ Legend: `[ ]` not tested · `[x]` pass · `[!]` fail · `[~]` skip / N/A.
 - [ ] Click discarded tab B → reloads instantly, scroll position preserved (if `restoreScrollPosition` on).
 - [ ] Set delay = 0 → auto-unload disabled; verify tabs no longer discard after a minute.
 
-## 2. Auto-Unload — Memory Threshold
+## 2. Auto-Unload - Memory Threshold
 
 - [ ] Set `Memory threshold` = 60% (Options → Memory Management).
 - [ ] Open enough tabs to push RAM > 60% (or temporarily lower threshold to current RAM −5%).
 - [ ] Within 30s, LRU tabs discard until RAM drops below threshold.
 - [ ] Set threshold = 0 → memory-based discarding disabled.
 
-## 3. Auto-Unload — Per-Tab JS Heap Limit
+## 3. Auto-Unload - Per-Tab JS Heap Limit
 
 - [ ] Set `Per-tab JS heap limit` = 100 MB (Options).
 - [ ] If the form-checker host permission was previously granted, `chrome.scripting` injects the heap reporter; otherwise verify the recovery banner appears in the popup.
@@ -53,7 +53,7 @@ Legend: `[ ]` not tested · `[x]` pass · `[!]` fail · `[~]` skip / N/A.
 - [ ] Tab discards once heap > 100 MB.
 - [ ] Set limit = 0 → heap monitoring disabled.
 
-## 4. Auto-Unload — Startup
+## 4. Auto-Unload - Startup
 
 - [ ] Toggle `Auto-unload on startup` ON (Options).
 - [ ] Quit and relaunch Chrome with multiple tabs open from previous session.
@@ -87,7 +87,7 @@ Legend: `[ ]` not tested · `[x]` pass · `[!]` fail · `[~]` skip / N/A.
 - [ ] Switch to **Performance**: shortest intervals, highest priority discard.
 - [ ] After each switch, verify alarm period changes (DevTools `chrome.alarms.getAll`).
 
-## 9. Manual Controls — Popup Buttons
+## 9. Manual Controls - Popup Buttons
 
 - [ ] **Unload Current** → discards focused tab; popup closes; tab shows prefix.
 - [ ] **Unload Others** → all tabs except active discard.
@@ -100,10 +100,10 @@ Legend: `[ ]` not tested · `[x]` pass · `[!]` fail · `[~]` skip / N/A.
 
 Configurable at `chrome://extensions/shortcuts`.
 
-- [ ] `Alt+Shift+D` — unload current tab.
-- [ ] `Alt+Shift+O` — unload other tabs.
-- [ ] `Alt+Shift+→` — unload tabs to the right.
-- [ ] `Alt+Shift+←` — unload tabs to the left.
+- [ ] `Alt+Shift+D` - unload current tab.
+- [ ] `Alt+Shift+O` - unload other tabs.
+- [ ] `Alt+Shift+→` - unload tabs to the right.
+- [ ] `Alt+Shift+←` - unload tabs to the left.
 - [ ] Rebind one shortcut → still fires the correct command.
 
 ## 11. Toolbar Click Action
@@ -168,7 +168,7 @@ Configurable at `chrome://extensions/shortcuts`.
 - [ ] Tab playing YouTube audio + `Protect audio tabs` ON → never discards.
 - [ ] Tab with unsaved form (e.g., partially filled Google Form) + `Protect form tabs` ON → not discarded; popup row shows "Form" badge.
 - [ ] Tab with unsaved form on a React/contenteditable editor (e.g., GitHub issue body) → after typing, popup row shows "Form" badge (eager-injection captures keystrokes).
-- [ ] Whitelisted tab that is also pinned/audio/form → popup shows the more specific badge (pin/audio/form), not "safe" — whitelist is the lowest-priority reason.
+- [ ] Whitelisted tab that is also pinned/audio/form → popup shows the more specific badge (pin/audio/form), not "safe" - whitelist is the lowest-priority reason.
 - [ ] Disable a protection → matching tabs become eligible.
 - [ ] **Force unload** (per-tab menu in popup) overrides all protections.
 
