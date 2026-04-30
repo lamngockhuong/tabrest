@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/lamngockhuong/tabrest/compare/v0.2.1...v0.3.0) (2026-04-30)
+
+
+### Features
+
+* **i18n:** expand to 9 languages ([#63](https://github.com/lamngockhuong/tabrest/issues/63)) ([36bd90c](https://github.com/lamngockhuong/tabrest/commit/36bd90c182fc1ccd01745b0cc63c1d3d92f6d193))
+
 ## [0.2.1](https://github.com/lamngockhuong/tabrest/compare/v0.2.0...v0.2.1) (2026-04-29)
 
 
