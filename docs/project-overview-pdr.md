@@ -138,4 +138,4 @@ optional_host_permissions: http://*/*, https://*/*
 
 - **Website:** https://tabrest.ohnice.app
 - **Repository:** GitHub (lamngockhuong/tabrest)
-- **Chrome Web Store:** Coming soon
+- **Chrome Web Store:** https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib

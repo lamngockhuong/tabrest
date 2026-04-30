@@ -72,7 +72,7 @@
 
 ### Chrome Web Store에서 설치
 
-출시 예정입니다.
+[Chrome Web Store에서 TabRest 설치](https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib).
 
 ## 작동 방식
 

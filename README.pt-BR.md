@@ -72,7 +72,7 @@
 
 ### Pela Chrome Web Store
 
-Em breve.
+[Instale o TabRest na Chrome Web Store](https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib).
 
 ## Como Funciona
 

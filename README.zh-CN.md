@@ -72,7 +72,7 @@
 
 ### 从 Chrome Web Store 安装
 
-即将上线。
+[从 Chrome Web Store 安装 TabRest](https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib)。
 
 ## 工作原理
 

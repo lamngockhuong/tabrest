@@ -546,7 +546,7 @@ async function renderDetailedStats() {
 }
 
 // Review prompt URLs
-const REVIEW_URL = "https://chromewebstore.google.com/detail/tabrest/placeholder-id/reviews";
+const REVIEW_URL = "https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib/reviews";
 const ISSUES_URL = "https://github.com/lamngockhuong/tabrest/issues";
 const NEW_BUG_ISSUE_URL =
   "https://github.com/lamngockhuong/tabrest/issues/new?template=bug_report.md";

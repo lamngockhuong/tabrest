@@ -72,7 +72,7 @@
 
 ### Từ Chrome Web Store
 
-Sắp ra mắt.
+[Cài đặt TabRest từ Chrome Web Store](https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib).
 
 ## Cách hoạt động
 

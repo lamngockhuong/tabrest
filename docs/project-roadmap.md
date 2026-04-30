@@ -100,7 +100,7 @@
 
 | Task                           | Priority | Status      |
 | ------------------------------ | -------- | ----------- |
-| Chrome Web Store listing       | High     | Pending     |
+| Chrome Web Store listing       | High     | Done        |
 | Store screenshots/promo images | High     | Done        |
 | Privacy policy page            | High     | Done        |
 | User testing & bug fixes       | High     | In Progress |

@@ -72,7 +72,7 @@
 
 ### Dari Chrome Web Store
 
-Segera hadir.
+[Instal TabRest dari Chrome Web Store](https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib).
 
 ## Cara Kerja
 
