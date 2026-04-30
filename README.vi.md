@@ -49,7 +49,7 @@
 - **Host permissions tuỳ chọn** - Bảo vệ form chỉ yêu cầu quyền khi bật
 - **Hiển thị RAM** - Phần trăm RAM trực tiếp trên popup
 - **Thống kê** - Theo dõi số tab đã unload và bộ nhớ đã tiết kiệm
-- **Đa ngôn ngữ** - Hỗ trợ tiếng Anh và tiếng Việt
+- **Đa ngôn ngữ** - Hỗ trợ 11 ngôn ngữ
 
 ## Phím tắt
 
@@ -88,7 +88,7 @@ TabRest sử dụng API native `chrome.tabs.discard()` của Chrome để unload
 ```text
 tabrest/
 ├── manifest.json           # Cấu hình tiện ích (MV3)
-├── _locales/               # Bản dịch i18n (en, vi)
+├── _locales/               # Bản dịch i18n (11 locale)
 ├── src/
 │   ├── background/         # Module service worker
 │   ├── content/            # Form checker, YouTube tracker

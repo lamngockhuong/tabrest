@@ -49,7 +49,7 @@
 - **Permisos de host opcionales** - La protección de formularios solo solicita acceso cuando está habilitada
 - **Visualización del uso de RAM** - Porcentaje de RAM en tiempo real en la cabecera de la ventana emergente
 - **Estadísticas** - Seguimiento de pestañas descargadas y memoria ahorrada
-- **Multiidioma** - Compatible con inglés y vietnamita
+- **Multiidioma** - Compatible con 11 idiomas
 
 ## Atajos de teclado
 

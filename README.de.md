@@ -49,7 +49,7 @@
 - **Optionale Host-Berechtigungen** - Formularschutz fordert Zugriff nur bei Aktivierung an
 - **RAM-Anzeige** - Live-RAM-Prozentsatz in der Popup-Kopfzeile
 - **Statistiken** - Entladene Tabs und gesparten Speicher verfolgen
-- **Mehrsprachig** - Englisch und Vietnamesisch werden unterstützt
+- **Mehrsprachig** - 11 Sprachen werden unterstützt
 
 ## Tastenkürzel
 

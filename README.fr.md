@@ -49,7 +49,7 @@
 - **Permissions hôte optionnelles** - La protection des formulaires ne demande l'accès que si elle est activée
 - **Affichage de l'utilisation RAM** - Pourcentage RAM en direct dans l'en-tête du popup
 - **Statistiques** - Suivre le nombre d'onglets déchargés et la mémoire économisée
-- **Multilingue** - Anglais et vietnamien pris en charge
+- **Multilingue** - 11 langues prises en charge
 
 ## Raccourcis clavier
 

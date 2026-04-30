@@ -49,7 +49,7 @@
 - **Optional host permissions** - Form protection only requests access when enabled
 - **RAM usage display** - Live RAM % in popup header
 - **Statistics** - Track tabs unloaded and memory saved
-- **Multi-language** - English and Vietnamese supported
+- **Multi-language** - 11 languages supported
 
 ## Keyboard Shortcuts
 
@@ -88,7 +88,7 @@ TabRest uses Chrome's native `chrome.tabs.discard()` API to unload tabs. Discard
 ```text
 tabrest/
 ├── manifest.json           # Extension config (MV3)
-├── _locales/               # i18n translations (en, vi)
+├── _locales/               # i18n translations (11 locales)
 ├── src/
 │   ├── background/         # Service worker modules
 │   ├── content/            # Form checker, YouTube tracker

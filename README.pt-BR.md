@@ -49,7 +49,7 @@
 - **Permissões de host opcionais** - A proteção de formulários só solicita acesso quando ativada
 - **Exibição de uso de RAM** - Percentual de RAM ao vivo no cabeçalho do popup
 - **Estatísticas** - Acompanhar abas descarregadas e memória economizada
-- **Multilíngue** - Inglês e vietnamita suportados
+- **Multilíngue** - 11 idiomas suportados
 
 ## Atalhos de Teclado
 

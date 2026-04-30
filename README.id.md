@@ -49,7 +49,7 @@
 - **Izin host opsional** - Perlindungan formulir hanya meminta akses saat diaktifkan
 - **Tampilan penggunaan RAM** - Persentase RAM langsung di header popup
 - **Statistik** - Lacak jumlah tab yang dibongkar dan memori yang dihemat
-- **Multi-bahasa** - Mendukung Bahasa Inggris dan Bahasa Vietnam
+- **Multi-bahasa** - Mendukung 11 bahasa
 
 ## Pintasan Keyboard
 
