@@ -1,4 +1,5 @@
-🇬🇧 **English** | 🇻🇳 [Tiếng Việt](README.vi.md)
+🇬🇧 **English** • 🇻🇳 [Tiếng Việt](README.vi.md) • 🇪🇸 [Español](README.es.md) • 🇧🇷 [Português](README.pt-BR.md) • 🇯🇵 [日本語](README.ja.md) • 🇨🇳 [简体中文](README.zh-CN.md) <br>
+🇰🇷 [한국어](README.ko.md) • 🇩🇪 [Deutsch](README.de.md) • 🇫🇷 [Français](README.fr.md) • 🇷🇺 [Русский](README.ru.md) • 🇮🇩 [Bahasa Indonesia](README.id.md)
 
 <p align="center">
   <img src="icons/icon-128.png" alt="TabRest Logo" width="128" height="128">
@@ -48,7 +49,7 @@
 - **Optional host permissions** - Form protection only requests access when enabled
 - **RAM usage display** - Live RAM % in popup header
 - **Statistics** - Track tabs unloaded and memory saved
-- **Multi-language** - English and Vietnamese supported
+- **Multi-language** - 11 languages supported
 
 ## Keyboard Shortcuts
 
@@ -87,7 +88,7 @@ TabRest uses Chrome's native `chrome.tabs.discard()` API to unload tabs. Discard
 ```text
 tabrest/
 ├── manifest.json           # Extension config (MV3)
-├── _locales/               # i18n translations (en, vi)
+├── _locales/               # i18n translations (11 locales)
 ├── src/
 │   ├── background/         # Service worker modules
 │   ├── content/            # Form checker, YouTube tracker

@@ -294,7 +294,7 @@
     "description": "Error message"
   },
   "domainConflict": {
-    "message": "$1 is already in $2 — remove it from there first",
+    "message": "$1 is already in $2 - remove it from there first",
     "description": "Error when adding a domain that exists in the opposite list",
     "placeholders": {
       "1": { "content": "$1" },

@@ -1,0 +1,695 @@
+{
+  "extName": {
+    "message": "TabRest - Rest your tabs, free your RAM"
+  },
+  "extDescription": {
+    "message": "Descanse suas abas, libere memória - descarregue automaticamente abas inativas"
+  },
+  "sleeping": {
+    "message": "dormindo"
+  },
+  "protected": {
+    "message": "protegida"
+  },
+  "saved": {
+    "message": "economizado"
+  },
+  "unloadOthers": {
+    "message": "Descarregar Outras"
+  },
+  "unloadCurrent": {
+    "message": "Descarregar Atual"
+  },
+  "tabsInWindow": {
+    "message": "Abas nesta janela"
+  },
+  "sessions": {
+    "message": "Sessões"
+  },
+  "stats": {
+    "message": "Estatísticas"
+  },
+  "quickSettings": {
+    "message": "Configurações Rápidas"
+  },
+  "moreActions": {
+    "message": "Mais Ações"
+  },
+  "autoUnloadAfter": {
+    "message": "Descarregar automaticamente após"
+  },
+  "ramThreshold": {
+    "message": "Limite de RAM"
+  },
+  "disabled": {
+    "message": "Desativado"
+  },
+  "sessionNamePlaceholder": {
+    "message": "Nome da sessão (opcional)"
+  },
+  "save": {
+    "message": "Salvar"
+  },
+  "saveFirstSession": {
+    "message": "Salve sua primeira sessão"
+  },
+  "today": {
+    "message": "Hoje"
+  },
+  "allTime": {
+    "message": "Sempre"
+  },
+  "tabsUnloadedToday": {
+    "message": "Abas descarregadas hoje"
+  },
+  "tabsUnloadedTotal": {
+    "message": "Total de abas descarregadas"
+  },
+  "ramSaved": {
+    "message": "RAM economizado (est.)"
+  },
+  "memberSince": {
+    "message": "Membro desde"
+  },
+  "enjoyingTabRest": {
+    "message": "Gostando do TabRest?"
+  },
+  "yes": {
+    "message": "Sim!"
+  },
+  "notReally": {
+    "message": "Não muito"
+  },
+  "sessionSaved": {
+    "message": "Sessão salva"
+  },
+  "sessionDeleted": {
+    "message": "Sessão excluída"
+  },
+  "tabUnloaded": {
+    "message": "Aba descarregada"
+  },
+  "tabsUnloaded": {
+    "message": "$1 abas descarregadas",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "$1 abas restauradas",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "Atualizado"
+  },
+  "copyTabListTooltip": {
+    "message": "Copiar lista de abas para a área de transferência"
+  },
+  "tabListCopied": {
+    "message": "Lista de abas copiada para a área de transferência"
+  },
+  "timerUpdated": {
+    "message": "Temporizador atualizado"
+  },
+  "thresholdUpdated": {
+    "message": "Limite atualizado"
+  },
+  "cannotUnloadActive": {
+    "message": "Não é possível descarregar a aba ativa"
+  },
+  "failedToSave": {
+    "message": "Falha ao salvar"
+  },
+  "settingsTitle": {
+    "message": "Configurações do TabRest"
+  },
+  "settingsSubtitle": {
+    "message": "Ajuste como o TabRest gerencia suas abas e memória"
+  },
+  "footerTagline": {
+    "message": "Gerenciamento tranquilo de abas"
+  },
+  "noDomainsYet": {
+    "message": "Nenhum domínio ainda"
+  },
+  "behaviorProtection": {
+    "message": "Proteção"
+  },
+  "behaviorSmart": {
+    "message": "Comportamento inteligente"
+  },
+  "behaviorIndicators": {
+    "message": "Indicadores e exibição"
+  },
+  "autoUnload": {
+    "message": "Descarregamento Automático"
+  },
+  "unloadOnStartup": {
+    "message": "Descarregar abas ao iniciar o navegador"
+  },
+  "unloadInactiveAfter": {
+    "message": "Descarregar abas inativas após:"
+  },
+  "memoryManagement": {
+    "message": "Gerenciamento de Memória"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "Descarregar abas quando RAM exceder:"
+  },
+  "behavior": {
+    "message": "Comportamento"
+  },
+  "includePinnedTabs": {
+    "message": "Incluir abas fixadas"
+  },
+  "showUnloadedCount": {
+    "message": "Mostrar contagem de abas descarregadas no ícone"
+  },
+  "trackStatistics": {
+    "message": "Rastrear estatísticas"
+  },
+  "protectAudioTabs": {
+    "message": "Proteger abas reproduzindo áudio/vídeo"
+  },
+  "protectFormTabs": {
+    "message": "Proteger abas com formulários não salvos"
+  },
+  "whitelist": {
+    "message": "Lista Branca"
+  },
+  "whitelistHelp": {
+    "message": "Sites que nunca serão descarregados automaticamente"
+  },
+  "addPlaceholder": {
+    "message": "exemplo.com"
+  },
+  "add": {
+    "message": "Adicionar"
+  },
+  "statistics": {
+    "message": "Estatísticas"
+  },
+  "tabsUnloadedLabel": {
+    "message": "Abas Descarregadas"
+  },
+  "memorySavedLabel": {
+    "message": "Memória Economizada"
+  },
+  "resetStatistics": {
+    "message": "Redefinir Estatísticas"
+  },
+  "keyboardShortcuts": {
+    "message": "Atalhos de Teclado"
+  },
+  "shortcutsHelp": {
+    "message": "Configure em chrome://extensions/shortcuts"
+  },
+  "configureIn": {
+    "message": "Configure em"
+  },
+  "settingsSaved": {
+    "message": "Configurações salvas"
+  },
+  "domainRemoved": {
+    "message": "Domínio removido"
+  },
+  "invalidDomain": {
+    "message": "Insira um domínio, endereço IP ou 'localhost'"
+  },
+  "domainExists": {
+    "message": "Domínio já existe"
+  },
+  "domainConflict": {
+    "message": "$1 já está em $2 - remova-o de lá primeiro",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "domainAdded": {
+    "message": "Domínio adicionado"
+  },
+  "statsReset": {
+    "message": "Estatísticas redefinidas"
+  },
+  "unloadRight": {
+    "message": "Descarregar abas à direita"
+  },
+  "unloadLeft": {
+    "message": "Descarregar abas à esquerda"
+  },
+  "blacklist": {
+    "message": "Lista Negra"
+  },
+  "blacklistHelp": {
+    "message": "Sites que serão sempre descarregados automaticamente (mesmo se acessados recentemente)"
+  },
+  "enableTabGroups": {
+    "message": "Mostrar grupos de abas no popup"
+  },
+  "tabGroups": {
+    "message": "Grupos de Abas"
+  },
+  "selectTabGroup": {
+    "message": "Selecionar Grupo de Abas..."
+  },
+  "unloadGroup": {
+    "message": "Descarregar Grupo"
+  },
+  "untitledTabGroup": {
+    "message": "Grupo $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "showDiscardedPrefix": {
+    "message": "Adicionar símbolo às abas descartadas"
+  },
+  "discardedPrefixLabel": {
+    "message": "Símbolo:"
+  },
+  "prefixHelp": {
+    "message": "Requer permissão de acesso ao site. Não funciona em páginas protegidas (Chrome Web Store, contas Google, etc.)"
+  },
+  "prefixPermDenied": {
+    "message": "O prefixo de aba requer permissão de acesso ao site. Alternância ignorada."
+  },
+  "minTabsLabel": {
+    "message": "Descarregar automaticamente apenas quando abas inativas excederem:"
+  },
+  "toolbarAction": {
+    "message": "Ação da Barra de Ferramentas"
+  },
+  "toolbarClickLabel": {
+    "message": "Ao clicar no ícone da extensão:"
+  },
+  "actionOpenPopup": {
+    "message": "Abrir popup"
+  },
+  "actionDiscardCurrent": {
+    "message": "Descartar aba atual"
+  },
+  "actionDiscardOthers": {
+    "message": "Descartar outras abas"
+  },
+  "useSidePanel": {
+    "message": "Abrir no painel lateral em vez do popup"
+  },
+  "useSidePanelHelp": {
+    "message": "O painel lateral permanece aberto ao trocar de abas. Requer Chrome 114+."
+  },
+  "saveYouTubeTimestamp": {
+    "message": "Salvar posição de reprodução do YouTube"
+  },
+  "saveYouTubeHelp": {
+    "message": "Retomar vídeos da posição salva quando a aba é recarregada"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "Descarregar automaticamente apenas quando o computador estiver ocioso"
+  },
+  "idleThreshold": {
+    "message": "Limite de ociosidade:"
+  },
+  "perTabMemoryLabel": {
+    "message": "Descarregar abas usando mais do que (JS heap):"
+  },
+  "perTabMemoryHelp": {
+    "message": "Mede apenas a memória JavaScript, não a memória total da aba"
+  },
+  "powerMode": {
+    "message": "Modo de Energia"
+  },
+  "powerModeHelp": {
+    "message": "Ajuste a agressividade com base na sua situação de energia"
+  },
+  "batterySaver": {
+    "message": "Economia de Bateria"
+  },
+  "batterySaverDesc": {
+    "message": "Mais agressivo, economiza energia"
+  },
+  "normalMode": {
+    "message": "Normal"
+  },
+  "normalModeDesc": {
+    "message": "Desempenho equilibrado"
+  },
+  "performanceMode": {
+    "message": "Desempenho"
+  },
+  "performanceModeDesc": {
+    "message": "Menos agressivo, mantém abas por mais tempo"
+  },
+  "skipWhenOffline": {
+    "message": "Ignorar descarregamento automático quando offline"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "Evita que abas sejam descartadas quando a rede estiver indisponível"
+  },
+  "restoreScrollPosition": {
+    "message": "Restaurar posição de rolagem"
+  },
+  "restoreScrollHelp": {
+    "message": "Salva e restaura a posição de rolagem quando as abas são descartadas e recarregadas"
+  },
+  "tabSnoozed": {
+    "message": "Aba adiada"
+  },
+  "domainSnoozed": {
+    "message": "Site adiado"
+  },
+  "snoozeRemoved": {
+    "message": "Adiamento removido"
+  },
+  "snoozeTab30": {
+    "message": "Adiar Aba (30 min)"
+  },
+  "snoozeTab60": {
+    "message": "Adiar Aba (1 hora)"
+  },
+  "snoozeDomain60": {
+    "message": "Adiar Site (1 hora)"
+  },
+  "openLinkSuspended": {
+    "message": "Abrir Link em Aba Suspensa"
+  },
+  "notifyOnAutoUnload": {
+    "message": "Notificar quando abas forem descarregadas automaticamente"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "Exibe notificação com o motivo (temporizador/RAM)"
+  },
+  "reportBug": {
+    "message": "Reportar um Bug"
+  },
+  "describeIssue": {
+    "message": "Descreva o problema (opcional):"
+  },
+  "bugDescPlaceholder": {
+    "message": "O que deu errado?"
+  },
+  "debugInfoAttached": {
+    "message": "Informações de depuração serão anexadas"
+  },
+  "copyForGithub": {
+    "message": "Copiar e Abrir GitHub"
+  },
+  "copiedToClipboard": {
+    "message": "Copiado! Cole na issue do GitHub."
+  },
+  "supportFeedback": {
+    "message": "Suporte e Feedback"
+  },
+  "enableErrorReporting": {
+    "message": "Enviar relatórios de erro anônimos"
+  },
+  "errorReportingHelp": {
+    "message": "Reporta falhas automaticamente para ajudar a melhorar o TabRest. Nenhum dado pessoal é coletado."
+  },
+  "reportIssue": {
+    "message": "Reportar um Problema"
+  },
+  "askQuestion": {
+    "message": "Fazer uma Pergunta"
+  },
+  "closeDuplicates": {
+    "message": "Fechar Duplicadas"
+  },
+  "closedNDuplicates": {
+    "message": "Fechadas $COUNT$ aba(s) duplicada(s)",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "Nenhuma aba duplicada encontrada"
+  },
+  "searchTabs": {
+    "message": "Pesquisar abas"
+  },
+  "searchPlaceholder": {
+    "message": "Pesquisar abas..."
+  },
+  "ramEstimateTooltip": {
+    "message": "Baseado em ~150 MB por aba descartada. A economia real varia conforme o conteúdo da página."
+  },
+  "formProtectPermDenied": {
+    "message": "A proteção de formulários requer permissão de acesso ao site. Alternância ignorada."
+  },
+  "formPermBannerText": {
+    "message": "As permissões do site foram redefinidas. Ative para restaurar as configurações afetadas."
+  },
+  "enable": {
+    "message": "Ativar"
+  },
+  "formPermGranted": {
+    "message": "Configurações restauradas"
+  },
+  "showSuspendWarningLabel": {
+    "message": "Mostrar aviso antes da suspensão automática"
+  },
+  "showSuspendWarningHelp": {
+    "message": "Exibe uma breve notificação na página para que você possa interagir com a aba e mantê-la ativa"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "Atraso do aviso:"
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest vai suspender esta aba para liberar memória..."
+  },
+  "exportList": {
+    "message": "Exportar"
+  },
+  "importList": {
+    "message": "Importar"
+  },
+  "exportSessions": {
+    "message": "Exportar Sessões"
+  },
+  "importSessions": {
+    "message": "Importar Sessões"
+  },
+  "exportedToClipboard": {
+    "message": "Copiado para a área de transferência"
+  },
+  "exportFailed": {
+    "message": "Falha na exportação"
+  },
+  "pasteImportJson": {
+    "message": "Cole o JSON exportado abaixo:"
+  },
+  "importedNAdded": {
+    "message": "Adicionados $1, ignorados $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "Falha na importação: JSON inválido"
+  },
+  "importFailed_invalidShape": {
+    "message": "Falha na importação: formato inválido"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "Falha na importação: versão não suportada"
+  },
+  "importFailed_wrongType": {
+    "message": "Falha na importação: tipo incorreto para esta lista"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "Privacidade e Diagnósticos"
+  },
+  "errorReportingHint": {
+    "message": "Ajude a melhorar o TabRest enviando relatórios de erro anônimos. Desativado por padrão. Nenhuma URL, título de página ou dado pessoal é enviado."
+  },
+  "enableErrorReportingLabel": {
+    "message": "Ativar relatórios de erro anônimos"
+  },
+  "advancedDsnSummary": {
+    "message": "Avançado: DSN personalizado do Sentry"
+  },
+  "customDsnHint": {
+    "message": "Deixe em branco para usar o padrão. Apenas DSNs HTTPS são aceitos."
+  },
+  "viewPrivacyPolicy": {
+    "message": "Ver política de privacidade"
+  },
+  "invalidDsnMessage": {
+    "message": "Formato de DSN inválido. Esperado: https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "DSN personalizado salvo"
+  },
+  "errorReportingEnabledToast": {
+    "message": "Relatório de erros ativado"
+  },
+  "errorReportingDisabledToast": {
+    "message": "Relatório de erros desativado"
+  },
+  "sendToSentry": {
+    "message": "Enviar para Sentry"
+  },
+  "sentryDisabledHint": {
+    "message": "Ative o relatório de erros em "
+  },
+  "optionsLink": {
+    "message": "opções"
+  },
+  "reportSentSuccess": {
+    "message": "Relatório enviado. Obrigado!"
+  },
+  "reportSentFailed": {
+    "message": "Falha ao enviar. Tente copiar pelo GitHub."
+  },
+  "reportCooldown": {
+    "message": "Aguarde um minuto antes de enviar outro relatório."
+  },
+  "reportDailyCap": {
+    "message": "Limite diário de relatórios atingido. Use a cópia pelo GitHub."
+  },
+  "optionsRerunOnboarding": {
+    "message": "Executar configuração novamente"
+  },
+  "obWizardTitle": {
+    "message": "Configuração do TabRest"
+  },
+  "obSkipAll": {
+    "message": "Pular tudo"
+  },
+  "obBack": {
+    "message": "Voltar"
+  },
+  "obNext": {
+    "message": "Próximo"
+  },
+  "obSkip": {
+    "message": "Pular"
+  },
+  "obFinish": {
+    "message": "Concluir"
+  },
+  "obProgressLabel": {
+    "message": "Etapa $1 de $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "Bem-vindo ao TabRest"
+  },
+  "obWelcomeBody": {
+    "message": "Uma configuração rápida ajusta o TabRest para o seu modo de navegar. Você pode alterar tudo depois nas Configurações."
+  },
+  "obWelcomeStart": {
+    "message": "Vamos configurar"
+  },
+  "obAutoUnloadTitle": {
+    "message": "Descarregar abas inativas automaticamente"
+  },
+  "obAutoUnloadDesc": {
+    "message": "Escolha quanto tempo uma aba inativa aguarda antes de ser descarregada."
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 minutos"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 hora"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 horas"
+  },
+  "obWhitelistTitle": {
+    "message": "Manter estas sempre ativas"
+  },
+  "obWhitelistDesc": {
+    "message": "Sites marcados são protegidos do descarregamento automático."
+  },
+  "obWhitelistHint": {
+    "message": "Você pode editar esta lista depois nas Configurações."
+  },
+  "obPowerModeTitle": {
+    "message": "Escolha um modo de energia"
+  },
+  "obPowerModeDesc": {
+    "message": "Escolha o quão agressivamente o TabRest descarrega abas."
+  },
+  "obNotificationsTitle": {
+    "message": "Receba notificações ao descarregar automaticamente"
+  },
+  "obNotificationsDesc": {
+    "message": "Exibe uma notificação do sistema quando o TabRest descarrega abas em segundo plano."
+  },
+  "obNotificationsToggle": {
+    "message": "Notificar quando abas forem descarregadas automaticamente"
+  },
+  "obDoneTitle": {
+    "message": "Tudo pronto"
+  },
+  "obDoneSubtitle": {
+    "message": "Suas configurações foram salvas."
+  },
+  "obPinTitle": {
+    "message": "Fixe o TabRest na sua barra de ferramentas"
+  },
+  "obPinDesc": {
+    "message": "Clique no ícone de quebra-cabeça no canto superior direito do navegador e fixe o TabRest para acesso com um clique."
+  },
+  "obPinnedTitle": {
+    "message": "Fixado!"
+  },
+  "obPinnedDesc": {
+    "message": "Clique no ícone do TabRest a qualquer momento para gerenciar suas abas."
+  },
+  "obDoneSummaryDelay": {
+    "message": "Descarregar automaticamente após"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "Manter sempre ativas"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 sites",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "Modo de energia"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "Notificações"
+  },
+  "obDoneOpenSettings": {
+    "message": "Abrir todas as configurações"
+  },
+  "obDoneShortcutsHint": {
+    "message": "Dica: $1 descarrega a aba atual.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "Ativado"
+  },
+  "obOffState": {
+    "message": "Desativado"
+  },
+  "obMinutes": {
+    "message": "$1 min",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 h",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  }
+}

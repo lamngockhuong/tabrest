@@ -1,0 +1,695 @@
+{
+  "extName": {
+    "message": "TabRest - Rest your tabs, free your RAM"
+  },
+  "extDescription": {
+    "message": "Дайте вкладкам отдохнуть, освободите память - автоматически выгружает неактивные вкладки"
+  },
+  "sleeping": {
+    "message": "спит"
+  },
+  "protected": {
+    "message": "защищена"
+  },
+  "saved": {
+    "message": "сохранено"
+  },
+  "unloadOthers": {
+    "message": "Выгрузить другие"
+  },
+  "unloadCurrent": {
+    "message": "Выгрузить текущую"
+  },
+  "tabsInWindow": {
+    "message": "Вкладки в окне"
+  },
+  "sessions": {
+    "message": "Сессии"
+  },
+  "stats": {
+    "message": "Статистика"
+  },
+  "quickSettings": {
+    "message": "Быстрые настройки"
+  },
+  "moreActions": {
+    "message": "Ещё действия"
+  },
+  "autoUnloadAfter": {
+    "message": "Авто-выгрузка через"
+  },
+  "ramThreshold": {
+    "message": "Порог RAM"
+  },
+  "disabled": {
+    "message": "Отключено"
+  },
+  "sessionNamePlaceholder": {
+    "message": "Название сессии (необязательно)"
+  },
+  "save": {
+    "message": "Сохранить"
+  },
+  "saveFirstSession": {
+    "message": "Сохраните первую сессию"
+  },
+  "today": {
+    "message": "Сегодня"
+  },
+  "allTime": {
+    "message": "За всё время"
+  },
+  "tabsUnloadedToday": {
+    "message": "Вкладок выгружено сегодня"
+  },
+  "tabsUnloadedTotal": {
+    "message": "Вкладок выгружено всего"
+  },
+  "ramSaved": {
+    "message": "RAM сохранено (прибл.)"
+  },
+  "memberSince": {
+    "message": "Участник с"
+  },
+  "enjoyingTabRest": {
+    "message": "Нравится TabRest?"
+  },
+  "yes": {
+    "message": "Да!"
+  },
+  "notReally": {
+    "message": "Не очень"
+  },
+  "sessionSaved": {
+    "message": "Сессия сохранена"
+  },
+  "sessionDeleted": {
+    "message": "Сессия удалена"
+  },
+  "tabUnloaded": {
+    "message": "Вкладка выгружена"
+  },
+  "tabsUnloaded": {
+    "message": "$1 вкладок выгружено",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "Восстановлено $1 вкладок",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "Обновлено"
+  },
+  "copyTabListTooltip": {
+    "message": "Скопировать список вкладок"
+  },
+  "tabListCopied": {
+    "message": "Список вкладок скопирован"
+  },
+  "timerUpdated": {
+    "message": "Таймер обновлён"
+  },
+  "thresholdUpdated": {
+    "message": "Порог обновлён"
+  },
+  "cannotUnloadActive": {
+    "message": "Нельзя выгрузить активную вкладку"
+  },
+  "failedToSave": {
+    "message": "Ошибка сохранения"
+  },
+  "settingsTitle": {
+    "message": "Настройки TabRest"
+  },
+  "settingsSubtitle": {
+    "message": "Настройте управление вкладками и памятью"
+  },
+  "footerTagline": {
+    "message": "Спокойное управление вкладками"
+  },
+  "noDomainsYet": {
+    "message": "Нет доменов"
+  },
+  "behaviorProtection": {
+    "message": "Защита"
+  },
+  "behaviorSmart": {
+    "message": "Умное поведение"
+  },
+  "behaviorIndicators": {
+    "message": "Индикаторы и отображение"
+  },
+  "autoUnload": {
+    "message": "Авто-выгрузка"
+  },
+  "unloadOnStartup": {
+    "message": "Выгружать вкладки при запуске браузера"
+  },
+  "unloadInactiveAfter": {
+    "message": "Выгружать неактивные вкладки через:"
+  },
+  "memoryManagement": {
+    "message": "Управление памятью"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "Выгружать вкладки при превышении RAM:"
+  },
+  "behavior": {
+    "message": "Поведение"
+  },
+  "includePinnedTabs": {
+    "message": "Включая закреплённые вкладки"
+  },
+  "showUnloadedCount": {
+    "message": "Показывать счётчик выгруженных на иконке"
+  },
+  "trackStatistics": {
+    "message": "Вести статистику"
+  },
+  "protectAudioTabs": {
+    "message": "Защищать вкладки с аудио/видео"
+  },
+  "protectFormTabs": {
+    "message": "Защищать вкладки с несохранёнными формами"
+  },
+  "whitelist": {
+    "message": "Белый список"
+  },
+  "whitelistHelp": {
+    "message": "Сайты, которые никогда не выгружаются автоматически"
+  },
+  "addPlaceholder": {
+    "message": "example.com"
+  },
+  "add": {
+    "message": "Добавить"
+  },
+  "statistics": {
+    "message": "Статистика"
+  },
+  "tabsUnloadedLabel": {
+    "message": "Выгружено вкладок"
+  },
+  "memorySavedLabel": {
+    "message": "Памяти сохранено"
+  },
+  "resetStatistics": {
+    "message": "Сбросить статистику"
+  },
+  "keyboardShortcuts": {
+    "message": "Горячие клавиши"
+  },
+  "shortcutsHelp": {
+    "message": "Настройка в chrome://extensions/shortcuts"
+  },
+  "configureIn": {
+    "message": "Настроить в"
+  },
+  "settingsSaved": {
+    "message": "Настройки сохранены"
+  },
+  "domainRemoved": {
+    "message": "Домен удалён"
+  },
+  "invalidDomain": {
+    "message": "Введите домен, IP-адрес или 'localhost'"
+  },
+  "domainExists": {
+    "message": "Домен уже существует"
+  },
+  "domainConflict": {
+    "message": "$1 уже есть в $2 - сначала удалите его оттуда",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "domainAdded": {
+    "message": "Домен добавлен"
+  },
+  "statsReset": {
+    "message": "Статистика сброшена"
+  },
+  "unloadRight": {
+    "message": "Выгрузить вкладки справа"
+  },
+  "unloadLeft": {
+    "message": "Выгрузить вкладки слева"
+  },
+  "blacklist": {
+    "message": "Чёрный список"
+  },
+  "blacklistHelp": {
+    "message": "Сайты, которые всегда выгружаются автоматически (даже если недавно были активны)"
+  },
+  "enableTabGroups": {
+    "message": "Показывать группы вкладок во всплывающем окне"
+  },
+  "tabGroups": {
+    "message": "Группы вкладок"
+  },
+  "selectTabGroup": {
+    "message": "Выбрать группу вкладок..."
+  },
+  "unloadGroup": {
+    "message": "Выгрузить группу"
+  },
+  "untitledTabGroup": {
+    "message": "Группа $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "showDiscardedPrefix": {
+    "message": "Добавлять символ к выгруженным вкладкам"
+  },
+  "discardedPrefixLabel": {
+    "message": "Символ:"
+  },
+  "prefixHelp": {
+    "message": "Требует разрешения на доступ к сайтам. Не работает на защищённых страницах (Chrome Web Store, аккаунты Google и др.)"
+  },
+  "prefixPermDenied": {
+    "message": "Префикс вкладки требует доступа к сайтам. Настройка пропущена."
+  },
+  "minTabsLabel": {
+    "message": "Авто-выгрузка только при превышении числа неактивных вкладок:"
+  },
+  "toolbarAction": {
+    "message": "Действие на панели"
+  },
+  "toolbarClickLabel": {
+    "message": "При нажатии на иконку расширения:"
+  },
+  "actionOpenPopup": {
+    "message": "Открыть всплывающее окно"
+  },
+  "actionDiscardCurrent": {
+    "message": "Сбросить текущую вкладку"
+  },
+  "actionDiscardOthers": {
+    "message": "Сбросить другие вкладки"
+  },
+  "useSidePanel": {
+    "message": "Открывать в боковой панели вместо всплывающего окна"
+  },
+  "useSidePanelHelp": {
+    "message": "Боковая панель остаётся открытой при смене вкладок. Требует Chrome 114+."
+  },
+  "saveYouTubeTimestamp": {
+    "message": "Сохранять позицию воспроизведения YouTube"
+  },
+  "saveYouTubeHelp": {
+    "message": "Возобновляет видео с сохранённой позиции при перезагрузке вкладки"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "Авто-выгрузка только при простое компьютера"
+  },
+  "idleThreshold": {
+    "message": "Порог простоя:"
+  },
+  "perTabMemoryLabel": {
+    "message": "Выгружать вкладки, использующие больше (JS heap):"
+  },
+  "perTabMemoryHelp": {
+    "message": "Измеряется только память JavaScript, не вся память вкладки"
+  },
+  "powerMode": {
+    "message": "Режим питания"
+  },
+  "powerModeHelp": {
+    "message": "Настройте агрессивность в зависимости от источника питания"
+  },
+  "batterySaver": {
+    "message": "Экономия батареи"
+  },
+  "batterySaverDesc": {
+    "message": "Агрессивнее, экономит энергию"
+  },
+  "normalMode": {
+    "message": "Обычный"
+  },
+  "normalModeDesc": {
+    "message": "Сбалансированная производительность"
+  },
+  "performanceMode": {
+    "message": "Производительность"
+  },
+  "performanceModeDesc": {
+    "message": "Менее агрессивно, вкладки живут дольше"
+  },
+  "skipWhenOffline": {
+    "message": "Пропускать авто-выгрузку в офлайне"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "Не сбрасывает вкладки при отсутствии сети"
+  },
+  "restoreScrollPosition": {
+    "message": "Восстанавливать позицию прокрутки"
+  },
+  "restoreScrollHelp": {
+    "message": "Сохраняет и восстанавливает позицию прокрутки при выгрузке и перезагрузке вкладок"
+  },
+  "tabSnoozed": {
+    "message": "Вкладка отложена"
+  },
+  "domainSnoozed": {
+    "message": "Сайт отложен"
+  },
+  "snoozeRemoved": {
+    "message": "Отложение отменено"
+  },
+  "snoozeTab30": {
+    "message": "Отложить вкладку (30 мин)"
+  },
+  "snoozeTab60": {
+    "message": "Отложить вкладку (1 час)"
+  },
+  "snoozeDomain60": {
+    "message": "Отложить сайт (1 час)"
+  },
+  "openLinkSuspended": {
+    "message": "Открыть ссылку в приостановленной вкладке"
+  },
+  "notifyOnAutoUnload": {
+    "message": "Уведомлять при авто-выгрузке вкладок"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "Показывает уведомление с причиной (таймер/RAM)"
+  },
+  "reportBug": {
+    "message": "Сообщить об ошибке"
+  },
+  "describeIssue": {
+    "message": "Опишите проблему (необязательно):"
+  },
+  "bugDescPlaceholder": {
+    "message": "Что пошло не так?"
+  },
+  "debugInfoAttached": {
+    "message": "Отладочная информация будет прикреплена"
+  },
+  "copyForGithub": {
+    "message": "Скопировать и открыть GitHub"
+  },
+  "copiedToClipboard": {
+    "message": "Скопировано! Вставьте в GitHub issue."
+  },
+  "supportFeedback": {
+    "message": "Поддержка и обратная связь"
+  },
+  "enableErrorReporting": {
+    "message": "Отправлять анонимные отчёты об ошибках"
+  },
+  "errorReportingHelp": {
+    "message": "Автоматически сообщает о сбоях для улучшения TabRest. Личные данные не собираются."
+  },
+  "reportIssue": {
+    "message": "Сообщить о проблеме"
+  },
+  "askQuestion": {
+    "message": "Задать вопрос"
+  },
+  "closeDuplicates": {
+    "message": "Закрыть дубликаты"
+  },
+  "closedNDuplicates": {
+    "message": "Закрыто $COUNT$ дублирующихся вкладок",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "Дублирующихся вкладок не найдено"
+  },
+  "searchTabs": {
+    "message": "Поиск вкладок"
+  },
+  "searchPlaceholder": {
+    "message": "Поиск вкладок..."
+  },
+  "ramEstimateTooltip": {
+    "message": "На основе ~150 МБ на выгруженную вкладку. Фактическая экономия зависит от содержимого страниц."
+  },
+  "formProtectPermDenied": {
+    "message": "Защита форм требует доступа к сайтам. Настройка пропущена."
+  },
+  "formPermBannerText": {
+    "message": "Разрешения для сайтов сброшены. Включите для восстановления затронутых настроек."
+  },
+  "enable": {
+    "message": "Включить"
+  },
+  "formPermGranted": {
+    "message": "Настройки восстановлены"
+  },
+  "showSuspendWarningLabel": {
+    "message": "Показывать предупреждение перед авто-приостановкой"
+  },
+  "showSuspendWarningHelp": {
+    "message": "Показывает краткое уведомление на странице, чтобы Вы могли взаимодействовать с вкладкой"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "Задержка предупреждения:"
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest приостановит эту вкладку для освобождения памяти..."
+  },
+  "exportList": {
+    "message": "Экспорт"
+  },
+  "importList": {
+    "message": "Импорт"
+  },
+  "exportSessions": {
+    "message": "Экспорт сессий"
+  },
+  "importSessions": {
+    "message": "Импорт сессий"
+  },
+  "exportedToClipboard": {
+    "message": "Скопировано в буфер обмена"
+  },
+  "exportFailed": {
+    "message": "Ошибка экспорта"
+  },
+  "pasteImportJson": {
+    "message": "Вставьте экспортированный JSON:"
+  },
+  "importedNAdded": {
+    "message": "Добавлено $1, пропущено $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "Ошибка импорта: неверный JSON"
+  },
+  "importFailed_invalidShape": {
+    "message": "Ошибка импорта: неверный формат"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "Ошибка импорта: версия не поддерживается"
+  },
+  "importFailed_wrongType": {
+    "message": "Ошибка импорта: неверный тип для этого списка"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "Конфиденциальность и диагностика"
+  },
+  "errorReportingHint": {
+    "message": "Помогите улучшить TabRest, отправляя анонимные отчёты об ошибках. Отключено по умолчанию. URL, заголовки страниц и личные данные не передаются."
+  },
+  "enableErrorReportingLabel": {
+    "message": "Включить анонимные отчёты об ошибках"
+  },
+  "advancedDsnSummary": {
+    "message": "Дополнительно: пользовательский Sentry DSN"
+  },
+  "customDsnHint": {
+    "message": "Оставьте пустым для использования по умолчанию. Принимаются только HTTPS DSN."
+  },
+  "viewPrivacyPolicy": {
+    "message": "Политика конфиденциальности"
+  },
+  "invalidDsnMessage": {
+    "message": "Неверный формат DSN. Ожидается: https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "Пользовательский DSN сохранён"
+  },
+  "errorReportingEnabledToast": {
+    "message": "Отчёты об ошибках включены"
+  },
+  "errorReportingDisabledToast": {
+    "message": "Отчёты об ошибках отключены"
+  },
+  "sendToSentry": {
+    "message": "Отправить в Sentry"
+  },
+  "sentryDisabledHint": {
+    "message": "Включите отчёты об ошибках в "
+  },
+  "optionsLink": {
+    "message": "настройках"
+  },
+  "reportSentSuccess": {
+    "message": "Отчёт отправлен. Спасибо!"
+  },
+  "reportSentFailed": {
+    "message": "Не удалось отправить. Скопируйте для GitHub."
+  },
+  "reportCooldown": {
+    "message": "Подождите минуту перед отправкой следующего отчёта."
+  },
+  "reportDailyCap": {
+    "message": "Достигнут дневной лимит отчётов. Скопируйте для GitHub."
+  },
+  "optionsRerunOnboarding": {
+    "message": "Повторить настройку"
+  },
+  "obWizardTitle": {
+    "message": "Настройка TabRest"
+  },
+  "obSkipAll": {
+    "message": "Пропустить всё"
+  },
+  "obBack": {
+    "message": "Назад"
+  },
+  "obNext": {
+    "message": "Далее"
+  },
+  "obSkip": {
+    "message": "Пропустить"
+  },
+  "obFinish": {
+    "message": "Готово"
+  },
+  "obProgressLabel": {
+    "message": "Шаг $1 из $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "Добро пожаловать в TabRest"
+  },
+  "obWelcomeBody": {
+    "message": "Быстрая настройка подгонит TabRest под Ваш стиль работы. Всё можно изменить позже в настройках."
+  },
+  "obWelcomeStart": {
+    "message": "Начать настройку"
+  },
+  "obAutoUnloadTitle": {
+    "message": "Авто-выгрузка неактивных вкладок"
+  },
+  "obAutoUnloadDesc": {
+    "message": "Выберите, сколько времени неактивная вкладка ждёт перед выгрузкой."
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 минут"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 час"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 часа"
+  },
+  "obWhitelistTitle": {
+    "message": "Всегда держать активными"
+  },
+  "obWhitelistDesc": {
+    "message": "Отмеченные сайты защищены от авто-выгрузки."
+  },
+  "obWhitelistHint": {
+    "message": "Список можно изменить позже в настройках."
+  },
+  "obPowerModeTitle": {
+    "message": "Выберите режим питания"
+  },
+  "obPowerModeDesc": {
+    "message": "Выберите, насколько агрессивно TabRest выгружает вкладки."
+  },
+  "obNotificationsTitle": {
+    "message": "Уведомления об авто-выгрузке"
+  },
+  "obNotificationsDesc": {
+    "message": "Показывать системное уведомление, когда TabRest выгружает вкладки в фоне."
+  },
+  "obNotificationsToggle": {
+    "message": "Уведомлять при авто-выгрузке вкладок"
+  },
+  "obDoneTitle": {
+    "message": "Всё готово"
+  },
+  "obDoneSubtitle": {
+    "message": "Ваши настройки сохранены."
+  },
+  "obPinTitle": {
+    "message": "Закрепите TabRest на панели"
+  },
+  "obPinDesc": {
+    "message": "Нажмите на иконку пазла в правом верхнем углу браузера и закрепите TabRest для быстрого доступа."
+  },
+  "obPinnedTitle": {
+    "message": "Закреплено!"
+  },
+  "obPinnedDesc": {
+    "message": "Нажимайте на иконку TabRest в любое время для управления вкладками."
+  },
+  "obDoneSummaryDelay": {
+    "message": "Авто-выгрузка через"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "Всегда активны"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 сайтов",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "Режим питания"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "Уведомления"
+  },
+  "obDoneOpenSettings": {
+    "message": "Открыть все настройки"
+  },
+  "obDoneShortcutsHint": {
+    "message": "Совет: $1 выгружает текущую вкладку.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "Вкл"
+  },
+  "obOffState": {
+    "message": "Выкл"
+  },
+  "obMinutes": {
+    "message": "$1 мин",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 ч",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  }
+}

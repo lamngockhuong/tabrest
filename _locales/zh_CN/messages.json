@@ -1,0 +1,695 @@
+{
+  "extName": {
+    "message": "TabRest - Rest your tabs, free your RAM"
+  },
+  "extDescription": {
+    "message": "释放标签页，释放内存 - 自动释放不活跃的标签页"
+  },
+  "sleeping": {
+    "message": "休眠中"
+  },
+  "protected": {
+    "message": "已保护"
+  },
+  "saved": {
+    "message": "已节省"
+  },
+  "unloadOthers": {
+    "message": "释放其他标签页"
+  },
+  "unloadCurrent": {
+    "message": "释放当前标签页"
+  },
+  "tabsInWindow": {
+    "message": "本窗口标签页"
+  },
+  "sessions": {
+    "message": "会话"
+  },
+  "stats": {
+    "message": "统计"
+  },
+  "quickSettings": {
+    "message": "快速设置"
+  },
+  "moreActions": {
+    "message": "更多操作"
+  },
+  "autoUnloadAfter": {
+    "message": "自动释放时间"
+  },
+  "ramThreshold": {
+    "message": "RAM 阈值"
+  },
+  "disabled": {
+    "message": "已禁用"
+  },
+  "sessionNamePlaceholder": {
+    "message": "会话名称（可选）"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "saveFirstSession": {
+    "message": "保存第一个会话"
+  },
+  "today": {
+    "message": "今天"
+  },
+  "allTime": {
+    "message": "累计"
+  },
+  "tabsUnloadedToday": {
+    "message": "今日已释放标签页"
+  },
+  "tabsUnloadedTotal": {
+    "message": "累计已释放标签页"
+  },
+  "ramSaved": {
+    "message": "已节省 RAM（估计）"
+  },
+  "memberSince": {
+    "message": "使用起始日期"
+  },
+  "enjoyingTabRest": {
+    "message": "喜欢 TabRest 吗？"
+  },
+  "yes": {
+    "message": "喜欢！"
+  },
+  "notReally": {
+    "message": "还好"
+  },
+  "sessionSaved": {
+    "message": "会话已保存"
+  },
+  "sessionDeleted": {
+    "message": "会话已删除"
+  },
+  "tabUnloaded": {
+    "message": "标签页已释放"
+  },
+  "tabsUnloaded": {
+    "message": "已释放 $1 个标签页",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "已恢复 $1 个标签页",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "已刷新"
+  },
+  "copyTabListTooltip": {
+    "message": "复制标签页列表到剪贴板"
+  },
+  "tabListCopied": {
+    "message": "标签页列表已复制到剪贴板"
+  },
+  "timerUpdated": {
+    "message": "计时器已更新"
+  },
+  "thresholdUpdated": {
+    "message": "阈值已更新"
+  },
+  "cannotUnloadActive": {
+    "message": "无法释放当前活动标签页"
+  },
+  "failedToSave": {
+    "message": "保存失败"
+  },
+  "settingsTitle": {
+    "message": "TabRest 设置"
+  },
+  "settingsSubtitle": {
+    "message": "精细调整 TabRest 管理标签页和内存的方式"
+  },
+  "footerTagline": {
+    "message": "轻松管理标签页"
+  },
+  "noDomainsYet": {
+    "message": "暂无域名"
+  },
+  "behaviorProtection": {
+    "message": "保护"
+  },
+  "behaviorSmart": {
+    "message": "智能行为"
+  },
+  "behaviorIndicators": {
+    "message": "指示器与显示"
+  },
+  "autoUnload": {
+    "message": "自动释放"
+  },
+  "unloadOnStartup": {
+    "message": "浏览器启动时释放标签页"
+  },
+  "unloadInactiveAfter": {
+    "message": "不活跃标签页释放时间："
+  },
+  "memoryManagement": {
+    "message": "内存管理"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "RAM 超出以下值时释放标签页："
+  },
+  "behavior": {
+    "message": "行为"
+  },
+  "includePinnedTabs": {
+    "message": "包含已固定标签页"
+  },
+  "showUnloadedCount": {
+    "message": "在图标上显示已释放数量"
+  },
+  "trackStatistics": {
+    "message": "记录统计数据"
+  },
+  "protectAudioTabs": {
+    "message": "保护正在播放音频/视频的标签页"
+  },
+  "protectFormTabs": {
+    "message": "保护含未保存表单的标签页"
+  },
+  "whitelist": {
+    "message": "白名单"
+  },
+  "whitelistHelp": {
+    "message": "这些网站不会被自动释放"
+  },
+  "addPlaceholder": {
+    "message": "example.com"
+  },
+  "add": {
+    "message": "添加"
+  },
+  "statistics": {
+    "message": "统计"
+  },
+  "tabsUnloadedLabel": {
+    "message": "已释放标签页"
+  },
+  "memorySavedLabel": {
+    "message": "已节省内存"
+  },
+  "resetStatistics": {
+    "message": "重置统计"
+  },
+  "keyboardShortcuts": {
+    "message": "键盘快捷键"
+  },
+  "shortcutsHelp": {
+    "message": "在 chrome://extensions/shortcuts 中配置"
+  },
+  "configureIn": {
+    "message": "配置于"
+  },
+  "settingsSaved": {
+    "message": "设置已保存"
+  },
+  "domainRemoved": {
+    "message": "域名已移除"
+  },
+  "invalidDomain": {
+    "message": "请输入域名、IP 地址或 'localhost'"
+  },
+  "domainExists": {
+    "message": "域名已存在"
+  },
+  "domainConflict": {
+    "message": "$1 已在 $2 中 - 请先从那里移除",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "domainAdded": {
+    "message": "域名已添加"
+  },
+  "statsReset": {
+    "message": "统计已重置"
+  },
+  "unloadRight": {
+    "message": "释放右侧标签页"
+  },
+  "unloadLeft": {
+    "message": "释放左侧标签页"
+  },
+  "blacklist": {
+    "message": "黑名单"
+  },
+  "blacklistHelp": {
+    "message": "这些网站将始终被自动释放（即使最近处于活跃状态）"
+  },
+  "enableTabGroups": {
+    "message": "在弹窗中显示标签组"
+  },
+  "tabGroups": {
+    "message": "标签组"
+  },
+  "selectTabGroup": {
+    "message": "选择标签组..."
+  },
+  "unloadGroup": {
+    "message": "释放组"
+  },
+  "untitledTabGroup": {
+    "message": "组 $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "showDiscardedPrefix": {
+    "message": "在已丢弃标签页前添加符号"
+  },
+  "discardedPrefixLabel": {
+    "message": "符号："
+  },
+  "prefixHelp": {
+    "message": "需要网站访问权限。在受保护页面（Chrome 应用商店、Google 账号等）上不可用。"
+  },
+  "prefixPermDenied": {
+    "message": "标签页前缀需要网站访问权限。切换已跳过。"
+  },
+  "minTabsLabel": {
+    "message": "仅在不活跃标签页超过以下数量时自动释放："
+  },
+  "toolbarAction": {
+    "message": "工具栏操作"
+  },
+  "toolbarClickLabel": {
+    "message": "点击扩展图标时："
+  },
+  "actionOpenPopup": {
+    "message": "打开弹窗"
+  },
+  "actionDiscardCurrent": {
+    "message": "丢弃当前标签页"
+  },
+  "actionDiscardOthers": {
+    "message": "丢弃其他标签页"
+  },
+  "useSidePanel": {
+    "message": "在侧边栏中打开，而非弹窗"
+  },
+  "useSidePanelHelp": {
+    "message": "侧边栏在切换标签页时保持打开。需要 Chrome 114+。"
+  },
+  "saveYouTubeTimestamp": {
+    "message": "保存 YouTube 播放位置"
+  },
+  "saveYouTubeHelp": {
+    "message": "标签页重新加载时从保存的位置继续播放"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "仅在计算机空闲时自动释放"
+  },
+  "idleThreshold": {
+    "message": "空闲阈值："
+  },
+  "perTabMemoryLabel": {
+    "message": "释放内存超过以下值的标签页（JS heap）："
+  },
+  "perTabMemoryHelp": {
+    "message": "仅测量 JavaScript 内存，不包含标签页总内存"
+  },
+  "powerMode": {
+    "message": "电源模式"
+  },
+  "powerModeHelp": {
+    "message": "根据电源状态调整释放力度"
+  },
+  "batterySaver": {
+    "message": "省电模式"
+  },
+  "batterySaverDesc": {
+    "message": "更激进，节省电量"
+  },
+  "normalMode": {
+    "message": "普通"
+  },
+  "normalModeDesc": {
+    "message": "均衡性能"
+  },
+  "performanceMode": {
+    "message": "性能模式"
+  },
+  "performanceModeDesc": {
+    "message": "较温和，保留标签页更长时间"
+  },
+  "skipWhenOffline": {
+    "message": "离线时跳过自动释放"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "网络不可用时防止标签页被丢弃"
+  },
+  "restoreScrollPosition": {
+    "message": "恢复滚动位置"
+  },
+  "restoreScrollHelp": {
+    "message": "标签页被丢弃并重新加载时保存并恢复滚动位置"
+  },
+  "tabSnoozed": {
+    "message": "标签页已暂停"
+  },
+  "domainSnoozed": {
+    "message": "网站已暂停"
+  },
+  "snoozeRemoved": {
+    "message": "暂停已取消"
+  },
+  "snoozeTab30": {
+    "message": "暂停标签页（30 分钟）"
+  },
+  "snoozeTab60": {
+    "message": "暂停标签页（1 小时）"
+  },
+  "snoozeDomain60": {
+    "message": "暂停网站（1 小时）"
+  },
+  "openLinkSuspended": {
+    "message": "在已暂停标签页中打开链接"
+  },
+  "notifyOnAutoUnload": {
+    "message": "自动释放标签页时发送通知"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "显示通知并说明原因（计时器/RAM）"
+  },
+  "reportBug": {
+    "message": "报告问题"
+  },
+  "describeIssue": {
+    "message": "描述问题（可选）："
+  },
+  "bugDescPlaceholder": {
+    "message": "哪里出错了？"
+  },
+  "debugInfoAttached": {
+    "message": "调试信息将被附加"
+  },
+  "copyForGithub": {
+    "message": "复制并打开 GitHub"
+  },
+  "copiedToClipboard": {
+    "message": "已复制！请粘贴到 GitHub Issue 中。"
+  },
+  "supportFeedback": {
+    "message": "支持与反馈"
+  },
+  "enableErrorReporting": {
+    "message": "发送匿名错误报告"
+  },
+  "errorReportingHelp": {
+    "message": "自动报告崩溃以帮助改进 TabRest。不收集任何个人数据。"
+  },
+  "reportIssue": {
+    "message": "报告问题"
+  },
+  "askQuestion": {
+    "message": "提问"
+  },
+  "closeDuplicates": {
+    "message": "关闭重复标签页"
+  },
+  "closedNDuplicates": {
+    "message": "已关闭 $COUNT$ 个重复标签页",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "未找到重复标签页"
+  },
+  "searchTabs": {
+    "message": "搜索标签页"
+  },
+  "searchPlaceholder": {
+    "message": "搜索标签页..."
+  },
+  "ramEstimateTooltip": {
+    "message": "基于每个已丢弃标签页约 150 MB 估算。实际节省因页面内容而异。"
+  },
+  "formProtectPermDenied": {
+    "message": "表单保护需要网站访问权限。切换已跳过。"
+  },
+  "formPermBannerText": {
+    "message": "网站权限已被重置。请启用以恢复受影响的设置。"
+  },
+  "enable": {
+    "message": "启用"
+  },
+  "formPermGranted": {
+    "message": "设置已恢复"
+  },
+  "showSuspendWarningLabel": {
+    "message": "自动暂停前显示警告"
+  },
+  "showSuspendWarningHelp": {
+    "message": "在页面上短暂显示提示，让你可以与标签页交互以保持其活跃"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "警告延迟："
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest 即将暂停此标签页以释放内存..."
+  },
+  "exportList": {
+    "message": "导出"
+  },
+  "importList": {
+    "message": "导入"
+  },
+  "exportSessions": {
+    "message": "导出会话"
+  },
+  "importSessions": {
+    "message": "导入会话"
+  },
+  "exportedToClipboard": {
+    "message": "已复制到剪贴板"
+  },
+  "exportFailed": {
+    "message": "导出失败"
+  },
+  "pasteImportJson": {
+    "message": "请在下方粘贴导出的 JSON："
+  },
+  "importedNAdded": {
+    "message": "已添加 $1，已跳过 $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "导入失败：JSON 无效"
+  },
+  "importFailed_invalidShape": {
+    "message": "导入失败：格式无效"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "导入失败：版本不受支持"
+  },
+  "importFailed_wrongType": {
+    "message": "导入失败：列表类型不匹配"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "隐私与诊断"
+  },
+  "errorReportingHint": {
+    "message": "发送匿名错误报告以帮助改进 TabRest。默认禁用。不发送 URL、页面标题或个人数据。"
+  },
+  "enableErrorReportingLabel": {
+    "message": "启用匿名错误报告"
+  },
+  "advancedDsnSummary": {
+    "message": "高级：自定义 Sentry DSN"
+  },
+  "customDsnHint": {
+    "message": "留空则使用默认值。仅接受 HTTPS DSN。"
+  },
+  "viewPrivacyPolicy": {
+    "message": "查看隐私政策"
+  },
+  "invalidDsnMessage": {
+    "message": "DSN 格式无效。预期格式：https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "自定义 DSN 已保存"
+  },
+  "errorReportingEnabledToast": {
+    "message": "错误报告已启用"
+  },
+  "errorReportingDisabledToast": {
+    "message": "错误报告已禁用"
+  },
+  "sendToSentry": {
+    "message": "发送到 Sentry"
+  },
+  "sentryDisabledHint": {
+    "message": "请在"
+  },
+  "optionsLink": {
+    "message": "设置"
+  },
+  "reportSentSuccess": {
+    "message": "报告已发送。谢谢！"
+  },
+  "reportSentFailed": {
+    "message": "发送失败。请改用 GitHub 复制。"
+  },
+  "reportCooldown": {
+    "message": "请等待一分钟后再发送另一份报告。"
+  },
+  "reportDailyCap": {
+    "message": "已达到每日报告上限。请改用 GitHub 复制。"
+  },
+  "optionsRerunOnboarding": {
+    "message": "重新运行设置"
+  },
+  "obWizardTitle": {
+    "message": "TabRest 设置向导"
+  },
+  "obSkipAll": {
+    "message": "全部跳过"
+  },
+  "obBack": {
+    "message": "返回"
+  },
+  "obNext": {
+    "message": "下一步"
+  },
+  "obSkip": {
+    "message": "跳过"
+  },
+  "obFinish": {
+    "message": "完成"
+  },
+  "obProgressLabel": {
+    "message": "第 $1 步，共 $2 步",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "欢迎使用 TabRest"
+  },
+  "obWelcomeBody": {
+    "message": "快速设置可根据你的浏览习惯调整 TabRest。之后可在设置中随时更改。"
+  },
+  "obWelcomeStart": {
+    "message": "开始设置"
+  },
+  "obAutoUnloadTitle": {
+    "message": "自动释放不活跃标签页"
+  },
+  "obAutoUnloadDesc": {
+    "message": "选择不活跃标签页等待多长时间后被释放。"
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 分钟"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 小时"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 小时"
+  },
+  "obWhitelistTitle": {
+    "message": "始终保持这些标签页活跃"
+  },
+  "obWhitelistDesc": {
+    "message": "勾选的网站将受到保护，不会被自动释放。"
+  },
+  "obWhitelistHint": {
+    "message": "之后可在设置中编辑此列表。"
+  },
+  "obPowerModeTitle": {
+    "message": "选择电源模式"
+  },
+  "obPowerModeDesc": {
+    "message": "选择 TabRest 释放标签页的力度。"
+  },
+  "obNotificationsTitle": {
+    "message": "自动释放时获取通知"
+  },
+  "obNotificationsDesc": {
+    "message": "TabRest 在后台释放标签页时显示系统通知。"
+  },
+  "obNotificationsToggle": {
+    "message": "标签页被自动释放时通知我"
+  },
+  "obDoneTitle": {
+    "message": "一切就绪"
+  },
+  "obDoneSubtitle": {
+    "message": "你的设置已保存。"
+  },
+  "obPinTitle": {
+    "message": "将 TabRest 固定到工具栏"
+  },
+  "obPinDesc": {
+    "message": "点击浏览器右上角的拼图图标，然后固定 TabRest 以便一键访问。"
+  },
+  "obPinnedTitle": {
+    "message": "已固定！"
+  },
+  "obPinnedDesc": {
+    "message": "随时点击 TabRest 图标管理你的标签页。"
+  },
+  "obDoneSummaryDelay": {
+    "message": "自动释放时间"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "始终保持活跃"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 个网站",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "电源模式"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "通知"
+  },
+  "obDoneOpenSettings": {
+    "message": "打开全部设置"
+  },
+  "obDoneShortcutsHint": {
+    "message": "提示：$1 可释放当前标签页。",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "开"
+  },
+  "obOffState": {
+    "message": "关"
+  },
+  "obMinutes": {
+    "message": "$1 分钟",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 小时",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  }
+}

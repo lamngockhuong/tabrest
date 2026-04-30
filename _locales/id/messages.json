@@ -1,0 +1,695 @@
+{
+  "extName": {
+    "message": "TabRest - Rest your tabs, free your RAM"
+  },
+  "extDescription": {
+    "message": "Istirahatkan tab Anda, bebaskan memori - membongkar tab yang tidak aktif secara otomatis"
+  },
+  "sleeping": {
+    "message": "tidur"
+  },
+  "protected": {
+    "message": "terlindungi"
+  },
+  "saved": {
+    "message": "dihemat"
+  },
+  "unloadOthers": {
+    "message": "Bongkar Tab Lain"
+  },
+  "unloadCurrent": {
+    "message": "Bongkar Tab Ini"
+  },
+  "tabsInWindow": {
+    "message": "Tab di jendela ini"
+  },
+  "sessions": {
+    "message": "Sesi"
+  },
+  "stats": {
+    "message": "Statistik"
+  },
+  "quickSettings": {
+    "message": "Pengaturan Cepat"
+  },
+  "moreActions": {
+    "message": "Tindakan Lainnya"
+  },
+  "autoUnloadAfter": {
+    "message": "Bongkar otomatis setelah"
+  },
+  "ramThreshold": {
+    "message": "Ambang RAM"
+  },
+  "disabled": {
+    "message": "Dinonaktifkan"
+  },
+  "sessionNamePlaceholder": {
+    "message": "Nama sesi (opsional)"
+  },
+  "save": {
+    "message": "Simpan"
+  },
+  "saveFirstSession": {
+    "message": "Simpan sesi pertama Anda"
+  },
+  "today": {
+    "message": "Hari ini"
+  },
+  "allTime": {
+    "message": "Sepanjang waktu"
+  },
+  "tabsUnloadedToday": {
+    "message": "Tab dibongkar hari ini"
+  },
+  "tabsUnloadedTotal": {
+    "message": "Total tab dibongkar"
+  },
+  "ramSaved": {
+    "message": "RAM dihemat (est.)"
+  },
+  "memberSince": {
+    "message": "Anggota sejak"
+  },
+  "enjoyingTabRest": {
+    "message": "Menyukai TabRest?"
+  },
+  "yes": {
+    "message": "Ya!"
+  },
+  "notReally": {
+    "message": "Tidak terlalu"
+  },
+  "sessionSaved": {
+    "message": "Sesi disimpan"
+  },
+  "sessionDeleted": {
+    "message": "Sesi dihapus"
+  },
+  "tabUnloaded": {
+    "message": "Tab dibongkar"
+  },
+  "tabsUnloaded": {
+    "message": "$1 tab dibongkar",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "Memulihkan $1 tab",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "Diperbarui"
+  },
+  "copyTabListTooltip": {
+    "message": "Salin daftar tab ke clipboard"
+  },
+  "tabListCopied": {
+    "message": "Daftar tab disalin ke clipboard"
+  },
+  "timerUpdated": {
+    "message": "Timer diperbarui"
+  },
+  "thresholdUpdated": {
+    "message": "Ambang diperbarui"
+  },
+  "cannotUnloadActive": {
+    "message": "Tidak dapat membongkar tab yang aktif"
+  },
+  "failedToSave": {
+    "message": "Gagal menyimpan"
+  },
+  "settingsTitle": {
+    "message": "Pengaturan TabRest"
+  },
+  "settingsSubtitle": {
+    "message": "Sesuaikan cara TabRest mengelola tab dan memori Anda"
+  },
+  "footerTagline": {
+    "message": "Manajemen tab yang tenang"
+  },
+  "noDomainsYet": {
+    "message": "Belum ada domain"
+  },
+  "behaviorProtection": {
+    "message": "Perlindungan"
+  },
+  "behaviorSmart": {
+    "message": "Perilaku cerdas"
+  },
+  "behaviorIndicators": {
+    "message": "Indikator & tampilan"
+  },
+  "autoUnload": {
+    "message": "Bongkar Otomatis"
+  },
+  "unloadOnStartup": {
+    "message": "Bongkar tab saat browser dimulai"
+  },
+  "unloadInactiveAfter": {
+    "message": "Bongkar tab tidak aktif setelah:"
+  },
+  "memoryManagement": {
+    "message": "Manajemen Memori"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "Bongkar tab saat RAM melebihi:"
+  },
+  "behavior": {
+    "message": "Perilaku"
+  },
+  "includePinnedTabs": {
+    "message": "Sertakan tab tersemat"
+  },
+  "showUnloadedCount": {
+    "message": "Tampilkan jumlah tab yang dibongkar pada ikon"
+  },
+  "trackStatistics": {
+    "message": "Lacak statistik"
+  },
+  "protectAudioTabs": {
+    "message": "Lindungi tab yang memutar audio/video"
+  },
+  "protectFormTabs": {
+    "message": "Lindungi tab dengan formulir yang belum disimpan"
+  },
+  "whitelist": {
+    "message": "Daftar Putih"
+  },
+  "whitelistHelp": {
+    "message": "Situs yang tidak akan pernah dibongkar secara otomatis"
+  },
+  "addPlaceholder": {
+    "message": "example.com"
+  },
+  "add": {
+    "message": "Tambah"
+  },
+  "statistics": {
+    "message": "Statistik"
+  },
+  "tabsUnloadedLabel": {
+    "message": "Tab Dibongkar"
+  },
+  "memorySavedLabel": {
+    "message": "Memori Dihemat"
+  },
+  "resetStatistics": {
+    "message": "Setel Ulang Statistik"
+  },
+  "keyboardShortcuts": {
+    "message": "Pintasan Keyboard"
+  },
+  "shortcutsHelp": {
+    "message": "Konfigurasikan di chrome://extensions/shortcuts"
+  },
+  "configureIn": {
+    "message": "Konfigurasikan di"
+  },
+  "settingsSaved": {
+    "message": "Pengaturan disimpan"
+  },
+  "domainRemoved": {
+    "message": "Domain dihapus"
+  },
+  "invalidDomain": {
+    "message": "Masukkan nama domain, alamat IP, atau 'localhost'"
+  },
+  "domainExists": {
+    "message": "Domain sudah ada"
+  },
+  "domainConflict": {
+    "message": "$1 sudah ada di $2 - hapus dari sana terlebih dahulu",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "domainAdded": {
+    "message": "Domain ditambahkan"
+  },
+  "statsReset": {
+    "message": "Statistik disetel ulang"
+  },
+  "unloadRight": {
+    "message": "Bongkar tab di kanan"
+  },
+  "unloadLeft": {
+    "message": "Bongkar tab di kiri"
+  },
+  "blacklist": {
+    "message": "Daftar Hitam"
+  },
+  "blacklistHelp": {
+    "message": "Situs yang akan selalu dibongkar secara otomatis (bahkan jika baru saja aktif)"
+  },
+  "enableTabGroups": {
+    "message": "Tampilkan grup tab di popup"
+  },
+  "tabGroups": {
+    "message": "Grup Tab"
+  },
+  "selectTabGroup": {
+    "message": "Pilih Grup Tab..."
+  },
+  "unloadGroup": {
+    "message": "Bongkar Grup"
+  },
+  "untitledTabGroup": {
+    "message": "Grup $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "showDiscardedPrefix": {
+    "message": "Tambahkan simbol pada tab yang dibongkar"
+  },
+  "discardedPrefixLabel": {
+    "message": "Simbol:"
+  },
+  "prefixHelp": {
+    "message": "Memerlukan izin akses situs web. Tidak berfungsi pada halaman yang dilindungi (Chrome Web Store, akun Google, dll.)"
+  },
+  "prefixPermDenied": {
+    "message": "Awalan tab memerlukan izin akses situs web. Pengalihan dilewati."
+  },
+  "minTabsLabel": {
+    "message": "Bongkar otomatis hanya jika tab tidak aktif melebihi:"
+  },
+  "toolbarAction": {
+    "message": "Tindakan Bilah Alat"
+  },
+  "toolbarClickLabel": {
+    "message": "Saat mengklik ikon ekstensi:"
+  },
+  "actionOpenPopup": {
+    "message": "Buka popup"
+  },
+  "actionDiscardCurrent": {
+    "message": "Buang tab saat ini"
+  },
+  "actionDiscardOthers": {
+    "message": "Buang tab lainnya"
+  },
+  "useSidePanel": {
+    "message": "Buka di panel samping alih-alih popup"
+  },
+  "useSidePanelHelp": {
+    "message": "Panel samping tetap terbuka saat berpindah tab. Memerlukan Chrome 114+."
+  },
+  "saveYouTubeTimestamp": {
+    "message": "Simpan posisi pemutaran YouTube"
+  },
+  "saveYouTubeHelp": {
+    "message": "Lanjutkan video dari posisi tersimpan saat tab dimuat ulang"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "Bongkar otomatis hanya saat komputer tidak aktif"
+  },
+  "idleThreshold": {
+    "message": "Ambang tidak aktif:"
+  },
+  "perTabMemoryLabel": {
+    "message": "Bongkar tab yang menggunakan lebih dari (JS heap):"
+  },
+  "perTabMemoryHelp": {
+    "message": "Hanya mengukur memori JavaScript, bukan total memori tab"
+  },
+  "powerMode": {
+    "message": "Mode Daya"
+  },
+  "powerModeHelp": {
+    "message": "Sesuaikan agresivitas berdasarkan kondisi daya Anda"
+  },
+  "batterySaver": {
+    "message": "Hemat Baterai"
+  },
+  "batterySaverDesc": {
+    "message": "Lebih agresif, menghemat daya"
+  },
+  "normalMode": {
+    "message": "Normal"
+  },
+  "normalModeDesc": {
+    "message": "Kinerja seimbang"
+  },
+  "performanceMode": {
+    "message": "Performa"
+  },
+  "performanceModeDesc": {
+    "message": "Kurang agresif, menjaga tab lebih lama"
+  },
+  "skipWhenOffline": {
+    "message": "Lewati bongkar otomatis saat offline"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "Mencegah tab dibuang saat jaringan tidak tersedia"
+  },
+  "restoreScrollPosition": {
+    "message": "Pulihkan posisi gulir"
+  },
+  "restoreScrollHelp": {
+    "message": "Menyimpan dan memulihkan posisi gulir saat tab dibuang dan dimuat ulang"
+  },
+  "tabSnoozed": {
+    "message": "Tab ditunda"
+  },
+  "domainSnoozed": {
+    "message": "Situs ditunda"
+  },
+  "snoozeRemoved": {
+    "message": "Tunda dibatalkan"
+  },
+  "snoozeTab30": {
+    "message": "Tunda Tab (30 menit)"
+  },
+  "snoozeTab60": {
+    "message": "Tunda Tab (1 jam)"
+  },
+  "snoozeDomain60": {
+    "message": "Tunda Situs (1 jam)"
+  },
+  "openLinkSuspended": {
+    "message": "Buka Tautan di Tab yang Ditangguhkan"
+  },
+  "notifyOnAutoUnload": {
+    "message": "Beri tahu saat tab dibongkar otomatis"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "Menampilkan notifikasi beserta alasan (timer/RAM)"
+  },
+  "reportBug": {
+    "message": "Laporkan Bug"
+  },
+  "describeIssue": {
+    "message": "Jelaskan masalahnya (opsional):"
+  },
+  "bugDescPlaceholder": {
+    "message": "Apa yang salah?"
+  },
+  "debugInfoAttached": {
+    "message": "Informasi debug akan dilampirkan"
+  },
+  "copyForGithub": {
+    "message": "Salin & Buka GitHub"
+  },
+  "copiedToClipboard": {
+    "message": "Disalin! Tempel di GitHub issue."
+  },
+  "supportFeedback": {
+    "message": "Dukungan & Umpan Balik"
+  },
+  "enableErrorReporting": {
+    "message": "Kirim laporan kesalahan anonim"
+  },
+  "errorReportingHelp": {
+    "message": "Melaporkan crash secara otomatis untuk membantu meningkatkan TabRest. Tidak ada data pribadi yang dikumpulkan."
+  },
+  "reportIssue": {
+    "message": "Laporkan Masalah"
+  },
+  "askQuestion": {
+    "message": "Ajukan Pertanyaan"
+  },
+  "closeDuplicates": {
+    "message": "Tutup Duplikat"
+  },
+  "closedNDuplicates": {
+    "message": "Menutup $COUNT$ tab duplikat",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "Tidak ada tab duplikat yang ditemukan"
+  },
+  "searchTabs": {
+    "message": "Cari tab"
+  },
+  "searchPlaceholder": {
+    "message": "Cari tab..."
+  },
+  "ramEstimateTooltip": {
+    "message": "Berdasarkan ~150 MB per tab yang dibuang. Penghematan aktual bervariasi tergantung konten halaman."
+  },
+  "formProtectPermDenied": {
+    "message": "Perlindungan formulir memerlukan izin akses situs web. Pengalihan dilewati."
+  },
+  "formPermBannerText": {
+    "message": "Izin situs web telah disetel ulang. Aktifkan untuk memulihkan pengaturan yang terpengaruh."
+  },
+  "enable": {
+    "message": "Aktifkan"
+  },
+  "formPermGranted": {
+    "message": "Pengaturan dipulihkan"
+  },
+  "showSuspendWarningLabel": {
+    "message": "Tampilkan peringatan sebelum penangguhan otomatis"
+  },
+  "showSuspendWarningHelp": {
+    "message": "Menampilkan toast singkat di halaman agar Anda dapat berinteraksi dengan tab untuk mempertahankannya"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "Penundaan peringatan:"
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest akan menangguhkan tab ini untuk membebaskan memori..."
+  },
+  "exportList": {
+    "message": "Ekspor"
+  },
+  "importList": {
+    "message": "Impor"
+  },
+  "exportSessions": {
+    "message": "Ekspor Sesi"
+  },
+  "importSessions": {
+    "message": "Impor Sesi"
+  },
+  "exportedToClipboard": {
+    "message": "Disalin ke clipboard"
+  },
+  "exportFailed": {
+    "message": "Ekspor gagal"
+  },
+  "pasteImportJson": {
+    "message": "Tempel JSON yang diekspor di bawah ini:"
+  },
+  "importedNAdded": {
+    "message": "Ditambahkan $1, dilewati $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "Impor gagal: JSON tidak valid"
+  },
+  "importFailed_invalidShape": {
+    "message": "Impor gagal: format tidak valid"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "Impor gagal: versi tidak didukung"
+  },
+  "importFailed_wrongType": {
+    "message": "Impor gagal: tipe salah untuk daftar ini"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "Privasi & Diagnostik"
+  },
+  "errorReportingHint": {
+    "message": "Bantu tingkatkan TabRest dengan mengirim laporan kesalahan anonim. Dinonaktifkan secara bawaan. Tidak ada URL, judul halaman, atau data pribadi yang dikirim."
+  },
+  "enableErrorReportingLabel": {
+    "message": "Aktifkan laporan kesalahan anonim"
+  },
+  "advancedDsnSummary": {
+    "message": "Lanjutan: DSN Sentry Kustom"
+  },
+  "customDsnHint": {
+    "message": "Kosongkan untuk menggunakan default. Hanya DSN HTTPS yang diterima."
+  },
+  "viewPrivacyPolicy": {
+    "message": "Lihat kebijakan privasi"
+  },
+  "invalidDsnMessage": {
+    "message": "Format DSN tidak valid. Yang diharapkan: https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "DSN kustom disimpan"
+  },
+  "errorReportingEnabledToast": {
+    "message": "Laporan kesalahan diaktifkan"
+  },
+  "errorReportingDisabledToast": {
+    "message": "Laporan kesalahan dinonaktifkan"
+  },
+  "sendToSentry": {
+    "message": "Kirim ke Sentry"
+  },
+  "sentryDisabledHint": {
+    "message": "Aktifkan laporan kesalahan di "
+  },
+  "optionsLink": {
+    "message": "opsi"
+  },
+  "reportSentSuccess": {
+    "message": "Laporan terkirim. Terima kasih!"
+  },
+  "reportSentFailed": {
+    "message": "Gagal mengirim. Coba salin untuk GitHub."
+  },
+  "reportCooldown": {
+    "message": "Harap tunggu satu menit sebelum mengirim laporan lagi."
+  },
+  "reportDailyCap": {
+    "message": "Batas laporan harian tercapai. Gunakan salinan GitHub."
+  },
+  "optionsRerunOnboarding": {
+    "message": "Jalankan penyiapan ulang"
+  },
+  "obWizardTitle": {
+    "message": "Penyiapan TabRest"
+  },
+  "obSkipAll": {
+    "message": "Lewati semua"
+  },
+  "obBack": {
+    "message": "Kembali"
+  },
+  "obNext": {
+    "message": "Berikutnya"
+  },
+  "obSkip": {
+    "message": "Lewati"
+  },
+  "obFinish": {
+    "message": "Selesai"
+  },
+  "obProgressLabel": {
+    "message": "Langkah $1 dari $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "Selamat datang di TabRest"
+  },
+  "obWelcomeBody": {
+    "message": "Penyiapan singkat menyesuaikan TabRest dengan cara Anda menjelajah. Anda dapat mengubah apa saja nanti di Pengaturan."
+  },
+  "obWelcomeStart": {
+    "message": "Mulai penyiapan"
+  },
+  "obAutoUnloadTitle": {
+    "message": "Bongkar otomatis tab yang tidak aktif"
+  },
+  "obAutoUnloadDesc": {
+    "message": "Pilih berapa lama tab tidak aktif menunggu sebelum dibongkar."
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 menit"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 jam"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 jam"
+  },
+  "obWhitelistTitle": {
+    "message": "Selalu jaga halaman ini tetap aktif"
+  },
+  "obWhitelistDesc": {
+    "message": "Situs yang Anda centang dilindungi dari bongkar otomatis."
+  },
+  "obWhitelistHint": {
+    "message": "Anda dapat mengedit daftar ini nanti di Pengaturan."
+  },
+  "obPowerModeTitle": {
+    "message": "Pilih mode daya"
+  },
+  "obPowerModeDesc": {
+    "message": "Pilih seberapa agresif TabRest membongkar tab."
+  },
+  "obNotificationsTitle": {
+    "message": "Dapatkan notifikasi saat bongkar otomatis"
+  },
+  "obNotificationsDesc": {
+    "message": "Tampilkan notifikasi sistem saat TabRest membongkar tab di latar belakang."
+  },
+  "obNotificationsToggle": {
+    "message": "Beri tahu saya saat tab dibongkar otomatis"
+  },
+  "obDoneTitle": {
+    "message": "Semua sudah siap"
+  },
+  "obDoneSubtitle": {
+    "message": "Pengaturan Anda telah disimpan."
+  },
+  "obPinTitle": {
+    "message": "Sematkan TabRest ke bilah alat Anda"
+  },
+  "obPinDesc": {
+    "message": "Klik ikon puzzle di kanan atas browser Anda, lalu sematkan TabRest untuk akses satu klik."
+  },
+  "obPinnedTitle": {
+    "message": "Disematkan!"
+  },
+  "obPinnedDesc": {
+    "message": "Klik ikon TabRest kapan saja untuk mengelola tab Anda."
+  },
+  "obDoneSummaryDelay": {
+    "message": "Bongkar otomatis setelah"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "Selalu jaga tetap aktif"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 situs",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "Mode daya"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "Notifikasi"
+  },
+  "obDoneOpenSettings": {
+    "message": "Buka semua pengaturan"
+  },
+  "obDoneShortcutsHint": {
+    "message": "Tips: $1 membongkar tab saat ini.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "Aktif"
+  },
+  "obOffState": {
+    "message": "Nonaktif"
+  },
+  "obMinutes": {
+    "message": "$1 mnt",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 jam",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  }
+}

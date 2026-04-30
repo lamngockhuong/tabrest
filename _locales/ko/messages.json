@@ -1,0 +1,695 @@
+{
+  "extName": {
+    "message": "TabRest - Rest your tabs, free your RAM"
+  },
+  "extDescription": {
+    "message": "탭을 쉬게 하고 메모리를 확보하세요 - 비활성 탭을 자동으로 언로드합니다"
+  },
+  "sleeping": {
+    "message": "절전 중"
+  },
+  "protected": {
+    "message": "보호됨"
+  },
+  "saved": {
+    "message": "절약됨"
+  },
+  "unloadOthers": {
+    "message": "다른 탭 언로드"
+  },
+  "unloadCurrent": {
+    "message": "현재 탭 언로드"
+  },
+  "tabsInWindow": {
+    "message": "이 창의 탭"
+  },
+  "sessions": {
+    "message": "세션"
+  },
+  "stats": {
+    "message": "통계"
+  },
+  "quickSettings": {
+    "message": "빠른 설정"
+  },
+  "moreActions": {
+    "message": "더 많은 작업"
+  },
+  "autoUnloadAfter": {
+    "message": "자동 언로드 시간"
+  },
+  "ramThreshold": {
+    "message": "RAM 임계값"
+  },
+  "disabled": {
+    "message": "사용 안 함"
+  },
+  "sessionNamePlaceholder": {
+    "message": "세션 이름 (선택 사항)"
+  },
+  "save": {
+    "message": "저장"
+  },
+  "saveFirstSession": {
+    "message": "첫 번째 세션을 저장하세요"
+  },
+  "today": {
+    "message": "오늘"
+  },
+  "allTime": {
+    "message": "전체"
+  },
+  "tabsUnloadedToday": {
+    "message": "오늘 언로드된 탭"
+  },
+  "tabsUnloadedTotal": {
+    "message": "총 언로드된 탭"
+  },
+  "ramSaved": {
+    "message": "RAM 절약 (추정)"
+  },
+  "memberSince": {
+    "message": "사용 시작일"
+  },
+  "enjoyingTabRest": {
+    "message": "TabRest가 마음에 드시나요?"
+  },
+  "yes": {
+    "message": "네!"
+  },
+  "notReally": {
+    "message": "별로요"
+  },
+  "sessionSaved": {
+    "message": "세션이 저장되었습니다"
+  },
+  "sessionDeleted": {
+    "message": "세션이 삭제되었습니다"
+  },
+  "tabUnloaded": {
+    "message": "탭이 언로드되었습니다"
+  },
+  "tabsUnloaded": {
+    "message": "$1개 탭이 언로드되었습니다",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "$1개 탭이 복원되었습니다",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "새로 고침됨"
+  },
+  "copyTabListTooltip": {
+    "message": "탭 목록을 클립보드에 복사"
+  },
+  "tabListCopied": {
+    "message": "탭 목록이 클립보드에 복사되었습니다"
+  },
+  "timerUpdated": {
+    "message": "타이머가 업데이트되었습니다"
+  },
+  "thresholdUpdated": {
+    "message": "임계값이 업데이트되었습니다"
+  },
+  "cannotUnloadActive": {
+    "message": "활성 탭은 언로드할 수 없습니다"
+  },
+  "failedToSave": {
+    "message": "저장에 실패했습니다"
+  },
+  "settingsTitle": {
+    "message": "TabRest 설정"
+  },
+  "settingsSubtitle": {
+    "message": "TabRest가 탭과 메모리를 관리하는 방식을 세밀하게 조정하세요"
+  },
+  "footerTagline": {
+    "message": "차분한 탭 관리"
+  },
+  "noDomainsYet": {
+    "message": "도메인 없음"
+  },
+  "behaviorProtection": {
+    "message": "보호"
+  },
+  "behaviorSmart": {
+    "message": "스마트 동작"
+  },
+  "behaviorIndicators": {
+    "message": "표시기 및 디스플레이"
+  },
+  "autoUnload": {
+    "message": "자동 언로드"
+  },
+  "unloadOnStartup": {
+    "message": "브라우저 시작 시 탭 언로드"
+  },
+  "unloadInactiveAfter": {
+    "message": "비활성 탭 언로드 시간:"
+  },
+  "memoryManagement": {
+    "message": "메모리 관리"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "RAM 초과 시 탭 언로드:"
+  },
+  "behavior": {
+    "message": "동작"
+  },
+  "includePinnedTabs": {
+    "message": "고정된 탭 포함"
+  },
+  "showUnloadedCount": {
+    "message": "아이콘에 언로드 수 표시"
+  },
+  "trackStatistics": {
+    "message": "통계 추적"
+  },
+  "protectAudioTabs": {
+    "message": "오디오/동영상 재생 중인 탭 보호"
+  },
+  "protectFormTabs": {
+    "message": "저장되지 않은 양식이 있는 탭 보호"
+  },
+  "whitelist": {
+    "message": "허용 목록"
+  },
+  "whitelistHelp": {
+    "message": "자동으로 언로드되지 않는 사이트"
+  },
+  "addPlaceholder": {
+    "message": "example.com"
+  },
+  "add": {
+    "message": "추가"
+  },
+  "statistics": {
+    "message": "통계"
+  },
+  "tabsUnloadedLabel": {
+    "message": "언로드된 탭"
+  },
+  "memorySavedLabel": {
+    "message": "절약된 메모리"
+  },
+  "resetStatistics": {
+    "message": "통계 초기화"
+  },
+  "keyboardShortcuts": {
+    "message": "키보드 단축키"
+  },
+  "shortcutsHelp": {
+    "message": "chrome://extensions/shortcuts에서 설정하세요"
+  },
+  "configureIn": {
+    "message": "여기서 설정:"
+  },
+  "settingsSaved": {
+    "message": "설정이 저장되었습니다"
+  },
+  "domainRemoved": {
+    "message": "도메인이 제거되었습니다"
+  },
+  "invalidDomain": {
+    "message": "도메인, IP 주소, 또는 'localhost'를 입력하세요"
+  },
+  "domainExists": {
+    "message": "도메인이 이미 존재합니다"
+  },
+  "domainConflict": {
+    "message": "$1은(는) 이미 $2에 있습니다 - 먼저 거기서 제거하세요",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "domainAdded": {
+    "message": "도메인이 추가되었습니다"
+  },
+  "statsReset": {
+    "message": "통계가 초기화되었습니다"
+  },
+  "unloadRight": {
+    "message": "오른쪽 탭 언로드"
+  },
+  "unloadLeft": {
+    "message": "왼쪽 탭 언로드"
+  },
+  "blacklist": {
+    "message": "차단 목록"
+  },
+  "blacklistHelp": {
+    "message": "최근에 활성화되었더라도 항상 자동으로 언로드되는 사이트"
+  },
+  "enableTabGroups": {
+    "message": "팝업에 탭 그룹 표시"
+  },
+  "tabGroups": {
+    "message": "탭 그룹"
+  },
+  "selectTabGroup": {
+    "message": "탭 그룹 선택..."
+  },
+  "unloadGroup": {
+    "message": "그룹 언로드"
+  },
+  "untitledTabGroup": {
+    "message": "그룹 $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "showDiscardedPrefix": {
+    "message": "삭제된 탭에 기호 추가"
+  },
+  "discardedPrefixLabel": {
+    "message": "기호:"
+  },
+  "prefixHelp": {
+    "message": "웹사이트 접근 권한이 필요합니다. 보호된 페이지(Chrome 웹 스토어, Google 계정 등)에서는 작동하지 않습니다."
+  },
+  "prefixPermDenied": {
+    "message": "탭 접두사 기능은 웹사이트 접근 권한이 필요합니다. 토글이 건너뛰어졌습니다."
+  },
+  "minTabsLabel": {
+    "message": "비활성 탭이 다음 수를 초과할 때만 자동 언로드:"
+  },
+  "toolbarAction": {
+    "message": "도구 모음 작업"
+  },
+  "toolbarClickLabel": {
+    "message": "확장 프로그램 아이콘 클릭 시:"
+  },
+  "actionOpenPopup": {
+    "message": "팝업 열기"
+  },
+  "actionDiscardCurrent": {
+    "message": "현재 탭 삭제"
+  },
+  "actionDiscardOthers": {
+    "message": "다른 탭 삭제"
+  },
+  "useSidePanel": {
+    "message": "팝업 대신 측면 패널에서 열기"
+  },
+  "useSidePanelHelp": {
+    "message": "측면 패널은 탭 전환 시에도 열린 상태를 유지합니다. Chrome 114 이상이 필요합니다."
+  },
+  "saveYouTubeTimestamp": {
+    "message": "YouTube 재생 위치 저장"
+  },
+  "saveYouTubeHelp": {
+    "message": "탭이 다시 로드될 때 저장된 위치에서 동영상을 재개합니다"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "컴퓨터가 유휴 상태일 때만 자동 언로드"
+  },
+  "idleThreshold": {
+    "message": "유휴 임계값:"
+  },
+  "perTabMemoryLabel": {
+    "message": "다음 이상을 사용하는 탭 언로드 (JS heap):"
+  },
+  "perTabMemoryHelp": {
+    "message": "전체 탭 메모리가 아닌 JavaScript 메모리만 측정합니다"
+  },
+  "powerMode": {
+    "message": "전원 모드"
+  },
+  "powerModeHelp": {
+    "message": "전원 상황에 따라 공격성을 조정합니다"
+  },
+  "batterySaver": {
+    "message": "배터리 절약"
+  },
+  "batterySaverDesc": {
+    "message": "더 적극적으로 언로드, 전력 절약"
+  },
+  "normalMode": {
+    "message": "일반"
+  },
+  "normalModeDesc": {
+    "message": "균형 잡힌 성능"
+  },
+  "performanceMode": {
+    "message": "성능"
+  },
+  "performanceModeDesc": {
+    "message": "덜 적극적으로, 탭을 더 오래 유지"
+  },
+  "skipWhenOffline": {
+    "message": "오프라인 시 자동 언로드 건너뛰기"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "네트워크를 사용할 수 없을 때 탭이 삭제되지 않도록 합니다"
+  },
+  "restoreScrollPosition": {
+    "message": "스크롤 위치 복원"
+  },
+  "restoreScrollHelp": {
+    "message": "탭이 삭제되고 다시 로드될 때 스크롤 위치를 저장하고 복원합니다"
+  },
+  "tabSnoozed": {
+    "message": "탭이 스누즈되었습니다"
+  },
+  "domainSnoozed": {
+    "message": "사이트가 스누즈되었습니다"
+  },
+  "snoozeRemoved": {
+    "message": "스누즈가 제거되었습니다"
+  },
+  "snoozeTab30": {
+    "message": "탭 스누즈 (30분)"
+  },
+  "snoozeTab60": {
+    "message": "탭 스누즈 (1시간)"
+  },
+  "snoozeDomain60": {
+    "message": "사이트 스누즈 (1시간)"
+  },
+  "openLinkSuspended": {
+    "message": "절전 탭에서 링크 열기"
+  },
+  "notifyOnAutoUnload": {
+    "message": "탭이 자동 언로드될 때 알림"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "이유(타이머/RAM)와 함께 알림을 표시합니다"
+  },
+  "reportBug": {
+    "message": "버그 신고"
+  },
+  "describeIssue": {
+    "message": "문제 설명 (선택 사항):"
+  },
+  "bugDescPlaceholder": {
+    "message": "무엇이 잘못되었나요?"
+  },
+  "debugInfoAttached": {
+    "message": "디버그 정보가 첨부됩니다"
+  },
+  "copyForGithub": {
+    "message": "복사 및 GitHub 열기"
+  },
+  "copiedToClipboard": {
+    "message": "복사됨! GitHub 이슈에 붙여넣으세요."
+  },
+  "supportFeedback": {
+    "message": "지원 및 피드백"
+  },
+  "enableErrorReporting": {
+    "message": "익명 오류 보고 전송"
+  },
+  "errorReportingHelp": {
+    "message": "충돌을 자동으로 보고하여 TabRest 개선에 도움을 주세요. 개인 데이터는 수집되지 않습니다."
+  },
+  "reportIssue": {
+    "message": "문제 신고"
+  },
+  "askQuestion": {
+    "message": "질문하기"
+  },
+  "closeDuplicates": {
+    "message": "중복 탭 닫기"
+  },
+  "closedNDuplicates": {
+    "message": "중복 탭 $COUNT$개를 닫았습니다",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "중복 탭이 없습니다"
+  },
+  "searchTabs": {
+    "message": "탭 검색"
+  },
+  "searchPlaceholder": {
+    "message": "탭 검색..."
+  },
+  "ramEstimateTooltip": {
+    "message": "삭제된 탭당 약 150MB를 기준으로 합니다. 실제 절약량은 페이지 콘텐츠에 따라 다릅니다."
+  },
+  "formProtectPermDenied": {
+    "message": "양식 보호 기능은 웹사이트 접근 권한이 필요합니다. 토글이 건너뛰어졌습니다."
+  },
+  "formPermBannerText": {
+    "message": "사이트 권한이 초기화되었습니다. 영향받은 설정을 복원하려면 활성화하세요."
+  },
+  "enable": {
+    "message": "활성화"
+  },
+  "formPermGranted": {
+    "message": "설정이 복원되었습니다"
+  },
+  "showSuspendWarningLabel": {
+    "message": "자동 절전 전 경고 표시"
+  },
+  "showSuspendWarningHelp": {
+    "message": "탭을 유지하기 위해 상호작용할 수 있도록 페이지에 간단한 토스트를 표시합니다"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "경고 지연 시간:"
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest가 메모리를 확보하기 위해 이 탭을 절전 상태로 전환합니다..."
+  },
+  "exportList": {
+    "message": "내보내기"
+  },
+  "importList": {
+    "message": "가져오기"
+  },
+  "exportSessions": {
+    "message": "세션 내보내기"
+  },
+  "importSessions": {
+    "message": "세션 가져오기"
+  },
+  "exportedToClipboard": {
+    "message": "클립보드에 복사됨"
+  },
+  "exportFailed": {
+    "message": "내보내기 실패"
+  },
+  "pasteImportJson": {
+    "message": "내보낸 JSON을 아래에 붙여넣으세요:"
+  },
+  "importedNAdded": {
+    "message": "$1개 추가됨, $2개 건너뜀",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "가져오기 실패: 잘못된 JSON"
+  },
+  "importFailed_invalidShape": {
+    "message": "가져오기 실패: 잘못된 형식"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "가져오기 실패: 지원되지 않는 버전"
+  },
+  "importFailed_wrongType": {
+    "message": "가져오기 실패: 이 목록에 맞지 않는 유형"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "개인정보 및 진단"
+  },
+  "errorReportingHint": {
+    "message": "익명 오류 보고를 전송하여 TabRest 개선에 도움을 주세요. 기본적으로 비활성화되어 있습니다. URL, 페이지 제목, 개인 데이터는 전송되지 않습니다."
+  },
+  "enableErrorReportingLabel": {
+    "message": "익명 오류 보고 활성화"
+  },
+  "advancedDsnSummary": {
+    "message": "고급: 사용자 지정 Sentry DSN"
+  },
+  "customDsnHint": {
+    "message": "기본값을 사용하려면 비워 두세요. HTTPS DSN만 허용됩니다."
+  },
+  "viewPrivacyPolicy": {
+    "message": "개인정보 처리방침 보기"
+  },
+  "invalidDsnMessage": {
+    "message": "잘못된 DSN 형식입니다. 예상 형식: https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "사용자 지정 DSN이 저장되었습니다"
+  },
+  "errorReportingEnabledToast": {
+    "message": "오류 보고가 활성화되었습니다"
+  },
+  "errorReportingDisabledToast": {
+    "message": "오류 보고가 비활성화되었습니다"
+  },
+  "sendToSentry": {
+    "message": "Sentry로 전송"
+  },
+  "sentryDisabledHint": {
+    "message": "오류 보고를 활성화하세요 "
+  },
+  "optionsLink": {
+    "message": "옵션"
+  },
+  "reportSentSuccess": {
+    "message": "보고서가 전송되었습니다. 감사합니다!"
+  },
+  "reportSentFailed": {
+    "message": "전송에 실패했습니다. GitHub 복사를 대신 시도하세요."
+  },
+  "reportCooldown": {
+    "message": "다음 보고서를 보내기 전에 잠시 기다려 주세요."
+  },
+  "reportDailyCap": {
+    "message": "일일 보고서 한도에 도달했습니다. GitHub 복사를 사용하세요."
+  },
+  "optionsRerunOnboarding": {
+    "message": "설정 다시 실행"
+  },
+  "obWizardTitle": {
+    "message": "TabRest 설정"
+  },
+  "obSkipAll": {
+    "message": "모두 건너뛰기"
+  },
+  "obBack": {
+    "message": "뒤로"
+  },
+  "obNext": {
+    "message": "다음"
+  },
+  "obSkip": {
+    "message": "건너뛰기"
+  },
+  "obFinish": {
+    "message": "완료"
+  },
+  "obProgressLabel": {
+    "message": "$1/$2 단계",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "TabRest에 오신 것을 환영합니다"
+  },
+  "obWelcomeBody": {
+    "message": "간단한 설정으로 TabRest를 사용 방식에 맞게 조정하세요. 나중에 설정에서 언제든지 변경할 수 있습니다."
+  },
+  "obWelcomeStart": {
+    "message": "설정 시작"
+  },
+  "obAutoUnloadTitle": {
+    "message": "비활성 탭 자동 언로드"
+  },
+  "obAutoUnloadDesc": {
+    "message": "비활성 탭이 언로드되기 전 대기 시간을 선택하세요."
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30분"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1시간"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2시간"
+  },
+  "obWhitelistTitle": {
+    "message": "항상 활성 상태로 유지"
+  },
+  "obWhitelistDesc": {
+    "message": "선택한 사이트는 자동 언로드로부터 보호됩니다."
+  },
+  "obWhitelistHint": {
+    "message": "나중에 설정에서 이 목록을 편집할 수 있습니다."
+  },
+  "obPowerModeTitle": {
+    "message": "전원 모드 선택"
+  },
+  "obPowerModeDesc": {
+    "message": "TabRest의 언로드 강도를 선택하세요."
+  },
+  "obNotificationsTitle": {
+    "message": "자동 언로드 알림 받기"
+  },
+  "obNotificationsDesc": {
+    "message": "TabRest가 백그라운드에서 탭을 언로드할 때 시스템 알림을 표시합니다."
+  },
+  "obNotificationsToggle": {
+    "message": "탭이 자동 언로드될 때 알림 받기"
+  },
+  "obDoneTitle": {
+    "message": "설정이 완료되었습니다"
+  },
+  "obDoneSubtitle": {
+    "message": "설정이 저장되었습니다."
+  },
+  "obPinTitle": {
+    "message": "도구 모음에 TabRest 고정"
+  },
+  "obPinDesc": {
+    "message": "브라우저 오른쪽 상단의 퍼즐 아이콘을 클릭한 다음 TabRest를 고정하여 한 번의 클릭으로 접근하세요."
+  },
+  "obPinnedTitle": {
+    "message": "고정됨!"
+  },
+  "obPinnedDesc": {
+    "message": "언제든지 TabRest 아이콘을 클릭하여 탭을 관리하세요."
+  },
+  "obDoneSummaryDelay": {
+    "message": "자동 언로드 시간"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "항상 유지"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1개 사이트",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "전원 모드"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "알림"
+  },
+  "obDoneOpenSettings": {
+    "message": "모든 설정 열기"
+  },
+  "obDoneShortcutsHint": {
+    "message": "팁: $1을(를) 사용하면 현재 탭을 언로드합니다.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "켜짐"
+  },
+  "obOffState": {
+    "message": "꺼짐"
+  },
+  "obMinutes": {
+    "message": "$1분",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1시간",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  }
+}

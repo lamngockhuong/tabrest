@@ -1,4 +1,5 @@
-🇬🇧 [English](README.md) | 🇻🇳 **Tiếng Việt**
+🇬🇧 [English](README.md) • 🇻🇳 **Tiếng Việt** • 🇪🇸 [Español](README.es.md) • 🇧🇷 [Português](README.pt-BR.md) • 🇯🇵 [日本語](README.ja.md) • 🇨🇳 [简体中文](README.zh-CN.md) <br>
+🇰🇷 [한국어](README.ko.md) • 🇩🇪 [Deutsch](README.de.md) • 🇫🇷 [Français](README.fr.md) • 🇷🇺 [Русский](README.ru.md) • 🇮🇩 [Bahasa Indonesia](README.id.md)
 
 <p align="center">
   <img src="icons/icon-128.png" alt="TabRest Logo" width="128" height="128">
@@ -48,7 +49,7 @@
 - **Host permissions tuỳ chọn** - Bảo vệ form chỉ yêu cầu quyền khi bật
 - **Hiển thị RAM** - Phần trăm RAM trực tiếp trên popup
 - **Thống kê** - Theo dõi số tab đã unload và bộ nhớ đã tiết kiệm
-- **Đa ngôn ngữ** - Hỗ trợ tiếng Anh và tiếng Việt
+- **Đa ngôn ngữ** - Hỗ trợ 11 ngôn ngữ
 
 ## Phím tắt
 
@@ -87,7 +88,7 @@ TabRest sử dụng API native `chrome.tabs.discard()` của Chrome để unload
 ```text
 tabrest/
 ├── manifest.json           # Cấu hình tiện ích (MV3)
-├── _locales/               # Bản dịch i18n (en, vi)
+├── _locales/               # Bản dịch i18n (11 locale)
 ├── src/
 │   ├── background/         # Module service worker
 │   ├── content/            # Form checker, YouTube tracker
