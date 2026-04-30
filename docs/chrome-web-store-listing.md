@@ -2,6 +2,9 @@
 
 All content for TabRest's Chrome Web Store listing. Translated versions live at `docs/<locale>/chrome-web-store-listing.md` for: vi, es, pt-BR, ja, zh-CN, ko, de, fr, ru, id (user-facing sections only).
 
+**Live listing:** <https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib>
+**Extension ID:** `agajndkecodedlklmpnjgikglkpeopib`
+
 ## Basic Info
 
 Listing fields entered into the Chrome Web Store developer dashboard.

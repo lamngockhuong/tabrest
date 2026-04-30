@@ -72,7 +72,7 @@
 
 ### Chrome Web Store からインストール
 
-近日公開予定。
+[Chrome Web Store から TabRest をインストール](https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib)。
 
 ## 仕組み
 
