@@ -1197,12 +1197,11 @@ footer {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 8px 8px 8px 12px;
   background: var(--primary);
   color: #fff;
   border-radius: 8px;
   margin-bottom: 12px;
-  position: relative;
   animation: slideDown 0.3s ease-out;
 }
 
@@ -1254,18 +1253,13 @@ footer {
 }
 
 .review-dismiss {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.6);
-  cursor: pointer;
-  padding: 2px;
+  color: rgba(255,255,255,0.7);
+  flex-shrink: 0;
 }
 
 .review-dismiss:hover {
   color: #fff;
+  background: rgba(255,255,255,0.15);
 }
 
 /* Modern Slim Scrollbar (WebKit) */
