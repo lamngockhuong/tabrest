@@ -1,0 +1,695 @@
+{
+  "extName": {
+    "message": "TabRest - Rest your tabs, free your RAM"
+  },
+  "extDescription": {
+    "message": "タブを休ませてメモリを解放 - 非アクティブなタブを自動アンロード"
+  },
+  "sleeping": {
+    "message": "スリープ中"
+  },
+  "protected": {
+    "message": "保護中"
+  },
+  "saved": {
+    "message": "節約済み"
+  },
+  "unloadOthers": {
+    "message": "他のタブをアンロード"
+  },
+  "unloadCurrent": {
+    "message": "現在のタブをアンロード"
+  },
+  "tabsInWindow": {
+    "message": "このウィンドウのタブ"
+  },
+  "sessions": {
+    "message": "セッション"
+  },
+  "stats": {
+    "message": "統計"
+  },
+  "quickSettings": {
+    "message": "クイック設定"
+  },
+  "moreActions": {
+    "message": "その他の操作"
+  },
+  "autoUnloadAfter": {
+    "message": "自動アンロードまでの時間"
+  },
+  "ramThreshold": {
+    "message": "RAM しきい値"
+  },
+  "disabled": {
+    "message": "無効"
+  },
+  "sessionNamePlaceholder": {
+    "message": "セッション名 (省略可)"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "saveFirstSession": {
+    "message": "最初のセッションを保存"
+  },
+  "today": {
+    "message": "今日"
+  },
+  "allTime": {
+    "message": "累計"
+  },
+  "tabsUnloadedToday": {
+    "message": "今日アンロードしたタブ数"
+  },
+  "tabsUnloadedTotal": {
+    "message": "アンロードしたタブの合計"
+  },
+  "ramSaved": {
+    "message": "節約 RAM (推定)"
+  },
+  "memberSince": {
+    "message": "利用開始日"
+  },
+  "enjoyingTabRest": {
+    "message": "TabRest を気に入っていますか？"
+  },
+  "yes": {
+    "message": "はい！"
+  },
+  "notReally": {
+    "message": "あまり"
+  },
+  "sessionSaved": {
+    "message": "セッションを保存しました"
+  },
+  "sessionDeleted": {
+    "message": "セッションを削除しました"
+  },
+  "tabUnloaded": {
+    "message": "タブをアンロードしました"
+  },
+  "tabsUnloaded": {
+    "message": "$1 個のタブをアンロードしました",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "$1 個のタブを復元しました",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "更新しました"
+  },
+  "copyTabListTooltip": {
+    "message": "タブ一覧をクリップボードにコピー"
+  },
+  "tabListCopied": {
+    "message": "タブ一覧をクリップボードにコピーしました"
+  },
+  "timerUpdated": {
+    "message": "タイマーを更新しました"
+  },
+  "thresholdUpdated": {
+    "message": "しきい値を更新しました"
+  },
+  "cannotUnloadActive": {
+    "message": "アクティブなタブはアンロードできません"
+  },
+  "failedToSave": {
+    "message": "保存に失敗しました"
+  },
+  "settingsTitle": {
+    "message": "TabRest 設定"
+  },
+  "settingsSubtitle": {
+    "message": "TabRest によるタブとメモリの管理を細かく調整できます"
+  },
+  "footerTagline": {
+    "message": "穏やかなタブ管理"
+  },
+  "noDomainsYet": {
+    "message": "ドメインがありません"
+  },
+  "behaviorProtection": {
+    "message": "保護"
+  },
+  "behaviorSmart": {
+    "message": "スマート動作"
+  },
+  "behaviorIndicators": {
+    "message": "インジケーターと表示"
+  },
+  "autoUnload": {
+    "message": "自動アンロード"
+  },
+  "unloadOnStartup": {
+    "message": "ブラウザ起動時にタブをアンロード"
+  },
+  "unloadInactiveAfter": {
+    "message": "非アクティブなタブをアンロードするまでの時間:"
+  },
+  "memoryManagement": {
+    "message": "メモリ管理"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "RAM がしきい値を超えたらタブをアンロード:"
+  },
+  "behavior": {
+    "message": "動作"
+  },
+  "includePinnedTabs": {
+    "message": "ピン留めタブを含める"
+  },
+  "showUnloadedCount": {
+    "message": "アイコンにアンロード数を表示"
+  },
+  "trackStatistics": {
+    "message": "統計を記録"
+  },
+  "protectAudioTabs": {
+    "message": "音声・動画を再生中のタブを保護"
+  },
+  "protectFormTabs": {
+    "message": "未保存のフォームがあるタブを保護"
+  },
+  "whitelist": {
+    "message": "ホワイトリスト"
+  },
+  "whitelistHelp": {
+    "message": "自動アンロードの対象にならないサイト"
+  },
+  "addPlaceholder": {
+    "message": "example.com"
+  },
+  "add": {
+    "message": "追加"
+  },
+  "statistics": {
+    "message": "統計"
+  },
+  "tabsUnloadedLabel": {
+    "message": "アンロードしたタブ数"
+  },
+  "memorySavedLabel": {
+    "message": "節約したメモリ"
+  },
+  "resetStatistics": {
+    "message": "統計をリセット"
+  },
+  "keyboardShortcuts": {
+    "message": "キーボードショートカット"
+  },
+  "shortcutsHelp": {
+    "message": "chrome://extensions/shortcuts で設定"
+  },
+  "configureIn": {
+    "message": "設定場所:"
+  },
+  "settingsSaved": {
+    "message": "設定を保存しました"
+  },
+  "domainRemoved": {
+    "message": "ドメインを削除しました"
+  },
+  "invalidDomain": {
+    "message": "ドメイン、IP アドレス、または「localhost」を入力してください"
+  },
+  "domainExists": {
+    "message": "このドメインはすでに存在します"
+  },
+  "domainConflict": {
+    "message": "$1 はすでに $2 に登録されています。先にそちらから削除してください",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "domainAdded": {
+    "message": "ドメインを追加しました"
+  },
+  "statsReset": {
+    "message": "統計をリセットしました"
+  },
+  "unloadRight": {
+    "message": "右側のタブをアンロード"
+  },
+  "unloadLeft": {
+    "message": "左側のタブをアンロード"
+  },
+  "blacklist": {
+    "message": "ブラックリスト"
+  },
+  "blacklistHelp": {
+    "message": "最近アクティブだった場合でも、常に自動アンロードされるサイト"
+  },
+  "enableTabGroups": {
+    "message": "ポップアップにタブグループを表示"
+  },
+  "tabGroups": {
+    "message": "タブグループ"
+  },
+  "selectTabGroup": {
+    "message": "タブグループを選択..."
+  },
+  "unloadGroup": {
+    "message": "グループをアンロード"
+  },
+  "untitledTabGroup": {
+    "message": "グループ $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "showDiscardedPrefix": {
+    "message": "破棄済みタブにシンボルを追加"
+  },
+  "discardedPrefixLabel": {
+    "message": "シンボル:"
+  },
+  "prefixHelp": {
+    "message": "ウェブサイトアクセス権限が必要です。保護されたページ (Chrome Web Store、Google アカウントなど) では機能しません。"
+  },
+  "prefixPermDenied": {
+    "message": "タブのプレフィックスにはウェブサイトアクセス権限が必要です。トグルをスキップしました。"
+  },
+  "minTabsLabel": {
+    "message": "非アクティブなタブ数がしきい値を超えた場合のみ自動アンロード:"
+  },
+  "toolbarAction": {
+    "message": "ツールバー操作"
+  },
+  "toolbarClickLabel": {
+    "message": "拡張機能アイコンをクリックしたとき:"
+  },
+  "actionOpenPopup": {
+    "message": "ポップアップを開く"
+  },
+  "actionDiscardCurrent": {
+    "message": "現在のタブを破棄"
+  },
+  "actionDiscardOthers": {
+    "message": "他のタブを破棄"
+  },
+  "useSidePanel": {
+    "message": "ポップアップの代わりにサイドパネルで開く"
+  },
+  "useSidePanelHelp": {
+    "message": "サイドパネルはタブを切り替えても表示されたままです。Chrome 114 以降が必要です。"
+  },
+  "saveYouTubeTimestamp": {
+    "message": "YouTube の再生位置を保存"
+  },
+  "saveYouTubeHelp": {
+    "message": "タブの再読み込み時に保存した再生位置から動画を再開します"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "コンピューターがアイドル状態のときのみ自動アンロード"
+  },
+  "idleThreshold": {
+    "message": "アイドルしきい値:"
+  },
+  "perTabMemoryLabel": {
+    "message": "使用メモリがしきい値を超えたタブをアンロード (JS heap):"
+  },
+  "perTabMemoryHelp": {
+    "message": "タブの総メモリではなく、JavaScript のメモリのみを計測します"
+  },
+  "powerMode": {
+    "message": "電源モード"
+  },
+  "powerModeHelp": {
+    "message": "電源の状況に合わせてアグレッシブさを調整します"
+  },
+  "batterySaver": {
+    "message": "バッテリー節約"
+  },
+  "batterySaverDesc": {
+    "message": "より積極的にアンロードして電力を節約"
+  },
+  "normalMode": {
+    "message": "標準"
+  },
+  "normalModeDesc": {
+    "message": "バランスの取れたパフォーマンス"
+  },
+  "performanceMode": {
+    "message": "パフォーマンス"
+  },
+  "performanceModeDesc": {
+    "message": "控えめにアンロードしてタブを長く保持"
+  },
+  "skipWhenOffline": {
+    "message": "オフライン時は自動アンロードをスキップ"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "ネットワークが利用できないときにタブが破棄されるのを防ぎます"
+  },
+  "restoreScrollPosition": {
+    "message": "スクロール位置を復元"
+  },
+  "restoreScrollHelp": {
+    "message": "タブが破棄・再読み込みされたとき、スクロール位置を保存して復元します"
+  },
+  "tabSnoozed": {
+    "message": "タブをスヌーズしました"
+  },
+  "domainSnoozed": {
+    "message": "サイトをスヌーズしました"
+  },
+  "snoozeRemoved": {
+    "message": "スヌーズを解除しました"
+  },
+  "snoozeTab30": {
+    "message": "タブをスヌーズ (30 分)"
+  },
+  "snoozeTab60": {
+    "message": "タブをスヌーズ (1 時間)"
+  },
+  "snoozeDomain60": {
+    "message": "サイトをスヌーズ (1 時間)"
+  },
+  "openLinkSuspended": {
+    "message": "リンクをサスペンド状態のタブで開く"
+  },
+  "notifyOnAutoUnload": {
+    "message": "タブが自動アンロードされたときに通知"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "理由 (タイマー/RAM) を含む通知を表示します"
+  },
+  "reportBug": {
+    "message": "バグを報告"
+  },
+  "describeIssue": {
+    "message": "問題の説明 (省略可):"
+  },
+  "bugDescPlaceholder": {
+    "message": "何が起きましたか？"
+  },
+  "debugInfoAttached": {
+    "message": "デバッグ情報が添付されます"
+  },
+  "copyForGithub": {
+    "message": "コピーして GitHub を開く"
+  },
+  "copiedToClipboard": {
+    "message": "コピーしました！GitHub Issue に貼り付けてください。"
+  },
+  "supportFeedback": {
+    "message": "サポートとフィードバック"
+  },
+  "enableErrorReporting": {
+    "message": "匿名のエラーレポートを送信"
+  },
+  "errorReportingHelp": {
+    "message": "クラッシュを自動的に報告して TabRest の改善に協力します。個人データは収集しません。"
+  },
+  "reportIssue": {
+    "message": "問題を報告"
+  },
+  "askQuestion": {
+    "message": "質問する"
+  },
+  "closeDuplicates": {
+    "message": "重複タブを閉じる"
+  },
+  "closedNDuplicates": {
+    "message": "重複タブを $COUNT$ 個閉じました",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "重複タブは見つかりませんでした"
+  },
+  "searchTabs": {
+    "message": "タブを検索"
+  },
+  "searchPlaceholder": {
+    "message": "タブを検索..."
+  },
+  "ramEstimateTooltip": {
+    "message": "破棄済みタブ 1 つあたり約 150 MB を基準にした推定値です。実際の節約量はページの内容によって異なります。"
+  },
+  "formProtectPermDenied": {
+    "message": "フォーム保護にはウェブサイトアクセス権限が必要です。トグルをスキップしました。"
+  },
+  "formPermBannerText": {
+    "message": "サイト権限がリセットされました。影響を受けた設定を復元するには有効にしてください。"
+  },
+  "enable": {
+    "message": "有効にする"
+  },
+  "formPermGranted": {
+    "message": "設定を復元しました"
+  },
+  "showSuspendWarningLabel": {
+    "message": "自動サスペンドの前に警告を表示"
+  },
+  "showSuspendWarningHelp": {
+    "message": "タブを操作して維持できるよう、ページ上に簡単なトーストを表示します"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "警告の遅延:"
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest がメモリを解放するためにこのタブをサスペンドします..."
+  },
+  "exportList": {
+    "message": "エクスポート"
+  },
+  "importList": {
+    "message": "インポート"
+  },
+  "exportSessions": {
+    "message": "セッションをエクスポート"
+  },
+  "importSessions": {
+    "message": "セッションをインポート"
+  },
+  "exportedToClipboard": {
+    "message": "クリップボードにコピーしました"
+  },
+  "exportFailed": {
+    "message": "エクスポートに失敗しました"
+  },
+  "pasteImportJson": {
+    "message": "エクスポートした JSON を以下に貼り付けてください:"
+  },
+  "importedNAdded": {
+    "message": "$1 件追加、$2 件スキップ",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "インポート失敗: JSON が無効です"
+  },
+  "importFailed_invalidShape": {
+    "message": "インポート失敗: フォーマットが無効です"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "インポート失敗: サポートされていないバージョンです"
+  },
+  "importFailed_wrongType": {
+    "message": "インポート失敗: このリストに対して種類が一致しません"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "プライバシーと診断"
+  },
+  "errorReportingHint": {
+    "message": "匿名のエラーレポートを送信して TabRest の改善に協力してください。デフォルトでは無効です。URL、ページタイトル、個人データは送信されません。"
+  },
+  "enableErrorReportingLabel": {
+    "message": "匿名のエラーレポートを有効にする"
+  },
+  "advancedDsnSummary": {
+    "message": "詳細設定: カスタム Sentry DSN"
+  },
+  "customDsnHint": {
+    "message": "空欄の場合はデフォルトを使用します。HTTPS の DSN のみ受け付けます。"
+  },
+  "viewPrivacyPolicy": {
+    "message": "プライバシーポリシーを表示"
+  },
+  "invalidDsnMessage": {
+    "message": "DSN フォーマットが無効です。期待される形式: https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "カスタム DSN を保存しました"
+  },
+  "errorReportingEnabledToast": {
+    "message": "エラーレポートを有効にしました"
+  },
+  "errorReportingDisabledToast": {
+    "message": "エラーレポートを無効にしました"
+  },
+  "sendToSentry": {
+    "message": "Sentry に送信"
+  },
+  "sentryDisabledHint": {
+    "message": "エラーレポートを有効にするには "
+  },
+  "optionsLink": {
+    "message": "設定"
+  },
+  "reportSentSuccess": {
+    "message": "レポートを送信しました。ありがとうございます！"
+  },
+  "reportSentFailed": {
+    "message": "送信に失敗しました。代わりに GitHub コピーをお試しください。"
+  },
+  "reportCooldown": {
+    "message": "次のレポートを送信するまで少し時間をおいてください。"
+  },
+  "reportDailyCap": {
+    "message": "1 日のレポート上限に達しました。代わりに GitHub コピーをご利用ください。"
+  },
+  "optionsRerunOnboarding": {
+    "message": "セットアップを再実行"
+  },
+  "obWizardTitle": {
+    "message": "TabRest セットアップ"
+  },
+  "obSkipAll": {
+    "message": "すべてスキップ"
+  },
+  "obBack": {
+    "message": "戻る"
+  },
+  "obNext": {
+    "message": "次へ"
+  },
+  "obSkip": {
+    "message": "スキップ"
+  },
+  "obFinish": {
+    "message": "完了"
+  },
+  "obProgressLabel": {
+    "message": "ステップ $1 / $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "TabRest へようこそ"
+  },
+  "obWelcomeBody": {
+    "message": "簡単なセットアップでブラウジングスタイルに合わせて TabRest を調整できます。設定はいつでも設定ページで変更できます。"
+  },
+  "obWelcomeStart": {
+    "message": "セットアップを始める"
+  },
+  "obAutoUnloadTitle": {
+    "message": "非アクティブなタブを自動アンロード"
+  },
+  "obAutoUnloadDesc": {
+    "message": "非アクティブなタブをアンロードするまでの待機時間を選択してください。"
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 分"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 時間"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 時間"
+  },
+  "obWhitelistTitle": {
+    "message": "常に起動しておくサイト"
+  },
+  "obWhitelistDesc": {
+    "message": "チェックしたサイトは自動アンロードから保護されます。"
+  },
+  "obWhitelistHint": {
+    "message": "このリストは後で設定ページで編集できます。"
+  },
+  "obPowerModeTitle": {
+    "message": "電源モードを選択"
+  },
+  "obPowerModeDesc": {
+    "message": "TabRest のアンロードの積極度を選択してください。"
+  },
+  "obNotificationsTitle": {
+    "message": "自動アンロード時に通知を受け取る"
+  },
+  "obNotificationsDesc": {
+    "message": "TabRest がバックグラウンドでタブをアンロードしたとき、システム通知を表示します。"
+  },
+  "obNotificationsToggle": {
+    "message": "タブが自動アンロードされたときに通知する"
+  },
+  "obDoneTitle": {
+    "message": "準備完了です"
+  },
+  "obDoneSubtitle": {
+    "message": "設定が保存されました。"
+  },
+  "obPinTitle": {
+    "message": "TabRest をツールバーにピン留め"
+  },
+  "obPinDesc": {
+    "message": "ブラウザ右上のパズルアイコンをクリックし、TabRest をピン留めしてワンクリックでアクセスできるようにしてください。"
+  },
+  "obPinnedTitle": {
+    "message": "ピン留め完了！"
+  },
+  "obPinnedDesc": {
+    "message": "TabRest アイコンをクリックしていつでもタブを管理できます。"
+  },
+  "obDoneSummaryDelay": {
+    "message": "自動アンロードまでの時間"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "常に起動しておくサイト"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 サイト",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "電源モード"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "通知"
+  },
+  "obDoneOpenSettings": {
+    "message": "すべての設定を開く"
+  },
+  "obDoneShortcutsHint": {
+    "message": "ヒント: $1 で現在のタブをアンロードできます。",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "オン"
+  },
+  "obOffState": {
+    "message": "オフ"
+  },
+  "obMinutes": {
+    "message": "$1 分",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 時間",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  }
+}

@@ -1,4 +1,5 @@
-🇬🇧 [English](README.md) | 🇻🇳 **Tiếng Việt**
+🇬🇧 [English](README.md) • 🇻🇳 **Tiếng Việt** • 🇪🇸 [Español](README.es.md) • 🇧🇷 [Português](README.pt-BR.md) • 🇯🇵 [日本語](README.ja.md) • 🇨🇳 [简体中文](README.zh-CN.md) <br>
+🇰🇷 [한국어](README.ko.md) • 🇩🇪 [Deutsch](README.de.md) • 🇫🇷 [Français](README.fr.md) • 🇷🇺 [Русский](README.ru.md) • 🇮🇩 [Bahasa Indonesia](README.id.md)
 
 <p align="center">
   <img src="icons/icon-128.png" alt="TabRest Logo" width="128" height="128">

@@ -1,45 +1,60 @@
 # Chrome Web Store Listing - TabRest
 
-## What's New (paste in Chrome Web Store "What's new" field)
+All content for TabRest's Chrome Web Store listing. Translated versions live at `docs/<locale>/chrome-web-store-listing.md` for: vi, es, pt-BR, ja, zh-CN, ko, de, fr, ru, id (user-facing sections only).
+
+## Basic Info
+
+Listing fields entered into the Chrome Web Store developer dashboard.
+
+| Field                | Value                                                                 |
+| -------------------- | --------------------------------------------------------------------- |
+| **Package name**     | TabRest - Rest your tabs, free your RAM                               |
+| **Summary**          | Rest your tabs, free your memory - automatically unload inactive tabs |
+| **Category**         | Functionality & UI                                                    |
+| **Default language** | English - en                                                          |
+
+## Additional fields
+
+| Field              | Value                                             |
+| ------------------ | ------------------------------------------------- |
+| **Official URL**   | None                                              |
+| **Homepage URL**   | <https://tabrest.ohnice.app>                      |
+| **Support URL**    | <https://github.com/lamngockhuong/tabrest/issues> |
+| **Mature content** | No                                                |
+
+## What's New
+
+Paste the content below into the Chrome Web Store "What's new" field on each release.
 
 ```
 NEW: Interactive Setup Wizard
 
 First-time install now opens a friendly 6-step wizard that walks you through the most useful settings - auto-unload timer, whitelist suggestions, power mode, and notifications. Each step is skippable and your existing defaults are preserved if you skip.
 
-Already installed? You can rerun the wizard anytime from Options → Footer → "Run setup again".
+Already installed? You can rerun the wizard anytime from Options > Footer > "Run setup again".
 
 OTHER IMPROVEMENTS:
-• Refreshed install/welcome experience with smooth slide transitions
-• Reduced-motion support for accessibility
-• Pin-to-toolbar reminder so you can find TabRest faster
-• Polished options page footer
-• Multi-language wizard (English & Vietnamese)
+- Refreshed install/welcome experience with smooth slide transitions
+- Reduced-motion support for accessibility
+- Pin-to-toolbar reminder so you can find TabRest faster
+- Polished options page footer
+- Multi-language wizard (English & Vietnamese)
 
 PRIVACY:
 All settings stored locally on your device. Optional anonymous error reporting remains opt-in (disabled by default).
 ```
 
----
+## Short Description
 
-## Thông tin cơ bản
+132 characters maximum. Used as the store listing tagline.
 
-| Field                 | Value                                                                 |
-| --------------------- | --------------------------------------------------------------------- |
-| **Tên trong gói**     | TabRest - Rest your tabs, free your RAM                               |
-| **Thông tin tóm tắt** | Rest your tabs, free your memory - automatically unload inactive tabs |
-| **Loại**              | Chức năng & Giao diện                                                 |
-| **Ngôn ngữ mặc định** | Tiếng Anh - en                                                        |
-
----
-
-## Short Description (132 chars max)
-
+```text
 Rest your tabs, free your memory - automatically unload inactive tabs to keep Chrome fast and responsive.
+```
 
----
+## Full Description
 
-## Mô tả - English (Copy nội dung bên dưới)
+Long-form marketing copy used in the Chrome Web Store description field.
 
 ```text
 TabRest automatically unloads inactive browser tabs to free up memory and keep your computer running smoothly.
@@ -61,8 +76,8 @@ TabRest automatically unloads inactive browser tabs to free up memory and keep y
 ⌨️ Manual Controls & Keyboard Shortcuts
 • Unload current tab: Alt+Shift+D
 • Unload other tabs: Alt+Shift+O
-• Unload tabs to the right: Alt+Shift+→
-• Unload tabs to the left: Alt+Shift+←
+• Unload tabs to the right: Alt+Shift+Right
+• Unload tabs to the left: Alt+Shift+Left
 • Right-click context menu for quick access
 
 🛡️ Protection Features
@@ -92,7 +107,7 @@ TabRest automatically unloads inactive browser tabs to free up memory and keep y
 • Import/export settings - backup and restore whitelists, blacklists, and sessions to clipboard JSON
 • Interactive setup wizard - guided 6-step onboarding on install (rerun anytime from Options)
 • Optional anonymous error reporting (opt-in) - helps us fix bugs while protecting your privacy
-• Multi-language support (English & Vietnamese)
+• Multi-language support
 • Auto-open changelog - view what's new on updates (minor/major releases only)
 
 💡 HOW IT WORKS:
@@ -114,377 +129,299 @@ TabRest uses Chrome's native tabs.discard() API. Discarded tabs:
 Made with ❤️ for tab hoarders everywhere.
 ```
 
----
+## Permissions Justification
 
-## Mô tả - Tiếng Việt (Copy nội dung bên dưới)
+Copy each block into the matching field in the Chrome Web Store dashboard. All entries stay under the 1000-character limit.
 
-```text
-TabRest tự động giải phóng bộ nhớ các tab không hoạt động, giúp máy tính của bạn chạy mượt mà hơn.
-
-🎯 PHÙ HỢP CHO:
-• Người dùng mở nhiều tab cùng lúc
-• Máy tính có RAM hạn chế
-• Ai muốn trải nghiệm duyệt web nhanh hơn
-
-✨ TÍNH NĂNG CHÍNH:
-
-📌 Tự động giải phóng thông minh
-• Hẹn giờ không hoạt động (15 phút đến 4 giờ)
-• Ngưỡng bộ nhớ RAM (60-90%)
-• Giới hạn bộ nhớ mỗi tab (giải phóng tab dùng >100MB-1GB JS heap)
-• Giải phóng khi mở trình duyệt
-• Bỏ qua khi offline - không giải phóng tab khi mất mạng
-
-⌨️ Điều khiển thủ công & Phím tắt
-• Giải phóng tab hiện tại: Alt+Shift+D
-• Giải phóng các tab khác: Alt+Shift+O
-• Giải phóng tab bên phải: Alt+Shift+→
-• Giải phóng tab bên trái: Alt+Shift+←
-• Menu chuột phải để truy cập nhanh
-
-🛡️ Tính năng bảo vệ
-• Danh sách trắng - không giải phóng domain được chọn
-• Tạm dừng tab riêng lẻ (30 phút - 2 giờ)
-• Tạm dừng toàn bộ domain
-• Bỏ qua tab đang phát âm thanh/video
-• Bỏ qua tab có form chưa lưu
-• Bảo vệ tab đã ghim
-
-📊 Thống kê & Giám sát
-• Hiển thị RAM đang sử dụng trực tiếp
-• Theo dõi tổng số tab đã giải phóng
-• Theo dõi tổng bộ nhớ đã tiết kiệm
-• Chỉ báo trực quan (💤) trên tiêu đề tab
-
-🔧 Tính năng bổ sung
-• Hỗ trợ nhóm tab - giải phóng cả nhóm
-• Khôi phục vị trí YouTube - tiếp tục xem từ chỗ dừng
-• Khôi phục vị trí cuộn khi tab tải lại
-• Thông báo khi giải phóng tab
-• Đóng các tab trùng lặp - một cú nhấp chuột để loại bỏ bản sao
-• Tìm kiếm tab - lọc theo tiêu đề hoặc URL trực tiếp
-• Mẹo vô hạn bộ nhớ - di chuột để xem dự toán bộ nhớ cho từng tab
-• Cảnh báo tạm dừng - cảnh báo 3 giây trước khi tự động giải phóng
-• Giao diện side panel - mở trong thanh bên trình duyệt (luôn hiển thị khi bạn chuyển tab)
-• Xuất/nhập cấu hình - sao lưu và khôi phục danh sách trắng, danh sách đen và phiên làm việc sang JSON clipboard
-• Trình hướng dẫn cài đặt 6 bước - hỗ trợ thiết lập nhanh khi mới cài (có thể chạy lại từ trang Options)
-• Báo cáo lỗi ẩn danh tùy chọn - giúp chúng tôi sửa lỗi đồng thời bảo vệ quyền riêng tư của bạn
-• Đa ngôn ngữ (Tiếng Anh & Tiếng Việt)
-• Mở trang thay đổi tự động - xem tin tức mới khi cập nhật (chỉ phát hành chính/phụ)
-
-💡 CÁCH HOẠT ĐỘNG:
-TabRest sử dụng API tabs.discard() của Chrome. Tab đã giải phóng:
-• Vẫn hiển thị trên thanh tab
-• Giữ nguyên vị trí cuộn và dữ liệu form
-• Tải lại ngay khi nhấp vào
-• Giải phóng bộ nhớ khi không hoạt động
-
-🔒 QUYỀN RIÊNG TƯ:
-• Không thu thập dữ liệu mặc định
-• Báo cáo lỗi ẩn danh tùy chọn (tắt mặc định, hoàn toàn minh bạch)
-• Khi bật: lỗi được ẩn danh, PII được lọc, tối đa 100 báo cáo/ngày, lưu trữ 30 ngày
-• Mọi cài đặt lưu cục bộ trên thiết bị
-• Mã nguồn mở: https://github.com/lamngockhuong/tabrest
-
-🌐 WEBSITE: https://tabrest.ohnice.app
-
-Làm với ❤️ cho những người "nghiện" mở tab.
-```
-
----
-
-## Tab "Quyền riêng tư" (Privacy)
-
-> Copy từng đoạn dưới đây vào ô tương ứng trong Chrome Web Store dashboard. Tất cả nội dung dưới giới hạn 1000 ký tự cho mỗi field.
-
-### Mục đích duy nhất (Single purpose)
+## Single purpose
 
 ```text
 TabRest automatically unloads (discards) inactive browser tabs to free up RAM and keep the browser responsive. The extension monitors tab activity and system memory, then uses chrome.tabs.discard() to suspend tabs that meet user-configured criteria (inactivity timer, memory threshold, per-tab heap limit) while preserving scroll position, form data, and tab visibility. Users can also unload tabs manually via popup buttons, keyboard shortcuts, or the right-click context menu, and protect specific tabs/domains via whitelist or snooze.
 ```
 
-### Lý do yêu cầu quyền (Permission justifications)
+## Per-permission rationale
 
-**`tabs`** _(core)_
+### `tabs` _(core)_
 
 ```text
 Required to enumerate open tabs, read their last-active timestamp, title, and URL (for domain-based whitelist matching), and call chrome.tabs.discard() to unload them. Also used to detect audio playback (mutedInfo/audible) so tabs playing media are skipped, and to display the tab list inside the popup and side panel UI. Without this permission TabRest cannot identify or unload any tabs.
 ```
 
-**`storage`**
+### `storage`
 
 ```text
 Stores user settings (auto-unload timer, RAM threshold, whitelist/blacklist, power mode, notifications toggle, etc.) via chrome.storage.sync so they roam across signed-in devices, and stores tab activity (LRU timestamps), snooze state, and aggregated statistics (tabs unloaded, memory saved) in chrome.storage.local. No browsing history or page content is stored.
 ```
 
-**`alarms`**
+### `alarms`
 
 ```text
 Used to schedule periodic background checks via chrome.alarms (every 1 minute for inactive-tab evaluation, every 30 seconds for memory threshold monitoring). chrome.alarms is required because Manifest V3 service workers terminate when idle - setInterval/setTimeout would not survive worker shutdown, breaking the auto-unload feature.
 ```
 
-**`system.memory`**
+### `system.memory`
 
 ```text
 Used to read total/available system RAM via chrome.system.memory.getInfo() so TabRest can trigger auto-unload when memory pressure crosses the user-configured threshold (60-95%) and display a live RAM usage indicator in the popup. Only aggregate memory stats are read; no process-level or per-application data is collected.
 ```
 
-**`contextMenus`**
+### `contextMenus`
 
 ```text
 Adds right-click menu entries on tabs (Unload tab, Unload other tabs, Snooze tab 30 min / 1 hour, Snooze site 1 hour, Open link in suspended tab) so users can perform tab management actions without opening the popup. No page content is read through context menus.
 ```
 
-**`tabGroups`**
+### `tabGroups`
 
 ```text
 Used to read tab group membership and color so the popup can display tabs grouped together, and to support the "unload entire group" action. Only group metadata (id, title, color, collapsed state) is accessed; no group content or external data is collected.
 ```
 
-**`scripting`**
+### `scripting`
 
 ```text
 Used to inject two small content scripts on demand: (1) a form checker that detects unsaved form input so tabs with active forms are skipped during auto-unload, and (2) a title-prefix script that prepends a sleep indicator (💤) to discarded tab titles so users can visually identify suspended tabs. No page content is read or transmitted; the scripts only inspect form state and update document.title locally.
 ```
 
-**`idle`**
+### `idle`
 
 ```text
 Used via chrome.idle.queryState() / onStateChanged to detect when the user goes idle or locks the screen. This lets TabRest pause certain background work and adjust auto-unload timing (e.g., avoid unloading the active tab the moment the user steps away). No user activity data is logged or transmitted.
 ```
 
-**`notifications`**
+### `notifications`
 
 ```text
 Used to display optional system notifications when tabs are auto-unloaded (e.g., "5 tabs unloaded, 320 MB freed"). Notifications are user-controllable in Settings and can be turned off entirely. No notification content includes URLs or sensitive page data - only aggregate counts.
 ```
 
-**`sidePanel`**
+### `sidePanel`
 
 ```text
 Enables an optional Side Panel mode where the TabRest UI opens in Chrome's persistent sidebar instead of the popup, so the tab list and stats remain visible as the user switches tabs. This is opt-in via Settings; the default behavior is the standard popup.
 ```
 
-### Lý do yêu cầu quyền từ phía máy chủ (Host permission justification)
+## Host Permissions & Remote Code
+
+## Host permission justification
 
 **Manifest:** `host_permissions: ["https://*.ingest.us.sentry.io/*"]` + `optional_host_permissions: ["http://*/*", "https://*/*"]`
 
 ```text
-The required host "https://*.ingest.us.sentry.io/*" is used solely to send crash/error reports to Sentry when the user explicitly opts in to anonymous error reporting (disabled by default in Settings → Privacy & Diagnostics). Reports are sanitized client-side before transmission - no URLs, page content, emails, IP addresses, or browsing history are sent; only stack traces and sanitized error metadata. Users can disable reporting at any time and no traffic to sentry.io occurs while the toggle is off.
+The required host "https://*.ingest.us.sentry.io/*" is used solely to send crash/error reports to Sentry when the user explicitly opts in to anonymous error reporting (disabled by default in Settings > Privacy & Diagnostics). Reports are sanitized client-side before transmission - no URLs, page content, emails, IP addresses, or browsing history are sent; only stack traces and sanitized error metadata. Users can disable reporting at any time and no traffic to sentry.io occurs while the toggle is off.
 
 The optional hosts "http://*/*" and "https://*/*" are requested only on demand (chrome.permissions.request) when the user enables the "Add 💤 prefix to discarded tab titles" feature, which requires injecting a tiny title-update script into discarded pages. The permission is not granted at install time and the user can revoke it from chrome://extensions at any time.
 ```
 
-### Có phải bạn đang dùng mã từ xa không? (Remote code?)
+## Remote code disclosure
 
 ```text
-KHÔNG (No, I am not using remote code).
+NO. The extension does not use remote code.
 
 All JavaScript and Wasm shipped with TabRest is bundled inside the extension package. The extension does not load remote scripts via <script src> from external domains, does not eval() remote payloads, and does not use any module loaders that fetch code at runtime.
 
 Note: The Sentry SDK that ships with TabRest sends error reports over HTTPS to sentry.io, but it does not download or execute remote code; it only transmits sanitized error data when the user has explicitly opted in.
 ```
 
----
+## Data Usage
 
-## Tab "Sử dụng dữ liệu" (Data usage)
+Information disclosed in the Chrome Web Store "Privacy practices" tab.
 
-### Loại dữ liệu thu thập (Data types collected)
+## Data types collected
 
-Tick **none** of the following boxes (TabRest does not collect any of these categories):
+Tick **none** of the following categories. TabRest does not collect any of them.
 
-| Mục                               | Tick? | Lý do                                              |
-| --------------------------------- | ----- | -------------------------------------------------- |
-| Thông tin nhận dạng cá nhân (PII) | ❌    | Không thu thập tên, email, địa chỉ                 |
-| Thông tin sức khỏe                | ❌    | Không liên quan                                    |
-| Thông tin thanh toán/tài chính    | ❌    | Tiện ích miễn phí, không có giao dịch              |
-| Thông tin xác thực                | ❌    | Không thu thập password/PIN                        |
-| Thông tin liên lạc cá nhân        | ❌    | Không đọc email/tin nhắn                           |
-| Thông tin vị trí                  | ❌    | Không dùng IP, GPS                                 |
-| Lịch sử duyệt web                 | ❌    | URLs/titles chỉ xử lý cục bộ, không gửi đi         |
-| Hoạt động người dùng              | ❌    | Không log click/keystroke; LRU timestamp lưu local |
-| Nội dung trang web                | ❌    | Không đọc/truyền nội dung trang                    |
+| Category                                  | Collected? | Reason                                                    |
+| ----------------------------------------- | ---------- | --------------------------------------------------------- |
+| Personally identifiable information (PII) | No         | No name, email, or address collected                      |
+| Health information                        | No         | Not applicable                                            |
+| Financial / payment information           | No         | Free extension, no transactions                           |
+| Authentication information                | No         | No password / PIN collected                               |
+| Personal communications                   | No         | No email or message reading                               |
+| Location                                  | No         | No IP or GPS used                                         |
+| Web history                               | No         | URLs/titles processed locally only, never transmitted     |
+| User activity                             | No         | No click/keystroke logging; LRU timestamps stored locally |
+| Website content                           | No         | Page content not read or transmitted                      |
 
-> **Ghi chú quan trọng:** Mặc dù TabRest có truy cập URLs/titles của tab (qua `tabs` permission) và đọc form state (qua `scripting`), tất cả đều xử lý cục bộ trên thiết bị và **không bao giờ rời khỏi máy người dùng**. Khi người dùng bật báo cáo lỗi ẩn danh (opt-in), chỉ stack trace + metadata đã được sanitize được gửi tới Sentry - không có URLs, PII, hay nội dung trang.
+> **Important note:** TabRest accesses tab URLs/titles (via the `tabs` permission) and reads form state (via `scripting`), but everything is processed locally on the device and **never leaves the user's machine**. When a user opts in to anonymous error reporting, only sanitized stack traces and metadata are sent to Sentry - no URLs, PII, or page content.
 
-### Tôi xác nhận (Disclosures - tick all 3)
+## Disclosures
 
-- ✅ **Tôi không bán/chuyển dữ liệu người dùng cho bên thứ ba** (ngoài các use case được phê duyệt - Sentry là processor, không phải bán dữ liệu)
-- ✅ **Tôi không dùng/chuyển dữ liệu người dùng cho mục đích không liên quan đến mục đích duy nhất**
-- ✅ **Tôi không dùng/chuyển dữ liệu người dùng để xác định khả năng tín dụng hoặc cho mục đích cho vay**
+Tick all 3:
 
-### Chính sách quyền riêng tư (Privacy policy URL)
+- I do not sell or transfer user data to third parties (outside approved use cases - Sentry acts as a processor, not data sale)
+- I do not use or transfer user data for purposes unrelated to the single purpose
+- I do not use or transfer user data to determine creditworthiness or for lending purposes
+
+## Privacy policy URL
 
 ```text
 https://tabrest.ohnice.app/docs/privacy-policy/
 ```
 
----
+## Screenshots Guide
 
-## Nội dung đồ họa
+How to capture the 5 store screenshots required for the Chrome Web Store listing.
 
-### Biểu tượng cửa hàng
+## Store icon
 
-- **Kích thước:** 128 x 128 pixel
-- **Trạng thái:** ✅ Đã upload
+- **Size:** 128 x 128 pixels
+- **Status:** uploaded
 
----
+## Technical requirements
 
-## Hướng dẫn tạo Screenshots
+| Item       | Spec                                      |
+| ---------- | ----------------------------------------- |
+| Format     | PNG or JPEG (SVG not accepted)            |
+| Size       | **1280x800** preferred, or 640x400        |
+| Quantity   | 1 to 5; the store displays up to 5        |
+| Output dir | `assets/screenshots/` (create if missing) |
 
-### Yêu cầu kỹ thuật (Chrome Web Store)
+## General setup before capturing
 
-| Mục        | Spec                                          |
-| ---------- | --------------------------------------------- |
-| Định dạng  | PNG hoặc JPEG (KHÔNG nhận SVG)                |
-| Kích thước | **1280x800** (ưu tiên) hoặc 640x400           |
-| Số lượng   | 1-5, store hiển thị tối đa 5                  |
-| Output dir | `assets/screenshots/` (chưa tồn tại, cần tạo) |
+1. **Browser**: Chrome at 1280x800 viewport (View > Actual Size, zoom 100%)
+2. **Theme**: light or dark, consistent across all 5 screenshots (dark recommended to match indigo branding)
+3. **Test account**: create an empty Chrome profile, load the unpacked extension from a clean HEAD
+4. **Demo data**: open 8-12 real tabs (gmail, youtube, github, docs, news sites) so the popup has rich content; click through them so LRU has data; wait a few minutes for stats to accumulate
+5. **Capture tool**: macOS `Cmd+Shift+4` then `Space` to capture a window (nice shadow), or use `Shottr`/`CleanShot X` for pixel-perfect captures
+6. **Crop**: resize/crop to 1280x800 before upload
+7. **Privacy**: blur emails, file names, and sensitive tab content before publishing
 
-### Setup chung trước khi chụp
+## Screenshot 1 - Main popup (REQUIRED)
 
-1. **Browser**: Chrome ở 1280x800 viewport (View → Actual Size, zoom 100%)
-2. **Theme**: Sáng hoặc tối nhất quán xuyên suốt 5 ảnh (đề xuất Dark - khớp branding indigo)
-3. **Tài khoản test**: Tạo profile Chrome trống, load extension unpacked từ HEAD sạch
-4. **Dữ liệu demo**: Mở 8-12 tab thật (gmail, youtube, github, docs, vài trang tin) để popup có nội dung phong phú; click qua từng tab để LRU có data; chờ vài phút cho stats sinh
-5. **Tool chụp**: macOS `Cmd+Shift+4` rồi `Space` để chụp window (bóng đẹp), hoặc dùng `Shottr`/`CleanShot X` để chụp đúng pixel
-6. **Crop**: Resize/crop về 1280x800 trước khi upload
-7. **Privacy**: Che blur email, tên file, nội dung tab nhạy cảm trước khi public
+**Content:** hero shot of the popup with full stats, tab list, and action buttons.
 
-### Screenshot 1 - Popup chính (BẮT BUỘC)
-
-**Nội dung:** Hero shot của popup, đầy đủ stats + tab list + nút action
 **Steps:**
 
-1. Mở 10+ tab gồm 1-2 tab đang discarded (Right-click → Unload, hoặc đợi timer)
-2. Click icon TabRest mở popup
-3. Đảm bảo hiển thị: RAM bar trên cùng, vài tab "sleeping" badge, nút "Unload Others" / "Unload Current"
-4. Chụp riêng popup (popup ~360x600) rồi ghép lên background gradient indigo cho đủ 1280x800
-5. Optional: thêm callout text "📊 Live RAM usage" và "💤 Sleeping tabs"
+1. Open 10+ tabs including 1-2 already discarded (right-click > Unload, or wait for the timer)
+2. Click the TabRest icon to open the popup
+3. Confirm the view shows: top RAM bar, several tabs with the "sleeping" badge, and the "Unload Others" / "Unload Current" buttons
+4. Capture the popup alone (popup is roughly 360x600), then composite onto an indigo gradient background to fill 1280x800
+5. Optional: add callouts "📊 Live RAM usage" and "💤 Sleeping tabs"
 
-### Screenshot 2 - Options/Settings (BẮT BUỘC)
+## Screenshot 2 - Options / Settings (REQUIRED)
 
-**Nội dung:** Trang options với Auto-Unload + Power Mode + Whitelist visible
+**Content:** options page with Auto-Unload, Power Mode, and Whitelist visible.
+
 **Steps:**
 
-1. Mở `chrome-extension://<ID>/src/options/options.html`
-2. Scroll đến phần có Auto-Unload timer + Power Mode cards + Whitelist (nhiều domain mẫu: youtube.com, gmail.com, docs.google.com, github.com, figma.com)
-3. Chụp viewport 1280x800 trực tiếp
+1. Open `chrome-extension://<ID>/src/options/options.html`
+2. Scroll to the section showing the Auto-Unload timer, Power Mode cards, and Whitelist (with sample domains: youtube.com, gmail.com, docs.google.com, github.com, figma.com)
+3. Capture the 1280x800 viewport directly
 4. Optional callout: "⚙️ Granular control"
 
-### Screenshot 3 - Keyboard Shortcuts (graphic)
+## Screenshot 3 - Keyboard shortcuts (graphic)
 
-**Nội dung:** Visual 4 phím tắt
+**Content:** visual representation of the 4 keyboard shortcuts.
+
 **Steps:**
 
-1. Tạo graphic 1280x800 nền indigo gradient (lấy từ promo-banner SVG)
-2. Render 4 keycap design:
-   - `Alt + Shift + D` → Unload current tab
-   - `Alt + Shift + O` → Unload other tabs
-   - `Alt + Shift + →` → Unload tabs to right
-   - `Alt + Shift + ←` → Unload tabs to left
-3. Dùng Figma/Canva/SVG, export PNG 1280x800
+1. Create a 1280x800 graphic with an indigo gradient background (reuse from `promo-banner` SVG)
+2. Render 4 keycap designs:
+   - `Alt + Shift + D` -> Unload current tab
+   - `Alt + Shift + O` -> Unload other tabs
+   - `Alt + Shift + Right` -> Unload tabs to the right
+   - `Alt + Shift + Left` -> Unload tabs to the left
+3. Use Figma/Canva/SVG, export as 1280x800 PNG
 
-### Screenshot 4 - Stats & Memory Saved
+## Screenshot 4 - Stats & memory saved
 
-**Nội dung:** Popup section "Stats" với số liệu thật
+**Content:** popup "Stats" section with real numbers.
+
 **Steps:**
 
-1. Dùng extension liên tục 1-2 ngày để có số liệu (Tabs unloaded today/all-time, RAM saved, Member since)
-2. Mở popup, scroll đến phần Stats
-3. Chụp popup zoom-in vào stats card
-4. Ghép lên background, highlight các số bằng glow indigo
+1. Use the extension for 1-2 days to accumulate real stats (Tabs unloaded today/all-time, RAM saved, Member since)
+2. Open the popup and scroll to the Stats section
+3. Capture the popup zoomed into the stats card
+4. Composite onto a background, highlight the numbers with an indigo glow
 
-### Screenshot 5 - Context Menu / Snooze
+## Screenshot 5 - Context menu / Snooze
 
-**Nội dung:** Right-click menu trên tab với các action TabRest
+**Content:** right-click menu on a tab showing TabRest actions.
+
 **Steps:**
 
-1. Right-click trên 1 tab bất kỳ trong tab bar
-2. Chụp full menu hiển thị: "Snooze Tab (30 min)", "Snooze Tab (1 hour)", "Snooze Site (1 hour)", "Open Link in Suspended Tab"
-3. macOS: phải dùng `Cmd+Shift+5` ghi video rồi extract frame, vì context menu sẽ đóng khi mất focus
-4. Crop + ghép lên background indigo
+1. Right-click any tab in the tab bar
+2. Capture the full menu showing "Snooze Tab (30 min)", "Snooze Tab (1 hour)", "Snooze Site (1 hour)", "Open Link in Suspended Tab"
+3. macOS: must use `Cmd+Shift+5` to record video then extract a frame, since the context menu closes when focus is lost
+4. Crop and composite onto an indigo background
 
-### Quy trình export PNG cuối
+## Final PNG export
 
-1. Lưu các file vào `assets/screenshots/screenshot-01-popup.png` ... `screenshot-05-context.png`
+1. Save files as `assets/screenshots/screenshot-01-popup.png` ... `screenshot-05-context.png`
 2. Verify size: `sips -g pixelWidth -g pixelHeight assets/screenshots/*.png`
 3. Optimize: `pngquant --quality=80-95 assets/screenshots/*.png --ext .png --force`
-4. Upload thứ tự 1 → 5 trong Chrome Web Store dashboard
+4. Upload in order 1 to 5 in the Chrome Web Store dashboard
 
-### Ghép screenshot vào promo SVG
+## Compositing screenshots into promo SVGs
 
-Các file `promo-*.svg` có vùng `📸 SCREENSHOT PLACEHOLDER` (dashed border). Hai cách ghép:
+`promo-*.svg` files contain a `📸 SCREENSHOT PLACEHOLDER` region (dashed border). Two ways to composite:
 
-**A. Edit SVG trực tiếp**
+**A. Edit the SVG directly**
 
-1. Mở SVG bằng editor
-2. Tìm `<g transform="translate(...)">` chứa `<rect ... stroke-dasharray>` (placeholder)
-3. Thay bằng `<image href="screenshots/screenshot-01-popup.png" width="..." height="..."/>`
-4. Chạy `bash scripts/generate-promo-images.sh` để export PNG
+1. Open the SVG in an editor
+2. Find the `<g transform="translate(...)">` containing the `<rect ... stroke-dasharray>` placeholder
+3. Replace with `<image href="screenshots/screenshot-01-popup.png" width="..." height="..."/>`
+4. Run `bash scripts/generate-promo-images.sh` to export PNGs
 
-**B. Composite trong tool design (đơn giản hơn)**
+**B. Composite in a design tool (simpler)**
 
-1. Chạy `bash scripts/generate-promo-images.sh` lấy PNG nền
-2. Mở Figma/Photopea, import PNG nền + screenshot
-3. Đặt screenshot vào vị trí placeholder, export PNG flatten
+1. Run `bash scripts/generate-promo-images.sh` to get the background PNGs
+2. Open Figma/Photopea, import background PNG and screenshot
+3. Place the screenshot at the placeholder position, export a flattened PNG
 
----
+## Promotional Tiles
 
-## Promotional Tiles (assets/)
+SVG sources live in `assets/`. PNGs are exported via the helper script.
 
-### File mapping
+## File mapping
 
-| Slot Chrome Web Store  | Spec            | File SVG                                | Trạng thái                            |
-| ---------------------- | --------------- | --------------------------------------- | ------------------------------------- |
-| Small promo tile       | 440x280 PNG     | `promo-small-440x280.svg`               | Cần export PNG                        |
-| Marquee promo tile     | 1400x560 PNG    | `promo-marquee-1400x560.svg`            | Cần export PNG (mới tạo)              |
-| Screenshots            | 1280x800 PNG x5 | `promo-banner/02/03/04/05-1280x800.svg` | Cần ghép screenshot thật + export PNG |
-| (không dùng cho store) | 920x680         | `promo-large-920x680.svg`               | Tùy chọn cho social/web               |
+| Chrome Web Store slot | Spec            | SVG file                                | Status                                      |
+| --------------------- | --------------- | --------------------------------------- | ------------------------------------------- |
+| Small promo tile      | 440x280 PNG     | `promo-small-440x280.svg`               | export PNG                                  |
+| Marquee promo tile    | 1400x560 PNG    | `promo-marquee-1400x560.svg`            | export PNG (newly created)                  |
+| Screenshots           | 1280x800 PNG x5 | `promo-banner/02/03/04/05-1280x800.svg` | composite real screenshots, then export PNG |
+| (not used in store)   | 920x680         | `promo-large-920x680.svg`               | optional for social/web                     |
 
-### Build PNG
+## Build PNG
 
 ```bash
-# Cần: rsvg-convert + imagemagick
+## Requires: rsvg-convert + imagemagick
 brew install librsvg imagemagick
 
-# Export tất cả banner SVG sang PNG (2x supersampling, Lanczos)
+## Export all banner SVGs to PNG (2x supersampling, Lanczos)
 bash scripts/generate-promo-images.sh
 ```
 
-### Trạng thái nội dung banner
+## Banner content status
 
-Đã align với tính năng thực:
+Aligned with the actual feature set:
 
-- **`promo-04-automation`**: timer text `5 minutes to 4 hours, your choice` (khớp options 5/10/15/30/60/120/240 min); RAM threshold `60-95%` (khớp options thực).
-- **`promo-03-privacy`**: bỏ `Zero analytics. Zero cloud.` + `We don't watch you` (sai do v0.1.0+ có Sentry error reporting opt-in). Thay bằng `Privacy-first. Local by default. Opt-in only.` + card `No Auto-Collect / Reporting is opt-in`.
-- **`80% RAM`**: claim nhất quán xuyên suốt banner + website (`website/src/content/docs/*/getting-started.mdx`). Listing description `60-95%` là threshold range, không phải savings claim - không xung đột.
+- **`promo-04-automation`**: timer text `5 minutes to 4 hours, your choice` (matches options 5/10/15/30/60/120/240 min); RAM threshold `60-95%` (matches actual options).
+- **`promo-03-privacy`**: removed `Zero analytics. Zero cloud.` and `We don't watch you` (incorrect since v0.1.0+ ships with Sentry error reporting opt-in). Replaced with `Privacy-first. Local by default. Opt-in only.` plus a card `No Auto-Collect / Reporting is opt-in`.
+- **`80% RAM`**: claim is consistent across banners and the website (`website/src/content/docs/*/getting-started.mdx`). The listing's `60-95%` is a threshold range, not a savings claim - no conflict.
 
-Còn lại trước khi submit:
+## Remaining work before submit
 
-- Tất cả banner còn `📸 SCREENSHOT PLACEHOLDER` - phải ghép screenshot thật (xem section "Ghép screenshot vào promo SVG").
+- All banners still show `📸 SCREENSHOT PLACEHOLDER` - composite real screenshots in (see [screenshots-guide.md](screenshots-guide.md) section "Compositing screenshots into promo SVGs").
 
----
+## Submission Checklist
 
-## Các trường bổ sung
+Pre-submit checks before publishing a new TabRest version to the Chrome Web Store.
 
-| Field                  | Value                                             |
-| ---------------------- | ------------------------------------------------- |
-| **URL chính thức**     | Không                                             |
-| **URL trang chủ**      | <https://tabrest.ohnice.app>                      |
-| **URL hỗ trợ**         | <https://github.com/lamngockhuong/tabrest/issues> |
-| **Nội dung người lớn** | ❌ Không                                          |
+## Listing content
 
----
+- [ ] English description copied into the form
+- [ ] Localized descriptions added for each supported locale (vi, es, pt-BR, ja, zh-CN, ko, de, fr, ru, id) - paste from `docs/<locale>/chrome-web-store-listing.md`
+- [ ] At least 1 screenshot uploaded (recommended: all 5)
+- [ ] Homepage URL: <https://tabrest.ohnice.app>
+- [ ] Support URL: <https://github.com/lamngockhuong/tabrest/issues>
+- [ ] Small promo tile uploaded (optional)
+- [ ] Marquee promo tile uploaded (optional)
+- [ ] Privacy practices tab filled (single purpose, permission justifications, host permissions, remote code, data usage)
+- [ ] Privacy policy URL set: <https://tabrest.ohnice.app/docs/privacy-policy/>
 
-## Checklist trước khi gửi
+## Final review
 
-- [ ] Mô tả tiếng Anh đã copy vào form
-- [ ] Mô tả tiếng Việt đã thêm (nếu cần)
-- [ ] Ít nhất 1 screenshot đã upload
-- [ ] URL trang chủ: <https://tabrest.ohnice.app>
-- [ ] URL hỗ trợ: <https://github.com/lamngockhuong/tabrest/issues>
-- [ ] Ô quảng cáo nhỏ (tùy chọn)
-- [ ] Ô quảng cáo marquee (tùy chọn)
-- [ ] Kiểm tra lại tất cả nội dung
-- [ ] Preview listing trước khi submit
+- [ ] All content reviewed once more
+- [ ] Preview the listing before clicking submit

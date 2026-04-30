@@ -1,0 +1,695 @@
+{
+  "extName": {
+    "message": "TabRest - Rest your tabs, free your RAM"
+  },
+  "extDescription": {
+    "message": "Tabs ausruhen, Speicher freigeben - inaktive Tabs automatisch entladen"
+  },
+  "sleeping": {
+    "message": "schlafend"
+  },
+  "protected": {
+    "message": "geschützt"
+  },
+  "saved": {
+    "message": "gespart"
+  },
+  "unloadOthers": {
+    "message": "Andere entladen"
+  },
+  "unloadCurrent": {
+    "message": "Diesen entladen"
+  },
+  "tabsInWindow": {
+    "message": "Tabs in diesem Fenster"
+  },
+  "sessions": {
+    "message": "Sitzungen"
+  },
+  "stats": {
+    "message": "Statistiken"
+  },
+  "quickSettings": {
+    "message": "Schnelleinstellungen"
+  },
+  "moreActions": {
+    "message": "Weitere Aktionen"
+  },
+  "autoUnloadAfter": {
+    "message": "Auto-Entladen nach"
+  },
+  "ramThreshold": {
+    "message": "RAM-Schwelle"
+  },
+  "disabled": {
+    "message": "Deaktiviert"
+  },
+  "sessionNamePlaceholder": {
+    "message": "Sitzungsname (optional)"
+  },
+  "save": {
+    "message": "Speichern"
+  },
+  "saveFirstSession": {
+    "message": "Erste Sitzung speichern"
+  },
+  "today": {
+    "message": "Heute"
+  },
+  "allTime": {
+    "message": "Gesamt"
+  },
+  "tabsUnloadedToday": {
+    "message": "Heute entladene Tabs"
+  },
+  "tabsUnloadedTotal": {
+    "message": "Insgesamt entladene Tabs"
+  },
+  "ramSaved": {
+    "message": "RAM gespart (ca.)"
+  },
+  "memberSince": {
+    "message": "Mitglied seit"
+  },
+  "enjoyingTabRest": {
+    "message": "Gefällt Ihnen TabRest?"
+  },
+  "yes": {
+    "message": "Ja!"
+  },
+  "notReally": {
+    "message": "Nicht wirklich"
+  },
+  "sessionSaved": {
+    "message": "Sitzung gespeichert"
+  },
+  "sessionDeleted": {
+    "message": "Sitzung gelöscht"
+  },
+  "tabUnloaded": {
+    "message": "Tab entladen"
+  },
+  "tabsUnloaded": {
+    "message": "$1 Tabs entladen",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "$1 Tabs wiederhergestellt",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "Aktualisiert"
+  },
+  "copyTabListTooltip": {
+    "message": "Tab-Liste in Zwischenablage kopieren"
+  },
+  "tabListCopied": {
+    "message": "Tab-Liste in Zwischenablage kopiert"
+  },
+  "timerUpdated": {
+    "message": "Timer aktualisiert"
+  },
+  "thresholdUpdated": {
+    "message": "Schwelle aktualisiert"
+  },
+  "cannotUnloadActive": {
+    "message": "Aktiver Tab kann nicht entladen werden"
+  },
+  "failedToSave": {
+    "message": "Speichern fehlgeschlagen"
+  },
+  "settingsTitle": {
+    "message": "TabRest Einstellungen"
+  },
+  "settingsSubtitle": {
+    "message": "Passen Sie an, wie TabRest Tabs und Speicher verwaltet"
+  },
+  "footerTagline": {
+    "message": "Entspanntes Tab-Management"
+  },
+  "noDomainsYet": {
+    "message": "Noch keine Domains"
+  },
+  "behaviorProtection": {
+    "message": "Schutz"
+  },
+  "behaviorSmart": {
+    "message": "Intelligentes Verhalten"
+  },
+  "behaviorIndicators": {
+    "message": "Anzeigen & Darstellung"
+  },
+  "autoUnload": {
+    "message": "Auto-Entladen"
+  },
+  "unloadOnStartup": {
+    "message": "Tabs beim Browserstart entladen"
+  },
+  "unloadInactiveAfter": {
+    "message": "Inaktive Tabs entladen nach:"
+  },
+  "memoryManagement": {
+    "message": "Speicherverwaltung"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "Tabs entladen wenn RAM überschreitet:"
+  },
+  "behavior": {
+    "message": "Verhalten"
+  },
+  "includePinnedTabs": {
+    "message": "Angeheftete Tabs einschließen"
+  },
+  "showUnloadedCount": {
+    "message": "Entladene Anzahl im Symbol zeigen"
+  },
+  "trackStatistics": {
+    "message": "Statistiken erfassen"
+  },
+  "protectAudioTabs": {
+    "message": "Tabs mit Audio/Video schützen"
+  },
+  "protectFormTabs": {
+    "message": "Tabs mit ungespeicherten Formularen schützen"
+  },
+  "whitelist": {
+    "message": "Whitelist"
+  },
+  "whitelistHelp": {
+    "message": "Sites, die nie automatisch entladen werden"
+  },
+  "addPlaceholder": {
+    "message": "example.com"
+  },
+  "add": {
+    "message": "Hinzufügen"
+  },
+  "statistics": {
+    "message": "Statistiken"
+  },
+  "tabsUnloadedLabel": {
+    "message": "Tabs entladen"
+  },
+  "memorySavedLabel": {
+    "message": "Speicher gespart"
+  },
+  "resetStatistics": {
+    "message": "Statistiken zurücksetzen"
+  },
+  "keyboardShortcuts": {
+    "message": "Tastenkürzel"
+  },
+  "shortcutsHelp": {
+    "message": "Konfigurieren unter chrome://extensions/shortcuts"
+  },
+  "configureIn": {
+    "message": "Konfigurieren unter"
+  },
+  "settingsSaved": {
+    "message": "Einstellungen gespeichert"
+  },
+  "domainRemoved": {
+    "message": "Domain entfernt"
+  },
+  "invalidDomain": {
+    "message": "Domain, IP-Adresse oder 'localhost' eingeben"
+  },
+  "domainExists": {
+    "message": "Domain bereits vorhanden"
+  },
+  "domainConflict": {
+    "message": "$1 ist bereits in $2 - dort zuerst entfernen",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "domainAdded": {
+    "message": "Domain hinzugefügt"
+  },
+  "statsReset": {
+    "message": "Statistiken zurückgesetzt"
+  },
+  "unloadRight": {
+    "message": "Tabs rechts entladen"
+  },
+  "unloadLeft": {
+    "message": "Tabs links entladen"
+  },
+  "blacklist": {
+    "message": "Blacklist"
+  },
+  "blacklistHelp": {
+    "message": "Sites, die immer automatisch entladen werden (auch wenn kürzlich aktiv)"
+  },
+  "enableTabGroups": {
+    "message": "Tab-Gruppen im Popup anzeigen"
+  },
+  "tabGroups": {
+    "message": "Tab-Gruppen"
+  },
+  "selectTabGroup": {
+    "message": "Tab-Gruppe auswählen..."
+  },
+  "unloadGroup": {
+    "message": "Gruppe entladen"
+  },
+  "untitledTabGroup": {
+    "message": "Gruppe $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "showDiscardedPrefix": {
+    "message": "Symbol verworfenen Tabs voranstellen"
+  },
+  "discardedPrefixLabel": {
+    "message": "Symbol:"
+  },
+  "prefixHelp": {
+    "message": "Erfordert Website-Zugriffsberechtigung. Funktioniert nicht auf geschützten Seiten (Chrome Web Store, Google-Konten usw.)"
+  },
+  "prefixPermDenied": {
+    "message": "Tab-Präfix erfordert Website-Zugriffsberechtigung. Umschalten übersprungen."
+  },
+  "minTabsLabel": {
+    "message": "Nur auto-entladen wenn inaktive Tabs überschreiten:"
+  },
+  "toolbarAction": {
+    "message": "Symbolleisten-Aktion"
+  },
+  "toolbarClickLabel": {
+    "message": "Beim Klick auf das Erweiterungssymbol:"
+  },
+  "actionOpenPopup": {
+    "message": "Popup öffnen"
+  },
+  "actionDiscardCurrent": {
+    "message": "Aktuellen Tab verwerfen"
+  },
+  "actionDiscardOthers": {
+    "message": "Andere Tabs verwerfen"
+  },
+  "useSidePanel": {
+    "message": "In Seitenleiste statt Popup öffnen"
+  },
+  "useSidePanelHelp": {
+    "message": "Seitenleiste bleibt beim Tab-Wechsel offen. Erfordert Chrome 114+."
+  },
+  "saveYouTubeTimestamp": {
+    "message": "YouTube-Wiedergabeposition speichern"
+  },
+  "saveYouTubeHelp": {
+    "message": "Videos ab gespeicherter Position fortsetzen, wenn der Tab neu geladen wird"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "Nur auto-entladen wenn Computer inaktiv"
+  },
+  "idleThreshold": {
+    "message": "Leerlauf-Schwelle:"
+  },
+  "perTabMemoryLabel": {
+    "message": "Tabs entladen, die mehr als (JS heap) verwenden:"
+  },
+  "perTabMemoryHelp": {
+    "message": "Misst nur JavaScript-Speicher, nicht den gesamten Tab-Speicher"
+  },
+  "powerMode": {
+    "message": "Energiemodus"
+  },
+  "powerModeHelp": {
+    "message": "Aggressivität je nach Energiezustand anpassen"
+  },
+  "batterySaver": {
+    "message": "Energiesparmodus"
+  },
+  "batterySaverDesc": {
+    "message": "Aggressiver, spart Energie"
+  },
+  "normalMode": {
+    "message": "Normal"
+  },
+  "normalModeDesc": {
+    "message": "Ausgewogene Leistung"
+  },
+  "performanceMode": {
+    "message": "Leistung"
+  },
+  "performanceModeDesc": {
+    "message": "Weniger aggressiv, Tabs länger behalten"
+  },
+  "skipWhenOffline": {
+    "message": "Auto-Entladen im Offline-Betrieb überspringen"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "Verhindert, dass Tabs verworfen werden, wenn kein Netzwerk verfügbar ist"
+  },
+  "restoreScrollPosition": {
+    "message": "Scroll-Position wiederherstellen"
+  },
+  "restoreScrollHelp": {
+    "message": "Scroll-Position speichern und wiederherstellen, wenn Tabs verworfen und neu geladen werden"
+  },
+  "tabSnoozed": {
+    "message": "Tab gesnoozed"
+  },
+  "domainSnoozed": {
+    "message": "Site gesnoozed"
+  },
+  "snoozeRemoved": {
+    "message": "Snooze entfernt"
+  },
+  "snoozeTab30": {
+    "message": "Tab snoozen (30 Min.)"
+  },
+  "snoozeTab60": {
+    "message": "Tab snoozen (1 Std.)"
+  },
+  "snoozeDomain60": {
+    "message": "Site snoozen (1 Std.)"
+  },
+  "openLinkSuspended": {
+    "message": "Link in suspendiertem Tab öffnen"
+  },
+  "notifyOnAutoUnload": {
+    "message": "Bei Auto-Entladen benachrichtigen"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "Benachrichtigung mit Grund anzeigen (Timer/RAM)"
+  },
+  "reportBug": {
+    "message": "Fehler melden"
+  },
+  "describeIssue": {
+    "message": "Problem beschreiben (optional):"
+  },
+  "bugDescPlaceholder": {
+    "message": "Was ist schiefgelaufen?"
+  },
+  "debugInfoAttached": {
+    "message": "Debug-Informationen werden angehängt"
+  },
+  "copyForGithub": {
+    "message": "Kopieren & GitHub öffnen"
+  },
+  "copiedToClipboard": {
+    "message": "Kopiert! In GitHub-Issue einfügen."
+  },
+  "supportFeedback": {
+    "message": "Support & Feedback"
+  },
+  "enableErrorReporting": {
+    "message": "Anonyme Fehlerberichte senden"
+  },
+  "errorReportingHelp": {
+    "message": "Abstürze automatisch melden, um TabRest zu verbessern. Keine persönlichen Daten erfasst."
+  },
+  "reportIssue": {
+    "message": "Problem melden"
+  },
+  "askQuestion": {
+    "message": "Frage stellen"
+  },
+  "closeDuplicates": {
+    "message": "Duplikate schließen"
+  },
+  "closedNDuplicates": {
+    "message": "$COUNT$ doppelten Tab(s) geschlossen",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "Keine doppelten Tabs gefunden"
+  },
+  "searchTabs": {
+    "message": "Tabs durchsuchen"
+  },
+  "searchPlaceholder": {
+    "message": "Tabs suchen..."
+  },
+  "ramEstimateTooltip": {
+    "message": "Basierend auf ca. 150 MB pro verworfenem Tab. Tatsächliche Ersparnis variiert je nach Seiteninhalt."
+  },
+  "formProtectPermDenied": {
+    "message": "Formularschutz erfordert Website-Zugriffsberechtigung. Umschalten übersprungen."
+  },
+  "formPermBannerText": {
+    "message": "Site-Berechtigungen wurden zurückgesetzt. Aktivieren Sie diese, um betroffene Einstellungen wiederherzustellen."
+  },
+  "enable": {
+    "message": "Aktivieren"
+  },
+  "formPermGranted": {
+    "message": "Einstellungen wiederhergestellt"
+  },
+  "showSuspendWarningLabel": {
+    "message": "Warnung vor Auto-Suspendierung anzeigen"
+  },
+  "showSuspendWarningHelp": {
+    "message": "Zeigt kurz einen Hinweis auf der Seite an, damit Sie mit dem Tab interagieren können, um ihn aktiv zu halten"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "Warnverzögerung:"
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest wird diesen Tab suspendieren, um Speicher freizugeben..."
+  },
+  "exportList": {
+    "message": "Exportieren"
+  },
+  "importList": {
+    "message": "Importieren"
+  },
+  "exportSessions": {
+    "message": "Sitzungen exportieren"
+  },
+  "importSessions": {
+    "message": "Sitzungen importieren"
+  },
+  "exportedToClipboard": {
+    "message": "In Zwischenablage kopiert"
+  },
+  "exportFailed": {
+    "message": "Export fehlgeschlagen"
+  },
+  "pasteImportJson": {
+    "message": "Exportiertes JSON einfügen:"
+  },
+  "importedNAdded": {
+    "message": "$1 hinzugefügt, $2 übersprungen",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "Import fehlgeschlagen: ungültiges JSON"
+  },
+  "importFailed_invalidShape": {
+    "message": "Import fehlgeschlagen: ungültiges Format"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "Import fehlgeschlagen: nicht unterstützte Version"
+  },
+  "importFailed_wrongType": {
+    "message": "Import fehlgeschlagen: falscher Typ für diese Liste"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "Datenschutz & Diagnose"
+  },
+  "errorReportingHint": {
+    "message": "Helfen Sie, TabRest zu verbessern, indem Sie anonyme Fehlerberichte senden. Standardmäßig deaktiviert. Keine URLs, Seitentitel oder persönlichen Daten werden übermittelt."
+  },
+  "enableErrorReportingLabel": {
+    "message": "Anonyme Fehlerberichte aktivieren"
+  },
+  "advancedDsnSummary": {
+    "message": "Erweitert: Benutzerdefinierter Sentry DSN"
+  },
+  "customDsnHint": {
+    "message": "Leer lassen für Standard. Nur HTTPS DSNs werden akzeptiert."
+  },
+  "viewPrivacyPolicy": {
+    "message": "Datenschutzrichtlinie anzeigen"
+  },
+  "invalidDsnMessage": {
+    "message": "Ungültiges DSN-Format. Erwartet: https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "Benutzerdefinierter DSN gespeichert"
+  },
+  "errorReportingEnabledToast": {
+    "message": "Fehlerberichte aktiviert"
+  },
+  "errorReportingDisabledToast": {
+    "message": "Fehlerberichte deaktiviert"
+  },
+  "sendToSentry": {
+    "message": "An Sentry senden"
+  },
+  "sentryDisabledHint": {
+    "message": "Fehlerberichte aktivieren unter "
+  },
+  "optionsLink": {
+    "message": "Einstellungen"
+  },
+  "reportSentSuccess": {
+    "message": "Bericht gesendet. Danke!"
+  },
+  "reportSentFailed": {
+    "message": "Senden fehlgeschlagen. GitHub-Kopie verwenden."
+  },
+  "reportCooldown": {
+    "message": "Bitte eine Minute warten, bevor Sie einen weiteren Bericht senden."
+  },
+  "reportDailyCap": {
+    "message": "Tägliches Berichtslimit erreicht. GitHub-Kopie verwenden."
+  },
+  "optionsRerunOnboarding": {
+    "message": "Einrichtung erneut starten"
+  },
+  "obWizardTitle": {
+    "message": "TabRest einrichten"
+  },
+  "obSkipAll": {
+    "message": "Alles überspringen"
+  },
+  "obBack": {
+    "message": "Zurück"
+  },
+  "obNext": {
+    "message": "Weiter"
+  },
+  "obSkip": {
+    "message": "Überspringen"
+  },
+  "obFinish": {
+    "message": "Fertig"
+  },
+  "obProgressLabel": {
+    "message": "Schritt $1 von $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "Willkommen bei TabRest"
+  },
+  "obWelcomeBody": {
+    "message": "Eine kurze Einrichtung stimmt TabRest auf Ihre Surfgewohnheiten ab. Sie können alles später in den Einstellungen ändern."
+  },
+  "obWelcomeStart": {
+    "message": "Los geht's"
+  },
+  "obAutoUnloadTitle": {
+    "message": "Inaktive Tabs automatisch entladen"
+  },
+  "obAutoUnloadDesc": {
+    "message": "Wählen Sie, wie lange ein inaktiver Tab wartet, bevor er entladen wird."
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 Minuten"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 Stunde"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 Stunden"
+  },
+  "obWhitelistTitle": {
+    "message": "Diese immer aktiv halten"
+  },
+  "obWhitelistDesc": {
+    "message": "Markierte Sites sind vor Auto-Entladen geschützt."
+  },
+  "obWhitelistHint": {
+    "message": "Diese Liste können Sie später in den Einstellungen bearbeiten."
+  },
+  "obPowerModeTitle": {
+    "message": "Energiemodus wählen"
+  },
+  "obPowerModeDesc": {
+    "message": "Wählen Sie, wie aggressiv TabRest entlädt."
+  },
+  "obNotificationsTitle": {
+    "message": "Bei Auto-Entladen benachrichtigen"
+  },
+  "obNotificationsDesc": {
+    "message": "Systembenachrichtigung anzeigen, wenn TabRest Tabs im Hintergrund entlädt."
+  },
+  "obNotificationsToggle": {
+    "message": "Benachrichtigen, wenn Tabs auto-entladen werden"
+  },
+  "obDoneTitle": {
+    "message": "Alles bereit"
+  },
+  "obDoneSubtitle": {
+    "message": "Ihre Einstellungen wurden gespeichert."
+  },
+  "obPinTitle": {
+    "message": "TabRest an Symbolleiste anheften"
+  },
+  "obPinDesc": {
+    "message": "Klicken Sie auf das Puzzle-Symbol oben rechts im Browser und heften Sie TabRest für schnellen Zugriff an."
+  },
+  "obPinnedTitle": {
+    "message": "Angeheftet!"
+  },
+  "obPinnedDesc": {
+    "message": "Klicken Sie jederzeit auf das TabRest-Symbol, um Ihre Tabs zu verwalten."
+  },
+  "obDoneSummaryDelay": {
+    "message": "Auto-Entladen nach"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "Immer aktiv halten"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 Sites",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "Energiemodus"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "Benachrichtigungen"
+  },
+  "obDoneOpenSettings": {
+    "message": "Alle Einstellungen öffnen"
+  },
+  "obDoneShortcutsHint": {
+    "message": "Tipp: $1 entlädt den aktuellen Tab.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "An"
+  },
+  "obOffState": {
+    "message": "Aus"
+  },
+  "obMinutes": {
+    "message": "$1 Min.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 Std.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  }
+}

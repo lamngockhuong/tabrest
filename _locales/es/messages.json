@@ -1,0 +1,695 @@
+{
+  "extName": {
+    "message": "TabRest - Rest your tabs, free your RAM"
+  },
+  "extDescription": {
+    "message": "Da descanso a tus pestañas, libera tu memoria - descarga automáticamente las pestañas inactivas"
+  },
+  "sleeping": {
+    "message": "en reposo"
+  },
+  "protected": {
+    "message": "protegida"
+  },
+  "saved": {
+    "message": "ahorrado"
+  },
+  "unloadOthers": {
+    "message": "Descargar otras"
+  },
+  "unloadCurrent": {
+    "message": "Descargar actual"
+  },
+  "tabsInWindow": {
+    "message": "Pestañas en esta ventana"
+  },
+  "sessions": {
+    "message": "Sesiones"
+  },
+  "stats": {
+    "message": "Estadísticas"
+  },
+  "quickSettings": {
+    "message": "Configuración rápida"
+  },
+  "moreActions": {
+    "message": "Más acciones"
+  },
+  "autoUnloadAfter": {
+    "message": "Descarga automática tras"
+  },
+  "ramThreshold": {
+    "message": "Umbral de RAM"
+  },
+  "disabled": {
+    "message": "Desactivado"
+  },
+  "sessionNamePlaceholder": {
+    "message": "Nombre de sesión (opcional)"
+  },
+  "save": {
+    "message": "Guardar"
+  },
+  "saveFirstSession": {
+    "message": "Guarda tu primera sesión"
+  },
+  "today": {
+    "message": "Hoy"
+  },
+  "allTime": {
+    "message": "Total"
+  },
+  "tabsUnloadedToday": {
+    "message": "Pestañas descargadas hoy"
+  },
+  "tabsUnloadedTotal": {
+    "message": "Total de pestañas descargadas"
+  },
+  "ramSaved": {
+    "message": "RAM ahorrada (est.)"
+  },
+  "memberSince": {
+    "message": "Miembro desde"
+  },
+  "enjoyingTabRest": {
+    "message": "¿Te gusta TabRest?"
+  },
+  "yes": {
+    "message": "¡Sí!"
+  },
+  "notReally": {
+    "message": "No mucho"
+  },
+  "sessionSaved": {
+    "message": "Sesión guardada"
+  },
+  "sessionDeleted": {
+    "message": "Sesión eliminada"
+  },
+  "tabUnloaded": {
+    "message": "Pestaña descargada"
+  },
+  "tabsUnloaded": {
+    "message": "$1 pestañas descargadas",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "Se restauraron $1 pestañas",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "Actualizado"
+  },
+  "copyTabListTooltip": {
+    "message": "Copiar lista de pestañas al portapapeles"
+  },
+  "tabListCopied": {
+    "message": "Lista de pestañas copiada al portapapeles"
+  },
+  "timerUpdated": {
+    "message": "Temporizador actualizado"
+  },
+  "thresholdUpdated": {
+    "message": "Umbral actualizado"
+  },
+  "cannotUnloadActive": {
+    "message": "No se puede descargar la pestaña activa"
+  },
+  "failedToSave": {
+    "message": "Error al guardar"
+  },
+  "settingsTitle": {
+    "message": "Configuración de TabRest"
+  },
+  "settingsSubtitle": {
+    "message": "Ajusta cómo TabRest gestiona tus pestañas y memoria"
+  },
+  "footerTagline": {
+    "message": "Gestión tranquila de pestañas"
+  },
+  "noDomainsYet": {
+    "message": "Sin dominios aún"
+  },
+  "behaviorProtection": {
+    "message": "Protección"
+  },
+  "behaviorSmart": {
+    "message": "Comportamiento inteligente"
+  },
+  "behaviorIndicators": {
+    "message": "Indicadores y visualización"
+  },
+  "autoUnload": {
+    "message": "Descarga automática"
+  },
+  "unloadOnStartup": {
+    "message": "Descargar pestañas al iniciar el navegador"
+  },
+  "unloadInactiveAfter": {
+    "message": "Descargar pestañas inactivas tras:"
+  },
+  "memoryManagement": {
+    "message": "Gestión de memoria"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "Descargar pestañas cuando la RAM supere:"
+  },
+  "behavior": {
+    "message": "Comportamiento"
+  },
+  "includePinnedTabs": {
+    "message": "Incluir pestañas fijadas"
+  },
+  "showUnloadedCount": {
+    "message": "Mostrar recuento de descargadas en el icono"
+  },
+  "trackStatistics": {
+    "message": "Registrar estadísticas"
+  },
+  "protectAudioTabs": {
+    "message": "Proteger pestañas con audio o vídeo activo"
+  },
+  "protectFormTabs": {
+    "message": "Proteger pestañas con formularios sin guardar"
+  },
+  "whitelist": {
+    "message": "Lista blanca"
+  },
+  "whitelistHelp": {
+    "message": "Sitios que nunca se descargarán automáticamente"
+  },
+  "addPlaceholder": {
+    "message": "example.com"
+  },
+  "add": {
+    "message": "Agregar"
+  },
+  "statistics": {
+    "message": "Estadísticas"
+  },
+  "tabsUnloadedLabel": {
+    "message": "Pestañas descargadas"
+  },
+  "memorySavedLabel": {
+    "message": "Memoria ahorrada"
+  },
+  "resetStatistics": {
+    "message": "Restablecer estadísticas"
+  },
+  "keyboardShortcuts": {
+    "message": "Atajos de teclado"
+  },
+  "shortcutsHelp": {
+    "message": "Configurar en chrome://extensions/shortcuts"
+  },
+  "configureIn": {
+    "message": "Configurar en"
+  },
+  "settingsSaved": {
+    "message": "Configuración guardada"
+  },
+  "domainRemoved": {
+    "message": "Dominio eliminado"
+  },
+  "invalidDomain": {
+    "message": "Ingresa un dominio, dirección IP o 'localhost'"
+  },
+  "domainExists": {
+    "message": "El dominio ya existe"
+  },
+  "domainConflict": {
+    "message": "$1 ya está en $2 - elimínalo de ahí primero",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "domainAdded": {
+    "message": "Dominio agregado"
+  },
+  "statsReset": {
+    "message": "Estadísticas restablecidas"
+  },
+  "unloadRight": {
+    "message": "Descargar pestañas a la derecha"
+  },
+  "unloadLeft": {
+    "message": "Descargar pestañas a la izquierda"
+  },
+  "blacklist": {
+    "message": "Lista negra"
+  },
+  "blacklistHelp": {
+    "message": "Sitios que siempre se descargarán automáticamente (incluso si estuvieron activos recientemente)"
+  },
+  "enableTabGroups": {
+    "message": "Mostrar grupos de pestañas en la ventana emergente"
+  },
+  "tabGroups": {
+    "message": "Grupos de pestañas"
+  },
+  "selectTabGroup": {
+    "message": "Seleccionar grupo de pestañas..."
+  },
+  "unloadGroup": {
+    "message": "Descargar grupo"
+  },
+  "untitledTabGroup": {
+    "message": "Grupo $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "showDiscardedPrefix": {
+    "message": "Agregar símbolo a las pestañas descartadas"
+  },
+  "discardedPrefixLabel": {
+    "message": "Símbolo:"
+  },
+  "prefixHelp": {
+    "message": "Requiere permiso de acceso a sitios web. No funciona en páginas protegidas (Chrome Web Store, cuentas de Google, etc.)"
+  },
+  "prefixPermDenied": {
+    "message": "El prefijo de pestaña requiere permiso de acceso a sitios web. Cambio omitido."
+  },
+  "minTabsLabel": {
+    "message": "Descargar automáticamente solo cuando las pestañas inactivas superen:"
+  },
+  "toolbarAction": {
+    "message": "Acción de la barra de herramientas"
+  },
+  "toolbarClickLabel": {
+    "message": "Al hacer clic en el icono de la extensión:"
+  },
+  "actionOpenPopup": {
+    "message": "Abrir ventana emergente"
+  },
+  "actionDiscardCurrent": {
+    "message": "Descartar pestaña actual"
+  },
+  "actionDiscardOthers": {
+    "message": "Descartar otras pestañas"
+  },
+  "useSidePanel": {
+    "message": "Abrir en panel lateral en vez de ventana emergente"
+  },
+  "useSidePanelHelp": {
+    "message": "El panel lateral permanece abierto al cambiar de pestaña. Requiere Chrome 114+."
+  },
+  "saveYouTubeTimestamp": {
+    "message": "Guardar posición de reproducción de YouTube"
+  },
+  "saveYouTubeHelp": {
+    "message": "Retoma el vídeo desde la posición guardada al recargar la pestaña"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "Descargar automáticamente solo cuando el equipo esté inactivo"
+  },
+  "idleThreshold": {
+    "message": "Umbral de inactividad:"
+  },
+  "perTabMemoryLabel": {
+    "message": "Descargar pestañas que usen más de (JS heap):"
+  },
+  "perTabMemoryHelp": {
+    "message": "Mide solo la memoria de JavaScript, no la memoria total de la pestaña"
+  },
+  "powerMode": {
+    "message": "Modo de energía"
+  },
+  "powerModeHelp": {
+    "message": "Ajusta la agresividad según tu situación de energía"
+  },
+  "batterySaver": {
+    "message": "Ahorro de batería"
+  },
+  "batterySaverDesc": {
+    "message": "Más agresivo, ahorra energía"
+  },
+  "normalMode": {
+    "message": "Normal"
+  },
+  "normalModeDesc": {
+    "message": "Rendimiento equilibrado"
+  },
+  "performanceMode": {
+    "message": "Rendimiento"
+  },
+  "performanceModeDesc": {
+    "message": "Menos agresivo, mantiene las pestañas más tiempo"
+  },
+  "skipWhenOffline": {
+    "message": "Omitir descarga automática sin conexión"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "Evita descartar pestañas cuando la red no está disponible"
+  },
+  "restoreScrollPosition": {
+    "message": "Restaurar posición de desplazamiento"
+  },
+  "restoreScrollHelp": {
+    "message": "Guarda y restaura la posición de desplazamiento cuando las pestañas se descartan y recargan"
+  },
+  "tabSnoozed": {
+    "message": "Pestaña pospuesta"
+  },
+  "domainSnoozed": {
+    "message": "Sitio pospuesto"
+  },
+  "snoozeRemoved": {
+    "message": "Posposición eliminada"
+  },
+  "snoozeTab30": {
+    "message": "Posponer pestaña (30 min)"
+  },
+  "snoozeTab60": {
+    "message": "Posponer pestaña (1 hora)"
+  },
+  "snoozeDomain60": {
+    "message": "Posponer sitio (1 hora)"
+  },
+  "openLinkSuspended": {
+    "message": "Abrir enlace en pestaña suspendida"
+  },
+  "notifyOnAutoUnload": {
+    "message": "Notificar cuando las pestañas se descarguen automáticamente"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "Muestra notificación con el motivo (temporizador/RAM)"
+  },
+  "reportBug": {
+    "message": "Reportar un error"
+  },
+  "describeIssue": {
+    "message": "Describe el problema (opcional):"
+  },
+  "bugDescPlaceholder": {
+    "message": "¿Qué salió mal?"
+  },
+  "debugInfoAttached": {
+    "message": "Se adjuntará información de depuración"
+  },
+  "copyForGithub": {
+    "message": "Copiar y abrir GitHub"
+  },
+  "copiedToClipboard": {
+    "message": "¡Copiado! Pegar en el issue de GitHub."
+  },
+  "supportFeedback": {
+    "message": "Soporte y comentarios"
+  },
+  "enableErrorReporting": {
+    "message": "Enviar informes de error anónimos"
+  },
+  "errorReportingHelp": {
+    "message": "Reporta fallos automáticamente para mejorar TabRest. No se recopilan datos personales."
+  },
+  "reportIssue": {
+    "message": "Reportar un problema"
+  },
+  "askQuestion": {
+    "message": "Hacer una pregunta"
+  },
+  "closeDuplicates": {
+    "message": "Cerrar duplicadas"
+  },
+  "closedNDuplicates": {
+    "message": "Se cerraron $COUNT$ pestaña(s) duplicada(s)",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "No se encontraron pestañas duplicadas"
+  },
+  "searchTabs": {
+    "message": "Buscar pestañas"
+  },
+  "searchPlaceholder": {
+    "message": "Buscar pestañas..."
+  },
+  "ramEstimateTooltip": {
+    "message": "Basado en ~150 MB por pestaña descartada. El ahorro real varía según el contenido de la página."
+  },
+  "formProtectPermDenied": {
+    "message": "La protección de formularios requiere permiso de acceso a sitios web. Cambio omitido."
+  },
+  "formPermBannerText": {
+    "message": "Los permisos del sitio fueron restablecidos. Activar para restaurar las configuraciones afectadas."
+  },
+  "enable": {
+    "message": "Activar"
+  },
+  "formPermGranted": {
+    "message": "Configuración restaurada"
+  },
+  "showSuspendWarningLabel": {
+    "message": "Mostrar advertencia antes de suspender automáticamente"
+  },
+  "showSuspendWarningHelp": {
+    "message": "Muestra un breve aviso en la página para que puedas interactuar con la pestaña y mantenerla activa"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "Retardo de advertencia:"
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest suspenderá esta pestaña para liberar memoria..."
+  },
+  "exportList": {
+    "message": "Exportar"
+  },
+  "importList": {
+    "message": "Importar"
+  },
+  "exportSessions": {
+    "message": "Exportar sesiones"
+  },
+  "importSessions": {
+    "message": "Importar sesiones"
+  },
+  "exportedToClipboard": {
+    "message": "Copiado al portapapeles"
+  },
+  "exportFailed": {
+    "message": "Error al exportar"
+  },
+  "pasteImportJson": {
+    "message": "Pegar el JSON exportado a continuación:"
+  },
+  "importedNAdded": {
+    "message": "Agregado $1, omitido $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "Error al importar: JSON inválido"
+  },
+  "importFailed_invalidShape": {
+    "message": "Error al importar: formato inválido"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "Error al importar: versión no compatible"
+  },
+  "importFailed_wrongType": {
+    "message": "Error al importar: tipo incorrecto para esta lista"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "Privacidad y diagnósticos"
+  },
+  "errorReportingHint": {
+    "message": "Ayuda a mejorar TabRest enviando informes de error anónimos. Desactivado por defecto. No se envían URLs, títulos de página ni datos personales."
+  },
+  "enableErrorReportingLabel": {
+    "message": "Activar informes de error anónimos"
+  },
+  "advancedDsnSummary": {
+    "message": "Avanzado: DSN de Sentry personalizado"
+  },
+  "customDsnHint": {
+    "message": "Dejar vacío para usar el predeterminado. Solo se aceptan DSN HTTPS."
+  },
+  "viewPrivacyPolicy": {
+    "message": "Ver política de privacidad"
+  },
+  "invalidDsnMessage": {
+    "message": "Formato de DSN inválido. Esperado: https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "DSN personalizado guardado"
+  },
+  "errorReportingEnabledToast": {
+    "message": "Informes de error activados"
+  },
+  "errorReportingDisabledToast": {
+    "message": "Informes de error desactivados"
+  },
+  "sendToSentry": {
+    "message": "Enviar a Sentry"
+  },
+  "sentryDisabledHint": {
+    "message": "Activa los informes de error en "
+  },
+  "optionsLink": {
+    "message": "opciones"
+  },
+  "reportSentSuccess": {
+    "message": "Informe enviado. ¡Gracias!"
+  },
+  "reportSentFailed": {
+    "message": "Error al enviar. Prueba copiando para GitHub."
+  },
+  "reportCooldown": {
+    "message": "Espera un minuto antes de enviar otro informe."
+  },
+  "reportDailyCap": {
+    "message": "Límite diario de informes alcanzado. Usa la opción de copia para GitHub."
+  },
+  "optionsRerunOnboarding": {
+    "message": "Ejecutar configuración inicial de nuevo"
+  },
+  "obWizardTitle": {
+    "message": "Configuración de TabRest"
+  },
+  "obSkipAll": {
+    "message": "Omitir todo"
+  },
+  "obBack": {
+    "message": "Atrás"
+  },
+  "obNext": {
+    "message": "Siguiente"
+  },
+  "obSkip": {
+    "message": "Omitir"
+  },
+  "obFinish": {
+    "message": "Finalizar"
+  },
+  "obProgressLabel": {
+    "message": "Paso $1 de $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "Bienvenido a TabRest"
+  },
+  "obWelcomeBody": {
+    "message": "Una configuración rápida adapta TabRest a tu forma de navegar. Puedes cambiar cualquier opción más adelante en Configuración."
+  },
+  "obWelcomeStart": {
+    "message": "Comenzar configuración"
+  },
+  "obAutoUnloadTitle": {
+    "message": "Descargar automáticamente las pestañas inactivas"
+  },
+  "obAutoUnloadDesc": {
+    "message": "Elige cuánto tiempo espera una pestaña inactiva antes de descargarse."
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 minutos"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 hora"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 horas"
+  },
+  "obWhitelistTitle": {
+    "message": "Mantener siempre activos estos sitios"
+  },
+  "obWhitelistDesc": {
+    "message": "Los sitios que marques estarán protegidos de la descarga automática."
+  },
+  "obWhitelistHint": {
+    "message": "Puedes editar esta lista más adelante en Configuración."
+  },
+  "obPowerModeTitle": {
+    "message": "Elige un modo de energía"
+  },
+  "obPowerModeDesc": {
+    "message": "Elige con qué agresividad descarga TabRest."
+  },
+  "obNotificationsTitle": {
+    "message": "Recibe notificaciones al descargar automáticamente"
+  },
+  "obNotificationsDesc": {
+    "message": "Muestra una notificación del sistema cuando TabRest descarga pestañas en segundo plano."
+  },
+  "obNotificationsToggle": {
+    "message": "Notificarme cuando las pestañas se descarguen automáticamente"
+  },
+  "obDoneTitle": {
+    "message": "Todo listo"
+  },
+  "obDoneSubtitle": {
+    "message": "Tu configuración ha sido guardada."
+  },
+  "obPinTitle": {
+    "message": "Fija TabRest en tu barra de herramientas"
+  },
+  "obPinDesc": {
+    "message": "Haz clic en el icono de puzzle en la esquina superior derecha del navegador y luego fija TabRest para acceder con un clic."
+  },
+  "obPinnedTitle": {
+    "message": "¡Fijado!"
+  },
+  "obPinnedDesc": {
+    "message": "Haz clic en el icono de TabRest en cualquier momento para gestionar tus pestañas."
+  },
+  "obDoneSummaryDelay": {
+    "message": "Descarga automática tras"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "Siempre activos"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 sitios",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "Modo de energía"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "Notificaciones"
+  },
+  "obDoneOpenSettings": {
+    "message": "Abrir toda la configuración"
+  },
+  "obDoneShortcutsHint": {
+    "message": "Consejo: $1 descarga la pestaña actual.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "Activado"
+  },
+  "obOffState": {
+    "message": "Desactivado"
+  },
+  "obMinutes": {
+    "message": "$1 min",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 h",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  }
+}

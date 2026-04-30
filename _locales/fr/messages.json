@@ -1,0 +1,695 @@
+{
+  "extName": {
+    "message": "TabRest - Rest your tabs, free your RAM"
+  },
+  "extDescription": {
+    "message": "Reposez vos onglets, libérez votre mémoire - décharger automatiquement les onglets inactifs"
+  },
+  "sleeping": {
+    "message": "en veille"
+  },
+  "protected": {
+    "message": "protégée"
+  },
+  "saved": {
+    "message": "économisé"
+  },
+  "unloadOthers": {
+    "message": "Décharger les autres"
+  },
+  "unloadCurrent": {
+    "message": "Décharger l'actuel"
+  },
+  "tabsInWindow": {
+    "message": "Onglets dans cette fenêtre"
+  },
+  "sessions": {
+    "message": "Sessions"
+  },
+  "stats": {
+    "message": "Statistiques"
+  },
+  "quickSettings": {
+    "message": "Paramètres rapides"
+  },
+  "moreActions": {
+    "message": "Plus d'actions"
+  },
+  "autoUnloadAfter": {
+    "message": "Déchargement auto après"
+  },
+  "ramThreshold": {
+    "message": "Seuil RAM"
+  },
+  "disabled": {
+    "message": "Désactivé"
+  },
+  "sessionNamePlaceholder": {
+    "message": "Nom de la session (facultatif)"
+  },
+  "save": {
+    "message": "Enregistrer"
+  },
+  "saveFirstSession": {
+    "message": "Enregistrez votre première session"
+  },
+  "today": {
+    "message": "Aujourd'hui"
+  },
+  "allTime": {
+    "message": "Total"
+  },
+  "tabsUnloadedToday": {
+    "message": "Onglets déchargés aujourd'hui"
+  },
+  "tabsUnloadedTotal": {
+    "message": "Total des onglets déchargés"
+  },
+  "ramSaved": {
+    "message": "RAM économisée (est.)"
+  },
+  "memberSince": {
+    "message": "Membre depuis"
+  },
+  "enjoyingTabRest": {
+    "message": "Vous appréciez TabRest ?"
+  },
+  "yes": {
+    "message": "Oui !"
+  },
+  "notReally": {
+    "message": "Pas vraiment"
+  },
+  "sessionSaved": {
+    "message": "Session enregistrée"
+  },
+  "sessionDeleted": {
+    "message": "Session supprimée"
+  },
+  "tabUnloaded": {
+    "message": "Onglet déchargé"
+  },
+  "tabsUnloaded": {
+    "message": "$1 onglets déchargés",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoredTabs": {
+    "message": "$1 onglets restaurés",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "refreshed": {
+    "message": "Actualisé"
+  },
+  "copyTabListTooltip": {
+    "message": "Copier la liste des onglets dans le presse-papiers"
+  },
+  "tabListCopied": {
+    "message": "Liste des onglets copiée dans le presse-papiers"
+  },
+  "timerUpdated": {
+    "message": "Minuteur mis à jour"
+  },
+  "thresholdUpdated": {
+    "message": "Seuil mis à jour"
+  },
+  "cannotUnloadActive": {
+    "message": "Impossible de décharger l'onglet actif"
+  },
+  "failedToSave": {
+    "message": "Echec de l'enregistrement"
+  },
+  "settingsTitle": {
+    "message": "Paramètres TabRest"
+  },
+  "settingsSubtitle": {
+    "message": "Configurez la façon dont TabRest gère vos onglets et votre mémoire"
+  },
+  "footerTagline": {
+    "message": "Gestion sereine des onglets"
+  },
+  "noDomainsYet": {
+    "message": "Aucun domaine pour l'instant"
+  },
+  "behaviorProtection": {
+    "message": "Protection"
+  },
+  "behaviorSmart": {
+    "message": "Comportement intelligent"
+  },
+  "behaviorIndicators": {
+    "message": "Indicateurs et affichage"
+  },
+  "autoUnload": {
+    "message": "Déchargement automatique"
+  },
+  "unloadOnStartup": {
+    "message": "Décharger les onglets au démarrage du navigateur"
+  },
+  "unloadInactiveAfter": {
+    "message": "Décharger les onglets inactifs après :"
+  },
+  "memoryManagement": {
+    "message": "Gestion de la mémoire"
+  },
+  "unloadWhenRamExceeds": {
+    "message": "Décharger les onglets quand le RAM dépasse :"
+  },
+  "behavior": {
+    "message": "Comportement"
+  },
+  "includePinnedTabs": {
+    "message": "Inclure les onglets épinglés"
+  },
+  "showUnloadedCount": {
+    "message": "Afficher le nombre d'onglets déchargés sur l'icône"
+  },
+  "trackStatistics": {
+    "message": "Suivre les statistiques"
+  },
+  "protectAudioTabs": {
+    "message": "Protéger les onglets en lecture audio/vidéo"
+  },
+  "protectFormTabs": {
+    "message": "Protéger les onglets avec des formulaires non enregistrés"
+  },
+  "whitelist": {
+    "message": "Liste blanche"
+  },
+  "whitelistHelp": {
+    "message": "Sites qui ne seront jamais déchargés automatiquement"
+  },
+  "addPlaceholder": {
+    "message": "example.com"
+  },
+  "add": {
+    "message": "Ajouter"
+  },
+  "statistics": {
+    "message": "Statistiques"
+  },
+  "tabsUnloadedLabel": {
+    "message": "Onglets déchargés"
+  },
+  "memorySavedLabel": {
+    "message": "Mémoire économisée"
+  },
+  "resetStatistics": {
+    "message": "Réinitialiser les statistiques"
+  },
+  "keyboardShortcuts": {
+    "message": "Raccourcis clavier"
+  },
+  "shortcutsHelp": {
+    "message": "Configurer dans chrome://extensions/shortcuts"
+  },
+  "configureIn": {
+    "message": "Configurer dans"
+  },
+  "settingsSaved": {
+    "message": "Paramètres enregistrés"
+  },
+  "domainRemoved": {
+    "message": "Domaine supprimé"
+  },
+  "invalidDomain": {
+    "message": "Entrez un domaine, une adresse IP ou 'localhost'"
+  },
+  "domainExists": {
+    "message": "Le domaine existe déjà"
+  },
+  "domainConflict": {
+    "message": "$1 est déjà dans $2 - supprimez-le d'abord",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "domainAdded": {
+    "message": "Domaine ajouté"
+  },
+  "statsReset": {
+    "message": "Statistiques réinitialisées"
+  },
+  "unloadRight": {
+    "message": "Décharger les onglets à droite"
+  },
+  "unloadLeft": {
+    "message": "Décharger les onglets à gauche"
+  },
+  "blacklist": {
+    "message": "Liste noire"
+  },
+  "blacklistHelp": {
+    "message": "Sites qui seront toujours déchargés automatiquement (même s'ils ont été actifs récemment)"
+  },
+  "enableTabGroups": {
+    "message": "Afficher les groupes d'onglets dans le popup"
+  },
+  "tabGroups": {
+    "message": "Groupes d'onglets"
+  },
+  "selectTabGroup": {
+    "message": "Sélectionner un groupe d'onglets..."
+  },
+  "unloadGroup": {
+    "message": "Décharger le groupe"
+  },
+  "untitledTabGroup": {
+    "message": "Groupe $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "showDiscardedPrefix": {
+    "message": "Ajouter un symbole aux onglets ignorés"
+  },
+  "discardedPrefixLabel": {
+    "message": "Symbole :"
+  },
+  "prefixHelp": {
+    "message": "Nécessite la permission d'accès aux sites. Ne fonctionne pas sur les pages protégées (Chrome Web Store, comptes Google, etc.)"
+  },
+  "prefixPermDenied": {
+    "message": "Le préfixe d'onglet nécessite la permission d'accès aux sites. Bascule ignorée."
+  },
+  "minTabsLabel": {
+    "message": "Décharger automatiquement uniquement quand les onglets inactifs dépassent :"
+  },
+  "toolbarAction": {
+    "message": "Action de la barre d'outils"
+  },
+  "toolbarClickLabel": {
+    "message": "En cliquant sur l'icône de l'extension :"
+  },
+  "actionOpenPopup": {
+    "message": "Ouvrir le popup"
+  },
+  "actionDiscardCurrent": {
+    "message": "Ignorer l'onglet actuel"
+  },
+  "actionDiscardOthers": {
+    "message": "Ignorer les autres onglets"
+  },
+  "useSidePanel": {
+    "message": "Ouvrir dans le panneau latéral plutôt que dans le popup"
+  },
+  "useSidePanelHelp": {
+    "message": "Le panneau latéral reste ouvert lors du changement d'onglet. Nécessite Chrome 114+."
+  },
+  "saveYouTubeTimestamp": {
+    "message": "Enregistrer la position de lecture YouTube"
+  },
+  "saveYouTubeHelp": {
+    "message": "Reprendre les vidéos depuis la position enregistrée lors du rechargement de l'onglet"
+  },
+  "onlyDiscardWhenIdle": {
+    "message": "Décharger automatiquement uniquement quand l'ordinateur est inactif"
+  },
+  "idleThreshold": {
+    "message": "Seuil d'inactivité :"
+  },
+  "perTabMemoryLabel": {
+    "message": "Décharger les onglets utilisant plus de (JS heap) :"
+  },
+  "perTabMemoryHelp": {
+    "message": "Mesure uniquement la mémoire JavaScript, pas la mémoire totale de l'onglet"
+  },
+  "powerMode": {
+    "message": "Mode d'alimentation"
+  },
+  "powerModeHelp": {
+    "message": "Ajustez l'agressivité selon votre situation d'alimentation"
+  },
+  "batterySaver": {
+    "message": "Économiseur de batterie"
+  },
+  "batterySaverDesc": {
+    "message": "Plus agressif, économise l'énergie"
+  },
+  "normalMode": {
+    "message": "Normal"
+  },
+  "normalModeDesc": {
+    "message": "Performances équilibrées"
+  },
+  "performanceMode": {
+    "message": "Performance"
+  },
+  "performanceModeDesc": {
+    "message": "Moins agressif, conserve les onglets plus longtemps"
+  },
+  "skipWhenOffline": {
+    "message": "Ignorer le déchargement automatique hors ligne"
+  },
+  "skipWhenOfflineHelp": {
+    "message": "Empêche les onglets d'être ignorés quand le réseau est indisponible"
+  },
+  "restoreScrollPosition": {
+    "message": "Restaurer la position de défilement"
+  },
+  "restoreScrollHelp": {
+    "message": "Enregistre et restaure la position de défilement quand les onglets sont ignorés et rechargés"
+  },
+  "tabSnoozed": {
+    "message": "Onglet reporté"
+  },
+  "domainSnoozed": {
+    "message": "Site reporté"
+  },
+  "snoozeRemoved": {
+    "message": "Report annulé"
+  },
+  "snoozeTab30": {
+    "message": "Reporter l'onglet (30 min)"
+  },
+  "snoozeTab60": {
+    "message": "Reporter l'onglet (1 heure)"
+  },
+  "snoozeDomain60": {
+    "message": "Reporter le site (1 heure)"
+  },
+  "openLinkSuspended": {
+    "message": "Ouvrir le lien dans un onglet suspendu"
+  },
+  "notifyOnAutoUnload": {
+    "message": "Notifier lors du déchargement automatique des onglets"
+  },
+  "notifyOnAutoUnloadHelp": {
+    "message": "Affiche une notification avec la raison (minuteur/RAM)"
+  },
+  "reportBug": {
+    "message": "Signaler un bug"
+  },
+  "describeIssue": {
+    "message": "Décrivez le problème (facultatif) :"
+  },
+  "bugDescPlaceholder": {
+    "message": "Qu'est-ce qui s'est mal passé ?"
+  },
+  "debugInfoAttached": {
+    "message": "Les informations de débogage seront jointes"
+  },
+  "copyForGithub": {
+    "message": "Copier et ouvrir GitHub"
+  },
+  "copiedToClipboard": {
+    "message": "Copié ! Collez dans une issue GitHub."
+  },
+  "supportFeedback": {
+    "message": "Support et commentaires"
+  },
+  "enableErrorReporting": {
+    "message": "Envoyer des rapports d'erreur anonymes"
+  },
+  "errorReportingHelp": {
+    "message": "Signale automatiquement les plantages pour améliorer TabRest. Aucune donnée personnelle collectée."
+  },
+  "reportIssue": {
+    "message": "Signaler un problème"
+  },
+  "askQuestion": {
+    "message": "Poser une question"
+  },
+  "closeDuplicates": {
+    "message": "Fermer les doublons"
+  },
+  "closedNDuplicates": {
+    "message": "Fermé $COUNT$ onglet(s) en doublon",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noDuplicatesFound": {
+    "message": "Aucun onglet en doublon trouvé"
+  },
+  "searchTabs": {
+    "message": "Rechercher des onglets"
+  },
+  "searchPlaceholder": {
+    "message": "Rechercher des onglets..."
+  },
+  "ramEstimateTooltip": {
+    "message": "Basé sur ~150 Mo par onglet ignoré. Les économies réelles varient selon le contenu de la page."
+  },
+  "formProtectPermDenied": {
+    "message": "La protection des formulaires nécessite la permission d'accès aux sites. Bascule ignorée."
+  },
+  "formPermBannerText": {
+    "message": "Les permissions du site ont été réinitialisées. Activez pour restaurer les paramètres concernés."
+  },
+  "enable": {
+    "message": "Activer"
+  },
+  "formPermGranted": {
+    "message": "Paramètres restaurés"
+  },
+  "showSuspendWarningLabel": {
+    "message": "Afficher un avertissement avant la suspension automatique"
+  },
+  "showSuspendWarningHelp": {
+    "message": "Affiche un bref toast sur la page pour vous permettre d'interagir avec l'onglet et le maintenir actif"
+  },
+  "suspendWarningDelayLabel": {
+    "message": "Délai d'avertissement :"
+  },
+  "suspendWarningMessage": {
+    "message": "TabRest va suspendre cet onglet pour libérer de la mémoire..."
+  },
+  "exportList": {
+    "message": "Exporter"
+  },
+  "importList": {
+    "message": "Importer"
+  },
+  "exportSessions": {
+    "message": "Exporter les sessions"
+  },
+  "importSessions": {
+    "message": "Importer des sessions"
+  },
+  "exportedToClipboard": {
+    "message": "Copié dans le presse-papiers"
+  },
+  "exportFailed": {
+    "message": "Echec de l'exportation"
+  },
+  "pasteImportJson": {
+    "message": "Collez le JSON exporté ci-dessous :"
+  },
+  "importedNAdded": {
+    "message": "Ajouté $1, ignoré $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "importFailed_invalidJson": {
+    "message": "Importation échouée : JSON invalide"
+  },
+  "importFailed_invalidShape": {
+    "message": "Importation échouée : format invalide"
+  },
+  "importFailed_unsupportedVersion": {
+    "message": "Importation échouée : version non prise en charge"
+  },
+  "importFailed_wrongType": {
+    "message": "Importation échouée : type incorrect pour cette liste"
+  },
+  "privacyDiagnosticsHeader": {
+    "message": "Confidentialité et diagnostics"
+  },
+  "errorReportingHint": {
+    "message": "Aidez à améliorer TabRest en envoyant des rapports d'erreur anonymes. Désactivé par défaut. Aucune URL, titre de page ou donnée personnelle n'est envoyé."
+  },
+  "enableErrorReportingLabel": {
+    "message": "Activer les rapports d'erreur anonymes"
+  },
+  "advancedDsnSummary": {
+    "message": "Avancé : DSN Sentry personnalisé"
+  },
+  "customDsnHint": {
+    "message": "Laissez vide pour utiliser la valeur par défaut. Seuls les DSN HTTPS sont acceptés."
+  },
+  "viewPrivacyPolicy": {
+    "message": "Voir la politique de confidentialité"
+  },
+  "invalidDsnMessage": {
+    "message": "Format DSN invalide. Attendu : https://KEY@HOST/PROJECT_ID"
+  },
+  "dsnSavedMessage": {
+    "message": "DSN personnalisé enregistré"
+  },
+  "errorReportingEnabledToast": {
+    "message": "Rapports d'erreur activés"
+  },
+  "errorReportingDisabledToast": {
+    "message": "Rapports d'erreur désactivés"
+  },
+  "sendToSentry": {
+    "message": "Envoyer à Sentry"
+  },
+  "sentryDisabledHint": {
+    "message": "Activez les rapports d'erreur dans "
+  },
+  "optionsLink": {
+    "message": "les paramètres"
+  },
+  "reportSentSuccess": {
+    "message": "Rapport envoyé. Merci !"
+  },
+  "reportSentFailed": {
+    "message": "Echec de l'envoi. Essayez la copie GitHub à la place."
+  },
+  "reportCooldown": {
+    "message": "Veuillez attendre une minute avant d'envoyer un autre rapport."
+  },
+  "reportDailyCap": {
+    "message": "Limite quotidienne de rapports atteinte. Utilisez la copie GitHub à la place."
+  },
+  "optionsRerunOnboarding": {
+    "message": "Relancer la configuration"
+  },
+  "obWizardTitle": {
+    "message": "Configuration TabRest"
+  },
+  "obSkipAll": {
+    "message": "Tout ignorer"
+  },
+  "obBack": {
+    "message": "Retour"
+  },
+  "obNext": {
+    "message": "Suivant"
+  },
+  "obSkip": {
+    "message": "Ignorer"
+  },
+  "obFinish": {
+    "message": "Terminer"
+  },
+  "obProgressLabel": {
+    "message": "Etape $1 sur $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "obWelcomeTitle": {
+    "message": "Bienvenue dans TabRest"
+  },
+  "obWelcomeBody": {
+    "message": "Une configuration rapide adapte TabRest à votre façon de naviguer. Vous pouvez tout modifier ultérieurement dans les paramètres."
+  },
+  "obWelcomeStart": {
+    "message": "Commençons"
+  },
+  "obAutoUnloadTitle": {
+    "message": "Décharger automatiquement les onglets inactifs"
+  },
+  "obAutoUnloadDesc": {
+    "message": "Choisissez combien de temps un onglet inactif attend avant d'être déchargé."
+  },
+  "obAutoUnloadOpt30": {
+    "message": "30 minutes"
+  },
+  "obAutoUnloadOpt60": {
+    "message": "1 heure"
+  },
+  "obAutoUnloadOpt120": {
+    "message": "2 heures"
+  },
+  "obWhitelistTitle": {
+    "message": "Toujours garder ces sites actifs"
+  },
+  "obWhitelistDesc": {
+    "message": "Les sites que vous cochez sont protégés contre le déchargement automatique."
+  },
+  "obWhitelistHint": {
+    "message": "Vous pouvez modifier cette liste ultérieurement dans les paramètres."
+  },
+  "obPowerModeTitle": {
+    "message": "Choisissez un mode d'alimentation"
+  },
+  "obPowerModeDesc": {
+    "message": "Choisissez l'agressivité avec laquelle TabRest décharge les onglets."
+  },
+  "obNotificationsTitle": {
+    "message": "Recevoir une notification lors du déchargement automatique"
+  },
+  "obNotificationsDesc": {
+    "message": "Afficher une notification système quand TabRest décharge des onglets en arrière-plan."
+  },
+  "obNotificationsToggle": {
+    "message": "Me notifier quand les onglets sont déchargés automatiquement"
+  },
+  "obDoneTitle": {
+    "message": "Vous êtes prêt"
+  },
+  "obDoneSubtitle": {
+    "message": "Vos paramètres ont été enregistrés."
+  },
+  "obPinTitle": {
+    "message": "Épinglez TabRest à votre barre d'outils"
+  },
+  "obPinDesc": {
+    "message": "Cliquez sur l'icône puzzle en haut à droite de votre navigateur, puis épinglez TabRest pour un accès en un clic."
+  },
+  "obPinnedTitle": {
+    "message": "Épinglé !"
+  },
+  "obPinnedDesc": {
+    "message": "Cliquez sur l'icône TabRest à tout moment pour gérer vos onglets."
+  },
+  "obDoneSummaryDelay": {
+    "message": "Déchargement auto après"
+  },
+  "obDoneSummaryWhitelist": {
+    "message": "Toujours garder actif"
+  },
+  "obDoneSummaryWhitelistN": {
+    "message": "$1 sites",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obDoneSummaryPowerMode": {
+    "message": "Mode d'alimentation"
+  },
+  "obDoneSummaryNotifs": {
+    "message": "Notifications"
+  },
+  "obDoneOpenSettings": {
+    "message": "Ouvrir tous les paramètres"
+  },
+  "obDoneShortcutsHint": {
+    "message": "Astuce : $1 décharge l'onglet actuel.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obOnState": {
+    "message": "Activé"
+  },
+  "obOffState": {
+    "message": "Désactivé"
+  },
+  "obMinutes": {
+    "message": "$1 min",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "obHours": {
+    "message": "$1 h",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  }
+}
