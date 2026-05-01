@@ -124,4 +124,4 @@ Chrome ships its own tab discarding system (Memory Saver, `chrome://settings/per
 | Keep Chrome Memory Saver on AND duplicate critical domains into Chrome's "Always keep these sites active" list | Two systems running; user must maintain two lists                   |
 | Keep Chrome Memory Saver on without duplicating                                                                | Whitelist/snooze appear "broken" for tabs Chrome decides to discard |
 
-This is a Chrome platform constraint, not a TabRest limitation. See `plans/260430-1208-memory-saver-coexistence/plan.md` for a planned conflict-detection feature that surfaces this situation in the UI.
+This is a Chrome platform constraint, not a TabRest limitation.

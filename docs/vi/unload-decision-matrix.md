@@ -124,4 +124,4 @@ Chrome có sẵn cơ chế discard tab riêng (Memory Saver, `chrome://settings/
 | Giữ Chrome Memory Saver bật VÀ duplicate các domain quan trọng vào danh sách "Always keep these sites active" của Chrome | Hai hệ thống cùng chạy; user phải duy trì hai danh sách              |
 | Giữ Chrome Memory Saver bật mà không duplicate                                                                           | Whitelist/snooze trông như "hỏng" với những tab Chrome quyết discard |
 
-Đây là giới hạn của nền tảng Chrome, không phải giới hạn của TabRest. Xem `plans/260430-1208-memory-saver-coexistence/plan.md` cho feature phát hiện conflict đã được lên kế hoạch để hiển thị tình huống này trong UI.
+Đây là giới hạn của nền tảng Chrome, không phải giới hạn của TabRest.
