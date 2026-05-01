@@ -178,6 +178,12 @@
   "whitelistHelp": {
     "message": "Các trang sẽ không bao giờ bị dỡ tự động"
   },
+  "memorySaverNoteBody": {
+    "message": "Tính năng Memory Saver tích hợp của Chrome chạy độc lập và vẫn có thể dỡ các trang này."
+  },
+  "learnMoreLink": {
+    "message": "Tìm hiểu thêm"
+  },
   "addPlaceholder": {
     "message": "example.com"
   },

@@ -182,6 +182,12 @@
   "whitelistHelp": {
     "message": "自動アンロードの対象にならないサイト"
   },
+  "memorySaverNoteBody": {
+    "message": "Chrome の組み込みメモリ セーバーは独立して動作し、これらのサイトをアンロードすることがあります。"
+  },
+  "learnMoreLink": {
+    "message": "詳細"
+  },
   "addPlaceholder": {
     "message": "example.com"
   },

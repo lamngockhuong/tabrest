@@ -182,6 +182,12 @@
   "whitelistHelp": {
     "message": "Sites, die nie automatisch entladen werden"
   },
+  "memorySaverNoteBody": {
+    "message": "Chromes integrierter Speichersparmodus läuft separat und kann diese Sites trotzdem entladen."
+  },
+  "learnMoreLink": {
+    "message": "Mehr erfahren"
+  },
   "addPlaceholder": {
     "message": "example.com"
   },

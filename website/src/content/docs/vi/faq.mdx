@@ -269,6 +269,32 @@ TabRest nên hoạt động cùng các tiện ích quản lý tab khác, nhưng:
 
 **Khuyến nghị**: Dùng một tiện ích quản lý tab tại một thời điểm.
 
+### TabRest tương tác thế nào với Memory Saver có sẵn của Chrome?
+
+Từ Chrome 108, Chrome có sẵn **Memory Saver** tại `chrome://settings/performance`, tự động giải phóng tab không hoạt động ở cấp trình duyệt. TabRest và Memory Saver chạy độc lập:
+
+- **Memory Saver không tham khảo TabRest**. Không có Chrome Extension API nào cho phép loại trừ một tab khỏi Memory Saver.
+- **Danh sách trắng và snooze của TabRest chỉ áp dụng cho cơ chế giải phóng của TabRest**. Chúng không ngăn được Chrome tự giải phóng cùng tab đó.
+
+**Nếu bật cả hai**, một tab trong danh sách trắng vẫn có thể bị Chrome giải phóng. Để tránh điều này, hãy chọn một trong hai cách:
+
+1. Tắt Chrome Memory Saver và để TabRest quản lý hoàn toàn (khuyến nghị cho người dùng muốn kiểm soát chi tiết), hoặc
+2. Giữ cả hai bật, đồng thời thêm các domain quan trọng vào danh sách **Always keep these sites active** của Chrome tại `chrome://settings/performance`
+
+Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config#cùng-tồn-tại-với-chrome-memory-saver) để biết chi tiết.
+
+### Tại sao tab trong danh sách trắng vẫn bị giải phóng?
+
+Nguyên nhân phổ biến nhất là Chrome Memory Saver chạy song song với TabRest. Danh sách trắng của TabRest không ảnh hưởng tới Memory Saver của Chrome. Xem câu hỏi phía trên để biết cách khắc phục.
+
+Các nguyên nhân khác có thể có:
+
+- Định dạng domain sai (dùng `example.com`, không phải `https://example.com/path`)
+- Đang bật chế độ blacklist (danh sách trắng trở thành danh sách giải phóng)
+- Có tiện ích quản lý tab khác cũng được cài đặt
+
+Xem [Xử lý sự cố -> Danh sách trắng không hoạt động](/vi/docs/troubleshooting#danh-sách-trắng-không-hoạt-động) để biết các bước chẩn đoán đầy đủ.
+
 ## Xử lý sự cố
 
 ### Tại sao một số tab tải lại ngay sau khi giải phóng?

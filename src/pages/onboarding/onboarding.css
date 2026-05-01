@@ -527,6 +527,33 @@
   color: var(--text-muted);
 }
 
+.ob-info-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  padding: 10px 12px;
+  background: var(--card-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 0;
+}
+
+.ob-info-note a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ob-info-note a:hover {
+  text-decoration: underline;
+}
+
+.ob-info-note a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 @media (max-width: 480px) {
   .ob-radio-grid,
   .ob-checkbox-grid {

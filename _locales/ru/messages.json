@@ -182,6 +182,12 @@
   "whitelistHelp": {
     "message": "Сайты, которые никогда не выгружаются автоматически"
   },
+  "memorySaverNoteBody": {
+    "message": "Встроенная экономия памяти Chrome работает отдельно и может выгружать эти сайты."
+  },
+  "learnMoreLink": {
+    "message": "Подробнее"
+  },
   "addPlaceholder": {
     "message": "example.com"
   },

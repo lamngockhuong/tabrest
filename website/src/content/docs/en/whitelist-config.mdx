@@ -240,6 +240,45 @@ TabRest currently does **not** support wildcards (e.g., `*.google.com`). Add eac
 ❌ Not supported: *.google.com
 ```
 
+## Coexistence with Chrome Memory Saver
+
+Since Chrome 108, Chrome ships its own tab discarding feature called **Memory Saver** (at `chrome://settings/performance`). It runs at the browser level and does **not** consult any extension, including TabRest.
+
+### What this means
+
+TabRest's whitelist tells **TabRest** not to unload a domain. It does **not** tell **Chrome** to keep the tab loaded. If Chrome Memory Saver is enabled and decides a tab has been inactive long enough, it will discard the tab even when the domain is on TabRest's whitelist.
+
+This is a Chrome platform constraint. No extension API exists to opt a tab out of Memory Saver.
+
+### Symptoms of this situation
+
+- Domain is in your TabRest whitelist
+- Tab still gets unloaded automatically
+- Discard happened without TabRest's suspend warning toast (because TabRest didn't do it)
+
+### How to fully protect a tab
+
+Pick **one** of:
+
+**Option A (recommended): turn off Chrome Memory Saver**
+
+1. Open `chrome://settings/performance`
+2. Toggle **Memory Saver** off
+3. TabRest now has full control; your whitelist behaves as expected
+
+**Option B: maintain a second list inside Chrome**
+
+1. Open `chrome://settings/performance`
+2. Under **Always keep these sites active**, add the same domains you have in TabRest's whitelist
+3. Both systems will skip those tabs
+
+**Naturally protected tabs** (work in both systems without configuration):
+
+- Tab playing audio or video
+- Tab using camera or microphone
+- Tab with unsaved form input
+- Pinned tab
+
 ## Privacy
 
 Whitelist entries are:

@@ -241,6 +241,14 @@
     "message": "Sites that will never be unloaded automatically",
     "description": "Options help text"
   },
+  "memorySaverNoteBody": {
+    "message": "Chrome's built-in Memory Saver runs separately and may still unload these sites.",
+    "description": "Info note body shown next to whitelist surfaces (onboarding step and options page) explaining that Chrome's Memory Saver is independent of TabRest."
+  },
+  "learnMoreLink": {
+    "message": "Learn more",
+    "description": "Generic link label that opens the relevant docs page in a new tab."
+  },
   "addPlaceholder": {
     "message": "example.com",
     "description": "Input placeholder"

@@ -182,6 +182,12 @@
   "whitelistHelp": {
     "message": "Sitios que nunca se descargarán automáticamente"
   },
+  "memorySaverNoteBody": {
+    "message": "El Ahorro de memoria integrado de Chrome funciona por separado y aún puede descargar estos sitios."
+  },
+  "learnMoreLink": {
+    "message": "Más información"
+  },
   "addPlaceholder": {
     "message": "example.com"
   },

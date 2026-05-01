@@ -105,3 +105,23 @@ Trigger đến (Timer/Memory/Heap/Blacklist)
 | Battery Saver | 0.5x (tích cực hơn)    | -10% (ngưỡng thấp hơn) |
 | Normal        | 1.0x                   | 0%                     |
 | Performance   | 2.0x (ít tích cực hơn) | +10% (ngưỡng cao hơn)  |
+
+## Cùng Tồn Tại Với Chrome Memory Saver
+
+Chrome có sẵn cơ chế discard tab riêng (Memory Saver, `chrome://settings/performance`, từ Chrome 108). Cơ chế này chạy ở tầng trình duyệt và **không** tham khảo bất kỳ extension nào, kể cả TabRest.
+
+### Điều này nghĩa là gì trong thực tế
+
+- Whitelist và snooze là cờ của TabRest lưu trong `chrome.storage`. Chúng ngăn **TabRest** discard một tab. Chúng **không** ngăn được **Chrome Memory Saver** discard cùng tab đó.
+- Chrome Memory Saver chỉ tôn trọng các điều kiện riêng của nó: tab đang phát audio, đang dùng camera/mic, có form chưa lưu, đã pin, hoặc nằm trong danh sách "Always keep these sites active" của Chrome.
+- Không có Chrome Extension API nào cho phép loại trừ một tab khỏi Memory Saver.
+
+### Các thiết lập khuyến nghị cho user
+
+| Thiết lập                                                                                                                | Đánh đổi                                                             |
+| ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| Tắt Chrome Memory Saver, chỉ dùng TabRest                                                                                | Hành vi sạch nhất; toàn quyền kiểm soát qua cài đặt TabRest          |
+| Giữ Chrome Memory Saver bật VÀ duplicate các domain quan trọng vào danh sách "Always keep these sites active" của Chrome | Hai hệ thống cùng chạy; user phải duy trì hai danh sách              |
+| Giữ Chrome Memory Saver bật mà không duplicate                                                                           | Whitelist/snooze trông như "hỏng" với những tab Chrome quyết discard |
+
+Đây là giới hạn của nền tảng Chrome, không phải giới hạn của TabRest. Xem `plans/260430-1208-memory-saver-coexistence/plan.md` cho feature phát hiện conflict đã được lên kế hoạch để hiển thị tình huống này trong UI.

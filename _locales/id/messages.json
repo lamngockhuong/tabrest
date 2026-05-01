@@ -182,6 +182,12 @@
   "whitelistHelp": {
     "message": "Situs yang tidak akan pernah dibongkar secara otomatis"
   },
+  "memorySaverNoteBody": {
+    "message": "Penghemat Memori bawaan Chrome berjalan terpisah dan masih dapat membongkar situs ini."
+  },
+  "learnMoreLink": {
+    "message": "Pelajari lebih lanjut"
+  },
   "addPlaceholder": {
     "message": "example.com"
   },

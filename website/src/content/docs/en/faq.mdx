@@ -281,6 +281,32 @@ TabRest should work alongside other tab management extensions, but:
 
 **Recommendation**: Use one tab management extension at a time.
 
+### How does TabRest interact with Chrome's built-in Memory Saver?
+
+Chrome 108+ ships **Memory Saver** at `chrome://settings/performance`, which discards inactive tabs at the browser level. TabRest and Memory Saver run independently:
+
+- **Memory Saver does not consult TabRest**. There is no Chrome extension API to opt a tab out of Memory Saver.
+- **TabRest's whitelist and snooze only apply to TabRest's own unload pipeline**. They do not prevent Chrome from discarding the same tab.
+
+**If both are enabled**, a whitelisted tab can still be discarded by Chrome. To prevent this, either:
+
+1. Turn off Chrome Memory Saver and let TabRest manage everything (recommended for users who want fine-grained control), or
+2. Keep both on and also add critical domains to Chrome's **Always keep these sites active** list at `chrome://settings/performance`
+
+See [Whitelist Configuration](/docs/whitelist-config#coexistence-with-chrome-memory-saver) for details.
+
+### Why is my whitelisted tab still being unloaded?
+
+The most common cause is Chrome Memory Saver running in parallel with TabRest. TabRest's whitelist does not affect Chrome's Memory Saver. See the question above for the fix.
+
+Other possible causes:
+
+- The domain format is wrong (use `example.com`, not `https://example.com/path`)
+- Blacklist mode is enabled (whitelist becomes the unload list)
+- Another tab management extension is also installed
+
+See [Troubleshooting -> Whitelist Not Working](/docs/troubleshooting#whitelist-not-working) for full diagnosis steps.
+
 ## Troubleshooting
 
 ### Why do some tabs reload immediately after unloading?
