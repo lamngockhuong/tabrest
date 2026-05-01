@@ -233,6 +233,25 @@ Khớp domain không phân biệt chữ hoa/thường:
 
 **Giải pháp**: Dùng chữ thường để nhất quán.
 
+### Chrome Memory Saver đang bật song song
+
+**Đây là nguyên nhân phổ biến nhất khi danh sách trắng có vẻ không hoạt động trên Chrome 108+.**
+
+Chrome có sẵn tính năng giải phóng tab (`chrome://settings/performance` -> Memory Saver). Tính năng này chạy ở tầng trình duyệt và bỏ qua trạng thái của extension. Nếu Memory Saver đang bật, nó có thể giải phóng một tab dù domain nằm trong danh sách trắng của TabRest, vì Memory Saver không bao giờ hỏi TabRest.
+
+**Cách xác nhận đây là nguyên nhân**:
+
+1. Tab bị giải phóng mà không thấy toast cảnh báo của TabRest hiện trước
+2. Tab vẫn bị giải phóng ngay cả khi TabRest đang tạm dừng hoặc tắt
+3. Bạn thấy Memory Saver đang được bật tại `chrome://settings/performance`
+
+**Giải pháp (chọn một)**:
+
+- **Cách A**: Mở `chrome://settings/performance` và tắt Memory Saver. TabRest sẽ có toàn quyền kiểm soát.
+- **Cách B**: Giữ Memory Saver bật, đồng thời thêm domain vào danh sách **Always keep these sites active** của Chrome tại `chrome://settings/performance`. Bạn sẽ phải tự đồng bộ giữa danh sách trắng của TabRest và danh sách của Chrome.
+
+Xem [Cấu hình danh sách trắng -> Cùng tồn tại với Chrome Memory Saver](/vi/docs/whitelist-config#cùng-tồn-tại-với-chrome-memory-saver) để biết giải thích đầy đủ.
+
 ## Bảo vệ form không hoạt động
 
 **Vấn đề**: Tab có form chưa lưu bị giải phóng.

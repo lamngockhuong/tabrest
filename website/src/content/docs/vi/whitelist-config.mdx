@@ -249,6 +249,45 @@ TabRest hiện **không** hỗ trợ wildcard (vd: `*.google.com`). Thêm từng
 ❌ Không hỗ trợ: *.google.com
 ```
 
+## Cùng tồn tại với Chrome Memory Saver
+
+Từ Chrome 108, Chrome có sẵn tính năng giải phóng tab gọi là **Memory Saver** (tại `chrome://settings/performance`). Tính năng này chạy ở tầng trình duyệt và **không** tham khảo bất kỳ extension nào, bao gồm cả TabRest.
+
+### Điều này nghĩa là gì
+
+Danh sách trắng của TabRest yêu cầu **TabRest** không giải phóng một domain. Nó **không** yêu cầu **Chrome** giữ tab được tải. Nếu Chrome Memory Saver đang bật và quyết định một tab đã không hoạt động đủ lâu, Chrome sẽ giải phóng tab đó dù domain nằm trong danh sách trắng của TabRest.
+
+Đây là giới hạn của nền tảng Chrome. Không có Extension API nào cho phép loại trừ một tab khỏi Memory Saver.
+
+### Dấu hiệu nhận biết
+
+- Domain đã có trong danh sách trắng của TabRest
+- Tab vẫn bị giải phóng tự động
+- Tab bị giải phóng mà không thấy toast cảnh báo của TabRest (vì TabRest không phải bên giải phóng)
+
+### Cách bảo vệ tab hoàn toàn
+
+Chọn **một** trong các cách sau:
+
+**Cách A (khuyến nghị): tắt Chrome Memory Saver**
+
+1. Mở `chrome://settings/performance`
+2. Tắt **Memory Saver**
+3. TabRest sẽ có toàn quyền kiểm soát; danh sách trắng hoạt động đúng như mong đợi
+
+**Cách B: duy trì danh sách thứ hai trong Chrome**
+
+1. Mở `chrome://settings/performance`
+2. Trong mục **Always keep these sites active** (Luôn giữ các trang này hoạt động), thêm cùng các domain bạn đã có trong danh sách trắng của TabRest
+3. Cả hai hệ thống sẽ bỏ qua các tab đó
+
+**Tab được bảo vệ tự nhiên** (hoạt động ở cả hai hệ thống mà không cần cấu hình):
+
+- Tab đang phát audio hoặc video
+- Tab đang dùng camera hoặc microphone
+- Tab có form chưa lưu
+- Tab đã pin
+
 ## Quyền riêng tư
 
 Các mục danh sách trắng:

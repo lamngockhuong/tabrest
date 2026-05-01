@@ -46,3 +46,15 @@ export function localizeHtml() {
 export function getUILanguage() {
   return chrome.i18n.getUILanguage();
 }
+
+const DOCS_BASE = "https://tabrest.ohnice.app";
+
+// Anchors are slugified headings in website/src/content/docs/{en,vi}/whitelist-config.mdx.
+// Vietnamese diacritics are stripped by Astro's slugger.
+export function getMemorySaverDocsUrl() {
+  const lang = getUILanguage().toLowerCase();
+  if (lang.startsWith("vi")) {
+    return `${DOCS_BASE}/vi/docs/whitelist-config#cung-ton-tai-voi-chrome-memory-saver`;
+  }
+  return `${DOCS_BASE}/docs/whitelist-config#coexistence-with-chrome-memory-saver`;
+}

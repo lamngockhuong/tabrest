@@ -105,3 +105,23 @@ Trigger arrives (Timer/Memory/Heap/Blacklist)
 | Battery Saver | 0.5x (more aggressive) | -10% (lower threshold)  |
 | Normal        | 1.0x                   | 0%                      |
 | Performance   | 2.0x (less aggressive) | +10% (higher threshold) |
+
+## Coexistence with Chrome Memory Saver
+
+Chrome ships its own tab discarding system (Memory Saver, `chrome://settings/performance`, since Chrome 108). This runs at the browser level and does **not** consult any extension, TabRest included.
+
+### What this means in practice
+
+- Whitelist and snooze are TabRest flags stored in `chrome.storage`. They prevent **TabRest** from discarding a tab. They do **not** prevent **Chrome Memory Saver** from discarding the same tab.
+- Chrome Memory Saver respects its own conditions only: tabs playing audio, using camera/mic, with unsaved form input, pinned, or under "Always keep these sites active" in Chrome's own list.
+- No Chrome Extension API allows opting a tab out of Memory Saver.
+
+### Recommended user setups
+
+| Setup                                                                                                          | Tradeoff                                                            |
+| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Disable Chrome Memory Saver, use TabRest only                                                                  | Cleanest behavior; full control via TabRest settings                |
+| Keep Chrome Memory Saver on AND duplicate critical domains into Chrome's "Always keep these sites active" list | Two systems running; user must maintain two lists                   |
+| Keep Chrome Memory Saver on without duplicating                                                                | Whitelist/snooze appear "broken" for tabs Chrome decides to discard |
+
+This is a Chrome platform constraint, not a TabRest limitation.

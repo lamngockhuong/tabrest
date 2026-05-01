@@ -1,6 +1,6 @@
 import { SETTINGS_DEFAULTS } from "../shared/constants.js";
 import { isValidDsn } from "../shared/error-reporter.js";
-import { localizeHtml, t } from "../shared/i18n.js";
+import { getMemorySaverDocsUrl, localizeHtml, t } from "../shared/i18n.js";
 import { injectIcons } from "../shared/icons.js";
 import { exportPayload, parseImport } from "../shared/import-export.js";
 import {
@@ -76,6 +76,11 @@ async function init() {
   onThemeChange((theme) => updateThemeIcon(elements.themeIcon, elements.themeToggle, theme));
   localizeHtml();
   injectIcons();
+
+  const memorySaverDocsLink = document.getElementById("memory-saver-docs-link");
+  if (memorySaverDocsLink) {
+    memorySaverDocsLink.href = getMemorySaverDocsUrl();
+  }
 
   await loadSettings();
   await loadStats();

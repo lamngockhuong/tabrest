@@ -182,6 +182,12 @@
   "whitelistHelp": {
     "message": "Sites que nunca serão descarregados automaticamente"
   },
+  "memorySaverNoteBody": {
+    "message": "O Economizador de memória integrado do Chrome é executado separadamente e ainda pode descarregar esses sites."
+  },
+  "learnMoreLink": {
+    "message": "Saiba mais"
+  },
   "addPlaceholder": {
     "message": "exemplo.com"
   },

@@ -3,7 +3,7 @@ import {
   POWER_MODE_NAME_KEY,
   WHITELIST_SUGGESTIONS,
 } from "../../shared/constants.js";
-import { t } from "../../shared/i18n.js";
+import { getMemorySaverDocsUrl, t } from "../../shared/i18n.js";
 import { clearChildren, createEl } from "./dom-helpers.js";
 
 const POWER_MODES = Object.keys(POWER_MODE_NAME_KEY);
@@ -67,6 +67,22 @@ export function renderWhitelist(bodyEl, settings) {
     );
   }
   bodyEl.appendChild(grid);
+  bodyEl.appendChild(
+    createEl(
+      "p",
+      { class: "ob-info-note" },
+      `${t("memorySaverNoteBody")} `,
+      createEl(
+        "a",
+        {
+          href: getMemorySaverDocsUrl(),
+          target: "_blank",
+          rel: "noopener noreferrer",
+        },
+        t("learnMoreLink"),
+      ),
+    ),
+  );
   return () =>
     Array.from(bodyEl.querySelectorAll("input[type=checkbox]:checked")).map((b) => b.value);
 }

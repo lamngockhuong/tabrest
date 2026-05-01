@@ -233,6 +233,25 @@ Domain matching is case-insensitive:
 
 **Solution**: Use lowercase for consistency.
 
+### Chrome Memory Saver Is Also Active
+
+**Most common cause when whitelist appears broken on Chrome 108+.**
+
+Chrome ships its own tab discarding feature (`chrome://settings/performance` -> Memory Saver). It runs at the browser level and ignores extension state. If Memory Saver is enabled, it can discard a tab even when the domain is on TabRest's whitelist - because Memory Saver never asks TabRest.
+
+**How to confirm this is the cause**:
+
+1. The tab unloads without TabRest's suspend warning toast appearing first
+2. The tab unloads even when TabRest is paused or disabled
+3. You see Memory Saver toggled on at `chrome://settings/performance`
+
+**Solution (pick one)**:
+
+- **Option A**: Open `chrome://settings/performance` and turn Memory Saver off. TabRest will then have full control.
+- **Option B**: Keep Memory Saver on, but also add the domain to Chrome's **Always keep these sites active** list at `chrome://settings/performance`. You will need to keep TabRest's whitelist and Chrome's list in sync manually.
+
+See [Whitelist Configuration -> Coexistence with Chrome Memory Saver](/docs/whitelist-config#coexistence-with-chrome-memory-saver) for the full explanation.
+
 ## Form Protection Not Working
 
 **Issue**: Tabs with unsaved forms get unloaded.
