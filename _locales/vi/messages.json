@@ -3,22 +3,22 @@
     "message": "TabRest - Rest your tabs, free your RAM"
   },
   "extDescription": {
-    "message": "Cho tab nghỉ ngơi, giải phóng bộ nhớ - tự động dỡ các tab không hoạt động"
+    "message": "Cho tab nghỉ ngơi, giải phóng bộ nhớ - tự động giải phóng các tab không hoạt động"
   },
   "sleeping": {
     "message": "đang ngủ"
   },
   "protected": {
-    "message": "được bảo vệ"
+    "message": "đã bảo vệ"
   },
   "saved": {
     "message": "đã tiết kiệm"
   },
   "unloadOthers": {
-    "message": "Dỡ tab khác"
+    "message": "Giải phóng tab khác"
   },
   "unloadCurrent": {
-    "message": "Dỡ tab hiện tại"
+    "message": "Giải phóng tab hiện tại"
   },
   "tabsInWindow": {
     "message": "Tab trong cửa sổ này"
@@ -36,7 +36,7 @@
     "message": "Thao tác khác"
   },
   "autoUnloadAfter": {
-    "message": "Tự động dỡ sau"
+    "message": "Tự động giải phóng sau"
   },
   "ramThreshold": {
     "message": "Ngưỡng RAM"
@@ -60,10 +60,10 @@
     "message": "Tổng cộng"
   },
   "tabsUnloadedToday": {
-    "message": "Tab đã dỡ hôm nay"
+    "message": "Tab đã giải phóng hôm nay"
   },
   "tabsUnloadedTotal": {
-    "message": "Tổng tab đã dỡ"
+    "message": "Tổng tab đã giải phóng"
   },
   "ramSaved": {
     "message": "RAM tiết kiệm (ước tính)"
@@ -87,10 +87,10 @@
     "message": "Đã xóa phiên"
   },
   "tabUnloaded": {
-    "message": "Đã dỡ tab"
+    "message": "Đã giải phóng tab"
   },
   "tabsUnloaded": {
-    "message": "Đã dỡ $1 tab",
+    "message": "Đã giải phóng $1 tab",
     "placeholders": { "1": { "content": "$1" } }
   },
   "restoredTabs": {
@@ -113,7 +113,7 @@
     "message": "Đã cập nhật ngưỡng"
   },
   "cannotUnloadActive": {
-    "message": "Không thể dỡ tab đang hoạt động"
+    "message": "Không thể giải phóng tab đang hoạt động"
   },
   "failedToSave": {
     "message": "Lưu thất bại"
@@ -140,19 +140,19 @@
     "message": "Hiển thị & thông báo"
   },
   "autoUnload": {
-    "message": "Tự động dỡ"
+    "message": "Tự động giải phóng"
   },
   "unloadOnStartup": {
-    "message": "Dỡ tab khi khởi động trình duyệt"
+    "message": "Giải phóng tab khi khởi động trình duyệt"
   },
   "unloadInactiveAfter": {
-    "message": "Dỡ tab không hoạt động sau:"
+    "message": "Giải phóng tab không hoạt động sau:"
   },
   "memoryManagement": {
     "message": "Quản lý bộ nhớ"
   },
   "unloadWhenRamExceeds": {
-    "message": "Dỡ tab khi RAM vượt quá:"
+    "message": "Giải phóng tab khi RAM vượt quá:"
   },
   "behavior": {
     "message": "Hành vi"
@@ -161,7 +161,7 @@
     "message": "Bao gồm tab đã ghim"
   },
   "showUnloadedCount": {
-    "message": "Hiện số lượng tab đã dỡ trên icon"
+    "message": "Hiện số lượng tab đã giải phóng trên icon"
   },
   "trackStatistics": {
     "message": "Theo dõi thống kê"
@@ -176,10 +176,10 @@
     "message": "Danh sách trắng"
   },
   "whitelistHelp": {
-    "message": "Các trang sẽ không bao giờ bị dỡ tự động"
+    "message": "Các trang sẽ không bao giờ bị tự động giải phóng"
   },
   "memorySaverNoteBody": {
-    "message": "Tính năng Memory Saver tích hợp của Chrome chạy độc lập và vẫn có thể dỡ các trang này."
+    "message": "Tính năng Memory Saver tích hợp của Chrome chạy độc lập và vẫn có thể giải phóng các trang này."
   },
   "learnMoreLink": {
     "message": "Tìm hiểu thêm"
@@ -194,7 +194,7 @@
     "message": "Thống kê"
   },
   "tabsUnloadedLabel": {
-    "message": "Tab đã dỡ"
+    "message": "Tab đã giải phóng"
   },
   "memorySavedLabel": {
     "message": "Bộ nhớ đã tiết kiệm"
@@ -237,19 +237,19 @@
     "message": "Đã đặt lại thống kê"
   },
   "unloadRight": {
-    "message": "Dỡ tab bên phải"
+    "message": "Giải phóng tab bên phải"
   },
   "unloadLeft": {
-    "message": "Dỡ tab bên trái"
+    "message": "Giải phóng tab bên trái"
   },
   "blacklist": {
     "message": "Danh sách đen"
   },
   "blacklistHelp": {
-    "message": "Các trang sẽ luôn bị dỡ tự động (kể cả khi mới hoạt động)"
+    "message": "Các trang sẽ luôn bị tự động giải phóng (kể cả khi mới hoạt động)"
   },
   "enableTabGroups": {
-    "message": "Hiển thị nhóm tab trong popup"
+    "message": "Hiển thị nhóm tab trong cửa sổ popup"
   },
   "tabGroups": {
     "message": "Nhóm tab"
@@ -258,7 +258,7 @@
     "message": "Chọn nhóm tab..."
   },
   "unloadGroup": {
-    "message": "Dỡ nhóm"
+    "message": "Giải phóng nhóm"
   },
   "untitledTabGroup": {
     "message": "Nhóm $ID$",
@@ -270,7 +270,7 @@
     }
   },
   "showDiscardedPrefix": {
-    "message": "Thêm ký hiệu vào tab đã dỡ"
+    "message": "Thêm ký hiệu vào tab đã giải phóng"
   },
   "discardedPrefixLabel": {
     "message": "Ký hiệu:"
@@ -282,7 +282,7 @@
     "message": "Tiền tố tab cần quyền truy cập website. Đã bỏ qua."
   },
   "minTabsLabel": {
-    "message": "Chỉ tự động dỡ khi số tab không hoạt động vượt quá:"
+    "message": "Chỉ tự động giải phóng khi số tab không hoạt động vượt quá:"
   },
   "toolbarAction": {
     "message": "Thao tác thanh công cụ"
@@ -294,16 +294,16 @@
     "message": "Mở popup"
   },
   "actionDiscardCurrent": {
-    "message": "Dỡ tab hiện tại"
+    "message": "Giải phóng tab hiện tại"
   },
   "actionDiscardOthers": {
-    "message": "Dỡ các tab khác"
+    "message": "Giải phóng các tab khác"
   },
   "useSidePanel": {
-    "message": "Mở trong side panel thay vì popup"
+    "message": "Mở trong thanh bên thay vì cửa sổ popup"
   },
   "useSidePanelHelp": {
-    "message": "Side panel giữ mở khi chuyển tab. Yêu cầu Chrome 114+."
+    "message": "Thanh bên giữ mở khi chuyển tab. Yêu cầu Chrome 114+."
   },
   "saveYouTubeTimestamp": {
     "message": "Lưu vị trí phát YouTube"
@@ -312,19 +312,19 @@
     "message": "Tiếp tục video từ vị trí đã lưu khi tab tải lại"
   },
   "onlyDiscardWhenIdle": {
-    "message": "Chỉ tự động dỡ khi máy tính không hoạt động"
+    "message": "Chỉ tự động giải phóng khi máy tính không hoạt động"
   },
   "idleThreshold": {
     "message": "Ngưỡng không hoạt động:"
   },
   "perTabMemoryLabel": {
-    "message": "Dỡ tab sử dụng hơn (JS heap):"
+    "message": "Giải phóng tab sử dụng hơn (JS heap):"
   },
   "perTabMemoryHelp": {
     "message": "Chỉ đo bộ nhớ JavaScript, không phải tổng bộ nhớ tab"
   },
   "powerMode": {
-    "message": "Chế độ nguồn"
+    "message": "Chế độ tiết kiệm"
   },
   "powerModeHelp": {
     "message": "Điều chỉnh mức độ tích cực dựa trên tình trạng nguồn điện"
@@ -351,7 +351,7 @@
     "message": "Bỏ qua khi offline"
   },
   "skipWhenOfflineHelp": {
-    "message": "Không tự động ngủ tab khi mất kết nối mạng"
+    "message": "Không tự động giải phóng tab khi mất kết nối mạng"
   },
   "restoreScrollPosition": {
     "message": "Khôi phục vị trí cuộn"
@@ -381,7 +381,7 @@
     "message": "Mở link ở trạng thái ngủ"
   },
   "notifyOnAutoUnload": {
-    "message": "Thông báo khi tab bị tự động ngủ"
+    "message": "Thông báo khi tab tự động giải phóng"
   },
   "notifyOnAutoUnloadHelp": {
     "message": "Hiển thị thông báo với lý do (hết thời gian/RAM)"
@@ -453,7 +453,7 @@
     "message": "Đã khôi phục tuỳ chọn"
   },
   "showSuspendWarningLabel": {
-    "message": "Hiển thị cảnh báo trước khi tự động tạm dừng"
+    "message": "Hiển thị cảnh báo trước khi tự động giải phóng"
   },
   "showSuspendWarningHelp": {
     "message": "Hiện toast ngắn trên trang để bạn có thể tương tác và giữ tab"
@@ -462,7 +462,7 @@
     "message": "Thời gian cảnh báo:"
   },
   "suspendWarningMessage": {
-    "message": "TabRest sắp tạm dừng tab này để giải phóng bộ nhớ…"
+    "message": "TabRest sắp giải phóng tab này để tiết kiệm bộ nhớ…"
   },
   "exportList": {
     "message": "Xuất"

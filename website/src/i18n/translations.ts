@@ -276,7 +276,7 @@ export const translations = {
         {
           icon: 'shield',
           title: 'Danh sách trắng thông minh',
-          description: 'Bảo vệ các tab quan trọng với danh sách domain và quy tắc đặc biệt cho audio/form',
+          description: 'Bảo vệ các tab quan trọng với danh sách domain và quy tắc đặc biệt cho âm thanh/biểu mẫu',
         },
         {
           icon: 'keyboard',
@@ -310,7 +310,7 @@ export const translations = {
         },
         {
           icon: 'battery',
-          title: 'Chế độ nguồn',
+          title: 'Chế độ tiết kiệm',
           description: 'Chuyển đổi giữa Tiết kiệm pin, Bình thường và Hiệu suất để điều chỉnh mức độ tích cực',
         },
         {
@@ -378,7 +378,7 @@ export const translations = {
         },
         {
           question: 'Tôi có thể ngăn một số tab bị giải phóng không?',
-          answer: 'Có! Thêm domain vào danh sách trắng trong cài đặt. Bạn cũng có thể bật bảo vệ tự động cho tab đang phát audio hoặc có form chưa lưu.',
+          answer: 'Có! Thêm domain vào danh sách trắng trong cài đặt. Bạn cũng có thể bật bảo vệ tự động cho tab đang phát âm thanh hoặc có biểu mẫu chưa lưu.',
         },
         {
           question: 'TabRest có hoạt động offline không?',
