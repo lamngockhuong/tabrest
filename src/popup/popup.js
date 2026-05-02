@@ -104,11 +104,25 @@ function getHostname(url) {
   }
 }
 
+const HTML_ESCAPE_RE = /[&<>"']/g;
+const HTML_ESCAPE_MAP = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+};
+
 // Escape HTML to prevent XSS
 function escapeHtml(text) {
-  const div = document.createElement("div");
-  div.textContent = text;
-  return div.innerHTML;
+  return String(text ?? "").replace(HTML_ESCAPE_RE, (c) => HTML_ESCAPE_MAP[c]);
+}
+
+// Render a safe favicon <img> tag, or "" if URL is missing/unsafe
+function safeFaviconImg(url, className = "") {
+  if (!url || !isSafeHttpUrl(url)) return "";
+  const cls = className ? ` class="${className}"` : "";
+  return `<img${cls} src="${escapeHtml(url)}" alt="">`;
 }
 
 // Attach error handlers to hide broken favicon images
@@ -409,31 +423,17 @@ function filterTabs(tabs) {
 // Generate HTML for a single tab item
 function renderTabItem(tab) {
   const statusBadge = getStatusBadge(tab);
-  const favicon = tab.favIconUrl
-    ? `<img class="tab-favicon" src="${tab.favIconUrl}" alt="">`
-    : `<span class="tab-favicon-placeholder">${icon("globe", 14)}</span>`;
+  const favicon =
+    safeFaviconImg(tab.favIconUrl, "tab-favicon") ||
+    `<span class="tab-favicon-placeholder">${icon("globe", 14)}</span>`;
   const title = escapeHtml(tab.title);
-  const hostname = getHostname(tab.url);
-  const snoozeBtn =
-    tab.active || tab.discarded
-      ? ""
-      : tab.isSnoozed
-        ? `<button class="tab-snooze-btn unsnooze" data-tab-id="${tab.id}" data-snooze-type="${tab.snoozeInfo?.type || "tab"}" data-snooze-domain="${escapeHtml(tab.snoozeInfo?.domain || "")}" title="Cancel snooze">${icon("play", 14)}</button>`
-        : `<div class="snooze-dropdown">
-          <button class="tab-snooze-btn" data-tab-id="${tab.id}" title="Snooze">${icon("pause", 14)}</button>
-          <div class="snooze-menu">
-            <button data-tab-id="${tab.id}" data-minutes="30">30 min</button>
-            <button data-tab-id="${tab.id}" data-minutes="60">1 hour</button>
-            <button data-tab-id="${tab.id}" data-minutes="120">2 hours</button>
-            <hr>
-            <button data-tab-id="${tab.id}" data-domain="${hostname}" data-minutes="60">Site 1h</button>
-          </div>
-        </div>`;
+  const hostname = escapeHtml(getHostname(tab.url));
+  const snoozeBtn = renderSnoozeButton(tab, hostname);
 
   return `
     <div class="tab-item ${tab.active ? "active" : ""} ${tab.discarded ? "discarded" : ""}"
          data-tab-id="${tab.id}"
-         title="${escapeHtml(tab.title)}">
+         title="${title}">
       <div class="tab-info">
         ${favicon}
         <div class="tab-details">
@@ -448,6 +448,25 @@ function renderTabItem(tab) {
       </div>
     </div>
   `;
+}
+
+function renderSnoozeButton(tab, hostname) {
+  if (tab.active || tab.discarded) return "";
+  if (tab.isSnoozed) {
+    const snoozeType = escapeHtml(tab.snoozeInfo?.type || "tab");
+    const snoozeDomain = escapeHtml(tab.snoozeInfo?.domain || "");
+    return `<button class="tab-snooze-btn unsnooze" data-tab-id="${tab.id}" data-snooze-type="${snoozeType}" data-snooze-domain="${snoozeDomain}" title="Cancel snooze">${icon("play", 14)}</button>`;
+  }
+  return `<div class="snooze-dropdown">
+          <button class="tab-snooze-btn" data-tab-id="${tab.id}" title="Snooze">${icon("pause", 14)}</button>
+          <div class="snooze-menu">
+            <button data-tab-id="${tab.id}" data-minutes="30">30 min</button>
+            <button data-tab-id="${tab.id}" data-minutes="60">1 hour</button>
+            <button data-tab-id="${tab.id}" data-minutes="120">2 hours</button>
+            <hr>
+            <button data-tab-id="${tab.id}" data-domain="${hostname}" data-minutes="60">Site 1h</button>
+          </div>
+        </div>`;
 }
 
 // Render filtered tabs to DOM
@@ -484,14 +503,9 @@ async function renderSessions() {
 
   elements.sessionList.innerHTML = sessions
     .map((s) => {
-      // Only render favicons from safe URLs
       const favicons = s.tabs
         .slice(0, 4)
-        .map((tab) =>
-          tab.favIconUrl && isSafeHttpUrl(tab.favIconUrl)
-            ? `<img src="${escapeHtml(tab.favIconUrl)}" alt="">`
-            : "",
-        )
+        .map((tab) => safeFaviconImg(tab.favIconUrl))
         .join("");
 
       return `
