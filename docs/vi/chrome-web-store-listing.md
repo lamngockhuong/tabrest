@@ -27,7 +27,7 @@ Mọi cài đặt được lưu cục bộ trên thiết bị của bạn. Báo 
 Tối đa 132 ký tự. Dùng làm tagline cho trang listing.
 
 ```text
-Cho tab nghỉ ngơi, giải phóng bộ nhớ - tự động dỡ các tab không hoạt động giúp Chrome luôn nhanh và phản hồi tốt.
+Cho tab nghỉ ngơi, giải phóng bộ nhớ - tự động giải phóng các tab không hoạt động giúp Chrome luôn nhanh và phản hồi tốt.
 ```
 
 ## Full Description / Mô tả đầy đủ
@@ -80,7 +80,7 @@ TabRest tự động giải phóng bộ nhớ các tab không hoạt động, gi
 • Đóng các tab trùng lặp - một cú nhấp chuột để loại bỏ bản sao
 • Tìm kiếm tab - lọc theo tiêu đề hoặc URL trực tiếp
 • Mẹo vô hạn bộ nhớ - di chuột để xem dự toán bộ nhớ cho từng tab
-• Cảnh báo tạm dừng - cảnh báo 3 giây trước khi tự động giải phóng
+• Cảnh báo trước khi giải phóng - thông báo 3 giây trên trang trước khi tự động giải phóng
 • Giao diện side panel - mở trong thanh bên trình duyệt (luôn hiển thị khi bạn chuyển tab)
 • Xuất/nhập cấu hình - sao lưu và khôi phục danh sách trắng, danh sách đen và phiên làm việc sang JSON clipboard
 • Trình hướng dẫn cài đặt 6 bước - hỗ trợ thiết lập nhanh khi mới cài (có thể chạy lại từ trang Options)

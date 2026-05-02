@@ -34,31 +34,31 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 - [ ] Đặt `Unload after` = 5 phút (Options → Auto-Unload), `Min inactive tabs before discard` = Disabled.
 - [ ] Mở 3 tab (site bất kỳ không nằm trong whitelist). Focus tab A.
 - [ ] Đợi 5 phút trên tab A.
-- [ ] Tab B và C bị discard (favicon mờ, có prefix). Tab A vẫn loaded.
-- [ ] Click tab B đã discard → tải lại tức thì, scroll giữ nguyên (nếu bật `restoreScrollPosition`).
-- [ ] Đặt delay = Disabled → tắt auto-unload; xác nhận tab không còn discard sau 5 phút.
+- [ ] Tab B và C bị giải phóng (favicon mờ, có tiền tố). Tab A vẫn được tải.
+- [ ] Nhấp tab B đã giải phóng → tải lại tức thì, scroll giữ nguyên (nếu bật `restoreScrollPosition`).
+- [ ] Đặt delay = Disabled → tắt auto-unload; xác nhận tab không còn giải phóng sau 5 phút.
 
 ## 2. Auto-Unload - Ngưỡng RAM
 
 - [ ] Đặt `Memory threshold` = 60% (Options → Memory Management).
 - [ ] Mở đủ tab để RAM > 60% (hoặc tạm hạ ngưỡng = RAM hiện tại −5%).
-- [ ] Trong 30s, tab LRU bị discard cho tới khi RAM tụt dưới ngưỡng.
-- [ ] Đặt threshold = 0 → tắt discard theo memory.
+- [ ] Trong 30s, tab LRU bị giải phóng cho tới khi RAM tụt dưới ngưỡng.
+- [ ] Đặt threshold = 0 → tắt giải phóng theo memory.
 
 ## 3. Auto-Unload - Giới hạn JS Heap mỗi tab
 
 - [ ] Đặt `Per-tab JS heap limit` = 100 MB (Options).
 - [ ] Nếu host permission cho form-checker đã cấp trước đó, `chrome.scripting` inject reporter; ngược lại, banner phục hồi xuất hiện trong popup.
 - [ ] Mở site nặng (Figma, Google Sheet lớn) và đợi > 30s.
-- [ ] Tab discard khi heap > 100 MB.
+- [ ] Tab giải phóng khi heap > 100 MB.
 - [ ] Đặt limit = 0 → tắt giám sát heap.
 
 ## 4. Auto-Unload - Khi khởi động
 
 - [ ] Bật `Auto-unload on startup` (Options).
 - [ ] Thoát Chrome rồi mở lại với nhiều tab từ phiên trước.
-- [ ] Mọi tab không active và không trong whitelist bị discard ngay sau khởi động.
-- [ ] Tắt → tab không discard sau khi mở lại.
+- [ ] Mọi tab không hoạt động và không trong danh sách trắng bị giải phóng ngay sau khởi động.
+- [ ] Tắt → tab không giải phóng sau khi mở lại.
 
 ## 5. Ngưỡng số tab inactive tối thiểu
 
@@ -77,8 +77,8 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 
 - [ ] Bật `Skip when offline`.
 - [ ] Ngắt mạng (DevTools → Network → Offline, hoặc tắt Wi-Fi).
-- [ ] Đợi vượt `unloadDelayMinutes` → không tab nào discard.
-- [ ] Kết nối lại → discard tiếp tục ở alarm kế tiếp.
+- [ ] Đợi vượt `unloadDelayMinutes` → không tab nào giải phóng.
+- [ ] Kết nối lại → giải phóng tiếp tục ở alarm kế tiếp.
 
 ## 8. Power Mode
 
@@ -89,28 +89,28 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 
 ## 9. Điều khiển thủ công - Nút trong popup
 
-- [ ] **Unload Current** → discard tab đang focus; popup đóng; tab có prefix.
-- [ ] **Unload Others** → mọi tab khác active đều discard.
-- [ ] **More Actions → Unload Right** → chỉ tab bên phải tab active discard.
+- [ ] **Unload Current** → giải phóng tab đang focus; popup đóng; tab có tiền tố.
+- [ ] **Unload Others** → mọi tab khác đang hoạt động đều giải phóng.
+- [ ] **More Actions → Unload Right** → chỉ tab bên phải tab đang hoạt động giải phóng.
 - [ ] **More Actions → Unload Left** → chỉ tab bên trái.
 - [ ] **More Actions → Close Duplicates** → trong window có ≥ 3 URL trùng, giữ tab cũ nhất, đóng các tab còn lại.
-- [ ] Icon "Unload" mỗi dòng tab discard đúng tab đó.
+- [ ] Biểu tượng "Unload" mỗi dòng tab giải phóng đúng tab đó.
 
 ## 10. Phím tắt
 
 Cấu hình tại `chrome://extensions/shortcuts`.
 
-- [ ] `Alt+Shift+D` - unload tab hiện tại.
-- [ ] `Alt+Shift+O` - unload các tab khác.
-- [ ] `Alt+Shift+→` - unload tab bên phải.
-- [ ] `Alt+Shift+←` - unload tab bên trái.
+- [ ] `Alt+Shift+D` - giải phóng tab hiện tại.
+- [ ] `Alt+Shift+O` - giải phóng các tab khác.
+- [ ] `Alt+Shift+→` - giải phóng tab bên phải.
+- [ ] `Alt+Shift+←` - giải phóng tab bên trái.
 - [ ] Đổi binding một phím tắt → vẫn fire đúng lệnh.
 
 ## 11. Hành động click toolbar
 
 - [ ] `popup` (mặc định) → click icon mở popup.
-- [ ] `discard-current` → click icon discard tab active; không popup.
-- [ ] `discard-others` → click icon discard mọi tab khác.
+- [ ] `discard-current` → nhấp biểu tượng giải phóng tab đang hoạt động; không popup.
+- [ ] `discard-others` → nhấp biểu tượng giải phóng mọi tab khác.
 - [ ] Đổi setting có hiệu lực ngay sau khi lưu Options, không cần reload service worker.
 
 ## 12. Menu chuột phải
@@ -119,7 +119,7 @@ Cấu hình tại `chrome://extensions/shortcuts`.
 - [ ] "Unload this tab" hoạt động.
 - [ ] "Add domain to whitelist" thêm hostname trang đó (gồm localhost hoặc IP).
 - [ ] "Snooze this tab (1h)" + "Snooze this site (1h)" hoạt động.
-- [ ] Right-click trên link → "Open link in suspended state" tạo tab discarded.
+- [ ] Nhấp chuột phải trên liên kết → "Open link in suspended state" tạo tab đã giải phóng.
 
 ## 13. Tìm kiếm tab
 - [ ] Click toggle search trong popup → input xuất hiện và auto focus.
@@ -131,7 +131,7 @@ Cấu hình tại `chrome://extensions/shortcuts`.
 ## 14. Filter Chips
 
 - [ ] **All** hiển thị mọi tab.
-- [ ] **Sleeping** chỉ tab đã discard.
+- [ ] **Sleeping** chỉ tab đã giải phóng.
 - [ ] **Snoozed** tab/domain đang snooze.
 - [ ] **Protected** tab pinned/audio/form/whitelist với badge tương ứng.
 - [ ] Số đếm trên mỗi chip cập nhật trực tiếp khi tab đổi state.
@@ -149,31 +149,31 @@ Cấu hình tại `chrome://extensions/shortcuts`.
 - [ ] Thêm `127.0.0.1` → tab `http://127.0.0.1:*` được bảo vệ.
 - [ ] Thêm `::1` (IPv6) → được bảo vệ.
 - [ ] Nhập sai (ví dụ `http://`) → input báo lỗi, không lưu.
-- [ ] Xóa entry → auto-unload kế tiếp có thể discard domain đó.
+- [ ] Xóa entry → lượt tự động giải phóng kế tiếp có thể giải phóng domain đó.
 - [ ] Context menu "Add to whitelist" trên tab localhost hoặc IP hoạt động trọn vẹn.
 - [ ] Thêm domain đã có trong blacklist → toast báo conflict, không thêm.
 
 ## 17. Blacklist
 
 - [ ] Thêm domain ưu tiên thấp vào blacklist.
-- [ ] Tab thuộc domain đó discard ngay ở timer kế tiếp (bỏ qua delay).
-- [ ] Xóa entry → ngừng discard aggressive.
+- [ ] Tab thuộc domain đó giải phóng ngay ở timer kế tiếp (bỏ qua delay).
+- [ ] Xóa entry → ngừng giải phóng tích cực.
 - [ ] Thêm domain đã có trong whitelist → toast báo conflict, không thêm.
 - [ ] Domain xuất hiện ở cả 2 list (state cũ) → whitelist thắng, tab được bảo vệ.
 
 ## 18. Bảo vệ Pinned / Audio / Form
 
-- [ ] Tab ghim + bật `Protect pinned tabs` → không bao giờ discard qua auto-unload.
-- [ ] Tab ghim + bật `Include pinned tabs` (tức cho phép discard tab ghim) → dòng popup vẫn hiển thị badge "pin" (intrinsic) và filter chip "protected" vẫn count.
-- [ ] Tab phát YouTube + `Protect audio tabs` → không discard.
-- [ ] Tab có form chưa lưu (ví dụ Google Form điền dở) + `Protect form tabs` → không discard; dòng popup hiển thị badge "Form".
-- [ ] Tab có form chưa lưu trên React/contenteditable editor (ví dụ body issue GitHub) → sau khi gõ, dòng popup hiển thị badge "Form" (eager-injection bắt được keystroke).
+- [ ] Tab ghim + bật `Protect pinned tabs` → không bao giờ giải phóng qua auto-unload.
+- [ ] Tab ghim + bật `Include pinned tabs` (tức cho phép giải phóng tab ghim) → dòng popup vẫn hiển thị badge "pin" (intrinsic) và filter chip "protected" vẫn count.
+- [ ] Tab phát YouTube + `Protect audio tabs` → không giải phóng.
+- [ ] Tab có biểu mẫu chưa lưu (ví dụ Google Form điền dở) + `Protect form tabs` → không giải phóng; dòng popup hiển thị badge "Form".
+- [ ] Tab có biểu mẫu chưa lưu trên React/contenteditable editor (ví dụ body issue GitHub) → sau khi gõ, dòng popup hiển thị badge "Form" (eager-injection bắt được keystroke).
 - [ ] Tab vừa whitelist vừa pin/audio/form → popup ưu tiên badge cụ thể (pin/audio/form), không hiển thị "safe" - whitelist là priority thấp nhất.
 - [ ] Tắt một protection → tab khớp trở lại đủ điều kiện.
 - [ ] **Force unload** (menu mỗi tab trong popup) override mọi protection.
 
 ## 19. Optional Host Permissions + Form Injector
-- [ ] Cài mới: host permissions KHÔNG cấp mặc định.
+- [ ] Cài mới: quyền truy cập trang KHÔNG cấp mặc định.
 - [ ] Tắt rồi bật `Protect form tabs` → prompt cấp quyền hoặc banner phục hồi xuất hiện.
 - [ ] Cấp quyền → form-checker eager-inject mỗi khi page load (và lazy-inject với tab đã mở sẵn ở lần check đầu); xác nhận qua badge popup và `window.__tabrestFormCheckLoaded` trong DevTools.
 - [ ] Thu hồi qua `chrome://extensions` → banner phục hồi tái xuất trong popup với CTA "Enable".
@@ -181,65 +181,65 @@ Cấu hình tại `chrome://extensions/shortcuts`.
 
 ## 20. Snooze
 
-- [ ] Snooze tab 30 phút → hiển thị badge "Snoozed"; auto-unload bỏ qua.
-- [ ] Snooze domain 1 giờ → mọi tab hiện tại và mới của domain được bảo vệ.
-- [ ] Hủy snooze → tab/domain trở lại đủ điều kiện.
-- [ ] Snooze giữ qua khởi động lại trình duyệt (trong cùng window).
-- [ ] Snooze tự hết hạn khi timer kết thúc.
+- [ ] Tạm hoãn tab 30 phút → hiển thị badge "Snoozed"; auto-unload bỏ qua.
+- [ ] Tạm hoãn domain 1 giờ → mọi tab hiện tại và mới của domain được bảo vệ.
+- [ ] Hủy tạm hoãn → tab/domain trở lại đủ điều kiện.
+- [ ] Tạm hoãn giữ qua khởi động lại trình duyệt (trong cùng window).
+- [ ] Tạm hoãn tự hết hạn khi timer kết thúc.
 
 ## 21. Cảnh báo trước khi suspend
 - [ ] Bật `Show suspend warning`; delay = 3000 ms.
 - [ ] Mở một tab và để nó đủ điều kiện auto-unload.
-- [ ] Toast xuất hiện trong trang 3 s trước khi discard.
+- [ ] Thông báo xuất hiện trên trang 3 s trước khi giải phóng.
 - [ ] Chuyển sang tab → hủy discard.
-- [ ] Bật audio/video, sửa form, hoặc snooze trong 3 s cũng hủy được.
-- [ ] Tắt setting → không có toast; tab discard im lặng.
+- [ ] Bật âm thanh/video, sửa biểu mẫu, hoặc tạm hoãn trong 3 s cũng hủy được.
+- [ ] Tắt setting → không có thông báo; tab giải phóng im lặng.
 - [ ] Delay tùy chỉnh (ví dụ 5000 ms) được tôn trọng.
 
 ## 22. Khôi phục thời điểm YouTube
 
 - [ ] Bật `Save YouTube timestamp`.
-- [ ] Phát video YouTube đến 1:00 rồi unload tab.
-- [ ] Reload tab đã discard → playback tiếp tục từ ≥ 0:55.
+- [ ] Phát video YouTube đến 1:00 rồi giải phóng tab.
+- [ ] Tải lại tab đã giải phóng → playback tiếp tục từ ≥ 0:55.
 - [ ] Sau > 7 ngày → cache hết hạn (kiểm tra thủ công: chỉnh `chrome.storage.sync`).
 
 ## 23. Khôi phục vị trí cuộn
 
 - [ ] Bật `Restore scroll position`.
-- [ ] Cuộn nửa trang dài rồi để tab discard.
+- [ ] Cuộn nửa trang dài rồi để tab giải phóng.
 - [ ] Mở lại tab → khôi phục trong khoảng ±50 px so với vị trí gốc.
-- [ ] Giới hạn 100 entry: discard 110 tab khác nhau và xác nhận entry cũ bị loại khỏi `tabrest_scroll_positions` (chrome.storage.local).
+- [ ] Giới hạn 100 entry: giải phóng 110 tab khác nhau và xác nhận entry cũ bị loại khỏi `tabrest_scroll_positions` (chrome.storage.local).
 
 ## 24. Tab Groups
 
 - [ ] Tạo group có 3 tab.
 - [ ] Selector `Tab groups` trong popup hiển thị group với số tab.
-- [ ] "Unload this group" discard mọi tab trong group, giữ nguyên cấu trúc.
+- [ ] "Unload this group" giải phóng mọi tab trong group, giữ nguyên cấu trúc.
 - [ ] Tắt `Enable tab groups` → ẩn selector.
 - [ ] Đa cửa sổ: mở 2 cửa sổ với group khác nhau → popup mỗi cửa sổ chỉ liệt kê group của chính nó.
 - [ ] Side panel: khi panel đang mở, tạo/đổi tên/xoá group → selector tự cập nhật, không cần đóng-mở.
 
 ## 25. Chỉ báo trực quan
 
-- [ ] Badge count = số tab discarded (toggle `Show badge count`).
-- [ ] Title prefix dùng glyph cấu hình (mặc định `💤`); glyph tùy chỉnh (≤ 4 ký tự) lưu và áp dụng sau prompt host permission.
-- [ ] Tắt prefix → title không thay đổi ở lần discard kế tiếp.
+- [ ] Badge count = số tab đã giải phóng (toggle `Show badge count`).
+- [ ] Tiền tố tiêu đề dùng glyph cấu hình (mặc định `💤`); glyph tùy chỉnh (≤ 4 ký tự) lưu và áp dụng sau prompt host permission.
+- [ ] Tắt tiền tố → tiêu đề không thay đổi ở lần giải phóng kế tiếp.
 - [ ] RAM % header popup cập nhật mỗi ~5 s.
 
 ## 26. Tooltip ước lượng RAM
-- [ ] Hover stats RAM trong popup → tooltip giải thích ước lượng (ví dụ "~150 MB mỗi tab discarded").
+- [ ] Di chuột qua stats RAM trong popup → tooltip giải thích ước lượng (ví dụ "~150 MB mỗi tab đã giải phóng").
 - [ ] Text tooltip có bản `vi`.
 - [ ] Tooltip biến mất khi rời chuột.
 
 ## 27. Notifications
 
 - [ ] Bật `Notify on auto-unload`.
-- [ ] Trigger auto-unload → notification desktop với số tab + RAM tiết kiệm.
+- [ ] Trigger tự động giải phóng → thông báo desktop với số tab + RAM tiết kiệm.
 - [ ] Notification tôn trọng OS focus-assist / Do Not Disturb.
 
 ## 28. Thống kê
 
-- [ ] Sau khi unload vài tab, popup `Stats` hiển thị đúng tổng hôm nay + tổng thời gian.
+- [ ] Sau khi giải phóng vài tab, popup `Stats` hiển thị đúng tổng hôm nay + tổng thời gian.
 - [ ] Ước lượng "RAM saved" tăng.
 - [ ] "Member since" phản ánh ngày cài đặt.
 - [ ] "Reset stats" về 0 và xác nhận qua toast.
@@ -310,7 +310,7 @@ Cho từng loại: **whitelist**, **blacklist**, **sessions**:
 
 - [ ] Đăng nhập Chrome với tài khoản có sync.
 - [ ] Sửa setting trên Profile A; trên Profile B (cùng tài khoản) xác nhận sync trong ~1 phút.
-- [ ] Sessions và whitelist truyền giữa các thiết bị (sessions lưu trong `chrome.storage.sync`).
+- [ ] Phiên làm việc và danh sách trắng truyền giữa các thiết bị (sessions lưu trong `chrome.storage.sync`).
 - [ ] Tab activity giữ riêng từng máy (`chrome.storage.local`).
 
 ## 38. Độ bền Service Worker

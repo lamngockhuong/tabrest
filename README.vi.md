@@ -8,7 +8,7 @@
 <h1 align="center">TabRest</h1>
 
 <p align="center">
-  Cho tab nghỉ ngơi, giải phóng bộ nhớ - tiện ích Chrome tự động unload các tab không hoạt động.
+  Cho tab nghỉ ngơi, giải phóng bộ nhớ - tiện ích Chrome tự động giải phóng các tab không hoạt động.
 </p>
 
 <p align="center">
@@ -21,44 +21,44 @@
 
 ## Tính năng
 
-- **Tự động unload tab không hoạt động** - Hẹn giờ tuỳ chỉnh (5 phút đến 4 giờ)
-- **Ngưỡng bộ nhớ** - Unload khi RAM vượt 60-95%
-- **Giới hạn bộ nhớ mỗi tab** - Unload tab dùng >100MB-1GB JS heap
-- **Unload khi khởi động** - Giải phóng bộ nhớ khi mở trình duyệt
-- **Điều khiển thủ công** - Unload tab hiện tại/trái/phải/khác
-- **Đóng tab trùng lặp** - Một cú nhấp dedup trong cửa sổ hiện tại
+- **Tự động giải phóng tab không hoạt động** - Hẹn giờ tuỳ chỉnh (5 phút đến 4 giờ)
+- **Ngưỡng bộ nhớ** - Giải phóng khi RAM vượt 60-95%
+- **Giới hạn bộ nhớ mỗi tab** - Giải phóng tab dùng >100MB-1GB JS heap
+- **Giải phóng khi khởi động** - Giải phóng bộ nhớ khi mở trình duyệt
+- **Điều khiển thủ công** - Giải phóng tab hiện tại/trái/phải/khác
+- **Đóng tab trùng lặp** - Một cú nhấp loại bỏ trùng lặp trong cửa sổ hiện tại
 - **Tìm kiếm tab** - Lọc danh sách tab theo tiêu đề hoặc URL
-- **Nhóm tab** - Unload toàn bộ nhóm tab
-- **Chế độ side panel** - Mở TabRest trong side panel của Chrome (tuỳ chọn)
-- **Snooze tab/site** - Tạm thời bảo vệ tab hoặc domain (30 phút - 2 giờ)
-- **Cảnh báo trước khi unload** - Toast 3 giây cảnh báo trên trang trước khi auto-discard
-- **Chỉ báo trực quan** - Tiền tố tuỳ chỉnh (💤) trên tiêu đề tab đã unload
-- **Whitelist** - Bảo vệ site khỏi auto-unload (hỗ trợ localhost & IP)
-- **Import/Export** - Sao lưu whitelist, blacklist và session ra JSON
-- **Session** - Lưu và khôi phục bộ tab
+- **Nhóm tab** - Giải phóng toàn bộ nhóm tab
+- **Chế độ thanh bên** - Mở TabRest trong thanh bên của Chrome (tuỳ chọn)
+- **Tạm hoãn tab/trang** - Tạm thời bảo vệ tab hoặc domain (30 phút - 2 giờ)
+- **Cảnh báo trước khi giải phóng** - Hiện thông báo 3 giây trên trang trước khi tự động giải phóng
+- **Chỉ báo trực quan** - Tiền tố tuỳ chỉnh (💤) trên tiêu đề tab đã giải phóng
+- **Danh sách trắng** - Bảo vệ trang khỏi tự động giải phóng (hỗ trợ localhost & IP)
+- **Nhập/Xuất** - Sao lưu danh sách trắng, danh sách đen và phiên ra JSON
+- **Phiên làm việc** - Lưu và khôi phục bộ tab
 - **Khôi phục cuộn trang** - Khôi phục vị trí cuộn khi tab tải lại
-- **Timestamp YouTube** - Tiếp tục video tại vị trí cuối sau khi tải lại
-- **Bỏ qua khi offline** - Không discard tab khi mất mạng
-- **Chỉ unload khi nhàn rỗi** - Chỉ auto-unload khi máy tính idle
-- **Power Mode** - Chế độ tiết kiệm pin, bình thường, hoặc hiệu năng cao
-- **Thông báo auto-unload** - Nhận thông báo khi tab được unload
-- **Tooltip bộ nhớ** - Hover thống kê để xem ước tính RAM tiết kiệm trên mỗi tab
-- **Trình hướng dẫn cài đặt** - Wizard nhiều bước tương tác khi mở lần đầu
-- **Báo lỗi tuỳ chọn** - Gửi báo cáo sự cố ẩn danh qua Sentry (mặc định tắt) và form gửi báo lỗi thủ công
-- **Tự mở changelog** - Mở release notes khi cập nhật minor/major
-- **Host permissions tuỳ chọn** - Bảo vệ form chỉ yêu cầu quyền khi bật
-- **Hiển thị RAM** - Phần trăm RAM trực tiếp trên popup
-- **Thống kê** - Theo dõi số tab đã unload và bộ nhớ đã tiết kiệm
+- **Vị trí phát YouTube** - Tiếp tục video tại vị trí cuối sau khi tải lại
+- **Bỏ qua khi offline** - Không giải phóng tab khi mất mạng
+- **Chỉ giải phóng khi nhàn rỗi** - Chỉ tự động giải phóng khi máy tính nhàn rỗi
+- **Chế độ tiết kiệm** - Tiết kiệm pin, bình thường, hoặc hiệu năng cao
+- **Thông báo tự động giải phóng** - Nhận thông báo khi tab được giải phóng
+- **Chú thích bộ nhớ** - Di chuột qua thống kê để xem ước tính RAM tiết kiệm trên mỗi tab
+- **Trình hướng dẫn cài đặt** - Nhiều bước tương tác khi mở lần đầu
+- **Báo lỗi tuỳ chọn** - Gửi báo cáo sự cố ẩn danh qua Sentry (mặc định tắt) và biểu mẫu gửi báo lỗi thủ công
+- **Tự mở changelog** - Mở ghi chú phát hành khi cập nhật minor/major
+- **Quyền truy cập trang tuỳ chọn** - Bảo vệ biểu mẫu chỉ yêu cầu quyền khi bật
+- **Hiển thị RAM** - Phần trăm RAM trực tiếp trên cửa sổ popup
+- **Thống kê** - Theo dõi số tab đã giải phóng và bộ nhớ đã tiết kiệm
 - **Đa ngôn ngữ** - Hỗ trợ 11 ngôn ngữ
 
 ## Phím tắt
 
 | Phím tắt      | Hành động              |
 | ------------- | ---------------------- |
-| `Alt+Shift+D` | Unload tab hiện tại    |
-| `Alt+Shift+O` | Unload các tab khác    |
-| `Alt+Shift+→` | Unload tab bên phải    |
-| `Alt+Shift+←` | Unload tab bên trái    |
+| `Alt+Shift+D` | Giải phóng tab hiện tại |
+| `Alt+Shift+O` | Giải phóng các tab khác |
+| `Alt+Shift+→` | Giải phóng tab bên phải |
+| `Alt+Shift+←` | Giải phóng tab bên trái |
 
 ## Cài đặt
 
@@ -76,7 +76,7 @@
 
 ## Cách hoạt động
 
-TabRest sử dụng API native `chrome.tabs.discard()` của Chrome để unload tab. Tab đã discard:
+TabRest sử dụng API gốc `chrome.tabs.discard()` của Chrome để giải phóng tab. Tab đã giải phóng:
 
 - Vẫn hiển thị trên thanh tab
 - Giữ nguyên vị trí cuộn và dữ liệu form
