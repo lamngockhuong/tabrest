@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0](https://github.com/lamngockhuong/tabrest/compare/v0.3.0...v0.4.0) (2026-05-02)
+
+
+### Features
+
+* **whitelist:** surface Chrome Memory Saver coexistence note ([#68](https://github.com/lamngockhuong/tabrest/issues/68)) ([877f4c7](https://github.com/lamngockhuong/tabrest/commit/877f4c712a8079d57d9c6abd57a03968d3a47537))
+
+
+### Bug Fixes
+
+* **deps:** update dependency astro to v6.2.1 ([#66](https://github.com/lamngockhuong/tabrest/issues/66)) ([4e9d0f2](https://github.com/lamngockhuong/tabrest/commit/4e9d0f2b921de0ba47db9bf437b4abd5b26e53de))
+* **popup:** harden tab list rendering against XSS ([#74](https://github.com/lamngockhuong/tabrest/issues/74)) ([19c3bb6](https://github.com/lamngockhuong/tabrest/commit/19c3bb641d7473dd09490f9a805346c9576d5ebd))
+
 ## [0.3.0](https://github.com/lamngockhuong/tabrest/compare/v0.2.1...v0.3.0) (2026-04-30)
 
 
