@@ -184,7 +184,7 @@ TabRest nên hoạt động trên trình duyệt dựa trên Chromium hỗ trợ
 
 **Ghi chú**: Chỉ ảnh hưởng cửa sổ hiện tại, không phải các cửa sổ khác.
 
-### Làm sao sao lưu whitelist hoặc sessions?
+### Làm sao sao lưu danh sách trắng hoặc phiên?
 
 1. Mở **popup TabRest**
 2. Kéo xuống phần **Sessions** hoặc **More Actions**
@@ -201,7 +201,7 @@ Cảnh báo suspend là một thông báo trên trang web xuất hiện **3 giâ
 - **Mục đích**: Cho bạn cơ hội ngăn chặn (tương tác với tab hoặc chuyển hướng)
 - **Bật/Tắt**: Cài đặt → Behavior → "Show suspend warning"
 - **Tùy chỉnh**: Thay đổi độ trễ (ms) trong **Suspend warning delay**
-- **Hành vi**: Nếu bạn nhấp, nhập, hoặc phát audio, cảnh báo sẽ bị hủy
+- **Hành vi**: Nếu bạn nhấp, nhập, hoặc phát âm thanh, cảnh báo sẽ bị hủy
 
 ### TabRest có thể tự động giải phóng tab khi số tab đạt X không?
 
@@ -274,14 +274,14 @@ TabRest nên hoạt động cùng các tiện ích quản lý tab khác, nhưng:
 Từ Chrome 108, Chrome có sẵn **Memory Saver** tại `chrome://settings/performance`, tự động giải phóng tab không hoạt động ở cấp trình duyệt. TabRest và Memory Saver chạy độc lập:
 
 - **Memory Saver không tham khảo TabRest**. Không có Chrome Extension API nào cho phép loại trừ một tab khỏi Memory Saver.
-- **Danh sách trắng và snooze của TabRest chỉ áp dụng cho cơ chế giải phóng của TabRest**. Chúng không ngăn được Chrome tự giải phóng cùng tab đó.
+- **Danh sách trắng và tạm hoãn của TabRest chỉ áp dụng cho cơ chế giải phóng của TabRest**. Chúng không ngăn được Chrome tự giải phóng cùng tab đó.
 
 **Nếu bật cả hai**, một tab trong danh sách trắng vẫn có thể bị Chrome giải phóng. Để tránh điều này, hãy chọn một trong hai cách:
 
 1. Tắt Chrome Memory Saver và để TabRest quản lý hoàn toàn (khuyến nghị cho người dùng muốn kiểm soát chi tiết), hoặc
 2. Giữ cả hai bật, đồng thời thêm các domain quan trọng vào danh sách **Always keep these sites active** của Chrome tại `chrome://settings/performance`
 
-Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config#cùng-tồn-tại-với-chrome-memory-saver) để biết chi tiết.
+Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config#cung-ton-tai-voi-chrome-memory-saver) để biết chi tiết.
 
 ### Tại sao tab trong danh sách trắng vẫn bị giải phóng?
 
@@ -293,7 +293,7 @@ Các nguyên nhân khác có thể có:
 - Đang bật chế độ blacklist (danh sách trắng trở thành danh sách giải phóng)
 - Có tiện ích quản lý tab khác cũng được cài đặt
 
-Xem [Xử lý sự cố -> Danh sách trắng không hoạt động](/vi/docs/troubleshooting#danh-sách-trắng-không-hoạt-động) để biết các bước chẩn đoán đầy đủ.
+Xem [Xử lý sự cố -> Danh sách trắng không hoạt động](/vi/docs/troubleshooting#danh-sach-trang-khong-hoat-dong) để biết các bước chẩn đoán đầy đủ.
 
 ## Xử lý sự cố
 
@@ -332,7 +332,7 @@ Không trực tiếp từ UI. Cài đặt được lưu trong `chrome.storage.sy
 
 ### Làm sao để báo cáo lỗi?
 
-Xem [Khắc phục sự cố → Báo cáo lỗi](/vi/docs/troubleshooting#báo-cáo-lỗi) để biết hướng dẫn chi tiết.
+Xem [Khắc phục sự cố → Báo cáo lỗi](/vi/docs/troubleshooting#bao-cao-loi) để biết hướng dẫn chi tiết.
 
 ## Bắt đầu
 

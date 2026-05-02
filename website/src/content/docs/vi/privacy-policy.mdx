@@ -34,7 +34,7 @@ TabRest tách biệt hành vi thành hai chế độ. Mặc định, tiện ích
 | Báo cáo crash | ❌ Không bao giờ | ✅ Tên lỗi, message, stack trace đã làm sạch |
 | Thông tin thiết bị/môi trường | ❌ Không bao giờ | ✅ Phiên bản extension, browser + OS string |
 | Bộ đếm tổng hợp | ❌ Không bao giờ | ✅ Tab counts (tổng/discarded/pinned/audible), RAM stats, settings, ngày cài đặt |
-| Nội dung whitelist / blacklist | ❌ Không bao giờ | ❌ Loại trừ - chỉ gửi số lượng entry |
+| Nội dung danh sách trắng / danh sách đen | ❌ Không bao giờ | ❌ Loại trừ - chỉ gửi số lượng entry |
 
 Báo cáo lỗi opt-in được mô tả đầy đủ trong [Báo cáo lỗi](#error-reporting). Bạn có thể tắt bất cứ lúc nào tại Tùy chọn → Privacy & Diagnostics.
 
@@ -60,7 +60,7 @@ TabRest yêu cầu các quyền sau:
 **Thực tế làm gì**:
 
 - Đọc URL tab để khớp với danh sách trắng
-- Đọc trạng thái tab (ghim, audio, hoạt động)
+- Đọc trạng thái tab (ghim, âm thanh, hoạt động)
 - Gọi `chrome.tabs.discard()` để giải phóng tab
 
 **Thực tế KHÔNG làm gì**:
@@ -128,10 +128,10 @@ TabRest yêu cầu các quyền sau:
 
 TabRest yêu cầu quyền **tùy chọn** cho một số tính năng. Bạn có toàn quyền kiểm soát:
 
-### `http://*/*` và `https://*/*` - Kiểm tra form chưa lưu
+### `http://*/*` và `https://*/*` - Kiểm tra biểu mẫu chưa lưu
 
 **Khi cần**:
-- Bật "Bảo vệ tab với form chưa lưu" trong Cài đặt
+- Bật "Bảo vệ tab với biểu mẫu chưa lưu" trong Cài đặt
 - Bật tính năng "Prepend symbol to discarded tabs" (thêm ký hiệu vào tab đã giải phóng)
 
 **Làm gì**:
@@ -140,7 +140,7 @@ TabRest yêu cầu quyền **tùy chọn** cho một số tính năng. Bạn có
 
 **Bạn có thể**:
 - Tắt tính năng bất kỳ lúc nào → quyền sẽ được gỡ bỏ
-- Chọn từ chối quyền → tính năng vẫn hoạt động nhưng form protection bị vô hiệu
+- Chọn từ chối quyền → tính năng vẫn hoạt động nhưng bảo vệ biểu mẫu bị vô hiệu
 
 **Ghi chú**: Quyền này là **tùy chọn** - bạn chỉ cấp nó khi cần tính năng.
 
@@ -232,15 +232,15 @@ TabRest có thể gửi báo cáo lỗi ẩn danh để giúp sửa lỗi nhanh 
 
 - Tên lỗi, thông báo và stack trace đã làm sạch (URL, địa chỉ email và IP thay bằng `[REDACTED]`)
 - Phiên bản tiện ích, tên và phiên bản trình duyệt, chuỗi nền tảng hệ điều hành
-- Số lượng tab: tổng, đã dỡ, đã ghim, đang phát âm thanh, số cửa sổ - không gửi URL hay tiêu đề trang
+- Số lượng tab: tổng, đã giải phóng, đã ghim, đang phát âm thanh, số cửa sổ - không gửi URL hay tiêu đề trang
 - Thống kê bộ nhớ hệ thống: phần trăm sử dụng, tổng RAM, RAM khả dụng
-- Giá trị cài đặt (hẹn giờ tự động dỡ, ngưỡng RAM, các tuỳ chọn tính năng, v.v.) - danh sách trắng và danh sách đen **không được gửi**; chỉ gửi số lượng mục
-- Thống kê tích lũy: tổng tab đã dỡ và số hôm nay, ngày cài đặt
+- Giá trị cài đặt (hẹn giờ tự động giải phóng, ngưỡng RAM, các tuỳ chọn tính năng, v.v.) - danh sách trắng và danh sách đen **không được gửi**; chỉ gửi số lượng mục
+- Thống kê tích lũy: tổng tab đã giải phóng và số hôm nay, ngày cài đặt
 
 **Dữ liệu KHÔNG BAO GIỜ gửi:**
 
 - URL các trang bạn truy cập
-- Tiêu đề trang, nội dung, dữ liệu form hay vị trí cuộn
+- Tiêu đề trang, nội dung, dữ liệu biểu mẫu hay vị trí cuộn
 - Địa chỉ email hoặc IP (đã xóa ở phía client trước khi gửi)
 - Nội dung danh sách trắng hoặc danh sách đen
 - Bất kỳ thông tin nào có thể liên kết báo cáo với bạn

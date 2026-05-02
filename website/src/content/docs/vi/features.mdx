@@ -25,7 +25,7 @@ Tự động giải phóng tab sau thời gian không hoạt động:
 | 2 giờ    | Giữ tab lâu hơn |
 | 4 giờ    | Tự động giải phóng tối thiểu |
 
-**Cách hoạt động**: TabRest theo dõi lần tương tác cuối cùng với mỗi tab (click, cuộn, focus). Sau thời gian cấu hình, các tab không hoạt động sẽ được giải phóng.
+**Cách hoạt động**: TabRest theo dõi lần tương tác cuối cùng với mỗi tab (nhấp, cuộn, focus). Sau thời gian cấu hình, các tab không hoạt động sẽ được giải phóng.
 
 ### Giải phóng theo ngưỡng bộ nhớ
 
@@ -85,11 +85,11 @@ Ngăn tab bị giải phóng khi mất kết nối mạng:
 
 ### Cảnh báo trước khi suspend
 
-Nhận cảnh báo (toast) trên trang web trước khi tab bị tự động giải phóng:
+Nhận cảnh báo trên trang web trước khi tab bị tự động giải phóng:
 
 - **Mặc định**: Bật
 - **Khoảng thời gian**: 3 giây cảnh báo trước khi giải phóng
-- **Hành vi**: Nếu bạn tương tác với tab (click, nhập, phát audio) thì cảnh báo sẽ bị hủy
+- **Hành vi**: Nếu bạn tương tác với tab (nhấp, nhập, phát âm thanh) thì cảnh báo sẽ bị hủy
 - **Có thể tùy chỉnh**: Thay đổi độ trễ (ms) trong Cài đặt
 - **Trường hợp sử dụng**: Tránh mất bất ngờ tab mà không biết
 
@@ -135,9 +135,9 @@ Tùy chỉnh hành động khi nhấp vào biểu tượng tiện ích:
 | **Giải phóng tab hiện tại** | Giải phóng tab hiện tại ngay lập tức |
 | **Giải phóng các tab khác** | Giải phóng tất cả tab khác ngay lập tức |
 
-**Trường hợp sử dụng**: Người dùng nâng cao muốn giải phóng một click mà không mở popup.
+**Trường hợp sử dụng**: Người dùng nâng cao muốn giải phóng một nhấp mà không mở popup.
 
-## Chế độ nguồn
+## Chế độ tiết kiệm
 
 Điều chỉnh mức độ tích cực tự động giải phóng dựa trên tình huống:
 
@@ -160,15 +160,15 @@ Bảo vệ các tab cụ thể khỏi tự động giải phóng:
 - **Mặc định**: Được bảo vệ khỏi tự động giải phóng
 - **Có thể cấu hình**: Bật "Giải phóng tab ghim" trong cài đặt để ghi đè
 
-### Tab Audio/Video
+### Tab Âm thanh/Video
 - **Mặc định**: Được bảo vệ khi đang phát media
 - **Phát hiện**: Kiểm tra thuộc tính `tab.audible`
-- **Có thể cấu hình**: Tắt "Bảo vệ tab đang phát audio/video" để cho phép giải phóng
+- **Có thể cấu hình**: Tắt "Bảo vệ tab đang phát âm thanh/video" để cho phép giải phóng
 
-### Tab Form
-- **Mặc định**: Được bảo vệ khi form có dữ liệu chưa lưu
+### Tab Biểu mẫu
+- **Mặc định**: Được bảo vệ khi biểu mẫu có dữ liệu chưa lưu
 - **Phát hiện**: Content script kiểm tra các trường input đã thay đổi
-- **Có thể cấu hình**: Tắt "Bảo vệ tab có form chưa lưu" để cho phép giải phóng
+- **Có thể cấu hình**: Tắt "Bảo vệ tab có biểu mẫu chưa lưu" để cho phép giải phóng
 
 ### Danh sách trắng
 - **Mặc định**: YouTube, Gmail, Google Docs, Miro, Figma, Notion
@@ -223,7 +223,7 @@ Xem mức sử dụng RAM hệ thống trong header popup:
 
 - **Hiển thị**: Hiện % RAM cùng với thống kê tab
 - **Cảnh báo**: Làm nổi bật khi RAM vượt ngưỡng đã cấu hình
-- **Tooltip**: Di chuột để xem ước tính bộ nhớ được giải phóng (~150 MB mỗi tab)
+- **Chú thích**: Di chuột qua để xem ước tính bộ nhớ được giải phóng (~150 MB mỗi tab)
 - **Ước tính**: Hiển thị xấp xỉ bao nhiêu bộ nhớ có thể được giải phóng nếu các tab đang ngủ được tải lại
 
 ## Khôi phục vị trí cuộn
@@ -246,13 +246,13 @@ Nhận thông báo khi tab bị tự động giải phóng:
 
 **Trường hợp sử dụng**: Theo dõi những gì TabRest đang làm trong nền.
 
-## Mở link ở trạng thái ngủ
+## Mở liên kết ở trạng thái ngủ
 
-Mở link trực tiếp ở trạng thái đã giải phóng:
+Mở liên kết trực tiếp ở trạng thái đã giải phóng:
 
-- **Truy cập**: Nhấn chuột phải lên link → "Mở link ở trạng thái ngủ"
+- **Truy cập**: Nhấn chuột phải lên liên kết → "Mở liên kết ở trạng thái ngủ"
 - **Hành vi**: Tạo tab, đợi tải xong, rồi giải phóng ngay
-- **Trường hợp sử dụng**: Lưu link để đọc sau mà không tốn bộ nhớ
+- **Trường hợp sử dụng**: Lưu liên kết để đọc sau mà không tốn bộ nhớ
 
 ## Side Panel (Bảng bên)
 
