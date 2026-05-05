@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/lamngockhuong/tabrest/compare/v0.4.0...v0.5.0) (2026-05-05)
+
+
+### Features
+
+* **popup:** add site whitelist toggle bar ([#79](https://github.com/lamngockhuong/tabrest/issues/79)) ([9058a98](https://github.com/lamngockhuong/tabrest/commit/9058a985d36857a416173d7c2c6b0b2b0b2466b0))
+
 ## [0.4.0](https://github.com/lamngockhuong/tabrest/compare/v0.3.0...v0.4.0) (2026-05-02)
 
 
