@@ -11,7 +11,7 @@
   --card: #FFFFFF;
   --card-elevated: #F9F7FC;
   --text: #312E81;
-  --text-muted: #64748B;
+  --text-muted: #4B5563;
   --border: #E0E7FF;
   --border-subtle: rgba(0, 0, 0, 0.06);
   --success: #059669;
@@ -31,7 +31,7 @@
   --card: #1A1528;
   --card-elevated: #241E35;
   --text: #E8E2F4;
-  --text-muted: #9B8FAD;
+  --text-muted: #B8AECA;
   --border: rgba(255, 255, 255, 0.1);
   --border-subtle: rgba(255, 255, 255, 0.06);
   --success: #6EE7B7;
@@ -246,7 +246,7 @@ h1 {
 
 footer {
   text-align: center;
-  font-size: 11px;
+  font-size: 12px;
   min-height: 16px;
 }
 
@@ -306,7 +306,7 @@ footer {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--background);
-  font-size: 11px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -419,7 +419,7 @@ footer {
 }
 
 .tab-hostname {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
@@ -491,7 +491,7 @@ footer {
   background: none;
   border: none;
   text-align: left;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text);
   cursor: pointer;
   white-space: nowrap;
@@ -508,7 +508,7 @@ footer {
 }
 
 .badge {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   padding: 2px 6px;
   border-radius: 10px;
@@ -623,7 +623,7 @@ footer {
 }
 
 .strip-stat-label {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -793,7 +793,7 @@ footer {
 }
 
 .site-whitelist-status {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-muted);
 }
 
@@ -806,7 +806,7 @@ footer {
   border-radius: 14px;
   background: var(--background);
   color: var(--text-muted);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
@@ -867,7 +867,7 @@ footer {
 
 .btn-sm {
   padding: 6px 10px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .btn-icon {
@@ -892,7 +892,7 @@ footer {
   align-items: center;
   padding: 0 4px;
   margin-bottom: 8px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -985,7 +985,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px 4px;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-muted);
 }
 
@@ -1096,7 +1096,7 @@ footer {
 
 .diagnostics-preview {
   margin-top: 10px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .diagnostics-preview summary {
@@ -1111,7 +1111,7 @@ footer {
   background: var(--background);
   border-radius: 4px;
   overflow-x: auto;
-  font-size: 10px;
+  font-size: 11px;
   max-height: 120px;
   color: var(--text-muted);
 }
@@ -1202,7 +1202,7 @@ footer {
 }
 
 .session-meta {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
@@ -1235,7 +1235,7 @@ footer {
 }
 
 .stat-card-label {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -1316,7 +1316,7 @@ footer {
   padding: 4px 8px;
   border: none;
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s;
@@ -1421,7 +1421,7 @@ footer {
 /* Sentry disabled hint shown below the modal footer buttons */
 .modal-sentry-hint {
   padding: 6px 14px 10px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
