@@ -153,6 +153,30 @@
     "message": "Threshold updated",
     "description": "Toast message"
   },
+  "resetDefaults": {
+    "message": "Reset to Defaults",
+    "description": "Button label to reset all settings to default values"
+  },
+  "confirmResetDefaults": {
+    "message": "Reset all settings to defaults? This cannot be undone.",
+    "description": "Confirmation dialog before resetting settings"
+  },
+  "settingsReset": {
+    "message": "Settings reset to defaults",
+    "description": "Toast message after resetting settings"
+  },
+  "confirmResetShort": {
+    "message": "Are you sure?",
+    "description": "Inline confirm text before resetting settings"
+  },
+  "cancel": {
+    "message": "Cancel",
+    "description": "Cancel button label"
+  },
+  "confirmYes": {
+    "message": "Yes",
+    "description": "Confirm button label for destructive actions"
+  },
   "cannotUnloadActive": {
     "message": "Cannot unload active tab",
     "description": "Toast message when trying to unload the current active tab"

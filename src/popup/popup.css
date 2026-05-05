@@ -244,6 +244,37 @@ h1 {
   outline-offset: 1px;
 }
 
+.setting-row-reset {
+  justify-content: flex-end;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-reset {
+  color: var(--danger);
+  border-color: var(--danger);
+  background: transparent;
+}
+
+.btn-reset:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+.reset-confirm-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reset-confirm-text {
+  font-size: 12px;
+  color: var(--danger);
+  font-weight: 500;
+}
+
 footer {
   text-align: center;
   font-size: 12px;

@@ -1,4 +1,4 @@
-import { REPORT_REASONS, REPORTER_COMMANDS } from "../shared/constants.js";
+import { REPORT_REASONS, REPORTER_COMMANDS, SETTINGS_DEFAULTS } from "../shared/constants.js";
 import { sanitizeString } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { icon, injectIcons } from "../shared/icons.js";
@@ -27,6 +27,10 @@ const elements = {
   settingsBtn: document.getElementById("settings-btn"),
   settingsToggle: document.getElementById("settings-toggle"),
   settingsBody: document.getElementById("settings-body"),
+  resetSettings: document.getElementById("reset-settings"),
+  resetConfirmGroup: document.getElementById("reset-confirm-group"),
+  resetConfirm: document.getElementById("reset-confirm"),
+  resetCancel: document.getElementById("reset-cancel"),
   // More actions
   moreToggle: document.getElementById("more-toggle"),
   moreBody: document.getElementById("more-body"),
@@ -921,6 +925,25 @@ function setupEventListeners() {
     showToast(t("thresholdUpdated"));
   });
 
+  // Reset settings to defaults (inline confirm to avoid Chrome popup clipping)
+  elements.resetSettings.addEventListener("click", () => {
+    elements.resetSettings.style.display = "none";
+    elements.resetConfirmGroup.style.display = "";
+  });
+
+  elements.resetCancel.addEventListener("click", () => {
+    elements.resetConfirmGroup.style.display = "none";
+    elements.resetSettings.style.display = "";
+  });
+
+  elements.resetConfirm.addEventListener("click", async () => {
+    await saveSettings({ ...SETTINGS_DEFAULTS });
+    await Promise.all([loadSettings(), renderTabList(), renderSiteWhitelistBar(), updateStats()]);
+    elements.resetConfirmGroup.style.display = "none";
+    elements.resetSettings.style.display = "";
+    showToast(t("settingsReset") || "Settings reset to defaults");
+  });
+
   // Session save button
   elements.btnSaveSession.addEventListener("click", async () => {
     const result = await sendCommand("save-session", {
@@ -1146,8 +1169,12 @@ function setupTabEventSync() {
 
   const scheduleRefresh = leadingDebounce(renderTabList);
   const scheduleWhitelistRefresh = leadingDebounce(renderSiteWhitelistBar);
-  chrome.tabs.onActivated.addListener(scheduleRefresh);
-  chrome.tabs.onActivated.addListener(scheduleWhitelistRefresh);
+  chrome.tabs.onActivated.addListener(() => {
+    scheduleRefresh();
+    scheduleWhitelistRefresh();
+    elements.resetConfirmGroup.style.display = "none";
+    elements.resetSettings.style.display = "";
+  });
   chrome.tabs.onUpdated.addListener((_id, changeInfo) => {
     if ("discarded" in changeInfo || "title" in changeInfo || "favIconUrl" in changeInfo) {
       scheduleRefresh();

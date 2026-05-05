@@ -112,6 +112,24 @@
   "thresholdUpdated": {
     "message": "Đã cập nhật ngưỡng"
   },
+  "resetDefaults": {
+    "message": "Khôi phục mặc định"
+  },
+  "confirmResetDefaults": {
+    "message": "Khôi phục tất cả cài đặt về mặc định? Thao tác này không thể hoàn tác."
+  },
+  "settingsReset": {
+    "message": "Đã khôi phục cài đặt mặc định"
+  },
+  "confirmResetShort": {
+    "message": "Bạn chắc chắn?"
+  },
+  "cancel": {
+    "message": "Hủy"
+  },
+  "confirmYes": {
+    "message": "Có"
+  },
   "cannotUnloadActive": {
     "message": "Không thể dỡ tab đang hoạt động"
   },

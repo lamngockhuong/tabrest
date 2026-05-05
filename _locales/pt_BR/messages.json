@@ -116,6 +116,24 @@
   "thresholdUpdated": {
     "message": "Limite atualizado"
   },
+  "resetDefaults": {
+    "message": "Restaurar padrões"
+  },
+  "confirmResetDefaults": {
+    "message": "Restaurar todas as configurações para os padrões? Isso não pode ser desfeito."
+  },
+  "settingsReset": {
+    "message": "Configurações restauradas para os padrões"
+  },
+  "confirmResetShort": {
+    "message": "Tem certeza?"
+  },
+  "cancel": {
+    "message": "Cancelar"
+  },
+  "confirmYes": {
+    "message": "Sim"
+  },
   "cannotUnloadActive": {
     "message": "Não é possível descarregar a aba ativa"
   },
