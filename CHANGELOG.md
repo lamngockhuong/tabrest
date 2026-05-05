@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.1](https://github.com/lamngockhuong/tabrest/compare/v0.5.0...v0.5.1) (2026-05-05)
+
+
+### Bug Fixes
+
+* **popup:** improve text readability ([#81](https://github.com/lamngockhuong/tabrest/issues/81)) ([faa3e55](https://github.com/lamngockhuong/tabrest/commit/faa3e55b649c10a51f4c7cffb9ea48d95a7e65b1))
+* **popup:** improve text readability with larger fonts and better contrast ([faa3e55](https://github.com/lamngockhuong/tabrest/commit/faa3e55b649c10a51f4c7cffb9ea48d95a7e65b1))
+
 ## [0.5.0](https://github.com/lamngockhuong/tabrest/compare/v0.4.0...v0.5.0) (2026-05-05)
 
 
