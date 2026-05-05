@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/lamngockhuong/tabrest/compare/v0.5.1...v0.6.0) (2026-05-05)
+
+
+### Features
+
+* **settings:** add reset to defaults button ([#83](https://github.com/lamngockhuong/tabrest/issues/83)) ([bb6acdc](https://github.com/lamngockhuong/tabrest/commit/bb6acdc97a480f0a9152df5218352d06c11815ef))
+
+
+### Bug Fixes
+
+* **popup:** re-render tab list when auto-unload timer changes ([#85](https://github.com/lamngockhuong/tabrest/issues/85)) ([6cdd602](https://github.com/lamngockhuong/tabrest/commit/6cdd60288ce043c51793463b60c608ad20c02595))
+
 ## [0.5.1](https://github.com/lamngockhuong/tabrest/compare/v0.5.0...v0.5.1) (2026-05-05)
 
 
