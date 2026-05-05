@@ -2,8 +2,8 @@
 export const SETTINGS_DEFAULTS = {
   autoUnloadOnStartup: true,
   unloadDelayMinutes: 30,
-  memoryThresholdPercent: 80,
-  whitelist: ["youtube.com", "gmail.com", "docs.google.com", "miro.com", "figma.com", "notion.so"],
+  memoryThresholdPercent: 90,
+  whitelist: ["youtube.com", "meet.google.com"],
   blacklist: [],
   unloadPinnedTabs: false,
   protectAudioTabs: true,
@@ -56,9 +56,11 @@ export const YOUTUBE_TIMESTAMP_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 export const WHITELIST_SUGGESTIONS = Object.freeze([
   "gmail.com",
   "docs.google.com",
+  "meet.google.com",
   "github.com",
   "notion.so",
   "figma.com",
+  "miro.com",
   "youtube.com",
 ]);
 
