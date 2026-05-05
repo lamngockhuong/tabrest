@@ -278,7 +278,7 @@ service-worker.js
 
 | Event                    | Handler                                          | Action                   |
 | ------------------------ | ------------------------------------------------ | ------------------------ |
-| `runtime.onStartup`      | Initialize all trackers, sync tabs, setup alarms | Startup                  |
+| `runtime.onStartup`      | Initialize trackers, sync tabs, force-discard all non-active tabs (all windows) | Startup                  |
 | `runtime.onInstalled`    | Same as startup + show onboarding/changelog      | Install/Update           |
 | `tabs.onActivated`       | Update tab activity timestamp                    | Tab focus                |
 | `tabs.onUpdated`         | Update activity, refresh badge                   | Tab navigation           |

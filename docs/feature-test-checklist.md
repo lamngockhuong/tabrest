@@ -57,7 +57,8 @@ Legend: `[ ]` not tested · `[x]` pass · `[!]` fail · `[~]` skip / N/A.
 
 - [ ] Toggle `Auto-unload on startup` ON (Options).
 - [ ] Quit and relaunch Chrome with multiple tabs open from previous session.
-- [ ] All non-active, non-whitelisted tabs discard within seconds of startup.
+- [ ] ALL non-active tabs discard within seconds of startup (including pinned and whitelisted).
+- [ ] Tabs in all restored windows are discarded, not just the focused window.
 - [ ] Toggle OFF → tabs remain loaded after relaunch.
 
 ## 5. Min Inactive Tabs Threshold

@@ -1,4 +1,4 @@
-import { FORM_CHECK_TIMEOUT_MS } from "../shared/constants.js";
+import { FORM_CHECK_TIMEOUT_MS, STARTUP_DISCARD_DELAY_MS } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
 import { unwrapHostname } from "../shared/utils.js";
 import { ensureFormCheckerInjected } from "./form-injector.js";
@@ -191,12 +191,20 @@ export async function discardOtherTabs() {
   return count;
 }
 
-// Discard all other tabs on browser startup (if enabled)
+// Force-discard all tabs across every window on browser startup.
 export async function discardAllTabsOnStartup() {
   const settings = await getSettings();
   if (!settings.autoUnloadOnStartup) return 0;
 
-  return await discardOtherTabs();
+  await new Promise((resolve) => setTimeout(resolve, STARTUP_DISCARD_DELAY_MS));
+
+  const tabs = await chrome.tabs.query({});
+  let count = 0;
+  for (const tab of tabs) {
+    if (!tab.active && !tab.discarded && (await discardTab(tab.id, { settings, force: true })))
+      count++;
+  }
+  return count;
 }
 
 // Discard all tabs in a specific tab group

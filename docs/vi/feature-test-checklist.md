@@ -57,7 +57,8 @@ Ký hiệu: `[ ]` chưa test · `[x]` đạt · `[!]` lỗi · `[~]` bỏ qua / 
 
 - [ ] Bật `Auto-unload on startup` (Options).
 - [ ] Thoát Chrome rồi mở lại với nhiều tab từ phiên trước.
-- [ ] Mọi tab không active và không trong whitelist bị discard ngay sau khởi động.
+- [ ] TẤT CẢ tab không active bị discard ngay sau khởi động (bao gồm tab pin và whitelist).
+- [ ] Tab ở mọi cửa sổ được khôi phục đều bị discard, không chỉ cửa sổ đang focus.
 - [ ] Tắt → tab không discard sau khi mở lại.
 
 ## 5. Ngưỡng số tab inactive tối thiểu

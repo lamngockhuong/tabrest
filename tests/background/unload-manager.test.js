@@ -1,4 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { STARTUP_DISCARD_DELAY_MS } from "../../src/shared/constants.js";
 
 vi.mock("../../src/shared/storage.js", () => ({
   getSettings: vi.fn(),
@@ -299,19 +300,66 @@ describe("unload-manager", () => {
   });
 
   describe("discardAllTabsOnStartup", () => {
+    afterEach(() => vi.useRealTimers());
+
     it("returns 0 when autoUnloadOnStartup is disabled", async () => {
       getSettings.mockResolvedValue({ ...baseSettings, autoUnloadOnStartup: false });
       expect(await discardAllTabsOnStartup()).toBe(0);
     });
 
-    it("delegates to discardOtherTabs when enabled", async () => {
+    it("discards non-active tabs across all windows after delay", async () => {
+      vi.useFakeTimers();
       setupWindowTabs([
         { id: 1, url: "https://a.com", active: false, discarded: false },
         { id: 2, url: "https://b.com", active: true, discarded: false },
+        { id: 3, url: "https://c.com", active: false, discarded: false },
       ]);
 
-      const result = await discardAllTabsOnStartup();
+      const promise = discardAllTabsOnStartup();
+      await vi.advanceTimersByTimeAsync(STARTUP_DISCARD_DELAY_MS);
+      const result = await promise;
+
+      expect(result).toBe(2);
+      expect(chrome.tabs.discard).toHaveBeenCalledWith(1);
+      expect(chrome.tabs.discard).toHaveBeenCalledWith(3);
+      expect(chrome.tabs.discard).not.toHaveBeenCalledWith(2);
+    });
+
+    it("force-discards protected tabs (pinned, whitelisted)", async () => {
+      vi.useFakeTimers();
+      setupWindowTabs(
+        [
+          { id: 1, url: "https://a.com", active: false, discarded: false, pinned: true },
+          { id: 2, url: "https://b.com", active: true, discarded: false },
+          { id: 3, url: "https://safe.com/page", active: false, discarded: false },
+        ],
+        { settings: { ...baseSettings, unloadPinnedTabs: false, whitelist: ["safe.com"] } },
+      );
+
+      const promise = discardAllTabsOnStartup();
+      await vi.advanceTimersByTimeAsync(STARTUP_DISCARD_DELAY_MS);
+      const result = await promise;
+
+      expect(result).toBe(2);
+      expect(chrome.tabs.discard).toHaveBeenCalledWith(1);
+      expect(chrome.tabs.discard).toHaveBeenCalledWith(3);
+    });
+
+    it("skips already-discarded tabs", async () => {
+      vi.useFakeTimers();
+      setupWindowTabs([
+        { id: 1, url: "https://a.com", active: false, discarded: true },
+        { id: 2, url: "https://b.com", active: true, discarded: false },
+        { id: 3, url: "https://c.com", active: false, discarded: false },
+      ]);
+
+      const promise = discardAllTabsOnStartup();
+      await vi.advanceTimersByTimeAsync(STARTUP_DISCARD_DELAY_MS);
+      const result = await promise;
+
       expect(result).toBe(1);
+      expect(chrome.tabs.discard).toHaveBeenCalledWith(3);
+      expect(chrome.tabs.discard).not.toHaveBeenCalledWith(1);
     });
   });
 
