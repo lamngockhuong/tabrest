@@ -380,7 +380,12 @@ function setupEventListeners() {
 
   // Reset all settings to defaults
   elements.resetSettings?.addEventListener("click", async () => {
-    if (!confirm(t("confirmResetDefaults") || "Reset all settings to defaults? This cannot be undone.")) return;
+    if (
+      !confirm(
+        t("confirmResetDefaults") || "Reset all settings to defaults? This cannot be undone.",
+      )
+    )
+      return;
     currentSettings = {
       ...SETTINGS_DEFAULTS,
       whitelist: [...SETTINGS_DEFAULTS.whitelist],
