@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/lamngockhuong/tabrest/compare/v0.6.0...v0.6.1) (2026-05-05)
+
+
+### Bug Fixes
+
+* **startup:** force-discard all tabs across every window on browser launch ([#86](https://github.com/lamngockhuong/tabrest/issues/86)) ([374f4b5](https://github.com/lamngockhuong/tabrest/commit/374f4b53c4619ffbcfa8d5b166acca9d0594d43b))
+
 ## [0.6.0](https://github.com/lamngockhuong/tabrest/compare/v0.5.1...v0.6.0) (2026-05-05)
 
 
