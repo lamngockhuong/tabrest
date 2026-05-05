@@ -182,6 +182,24 @@
   "whitelistHelp": {
     "message": "Сайты, которые никогда не выгружаются автоматически"
   },
+  "neverUnloadSite": {
+    "message": "Не выгружать"
+  },
+  "whitelistedClickRemove": {
+    "message": "В белом списке"
+  },
+  "whitelistedStatus": {
+    "message": "В белом списке - не будет выгружен"
+  },
+  "activeStatus": {
+    "message": "Активен"
+  },
+  "siteWhitelisted": {
+    "message": "Сайт добавлен в белый список"
+  },
+  "siteRemovedFromWhitelist": {
+    "message": "Сайт удалён из белого списка"
+  },
   "memorySaverNoteBody": {
     "message": "Встроенная экономия памяти Chrome работает отдельно и может выгружать эти сайты."
   },

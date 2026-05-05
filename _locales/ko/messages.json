@@ -182,6 +182,24 @@
   "whitelistHelp": {
     "message": "자동으로 언로드되지 않는 사이트"
   },
+  "neverUnloadSite": {
+    "message": "언로드 안 함"
+  },
+  "whitelistedClickRemove": {
+    "message": "허용됨"
+  },
+  "whitelistedStatus": {
+    "message": "허용됨 - 언로드되지 않음"
+  },
+  "activeStatus": {
+    "message": "활성"
+  },
+  "siteWhitelisted": {
+    "message": "사이트가 허용 목록에 추가됨"
+  },
+  "siteRemovedFromWhitelist": {
+    "message": "사이트가 허용 목록에서 제거됨"
+  },
   "memorySaverNoteBody": {
     "message": "Chrome 내장 메모리 절약 모드는 별도로 실행되며 이러한 사이트를 언로드할 수 있습니다."
   },

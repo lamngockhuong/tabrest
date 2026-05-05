@@ -36,7 +36,7 @@ tabrest/
 
 | File                 | LOC | Purpose                                                                                                           |
 | -------------------- | --- | ----------------------------------------------------------------------------------------------------------------- |
-| `service-worker.js`  | 618 | Orchestrator: events, alarms, message routing; error capture handler for `captureError`/`captureMessage` commands |
+| `service-worker.js`  | 702 | Orchestrator: events, alarms, message routing; error capture handler for `captureError`/`captureMessage` commands |
 | `unload-manager.js`  | 348 | Core discard logic, protection checks, batch ops                                                                  |
 | `tab-tracker.js`     | 172 | LRU activity tracking, inactivity timer checks                                                                    |
 | `memory-monitor.js`  | 196 | System RAM monitoring, per-tab JS heap tracking                                                                   |
@@ -56,9 +56,9 @@ tabrest/
 
 | File                   | LOC  | Purpose                                                                               |
 | ---------------------- | ---- | ------------------------------------------------------------------------------------- |
-| `popup/popup.js`       | 974  | Main popup logic, tab list, actions, "Send to Sentry" button in bug report modal      |
-| `popup/popup.html`     | 238  | Popup markup (reused for side panel)                                                  |
-| `popup/popup.css`      | 1053 | Popup styles                                                                          |
+| `popup/popup.js`       | 1168 | Main popup logic, tab list, actions, site whitelist toggle, bug report modal           |
+| `popup/popup.html`     | 314  | Popup markup (reused for side panel)                                                  |
+| `popup/popup.css`      | 1432 | Popup styles                                                                          |
 | `options/options.js`   | 428  | Settings management, Privacy & Diagnostics section with error reporting toggle        |
 | `options/options.html` | 267  | Options page markup, new Privacy & Diagnostics section with toggle + custom DSN field |
 | `options/options.css`  | 401  | Options styles                                                                        |

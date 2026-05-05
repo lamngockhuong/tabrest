@@ -182,6 +182,24 @@
   "whitelistHelp": {
     "message": "自動アンロードの対象にならないサイト"
   },
+  "neverUnloadSite": {
+    "message": "アンロードしない"
+  },
+  "whitelistedClickRemove": {
+    "message": "ホワイトリスト済み"
+  },
+  "whitelistedStatus": {
+    "message": "ホワイトリスト済み - アンロードされません"
+  },
+  "activeStatus": {
+    "message": "アクティブ"
+  },
+  "siteWhitelisted": {
+    "message": "サイトをホワイトリストに追加しました"
+  },
+  "siteRemovedFromWhitelist": {
+    "message": "サイトをホワイトリストから削除しました"
+  },
   "memorySaverNoteBody": {
     "message": "Chrome の組み込みメモリ セーバーは独立して動作し、これらのサイトをアンロードすることがあります。"
   },

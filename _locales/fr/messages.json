@@ -182,6 +182,24 @@
   "whitelistHelp": {
     "message": "Sites qui ne seront jamais déchargés automatiquement"
   },
+  "neverUnloadSite": {
+    "message": "Ne pas décharger"
+  },
+  "whitelistedClickRemove": {
+    "message": "Protégé"
+  },
+  "whitelistedStatus": {
+    "message": "Protégé - ne sera pas déchargé"
+  },
+  "activeStatus": {
+    "message": "Actif"
+  },
+  "siteWhitelisted": {
+    "message": "Site ajouté à la liste blanche"
+  },
+  "siteRemovedFromWhitelist": {
+    "message": "Site retiré de la liste blanche"
+  },
   "memorySaverNoteBody": {
     "message": "L'économiseur de mémoire intégré de Chrome fonctionne séparément et peut tout de même décharger ces sites."
   },

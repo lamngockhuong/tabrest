@@ -182,6 +182,24 @@
   "whitelistHelp": {
     "message": "Sitios que nunca se descargarán automáticamente"
   },
+  "neverUnloadSite": {
+    "message": "No descargar"
+  },
+  "whitelistedClickRemove": {
+    "message": "Protegido"
+  },
+  "whitelistedStatus": {
+    "message": "Protegido - no se descargará"
+  },
+  "activeStatus": {
+    "message": "Activo"
+  },
+  "siteWhitelisted": {
+    "message": "Sitio añadido a la lista blanca"
+  },
+  "siteRemovedFromWhitelist": {
+    "message": "Sitio eliminado de la lista blanca"
+  },
   "memorySaverNoteBody": {
     "message": "El Ahorro de memoria integrado de Chrome funciona por separado y aún puede descargar estos sitios."
   },

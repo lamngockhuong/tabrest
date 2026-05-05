@@ -750,6 +750,94 @@ footer {
   border-top: 1px solid var(--border);
 }
 
+/* Site Whitelist Bar */
+.site-whitelist-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.site-whitelist-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.site-whitelist-favicon {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.site-whitelist-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.site-whitelist-domain {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.site-whitelist-status {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.site-whitelist-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--background);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.site-whitelist-btn:hover {
+  border-color: var(--secondary);
+  color: var(--text);
+}
+
+.site-whitelist-btn.active {
+  background: rgba(5, 150, 105, 0.1);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+[data-theme="dark"] .site-whitelist-btn.active {
+  background: rgba(110, 231, 183, 0.12);
+  color: var(--success);
+  border-color: var(--success);
+}
+
+.site-whitelist-btn.active:hover {
+  background: rgba(5, 150, 105, 0.18);
+}
+
+[data-theme="dark"] .site-whitelist-btn.active:hover {
+  background: rgba(110, 231, 183, 0.2);
+}
+
 /* Quick Actions Row */
 .quick-actions {
   display: flex;
