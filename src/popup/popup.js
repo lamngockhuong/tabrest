@@ -915,6 +915,7 @@ function setupEventListeners() {
     const settings = await getSettings();
     settings.unloadDelayMinutes = Number.parseInt(e.target.value, 10);
     await saveSettings(settings);
+    await renderTabList();
     showToast(t("timerUpdated"));
   });
 
