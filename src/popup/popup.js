@@ -938,7 +938,7 @@ function setupEventListeners() {
 
   elements.resetConfirm.addEventListener("click", async () => {
     await saveSettings({ ...SETTINGS_DEFAULTS });
-    await loadSettings();
+    await Promise.all([loadSettings(), renderTabList(), renderSiteWhitelistBar(), updateStats()]);
     elements.resetConfirmGroup.style.display = "none";
     elements.resetSettings.style.display = "";
     showToast(t("settingsReset") || "Settings reset to defaults");
