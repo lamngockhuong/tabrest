@@ -44,8 +44,8 @@ When triggered, TabRest unloads the least recently used (LRU) tabs until memory 
 Free memory immediately when Chrome starts:
 
 - **Default**: Enabled
-- **Behavior**: Unloads all tabs except the active one on browser launch
-- **Useful for**: Restoring many tabs from a previous session
+- **Behavior**: Force-unloads all non-active tabs across every window on browser launch, bypassing all protections (pinned, whitelist, audio, form)
+- **Useful for**: Restoring many tabs from a previous session without wasting memory
 
 ### Tab Count Threshold
 
