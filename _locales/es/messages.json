@@ -116,6 +116,24 @@
   "thresholdUpdated": {
     "message": "Umbral actualizado"
   },
+  "resetDefaults": {
+    "message": "Restablecer valores predeterminados"
+  },
+  "confirmResetDefaults": {
+    "message": "Restablecer toda la configuración? Esto no se puede deshacer."
+  },
+  "settingsReset": {
+    "message": "Configuración restablecida"
+  },
+  "confirmResetShort": {
+    "message": "Estás seguro?"
+  },
+  "cancel": {
+    "message": "Cancelar"
+  },
+  "confirmYes": {
+    "message": "Sí"
+  },
   "cannotUnloadActive": {
     "message": "No se puede descargar la pestaña activa"
   },

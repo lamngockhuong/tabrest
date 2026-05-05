@@ -116,6 +116,24 @@
   "thresholdUpdated": {
     "message": "Schwelle aktualisiert"
   },
+  "resetDefaults": {
+    "message": "Auf Standard zurücksetzen"
+  },
+  "confirmResetDefaults": {
+    "message": "Alle Einstellungen auf Standard zurücksetzen? Dies kann nicht rückgängig gemacht werden."
+  },
+  "settingsReset": {
+    "message": "Einstellungen auf Standard zurückgesetzt"
+  },
+  "confirmResetShort": {
+    "message": "Sind Sie sicher?"
+  },
+  "cancel": {
+    "message": "Abbrechen"
+  },
+  "confirmYes": {
+    "message": "Ja"
+  },
   "cannotUnloadActive": {
     "message": "Aktiver Tab kann nicht entladen werden"
   },

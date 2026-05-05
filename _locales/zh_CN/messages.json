@@ -116,6 +116,24 @@
   "thresholdUpdated": {
     "message": "阈值已更新"
   },
+  "resetDefaults": {
+    "message": "恢复默认设置"
+  },
+  "confirmResetDefaults": {
+    "message": "将所有设置恢复为默认值？此操作无法撤销。"
+  },
+  "settingsReset": {
+    "message": "设置已恢复为默认值"
+  },
+  "confirmResetShort": {
+    "message": "确定要重置吗？"
+  },
+  "cancel": {
+    "message": "取消"
+  },
+  "confirmYes": {
+    "message": "是"
+  },
   "cannotUnloadActive": {
     "message": "无法释放当前活动标签页"
   },

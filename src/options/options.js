@@ -61,6 +61,7 @@ const elements = {
   status: document.getElementById("status"),
   shortcutsLink: document.getElementById("shortcuts-link"),
   rerunOnboarding: document.getElementById("rerun-onboarding"),
+  resetSettings: document.getElementById("reset-settings"),
   enableErrorReporting: document.getElementById("enable-error-reporting"),
   customSentryDsn: document.getElementById("custom-sentry-dsn"),
   dsnValidationMsg: document.getElementById("dsn-validation-msg"),
@@ -375,6 +376,19 @@ function setupEventListeners() {
   // Re-run onboarding wizard
   elements.rerunOnboarding?.addEventListener("click", () => {
     chrome.tabs.create({ url: chrome.runtime.getURL("src/pages/onboarding.html") });
+  });
+
+  // Reset all settings to defaults
+  elements.resetSettings?.addEventListener("click", async () => {
+    if (!confirm(t("confirmResetDefaults") || "Reset all settings to defaults? This cannot be undone.")) return;
+    currentSettings = {
+      ...SETTINGS_DEFAULTS,
+      whitelist: [...SETTINGS_DEFAULTS.whitelist],
+      blacklist: [...SETTINGS_DEFAULTS.blacklist],
+    };
+    await saveSettings(currentSettings);
+    await loadSettings();
+    showStatus(t("settingsReset") || "Settings reset to defaults");
   });
 }
 

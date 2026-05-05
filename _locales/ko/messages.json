@@ -116,6 +116,24 @@
   "thresholdUpdated": {
     "message": "임계값이 업데이트되었습니다"
   },
+  "resetDefaults": {
+    "message": "기본값으로 재설정"
+  },
+  "confirmResetDefaults": {
+    "message": "모든 설정을 기본값으로 재설정하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+  },
+  "settingsReset": {
+    "message": "설정이 기본값으로 재설정되었습니다"
+  },
+  "confirmResetShort": {
+    "message": "정말 재설정하시겠습니까?"
+  },
+  "cancel": {
+    "message": "취소"
+  },
+  "confirmYes": {
+    "message": "예"
+  },
   "cannotUnloadActive": {
     "message": "활성 탭은 언로드할 수 없습니다"
   },

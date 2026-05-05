@@ -116,6 +116,24 @@
   "thresholdUpdated": {
     "message": "Ambang diperbarui"
   },
+  "resetDefaults": {
+    "message": "Atur ulang ke default"
+  },
+  "confirmResetDefaults": {
+    "message": "Atur ulang semua pengaturan ke default? Tindakan ini tidak dapat dibatalkan."
+  },
+  "settingsReset": {
+    "message": "Pengaturan telah diatur ulang ke default"
+  },
+  "confirmResetShort": {
+    "message": "Anda yakin?"
+  },
+  "cancel": {
+    "message": "Batal"
+  },
+  "confirmYes": {
+    "message": "Ya"
+  },
   "cannotUnloadActive": {
     "message": "Tidak dapat membongkar tab yang aktif"
   },

@@ -306,21 +306,31 @@ For each of: **whitelist**, **blacklist**, **sessions**:
 - [ ] Every string in popup, options, onboarding, changelog, toast, notification, error message renders in Vietnamese (no `__MSG_*__` placeholders, no fallback English unless intentional).
 - [ ] Numbers/dates use locale-appropriate formatting.
 
-## 37. Settings Sync
+## 37. Reset Settings to Defaults
+
+- [ ] Popup → Quick Settings → click "Reset to Defaults" → inline confirm shows "Are you sure?" with Yes/Cancel.
+- [ ] Click "Cancel" → returns to original button, no changes.
+- [ ] Click "Yes" → all settings reset to `SETTINGS_DEFAULTS`; timer and threshold selects update immediately; toast shown.
+- [ ] Options → footer → click "Reset to Defaults" → browser confirm dialog appears.
+- [ ] Confirm → all settings (checkboxes, selects, radios, whitelist, blacklist) revert to defaults; status toast shown.
+- [ ] After reset, verify whitelist contains only default entries (`youtube.com`, `meet.google.com`).
+- [ ] After reset, verify power mode reverts to "Normal".
+
+## 38. Settings Sync
 
 - [ ] Sign in to Chrome with a sync-enabled account.
 - [ ] Modify settings on Profile A; on Profile B (signed in same account) verify sync within ~1 min.
 - [ ] Sessions and whitelist propagate across devices (sessions stored in `chrome.storage.sync`).
 - [ ] Tab activity stays per-device (`chrome.storage.local`).
 
-## 38. Service Worker Resilience
+## 39. Service Worker Resilience
 
 - [ ] In DevTools → Application → Service Workers → click "Stop" to terminate the worker.
 - [ ] Wait > 30s. Open a tab, then idle.
 - [ ] Worker auto-wakes via `chrome.alarms`; auto-unload still fires.
 - [ ] Long sessions (≥ 4 h) do not leak memory (`chrome://serviceworker-internals` shows stable heap).
 
-## 39. Cross-Browser Smoke (Chromium variants)
+## 40. Cross-Browser Smoke (Chromium variants)
 
 Spot-check on:
 
@@ -331,7 +341,7 @@ Spot-check on:
 
 Verify popup loads, manual unload works, side panel renders (where supported), shortcuts respond.
 
-## 40. Uninstall / Cleanup
+## 41. Uninstall / Cleanup
 
 - [ ] Remove extension → all alarms cleared.
 - [ ] Storage entries cleaned up by Chrome (verify via fresh reinstall: stats reset, no leftover snooze/sessions).

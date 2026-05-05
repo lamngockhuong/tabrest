@@ -116,6 +116,24 @@
   "thresholdUpdated": {
     "message": "Seuil mis à jour"
   },
+  "resetDefaults": {
+    "message": "Réinitialiser par défaut"
+  },
+  "confirmResetDefaults": {
+    "message": "Réinitialiser tous les paramètres par défaut ? Cette action est irréversible."
+  },
+  "settingsReset": {
+    "message": "Paramètres réinitialisés par défaut"
+  },
+  "confirmResetShort": {
+    "message": "Êtes-vous sûr ?"
+  },
+  "cancel": {
+    "message": "Annuler"
+  },
+  "confirmYes": {
+    "message": "Oui"
+  },
   "cannotUnloadActive": {
     "message": "Impossible de décharger l'onglet actif"
   },

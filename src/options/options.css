@@ -873,6 +873,15 @@ kbd {
   outline: none;
 }
 
+.footer-link--danger {
+  color: var(--danger);
+}
+
+.footer-link--danger:hover,
+.footer-link--danger:focus-visible {
+  color: var(--danger);
+}
+
 /* ---------- Scrollbar polish ---------- */
 ::-webkit-scrollbar {
   width: 10px;

@@ -116,6 +116,24 @@
   "thresholdUpdated": {
     "message": "Порог обновлён"
   },
+  "resetDefaults": {
+    "message": "Сбросить настройки"
+  },
+  "confirmResetDefaults": {
+    "message": "Сбросить все настройки по умолчанию? Это действие нельзя отменить."
+  },
+  "settingsReset": {
+    "message": "Настройки сброшены по умолчанию"
+  },
+  "confirmResetShort": {
+    "message": "Вы уверены?"
+  },
+  "cancel": {
+    "message": "Отмена"
+  },
+  "confirmYes": {
+    "message": "Да"
+  },
   "cannotUnloadActive": {
     "message": "Нельзя выгрузить активную вкладку"
   },

@@ -54,6 +54,7 @@
 - [x] Changelog page for updates
 - [x] Dark/light theme support
 - [x] Internationalization (EN, VI)
+- [x] Reset settings to defaults (popup + options page)
 
 #### Infrastructure
 

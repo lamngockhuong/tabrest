@@ -56,12 +56,12 @@ tabrest/
 
 | File                   | LOC  | Purpose                                                                               |
 | ---------------------- | ---- | ------------------------------------------------------------------------------------- |
-| `popup/popup.js`       | 1168 | Main popup logic, tab list, actions, site whitelist toggle, bug report modal           |
-| `popup/popup.html`     | 314  | Popup markup (reused for side panel)                                                  |
-| `popup/popup.css`      | 1432 | Popup styles                                                                          |
-| `options/options.js`   | 428  | Settings management, Privacy & Diagnostics section with error reporting toggle        |
-| `options/options.html` | 267  | Options page markup, new Privacy & Diagnostics section with toggle + custom DSN field |
-| `options/options.css`  | 401  | Options styles                                                                        |
+| `popup/popup.js`       | 1191 | Main popup logic, tab list, actions, site whitelist toggle, reset settings, bug report modal |
+| `popup/popup.html`     | 322  | Popup markup (reused for side panel)                                                        |
+| `popup/popup.css`      | 1463 | Popup styles                                                                                |
+| `options/options.js`   | 485  | Settings management, reset to defaults, Privacy & Diagnostics section                       |
+| `options/options.html` | 410  | Options page markup, Privacy & Diagnostics section with toggle + custom DSN field           |
+| `options/options.css`  | 1116 | Options styles                                                                              |
 
 ### Shared Utilities
 

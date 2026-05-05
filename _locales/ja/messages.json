@@ -116,6 +116,24 @@
   "thresholdUpdated": {
     "message": "しきい値を更新しました"
   },
+  "resetDefaults": {
+    "message": "デフォルトに戻す"
+  },
+  "confirmResetDefaults": {
+    "message": "すべての設定をデフォルトに戻しますか？この操作は元に戻せません。"
+  },
+  "settingsReset": {
+    "message": "設定をデフォルトに戻しました"
+  },
+  "confirmResetShort": {
+    "message": "よろしいですか？"
+  },
+  "cancel": {
+    "message": "キャンセル"
+  },
+  "confirmYes": {
+    "message": "はい"
+  },
   "cannotUnloadActive": {
     "message": "アクティブなタブはアンロードできません"
   },
