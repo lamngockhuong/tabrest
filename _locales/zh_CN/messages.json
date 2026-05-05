@@ -182,6 +182,24 @@
   "whitelistHelp": {
     "message": "这些网站不会被自动释放"
   },
+  "neverUnloadSite": {
+    "message": "不释放"
+  },
+  "whitelistedClickRemove": {
+    "message": "已加白名单"
+  },
+  "whitelistedStatus": {
+    "message": "已加白名单 - 不会被释放"
+  },
+  "activeStatus": {
+    "message": "活跃"
+  },
+  "siteWhitelisted": {
+    "message": "网站已加入白名单"
+  },
+  "siteRemovedFromWhitelist": {
+    "message": "网站已从白名单移除"
+  },
   "memorySaverNoteBody": {
     "message": "Chrome 内置的内存节省程序独立运行，仍可能释放这些网站。"
   },

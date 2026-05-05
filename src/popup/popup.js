@@ -68,6 +68,14 @@ const elements = {
   reviewYes: document.getElementById("review-yes"),
   reviewNo: document.getElementById("review-no"),
   reviewDismiss: document.getElementById("review-dismiss"),
+  // Site whitelist bar
+  siteWhitelistBar: document.getElementById("site-whitelist-bar"),
+  siteWhitelistFavicon: document.getElementById("site-whitelist-favicon"),
+  siteWhitelistDomain: document.getElementById("site-whitelist-domain"),
+  siteWhitelistStatus: document.getElementById("site-whitelist-status"),
+  siteWhitelistBtn: document.getElementById("site-whitelist-btn"),
+  siteWhitelistIcon: document.getElementById("site-whitelist-icon"),
+  siteWhitelistLabel: document.getElementById("site-whitelist-label"),
   // Form permission recovery banner
   formPermBanner: document.getElementById("form-perm-banner"),
   formPermGrant: document.getElementById("form-perm-grant"),
@@ -299,6 +307,54 @@ async function updateStats() {
       elements.ramStat.title = `System RAM usage: ${usagePercent}%`;
     }
   }
+}
+
+// --- Site Whitelist Bar ---
+
+let currentSiteHostname = "";
+
+async function renderSiteWhitelistBar() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab?.url || !isSafeHttpUrl(tab.url)) {
+    elements.siteWhitelistBar.style.display = "none";
+    return;
+  }
+
+  const hostname = getHostname(tab.url);
+  if (!hostname) {
+    elements.siteWhitelistBar.style.display = "none";
+    return;
+  }
+
+  currentSiteHostname = hostname;
+  const settings = await getSettings();
+  const isWhitelisted = settings.whitelist.includes(hostname);
+
+  elements.siteWhitelistDomain.textContent = hostname;
+  if (tab.favIconUrl && isSafeHttpUrl(tab.favIconUrl)) {
+    elements.siteWhitelistFavicon.src = tab.favIconUrl;
+    elements.siteWhitelistFavicon.style.display = "";
+    attachFaviconErrorHandlers(elements.siteWhitelistBar, ".site-whitelist-favicon");
+  } else {
+    elements.siteWhitelistFavicon.style.display = "none";
+  }
+
+  updateWhitelistBtnState(isWhitelisted);
+  elements.siteWhitelistBar.style.display = "";
+  injectIcons();
+}
+
+function updateWhitelistBtnState(isWhitelisted) {
+  elements.siteWhitelistIcon.innerHTML = isWhitelisted
+    ? icon("shieldCheck", 14)
+    : icon("shield", 14);
+  elements.siteWhitelistLabel.textContent = isWhitelisted
+    ? t("whitelistedClickRemove") || "Whitelisted"
+    : t("neverUnloadSite") || "Never unload";
+  elements.siteWhitelistStatus.textContent = isWhitelisted
+    ? t("whitelistedStatus") || "Whitelisted - won't be unloaded"
+    : t("activeStatus") || "Active";
+  elements.siteWhitelistBtn.classList.toggle("active", isWhitelisted);
 }
 
 let lastTabGroupsKey = "";
@@ -942,6 +998,19 @@ function setupEventListeners() {
     hideReviewPrompt();
   });
 
+  // Site whitelist toggle
+  elements.siteWhitelistBtn?.addEventListener("click", async () => {
+    if (!currentSiteHostname) return;
+    const result = await sendCommand("toggle-whitelist", { hostname: currentSiteHostname });
+    updateWhitelistBtnState(result.whitelisted);
+    showToast(
+      result.whitelisted
+        ? t("siteWhitelisted") || "Site whitelisted"
+        : t("siteRemovedFromWhitelist") || "Site removed from whitelist",
+    );
+    await renderTabList();
+  });
+
   // Form permission recovery banner handlers
   elements.formPermGrant?.addEventListener("click", handleFormPermGrant);
   elements.formPermDismiss?.addEventListener("click", dismissFormPermBanner);
@@ -1046,6 +1115,7 @@ async function init() {
     renderTabList(),
     renderSessions(),
     renderDetailedStats(),
+    renderSiteWhitelistBar(),
     checkReviewPrompt(),
     checkFormPermBanner(),
   ]);
@@ -1075,7 +1145,9 @@ function setupTabEventSync() {
   tabEventSyncBound = true;
 
   const scheduleRefresh = leadingDebounce(renderTabList);
+  const scheduleWhitelistRefresh = leadingDebounce(renderSiteWhitelistBar);
   chrome.tabs.onActivated.addListener(scheduleRefresh);
+  chrome.tabs.onActivated.addListener(scheduleWhitelistRefresh);
   chrome.tabs.onUpdated.addListener((_id, changeInfo) => {
     if ("discarded" in changeInfo || "title" in changeInfo || "favIconUrl" in changeInfo) {
       scheduleRefresh();

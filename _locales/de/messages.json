@@ -182,6 +182,24 @@
   "whitelistHelp": {
     "message": "Sites, die nie automatisch entladen werden"
   },
+  "neverUnloadSite": {
+    "message": "Nie entladen"
+  },
+  "whitelistedClickRemove": {
+    "message": "Geschützt"
+  },
+  "whitelistedStatus": {
+    "message": "Geschützt - wird nicht entladen"
+  },
+  "activeStatus": {
+    "message": "Aktiv"
+  },
+  "siteWhitelisted": {
+    "message": "Site zur Whitelist hinzugefügt"
+  },
+  "siteRemovedFromWhitelist": {
+    "message": "Site von der Whitelist entfernt"
+  },
   "memorySaverNoteBody": {
     "message": "Chromes integrierter Speichersparmodus läuft separat und kann diese Sites trotzdem entladen."
   },

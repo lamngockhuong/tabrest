@@ -528,7 +528,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Handle messages from popup
 async function handleMessage(message) {
-  const { command, groupId, tabId, name, id, mode, minutes, domain, url, sessions } = message;
+  const { command, groupId, tabId, name, id, mode, minutes, domain, url, sessions, hostname } =
+    message;
 
   switch (command) {
     case "unload-current":
@@ -582,6 +583,19 @@ async function handleMessage(message) {
       return await getTabSnoozeInfo(tabId, url);
     case "get-active-snoozes":
       return await getActiveSnoozes();
+    case "toggle-whitelist": {
+      const normalized = unwrapHostname(hostname ?? "").replace(/^www\./, "");
+      if (!normalized || !isValidDomainOrIp(normalized)) return { whitelisted: false };
+      const s = await getSettings();
+      const idx = s.whitelist.indexOf(normalized);
+      if (idx >= 0) {
+        s.whitelist.splice(idx, 1);
+      } else {
+        s.whitelist.push(normalized);
+      }
+      await saveSettings(s);
+      return { whitelisted: idx < 0 };
+    }
     default:
       return null;
   }

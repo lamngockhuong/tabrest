@@ -241,6 +241,30 @@
     "message": "Sites that will never be unloaded automatically",
     "description": "Options help text"
   },
+  "neverUnloadSite": {
+    "message": "Never unload",
+    "description": "Popup whitelist bar button label when site is not whitelisted"
+  },
+  "whitelistedClickRemove": {
+    "message": "Whitelisted",
+    "description": "Popup whitelist bar button label when site is whitelisted"
+  },
+  "whitelistedStatus": {
+    "message": "Whitelisted - won't be unloaded",
+    "description": "Popup whitelist bar status text when site is whitelisted"
+  },
+  "activeStatus": {
+    "message": "Active",
+    "description": "Popup whitelist bar status text when site is not whitelisted"
+  },
+  "siteWhitelisted": {
+    "message": "Site whitelisted",
+    "description": "Toast when site added to whitelist from popup"
+  },
+  "siteRemovedFromWhitelist": {
+    "message": "Site removed from whitelist",
+    "description": "Toast when site removed from whitelist from popup"
+  },
   "memorySaverNoteBody": {
     "message": "Chrome's built-in Memory Saver runs separately and may still unload these sites.",
     "description": "Info note body shown next to whitelist surfaces (onboarding step and options page) explaining that Chrome's Memory Saver is independent of TabRest."

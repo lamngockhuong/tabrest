@@ -184,6 +184,36 @@ service-worker.js
 7. popup.js: Refresh tab list
 ```
 
+### Toggle Whitelist from Popup
+
+```text
+1. Popup opens: renderSiteWhitelistBar()
+       │
+       ├── Query active tab hostname
+       ├── Check settings.whitelist for match
+       │
+       ▼
+2. Show bar with domain, favicon, toggle button
+       │
+       ▼
+3. User clicks toggle button
+       │
+       ▼
+4. popup.js: sendCommand("toggle-whitelist", { hostname })
+       │
+       ▼
+5. service-worker.js: handleMessage()
+       │
+       ├── Add hostname if not in whitelist
+       ├── Remove hostname if already in whitelist
+       │
+       ▼
+6. saveSettings() + return { whitelisted: boolean }
+       │
+       ▼
+7. popup.js: Update button state + refresh tab list
+```
+
 ## Storage Architecture
 
 ### chrome.storage.sync (Cross-device)
@@ -382,6 +412,7 @@ service-worker.js
 { command: "save-session", name: "Research" }
 { command: "restore-session", id: "abc123", mode: "replace" }
 { command: "import-sessions", data: [...] }  // Import with merge & dedup
+{ command: "toggle-whitelist", hostname: "example.com" }
 ```
 
 ### Content Script → Background

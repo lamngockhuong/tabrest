@@ -182,6 +182,24 @@
   "whitelistHelp": {
     "message": "Situs yang tidak akan pernah dibongkar secara otomatis"
   },
+  "neverUnloadSite": {
+    "message": "Jangan bongkar"
+  },
+  "whitelistedClickRemove": {
+    "message": "Dilindungi"
+  },
+  "whitelistedStatus": {
+    "message": "Dilindungi - tidak akan dibongkar"
+  },
+  "activeStatus": {
+    "message": "Aktif"
+  },
+  "siteWhitelisted": {
+    "message": "Situs ditambahkan ke daftar putih"
+  },
+  "siteRemovedFromWhitelist": {
+    "message": "Situs dihapus dari daftar putih"
+  },
   "memorySaverNoteBody": {
     "message": "Penghemat Memori bawaan Chrome berjalan terpisah dan masih dapat membongkar situs ini."
   },
