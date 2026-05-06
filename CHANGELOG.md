@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/lamngockhuong/tabrest/compare/v0.6.1...v0.6.2) (2026-05-06)
+
+
+### Bug Fixes
+
+* **background:** handle "No current window" error in service worker ([#88](https://github.com/lamngockhuong/tabrest/issues/88)) ([58cf188](https://github.com/lamngockhuong/tabrest/commit/58cf1887c1156d634a3ade2ba25518e1d8dd3931))
+
 ## [0.6.1](https://github.com/lamngockhuong/tabrest/compare/v0.6.0...v0.6.1) (2026-05-05)
 
 
