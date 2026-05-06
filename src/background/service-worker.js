@@ -106,19 +106,22 @@ chrome.action.onClicked.addListener(async (_tab) => {
   updateBadge();
 });
 
+async function initCore() {
+  const [, , , , allTabs] = await Promise.all([
+    initErrorReporter(),
+    initTabTracker(),
+    initMemoryMonitor(),
+    initStats(),
+    chrome.tabs.query({}),
+  ]);
+  await Promise.all([syncAllTabs(allTabs), configureToolbarAction(), setupSnoozeCleanupAlarm()]);
+  return allTabs;
+}
+
 // Browser startup - initialize trackers and auto-unload
 chrome.runtime.onStartup.addListener(async () => {
-  await initErrorReporter();
-  await initTabTracker();
-  await initMemoryMonitor();
-  await initStats();
-  await syncAllTabs();
-  await cleanupStaleActivity();
-  await configureToolbarAction();
-  await setupSnoozeCleanupAlarm();
-  // Catch the case where the user revoked host permission via chrome://extensions
-  // between sessions; silently flip dependent toggles off (no banner - not an upgrade).
-  await syncHostPermissionState(false);
+  const allTabs = await initCore();
+  await Promise.all([cleanupStaleActivity(allTabs), syncHostPermissionState(false)]);
   await discardAllTabsOnStartup();
   updateBadge();
 });
@@ -126,7 +129,7 @@ chrome.runtime.onStartup.addListener(async () => {
 // Extension installed/updated
 chrome.runtime.onInstalled.addListener(async (details) => {
   // CWS/AMO compliance: no remote telemetry without explicit consent. Reset
-  // enableErrorReporting once per profile during the v0.0.5 → v0.1.0 rollout
+  // enableErrorReporting once per profile during the v0.0.5 -> v0.1.0 rollout
   // (when remote transport first ships). The migration flag prevents future
   // updates from silently clobbering a user's deliberate opt-in.
   if (details.reason === "install" || details.reason === "update") {
@@ -138,13 +141,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     }
   }
 
-  await initErrorReporter();
-  await initTabTracker();
-  await initMemoryMonitor();
-  await initStats();
-  await syncAllTabs();
-  await configureToolbarAction();
-  await setupSnoozeCleanupAlarm();
+  await initCore();
   setupContextMenus();
   updateBadge();
 

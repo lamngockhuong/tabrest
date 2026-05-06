@@ -1,4 +1,8 @@
-import { FORM_CHECK_TIMEOUT_MS, STARTUP_DISCARD_DELAY_MS } from "../shared/constants.js";
+import {
+  FORM_CHECK_TIMEOUT_MS,
+  STARTUP_DISCARD_BATCH_SIZE,
+  STARTUP_DISCARD_DELAY_MS,
+} from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
 import { queryCurrentWindowTabs, unwrapHostname } from "../shared/utils.js";
 import { ensureFormCheckerInjected } from "./form-injector.js";
@@ -198,10 +202,15 @@ export async function discardAllTabsOnStartup() {
   await new Promise((resolve) => setTimeout(resolve, STARTUP_DISCARD_DELAY_MS));
 
   const tabs = await chrome.tabs.query({});
+  const eligible = tabs.filter((t) => !t.active && !t.discarded);
+
   let count = 0;
-  for (const tab of tabs) {
-    if (!tab.active && !tab.discarded && (await discardTab(tab.id, { settings, force: true })))
-      count++;
+  for (let i = 0; i < eligible.length; i += STARTUP_DISCARD_BATCH_SIZE) {
+    const batch = eligible.slice(i, i + STARTUP_DISCARD_BATCH_SIZE);
+    const results = await Promise.all(
+      batch.map((tab) => discardTab(tab.id, { settings, force: true })),
+    );
+    count += results.filter(Boolean).length;
   }
   return count;
 }
