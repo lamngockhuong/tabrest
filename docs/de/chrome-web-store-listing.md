@@ -98,7 +98,7 @@ TabRest verwendet die native tabs.discard()-API von Chrome. Verworfene Tabs:
 🔒 DATENSCHUTZ:
 • Standardmäßig keine Datenerfassung
 • Optionale anonyme Fehlerberichte (standardmäßig deaktiviert, vollständig transparent)
-• Wenn aktiviert: Fehler anonymisiert, personenbezogene Daten entfernt, max. 100/Tag, 30 Tage Aufbewahrung
+• Wenn aktiviert: Fehler anonymisiert, PII (URLs, E-Mails, IPs) entfernt, max. 100 automatische Berichte/Tag, Deduplizierung + Sampling zur Rauschreduzierung
 • Alle Einstellungen lokal auf Ihrem Gerät gespeichert
 • Open Source: https://github.com/lamngockhuong/tabrest
 

@@ -98,7 +98,7 @@ TabRest menggunakan API chrome.tabs.discard() bawaan Chrome. Tab yang dibuang:
 🔒 PRIVASI:
 • Tidak ada pengumpulan data secara default
 • Laporan kesalahan anonim opsional (dinonaktifkan secara default, sepenuhnya transparan)
-• Saat diaktifkan: kesalahan dianonimkan, PII dihapus, maksimal 100/hari, retensi 30 hari
+• Saat diaktifkan: kesalahan dianonimkan, PII (URL, email, IP) dihapus, maksimal 100 laporan otomatis/hari, deduplikasi + sampling untuk mengurangi noise
 • Semua pengaturan disimpan secara lokal di perangkat Anda
 • Sumber terbuka: https://github.com/lamngockhuong/tabrest
 

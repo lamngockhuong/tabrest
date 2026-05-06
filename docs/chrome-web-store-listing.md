@@ -123,7 +123,7 @@ TabRest uses Chrome's native tabs.discard() API. Discarded tabs:
 🔒 PRIVACY:
 • No data collection by default
 • Optional anonymous error reporting (disabled by default, fully transparent)
-• When enabled: errors anonymized, PII redacted, max 100/day, 30-day retention
+• When enabled: errors anonymized, PII (URLs, emails, IPs) redacted, max 100 auto-reports/day, dedup + sampling to reduce noise
 • All settings stored locally on your device
 • Open source: https://github.com/lamngockhuong/tabrest
 

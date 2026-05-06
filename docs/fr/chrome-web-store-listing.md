@@ -98,7 +98,7 @@ TabRest utilise l'API native Chrome tabs.discard(). Les onglets ignorés :
 🔒 CONFIDENTIALITÉ :
 • Aucune collecte de données par défaut
 • Rapport d'erreur anonyme facultatif (désactivé par défaut, entièrement transparent)
-• Lorsqu'il est activé : erreurs anonymisées, PII supprimées, max 100/jour, conservation 30 jours
+• Lorsqu'il est activé : erreurs anonymisées, PII (URLs, e-mails, IPs) supprimées, max 100 rapports auto/jour, déduplication + échantillonnage pour réduire le bruit
 • Tous les paramètres stockés localement sur votre appareil
 • Open source : https://github.com/lamngockhuong/tabrest
 
