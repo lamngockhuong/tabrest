@@ -141,8 +141,8 @@ function debouncedSave() {
 }
 
 // Clean up activity entries for tabs that no longer exist
-export async function cleanupStaleActivity() {
-  const tabs = await chrome.tabs.query({});
+export async function cleanupStaleActivity(allTabs = null) {
+  const tabs = allTabs ?? (await chrome.tabs.query({}));
   const validTabIds = new Set(tabs.map((t) => t.id));
 
   let cleaned = 0;
@@ -160,8 +160,8 @@ export async function cleanupStaleActivity() {
 }
 
 // Initialize activity for all existing tabs
-export async function syncAllTabs() {
-  const tabs = await chrome.tabs.query({});
+export async function syncAllTabs(allTabs = null) {
+  const tabs = allTabs ?? (await chrome.tabs.query({}));
   const now = Date.now();
 
   for (const tab of tabs) {

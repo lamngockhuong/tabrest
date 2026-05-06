@@ -113,7 +113,10 @@ export const SNOOZE_KEY = "tabrest_snooze";
 export const FORM_CHECK_TIMEOUT_MS = 300;
 
 // Grace period for Chrome to finish restoring session tabs before startup discard
-export const STARTUP_DISCARD_DELAY_MS = 2000;
+export const STARTUP_DISCARD_DELAY_MS = 500;
+
+// Max tabs to discard concurrently during startup batch
+export const STARTUP_DISCARD_BATCH_SIZE = 5;
 
 // Per-tab memory staleness threshold (2 minutes)
 export const MEMORY_STALE_THRESHOLD_MS = 120000;
