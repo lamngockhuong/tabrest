@@ -12,7 +12,12 @@ import {
 } from "../shared/error-reporter.js";
 import { HOST_PERM_DEPENDENT_FLAGS, hasHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
-import { isMinorOrMajorBump, isValidDomainOrIp, unwrapHostname } from "../shared/utils.js";
+import {
+  isMinorOrMajorBump,
+  isValidDomainOrIp,
+  queryCurrentWindowTabs,
+  unwrapHostname,
+} from "../shared/utils.js";
 import { clearInjectedTab, ensureFormCheckerInjected } from "./form-injector.js";
 import {
   checkMemoryAndUnload,
@@ -180,7 +185,7 @@ async function syncHostPermissionState(showBannerIfChanged) {
 
 // Add current site to whitelist
 async function addCurrentSiteToWhitelist() {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const [tab] = await queryCurrentWindowTabs({ active: true });
   if (!tab?.url) return;
 
   try {
@@ -618,7 +623,7 @@ async function checkTabFormData(tabId) {
 
 // Get all tabs in current window with their status info
 async function getTabsWithStatus() {
-  const tabs = await chrome.tabs.query({ currentWindow: true });
+  const tabs = await queryCurrentWindowTabs();
   const settings = await getSettings();
   const tabActivity = getTabActivityMap();
   const now = Date.now();

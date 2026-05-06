@@ -116,6 +116,15 @@ export function isSafeHttpUrl(url) {
   }
 }
 
+// Service worker has no "current window" when all windows are minimized/unfocused.
+export async function queryCurrentWindowTabs(extraQuery = {}) {
+  try {
+    return await chrome.tabs.query({ currentWindow: true, ...extraQuery });
+  } catch {
+    return [];
+  }
+}
+
 // Format bytes to human readable string
 export function formatBytes(bytes) {
   if (!bytes || bytes === 0) return "0 B";
