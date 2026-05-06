@@ -45,8 +45,8 @@ TabRest tự động giải phóng bộ nhớ các tab không hoạt động, gi
 ✨ TÍNH NĂNG CHÍNH:
 
 📌 Tự động giải phóng thông minh
-• Hẹn giờ không hoạt động (15 phút đến 4 giờ)
-• Ngưỡng bộ nhớ RAM (60-90%)
+• Hẹn giờ không hoạt động (5 phút đến 4 giờ)
+• Ngưỡng bộ nhớ RAM (60-95%)
 • Giới hạn bộ nhớ mỗi tab (giải phóng tab dùng >100MB-1GB JS heap)
 • Giải phóng khi mở trình duyệt
 • Bỏ qua khi offline - không giải phóng tab khi mất mạng
@@ -98,7 +98,7 @@ TabRest sử dụng API tabs.discard() của Chrome. Tab đã giải phóng:
 🔒 QUYỀN RIÊNG TƯ:
 • Không thu thập dữ liệu mặc định
 • Báo cáo lỗi ẩn danh tùy chọn (tắt mặc định, hoàn toàn minh bạch)
-• Khi bật: lỗi được ẩn danh, PII được lọc, tối đa 100 báo cáo/ngày, lưu trữ 30 ngày
+• Khi bật: lỗi được ẩn danh, PII (URL, email, IP) được lọc, tối đa 100 báo cáo tự động/ngày, chống trùng lặp + lấy mẫu để giảm nhiễu
 • Mọi cài đặt lưu cục bộ trên thiết bị
 • Mã nguồn mở: https://github.com/lamngockhuong/tabrest
 

@@ -98,7 +98,7 @@ TabRest 使用 Chrome 原生 `chrome.tabs.discard()` API。已丢弃的标签页
 🔒 隐私：
 • 默认不收集任何数据
 • 可选匿名错误报告（默认禁用，完全透明）
-• 启用时：错误匿名化处理，PII 已脱敏，每日最多 100 条，保留 30 天
+• 启用时：错误匿名化处理，PII (URL、邮箱、IP) 已脱敏，自动报告每日最多 100 条，去重 + 采样减少噪音
 • 所有设置均存储在您的设备本地
 • 开源：https://github.com/lamngockhuong/tabrest
 

@@ -98,7 +98,7 @@ TabRest usa la API nativa tabs.discard() de Chrome. Las pestañas descartadas:
 🔒 PRIVACIDAD:
 • Sin recopilación de datos de forma predeterminada
 • Informe de errores anónimo opcional (desactivado de forma predeterminada, totalmente transparente)
-• Cuando está habilitado: errores anonimizados, PII redactado, máximo 100/día, retención de 30 días
+• Cuando está habilitado: errores anonimizados, PII (URLs, emails, IPs) redactado, máximo 100 reportes automáticos/día, deduplicación + muestreo para reducir ruido
 • Toda la configuración almacenada localmente en su dispositivo
 • Código abierto: https://github.com/lamngockhuong/tabrest
 
