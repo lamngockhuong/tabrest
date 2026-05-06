@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.3](https://github.com/lamngockhuong/tabrest/compare/v0.6.2...v0.6.3) (2026-05-06)
+
+
+### Performance Improvements
+
+* **startup:** parallelize init and batch tab discarding ([#90](https://github.com/lamngockhuong/tabrest/issues/90)) ([09f054d](https://github.com/lamngockhuong/tabrest/commit/09f054d9ebb0b79b38093c31342977987d4b6782))
+
 ## [0.6.2](https://github.com/lamngockhuong/tabrest/compare/v0.6.1...v0.6.2) (2026-05-06)
 
 
