@@ -1,6 +1,6 @@
 import { FORM_CHECK_TIMEOUT_MS, STARTUP_DISCARD_DELAY_MS } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
-import { unwrapHostname } from "../shared/utils.js";
+import { queryCurrentWindowTabs, unwrapHostname } from "../shared/utils.js";
 import { ensureFormCheckerInjected } from "./form-injector.js";
 import { recordUnload } from "./stats-collector.js";
 
@@ -128,12 +128,12 @@ export async function discardTab(tabId, options = {}) {
 
 // Discard the current active tab (switches to adjacent tab first)
 export async function discardCurrentTab() {
-  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const tabs = await queryCurrentWindowTabs();
+  const activeTab = tabs.find((t) => t.active);
   if (!activeTab) return false;
 
   // Switch to adjacent tab first
-  const tabs = await chrome.tabs.query({ currentWindow: true });
-  const currentIndex = tabs.findIndex((t) => t.id === activeTab.id);
+  const currentIndex = tabs.indexOf(activeTab);
   const nextTab = tabs[currentIndex + 1] || tabs[currentIndex - 1];
 
   if (nextTab) {
@@ -145,11 +145,11 @@ export async function discardCurrentTab() {
 
 // Discard all tabs to the right of current tab
 export async function discardTabsToRight() {
-  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const tabs = await queryCurrentWindowTabs();
+  const activeTab = tabs.find((t) => t.active);
   if (!activeTab) return 0;
 
-  const tabs = await chrome.tabs.query({ currentWindow: true });
-  const currentIndex = tabs.findIndex((t) => t.id === activeTab.id);
+  const currentIndex = tabs.indexOf(activeTab);
   const tabsToRight = tabs.slice(currentIndex + 1);
 
   const settings = await getSettings();
@@ -162,11 +162,11 @@ export async function discardTabsToRight() {
 
 // Discard all tabs to the left of current tab
 export async function discardTabsToLeft() {
-  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const tabs = await queryCurrentWindowTabs();
+  const activeTab = tabs.find((t) => t.active);
   if (!activeTab) return 0;
 
-  const tabs = await chrome.tabs.query({ currentWindow: true });
-  const currentIndex = tabs.findIndex((t) => t.id === activeTab.id);
+  const currentIndex = tabs.indexOf(activeTab);
   const tabsToLeft = tabs.slice(0, currentIndex);
 
   const settings = await getSettings();
@@ -179,10 +179,9 @@ export async function discardTabsToLeft() {
 
 // Discard all tabs except current
 export async function discardOtherTabs() {
-  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const tabs = await queryCurrentWindowTabs();
+  const activeTab = tabs.find((t) => t.active);
   if (!activeTab) return 0;
-
-  const tabs = await chrome.tabs.query({ currentWindow: true });
   const settings = await getSettings();
   let count = 0;
   for (const tab of tabs) {
@@ -248,7 +247,7 @@ function pickKeeper(group) {
 }
 
 export async function closeDuplicateTabs() {
-  const tabs = await chrome.tabs.query({ currentWindow: true });
+  const tabs = await queryCurrentWindowTabs();
   const groups = new Map();
 
   for (const tab of tabs) {

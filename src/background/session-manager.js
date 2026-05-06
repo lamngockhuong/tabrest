@@ -1,7 +1,7 @@
 // Session management module
 // Handles saving, restoring, and managing tab sessions
 
-import { isSafeHttpUrl } from "../shared/utils.js";
+import { isSafeHttpUrl, queryCurrentWindowTabs } from "../shared/utils.js";
 
 const MAX_SESSIONS = 20;
 const SESSIONS_KEY = "tabrest_sessions";
@@ -55,7 +55,7 @@ export async function saveSession(name) {
     return { success: false, error: "Maximum sessions reached (20)" };
   }
 
-  const tabs = await chrome.tabs.query({ currentWindow: true });
+  const tabs = await queryCurrentWindowTabs();
   const validTabs = tabs.filter((t) => t.url && !isInternalUrl(t.url));
 
   if (!validTabs.length) {
@@ -113,7 +113,7 @@ export async function restoreSession(id, mode = "open") {
 
   if (mode === "replace") {
     // Close current tabs and open session tabs
-    const currentTabs = await chrome.tabs.query({ currentWindow: true });
+    const currentTabs = await queryCurrentWindowTabs();
 
     // Create first tab
     const firstTab = validTabs[0];
