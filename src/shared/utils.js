@@ -134,6 +134,8 @@ export function formatBytes(bytes) {
   return `${Number.parseFloat((bytes / k ** i).toFixed(1))} ${sizes[i]}`;
 }
 
+export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // Show notification for auto-unloaded tab
 export function notifyAutoUnload(tabTitle, reason, detail) {
   const title = reason === "timer" ? "💤 Tab unloaded (Timer)" : "💤 Tab unloaded (RAM)";

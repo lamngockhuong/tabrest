@@ -2,9 +2,10 @@ import {
   FORM_CHECK_TIMEOUT_MS,
   STARTUP_DISCARD_BATCH_SIZE,
   STARTUP_DISCARD_DELAY_MS,
+  STARTUP_FOLLOWUP_DELAY_MS,
 } from "../shared/constants.js";
 import { getSettings } from "../shared/storage.js";
-import { queryCurrentWindowTabs, unwrapHostname } from "../shared/utils.js";
+import { delay, queryCurrentWindowTabs, unwrapHostname } from "../shared/utils.js";
 import { ensureFormCheckerInjected } from "./form-injector.js";
 import { recordUnload } from "./stats-collector.js";
 
@@ -80,7 +81,7 @@ export async function discardTab(tabId, options = {}) {
         chrome.i18n.getMessage("suspendWarningMessage") ||
         "TabRest will suspend this tab to free memory…";
       await injectSuspendWarning(tabId, settings.suspendWarningDelayMs, message);
-      await new Promise((r) => setTimeout(r, settings.suspendWarningDelayMs));
+      await delay(settings.suspendWarningDelayMs);
 
       const refreshed = await chrome.tabs.get(tabId).catch(() => null);
       if (!refreshed || refreshed.active || refreshed.discarded) return false;
@@ -194,13 +195,7 @@ export async function discardOtherTabs() {
   return count;
 }
 
-// Force-discard all tabs across every window on browser startup.
-export async function discardAllTabsOnStartup() {
-  const settings = await getSettings();
-  if (!settings.autoUnloadOnStartup) return 0;
-
-  await new Promise((resolve) => setTimeout(resolve, STARTUP_DISCARD_DELAY_MS));
-
+async function batchDiscardEligible(settings) {
   const tabs = await chrome.tabs.query({});
   const eligible = tabs.filter((t) => !t.active && !t.discarded);
 
@@ -213,6 +208,20 @@ export async function discardAllTabsOnStartup() {
     count += results.filter(Boolean).length;
   }
   return count;
+}
+
+// Two passes: Chrome restores session tabs progressively over several seconds.
+export async function discardAllTabsOnStartup() {
+  const settings = await getSettings();
+  if (!settings.autoUnloadOnStartup) return 0;
+
+  await delay(STARTUP_DISCARD_DELAY_MS);
+  let totalCount = await batchDiscardEligible(settings);
+
+  await delay(STARTUP_FOLLOWUP_DELAY_MS);
+  totalCount += await batchDiscardEligible(settings);
+
+  return totalCount;
 }
 
 // Discard all tabs in a specific tab group
