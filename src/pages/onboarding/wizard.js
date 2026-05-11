@@ -1,5 +1,6 @@
 import { t } from "../../shared/i18n.js";
 import { getSettings } from "../../shared/storage.js";
+import { delay } from "../../shared/utils.js";
 import { decideAction } from "./decide-action.js";
 import { createState } from "./state.js";
 import { STEPS } from "./steps.js";
@@ -80,7 +81,7 @@ export function mountWizard(rootEl, deps = {}) {
     }
     const leavingClass = direction === "forward" ? "is-leaving-forward" : "is-leaving-back";
     stage.classList.add(leavingClass);
-    await new Promise((r) => setTimeout(r, TRANSITION_MS + TRANSITION_BUFFER_MS));
+    await delay(TRANSITION_MS + TRANSITION_BUFFER_MS);
     stage.classList.remove(leavingClass);
     applyVisibility();
     await renderStepBody();
