@@ -1,5 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { STARTUP_DISCARD_DELAY_MS } from "../../src/shared/constants.js";
+import {
+  STARTUP_DISCARD_DELAY_MS,
+  STARTUP_FOLLOWUP_DELAY_MS,
+} from "../../src/shared/constants.js";
 
 vi.mock("../../src/shared/storage.js", () => ({
   getSettings: vi.fn(),
@@ -65,7 +68,11 @@ function setupWindowTabs(tabs, { settings = baseSettings } = {}) {
     }
     return Promise.resolve(tabs.find((t) => t.id === id) || null);
   });
-  chrome.tabs.discard.mockResolvedValue();
+  chrome.tabs.discard.mockImplementation((id) => {
+    const t = tabs.find((tab) => tab.id === id);
+    if (t) t.discarded = true;
+    return Promise.resolve();
+  });
   getSettings.mockResolvedValue(settings);
 }
 
@@ -316,7 +323,7 @@ describe("unload-manager", () => {
       ]);
 
       const promise = discardAllTabsOnStartup();
-      await vi.advanceTimersByTimeAsync(STARTUP_DISCARD_DELAY_MS);
+      await vi.advanceTimersByTimeAsync(STARTUP_DISCARD_DELAY_MS + STARTUP_FOLLOWUP_DELAY_MS);
       const result = await promise;
 
       expect(result).toBe(2);
@@ -337,7 +344,7 @@ describe("unload-manager", () => {
       );
 
       const promise = discardAllTabsOnStartup();
-      await vi.advanceTimersByTimeAsync(STARTUP_DISCARD_DELAY_MS);
+      await vi.advanceTimersByTimeAsync(STARTUP_DISCARD_DELAY_MS + STARTUP_FOLLOWUP_DELAY_MS);
       const result = await promise;
 
       expect(result).toBe(2);
@@ -354,7 +361,7 @@ describe("unload-manager", () => {
       ]);
 
       const promise = discardAllTabsOnStartup();
-      await vi.advanceTimersByTimeAsync(STARTUP_DISCARD_DELAY_MS);
+      await vi.advanceTimersByTimeAsync(STARTUP_DISCARD_DELAY_MS + STARTUP_FOLLOWUP_DELAY_MS);
       const result = await promise;
 
       expect(result).toBe(1);
