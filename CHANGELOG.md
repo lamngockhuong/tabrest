@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.4](https://github.com/lamngockhuong/tabrest/compare/v0.6.3...v0.6.4) (2026-05-11)
+
+
+### Bug Fixes
+
+* **startup:** add two-pass discard to catch late-restored tabs ([#97](https://github.com/lamngockhuong/tabrest/issues/97)) ([18620a4](https://github.com/lamngockhuong/tabrest/commit/18620a4df98be30d701c19eef4e1d2c2e3562551))
+
 ## [0.6.3](https://github.com/lamngockhuong/tabrest/compare/v0.6.2...v0.6.3) (2026-05-06)
 
 
