@@ -629,12 +629,12 @@ const NEW_BUG_ISSUE_URL =
 // Check and show review prompt
 async function checkReviewPrompt() {
   const data = await chrome.storage.local.get([
-    "tabrest_stats",
+    "stats",
     "reviewPromptCompleted",
     "reviewPromptDismissCount",
   ]);
 
-  const stats = data.tabrest_stats;
+  const stats = data.stats;
   if (!stats || stats.totalTabsSuspended < 10) return;
   if (data.reviewPromptCompleted) return;
   if ((data.reviewPromptDismissCount || 0) >= 2) return;

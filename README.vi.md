@@ -170,3 +170,7 @@ Nếu bạn thấy tiện ích này hữu ích, hãy cân nhắc hỗ trợ phá
 ## Giấy phép
 
 MIT
+
+## Lời cảm ơn
+
+Một phần của dự án này được kế thừa từ [Drowzy](https://github.com/ml3dev/drowzy), Copyright (c) 2026 ml3dev, Giấy phép MIT.
