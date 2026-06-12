@@ -170,3 +170,7 @@ Chrome Web Store 홍보 이미지는 `assets/` 디렉터리에 SVG 소스로 저
 ## 라이선스
 
 MIT
+
+## 감사의 말
+
+이 프로젝트의 일부는 [Drowzy](https://github.com/ml3dev/drowzy)에서 파생되었습니다. Copyright (c) 2026 ml3dev, MIT 라이선스.

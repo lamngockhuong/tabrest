@@ -170,3 +170,7 @@ Chrome Web Store 推广图片以 SVG 格式存放在 `assets/` 目录中。
 ## 许可证
 
 MIT
+
+## 致谢
+
+本项目的部分内容衍生自 [Drowzy](https://github.com/ml3dev/drowzy)，版权所有 (c) 2026 ml3dev，MIT 许可证。

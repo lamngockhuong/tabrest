@@ -170,3 +170,7 @@ Jika Anda merasa ekstensi ini bermanfaat, pertimbangkan untuk mendukung pengemba
 ## Lisensi
 
 MIT
+
+## Penghargaan
+
+Sebagian dari proyek ini diturunkan dari [Drowzy](https://github.com/ml3dev/drowzy), Copyright (c) 2026 ml3dev, Lisensi MIT.

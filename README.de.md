@@ -170,3 +170,7 @@ Wenn Sie diese Erweiterung nützlich finden, unterstützen Sie bitte deren Weite
 ## Lizenz
 
 MIT
+
+## Danksagungen
+
+Teile dieses Projekts stammen von [Drowzy](https://github.com/ml3dev/drowzy), Copyright (c) 2026 ml3dev, MIT-Lizenz.

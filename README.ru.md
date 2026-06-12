@@ -170,3 +170,7 @@ pnpm run ci           # Запустить полный CI (validate + lint)
 ## Лицензия
 
 MIT
+
+## Благодарности
+
+Части этого проекта основаны на [Drowzy](https://github.com/ml3dev/drowzy), Copyright (c) 2026 ml3dev, лицензия MIT.

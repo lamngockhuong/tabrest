@@ -170,3 +170,7 @@ If you find this extension useful, consider supporting its development:
 ## License
 
 MIT
+
+## Acknowledgements
+
+Portions of this project are derived from [Drowzy](https://github.com/ml3dev/drowzy), Copyright (c) 2026 ml3dev, MIT License.
