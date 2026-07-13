@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.7.0](https://github.com/lamngockhuong/tabrest/compare/v0.6.4...v0.7.0) (2026-07-13)
+
+
+### Features
+
+* add favicon discarded-tab indicator and localize context menu ([#111](https://github.com/lamngockhuong/tabrest/issues/111)) ([de36478](https://github.com/lamngockhuong/tabrest/commit/de36478a0c666f0b3e94b98c975aef0917480d00))
+* **popup:** add button to open the side panel ([#112](https://github.com/lamngockhuong/tabrest/issues/112)) ([8155b9d](https://github.com/lamngockhuong/tabrest/commit/8155b9def6cb353da4e6ecd81e58b0d81a0a49e1))
+
+
+### Bug Fixes
+
+* **deps:** update astro monorepo ([#110](https://github.com/lamngockhuong/tabrest/issues/110)) ([0ea1151](https://github.com/lamngockhuong/tabrest/commit/0ea1151004a70fa0ce784e62c79dd64cb1a6bd26))
+* **deps:** update astro monorepo ([#75](https://github.com/lamngockhuong/tabrest/issues/75)) ([062a6f7](https://github.com/lamngockhuong/tabrest/commit/062a6f725f4416eb141e6cf2a329582a3f2116a6))
+* **deps:** update astro monorepo to v7 ([#101](https://github.com/lamngockhuong/tabrest/issues/101)) ([2d6952d](https://github.com/lamngockhuong/tabrest/commit/2d6952db7a754d16751268b048477a97d5b5e134))
+* **deps:** update dependency marked to v18.0.6 ([#100](https://github.com/lamngockhuong/tabrest/issues/100)) ([82fdcf6](https://github.com/lamngockhuong/tabrest/commit/82fdcf634d63741f67eb09c36c1be253abbf96e5))
+
 ## [0.6.4](https://github.com/lamngockhuong/tabrest/compare/v0.6.3...v0.6.4) (2026-05-11)
 
 
