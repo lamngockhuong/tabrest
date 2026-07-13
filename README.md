@@ -166,6 +166,7 @@ If you find this extension useful, consider supporting its development:
 
 - [GitHub Flex](https://github.com/lamngockhuong/github-flex) - Cross-browser extension that enhances GitHub's interface with productivity features
 - [Termote](https://github.com/lamngockhuong/termote) - Remote control CLI tools (Claude Code, GitHub Copilot, any terminal) from mobile/desktop via PWA
+- [Specpin](https://github.com/lamngockhuong/specpin) - Pin living business specs onto the elements of your running web UI. Git-native, local-first, framework-agnostic
 
 ## License
 

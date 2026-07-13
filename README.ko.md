@@ -166,6 +166,7 @@ Chrome Web Store 홍보 이미지는 `assets/` 디렉터리에 SVG 소스로 저
 
 - [GitHub Flex](https://github.com/lamngockhuong/github-flex) - 생산성 기능으로 GitHub 인터페이스를 향상시키는 크로스 브라우저 확장 프로그램
 - [Termote](https://github.com/lamngockhuong/termote) - 모바일/데스크톱에서 PWA를 통해 CLI 도구 (Claude Code, GitHub Copilot, 모든 터미널)를 원격 제어
+- [Specpin](https://github.com/lamngockhuong/specpin) - 실행 중인 웹 UI 요소에 살아있는 비즈니스 사양을 고정. Git 네이티브, 로컬 우선, 프레임워크 독립적
 
 ## 라이선스
 

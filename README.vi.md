@@ -166,6 +166,7 @@ Nếu bạn thấy tiện ích này hữu ích, hãy cân nhắc hỗ trợ phá
 
 - [GitHub Flex](https://github.com/lamngockhuong/github-flex) - Tiện ích đa trình duyệt nâng cấp giao diện GitHub với các tính năng tăng năng suất
 - [Termote](https://github.com/lamngockhuong/termote) - Điều khiển CLI từ xa (Claude Code, GitHub Copilot, bất kỳ terminal nào) từ di động/máy tính qua PWA
+- [Specpin](https://github.com/lamngockhuong/specpin) - Ghim đặc tả nghiệp vụ sống động lên các phần tử của giao diện web đang chạy. Git-native, local-first, không phụ thuộc framework
 
 ## Giấy phép
 

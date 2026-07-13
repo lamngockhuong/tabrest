@@ -166,6 +166,7 @@ Wenn Sie diese Erweiterung nützlich finden, unterstützen Sie bitte deren Weite
 
 - [GitHub Flex](https://github.com/lamngockhuong/github-flex) - Browserübergreifende Erweiterung, die die GitHub-Oberfläche mit Produktivitätsfunktionen erweitert
 - [Termote](https://github.com/lamngockhuong/termote) - Remote-Steuerung für CLI-Tools (Claude Code, GitHub Copilot, beliebige Terminals) von Mobil- oder Desktop-Geräten per PWA
+- [Specpin](https://github.com/lamngockhuong/specpin) - Heftet lebendige fachliche Spezifikationen an die Elemente deiner laufenden Web-Oberfläche. Git-nativ, lokal-first, Framework-unabhängig
 
 ## Lizenz
 
