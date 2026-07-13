@@ -25,6 +25,7 @@ const elements = {
   timerSelect: document.getElementById("timer-select"),
   thresholdSelect: document.getElementById("threshold-select"),
   settingsBtn: document.getElementById("settings-btn"),
+  sidePanelBtn: document.getElementById("side-panel-btn"),
   settingsToggle: document.getElementById("settings-toggle"),
   settingsBody: document.getElementById("settings-body"),
   resetSettings: document.getElementById("reset-settings"),
@@ -104,8 +105,16 @@ async function sendCommand(command, data = {}) {
 
 // Heuristic must stay in sync with the @media (min-height: 650px) rule in popup.css
 function isSidePanel() {
+  // The side panel loads popup.html with a ?sidepanel=1 marker (see manifest.json),
+  // which is a reliable signal regardless of window height. Fall back to the height
+  // heuristic for older Chrome that may not preserve the query string.
+  if (new URLSearchParams(window.location.search).has("sidepanel")) return true;
   return window.matchMedia("(min-height: 650px)").matches;
 }
+
+// Cached at init so the click handler can call sidePanel.open() synchronously.
+// chrome.sidePanel.open() loses its user-gesture token after any await (see service-worker.js).
+let currentWindowId = null;
 
 // Get hostname from URL
 function getHostname(url) {
@@ -693,6 +702,15 @@ function setupEventListeners() {
     chrome.runtime.openOptionsPage();
   });
 
+  // Open side panel button. Call open() first (no await) to keep the user-gesture token.
+  elements.sidePanelBtn?.addEventListener("click", () => {
+    if (!chrome.sidePanel || currentWindowId === null) return;
+    chrome.sidePanel
+      .open({ windowId: currentWindowId })
+      .then(() => window.close())
+      .catch((e) => console.error("[TabRest] Failed to open side panel:", e));
+  });
+
   // Theme toggle button
   elements.themeToggle.addEventListener("click", async () => {
     const newTheme = await toggleTheme();
@@ -1129,6 +1147,19 @@ async function init() {
   // Inject SVG icons
   injectIcons();
   localizeHtml();
+
+  // Side panel button starts hidden (see popup.html). Reveal it only in the popup,
+  // when the API exists, and only after the target windowId is cached - so it never
+  // flashes in the side panel and is never clickable before it can actually work.
+  if (!isSidePanel() && chrome.sidePanel) {
+    chrome.windows
+      .getCurrent()
+      .then((win) => {
+        currentWindowId = win.id;
+        elements.sidePanelBtn.style.display = "";
+      })
+      .catch(() => {});
+  }
 
   // loadSectionState only flips classes; safe to run alongside renderers
   await Promise.allSettled([

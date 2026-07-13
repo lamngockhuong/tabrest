@@ -37,7 +37,7 @@
     }
   },
   "side_panel": {
-    "default_path": "src/popup/popup.html"
+    "default_path": "src/popup/popup.html?sidepanel=1"
   },
   "commands": {
     "unload-current": {

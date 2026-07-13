@@ -57,7 +57,7 @@
 - **Fechar abas duplicadas** - Deduplicação com um clique na janela atual
 - **Busca de abas** - Filtrar a lista de abas por título ou URL em tempo real
 - **Grupos de abas** - Descarregar grupos de abas inteiros
-- **Modo painel lateral** - Abrir o TabRest no painel lateral do Chrome (opt-in)
+- **Modo painel lateral** - Abrir o TabRest no painel lateral do Chrome (opcional como ação padrão da barra de ferramentas, ou por um botão no cabeçalho do popup)
 - **Adiar abas/sites** - Proteger temporariamente abas ou domínios (30min-2h)
 - **Aviso antes de descartar** - Toast de 3s na página antes do descarte automático
 - **Indicador visual** - Prefixo personalizável (💤) nos títulos das abas descartadas

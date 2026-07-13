@@ -68,6 +68,7 @@ describe("icon", () => {
       "keyboard",
       "sliders",
       "heart",
+      "sidePanel",
     ];
     for (const name of names) {
       expect(icon(name)).toContain("<svg");

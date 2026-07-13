@@ -308,6 +308,7 @@ service-worker.js
 - Setting `useSidePanel` controls popup vs side panel mode
 - `chrome.sidePanel.setOptions()` enables/disables side panel in manifest
 - On toolbar click: handler checks `useSidePanel` setting to route to popup or side panel
+- Popup header button (`#side-panel-btn`) opens the side panel directly via `chrome.sidePanel.open({ windowId })` and closes the popup, independent of the `useSidePanel` toolbar-click setting; hidden when the UI is already rendered as the side panel or when `chrome.sidePanel` is unavailable
 
 **Window Synchronization:**
 

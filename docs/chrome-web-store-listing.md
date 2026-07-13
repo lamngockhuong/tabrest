@@ -201,7 +201,7 @@ Used to display optional system notifications when tabs are auto-unloaded (e.g.,
 ### `sidePanel`
 
 ```text
-Enables an optional Side Panel mode where the TabRest UI opens in Chrome's persistent sidebar instead of the popup, so the tab list and stats remain visible as the user switches tabs. This is opt-in via Settings; the default behavior is the standard popup.
+Enables an optional Side Panel mode where the TabRest UI opens in Chrome's persistent sidebar instead of the popup, so the tab list and stats remain visible as the user switches tabs. Users can set the toolbar action to open the side panel by default via Settings, or open it on demand with a button in the popup header; the default toolbar behavior is the standard popup.
 ```
 
 ## Host Permissions & Remote Code
