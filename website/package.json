@@ -8,9 +8,9 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/mdx": "7.0.2",
+    "@astrojs/mdx": "7.0.3",
     "@astrojs/sitemap": "3.7.3",
-    "astro": "7.0.7",
+    "astro": "7.0.9",
     "marked": "18.0.6"
   },
   "devDependencies": {
