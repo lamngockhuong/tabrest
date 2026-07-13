@@ -272,6 +272,9 @@ For each of: **whitelist**, **blacklist**, **sessions**:
 - [ ] Side panel stays open while switching tabs and windows.
 - [ ] Disable side panel → toolbar reverts to popup.
 - [ ] All popup interactions (search, filter, snooze, save session, import/export) work in side panel.
+- [ ] Open popup (toolbar action set to `popup`) → header shows a side panel icon button.
+- [ ] Click the header side panel button → Chrome side panel opens and the popup closes.
+- [ ] Open the side panel itself → the header side panel button is hidden (no button when already in side panel view).
 
 ## 32. Auto-Open Changelog
 

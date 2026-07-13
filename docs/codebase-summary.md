@@ -195,6 +195,7 @@ pnpm run ci         # Full CI check
 - Controlled by `chrome.sidePanel.setOptions()` during `runtime.onInstalled`
 - New `windows.onFocusChanged` listener updates badge across side panel and main window
 - Popup and side panel communicate via standard `chrome.runtime.sendMessage()`
+- Popup header button (`#side-panel-btn`) opens the side panel directly via `chrome.sidePanel.open({ windowId })` and closes the popup; hidden when already rendered as the side panel or when `chrome.sidePanel` is unavailable
 
 ## File Size Limits
 
