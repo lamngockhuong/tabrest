@@ -392,6 +392,7 @@ const FAVICON_SETTLE_MS = 300;
 function addFaviconIndicator(tabId, ringColor) {
   return safeExecuteScript(
     tabId,
+    /* v8 ignore start -- runs in the page (canvas/Image), verified via browser testing */
     (color) => {
       if (window.__tabrestFaviconApplied) return;
       const SIZE = 32;
@@ -461,6 +462,7 @@ function addFaviconIndicator(tabId, ringColor) {
         setTimeout(() => end(() => render()), 1200);
       });
     },
+    /* v8 ignore stop */
     [ringColor],
   );
 }
