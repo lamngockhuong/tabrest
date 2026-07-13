@@ -733,5 +733,14 @@
     "placeholders": {
       "1": { "content": "$1" }
     }
+  },
+  "showFaviconIndicator": {
+    "message": "Tandai tab yang dibongkar dengan cincin pada favicon"
+  },
+  "faviconIndicatorHelp": {
+    "message": "Menambahkan cincin garis putus-putus pada ikon tab saat dibongkar, sehingga tab yang dibongkar tetap dikenali meski banyak tab menyembunyikan judulnya. Memerlukan izin akses situs web."
+  },
+  "faviconPermDenied": {
+    "message": "Indikator favicon memerlukan izin akses situs web. Pengalihan dilewati."
   }
 }

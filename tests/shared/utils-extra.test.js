@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   getBrowserInfo,
+  isSafeFaviconUrl,
   isSafeHttpUrl,
   notifyAutoUnload,
   unwrapHostname,
@@ -104,6 +105,23 @@ describe("isSafeHttpUrl", () => {
     expect(isSafeHttpUrl(undefined)).toBe(false);
     expect(isSafeHttpUrl(123)).toBe(false);
     expect(isSafeHttpUrl("not a url")).toBe(false);
+  });
+});
+
+describe("isSafeFaviconUrl", () => {
+  it("accepts http(s) and data:image URLs", () => {
+    expect(isSafeFaviconUrl("https://example.com/favicon.ico")).toBe(true);
+    expect(isSafeFaviconUrl("http://example.com/favicon.ico")).toBe(true);
+    expect(isSafeFaviconUrl("data:image/png;base64,iVBORw0KGgo=")).toBe(true);
+    expect(isSafeFaviconUrl("DATA:IMAGE/SVG+XML,<svg/>")).toBe(true);
+  });
+
+  it("rejects non-image data URLs and unsafe protocols", () => {
+    expect(isSafeFaviconUrl("data:text/html,<script>")).toBe(false);
+    expect(isSafeFaviconUrl("javascript:alert(1)")).toBe(false);
+    expect(isSafeFaviconUrl("chrome://extensions")).toBe(false);
+    expect(isSafeFaviconUrl("")).toBe(false);
+    expect(isSafeFaviconUrl(null)).toBe(false);
   });
 });
 

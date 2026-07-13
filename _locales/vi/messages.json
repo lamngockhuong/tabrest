@@ -729,5 +729,14 @@
     "placeholders": {
       "1": { "content": "$1" }
     }
+  },
+  "showFaviconIndicator": {
+    "message": "Đánh dấu tab đã dỡ bằng vòng tròn trên biểu tượng"
+  },
+  "faviconIndicatorHelp": {
+    "message": "Thêm vòng tròn nét đứt vào biểu tượng của tab khi tab được dỡ, giúp bạn nhận ra tab đã dỡ ngay cả khi nhiều tab làm ẩn tiêu đề. Yêu cầu quyền truy cập trang web."
+  },
+  "faviconPermDenied": {
+    "message": "Chỉ báo trên biểu tượng cần quyền truy cập trang web. Đã bỏ qua."
   }
 }

@@ -733,5 +733,14 @@
     "placeholders": {
       "1": { "content": "$1" }
     }
+  },
+  "showFaviconIndicator": {
+    "message": "Entladene Tabs mit einem Favicon-Ring markieren"
+  },
+  "faviconIndicatorHelp": {
+    "message": "Fügt dem Symbol eines Tabs beim Entladen einen gestrichelten Ring hinzu, damit entladene Tabs auch dann erkennbar sind, wenn viele Tabs den Titel verdecken. Erfordert die Berechtigung für den Website-Zugriff."
+  },
+  "faviconPermDenied": {
+    "message": "Die Favicon-Markierung erfordert die Berechtigung für den Website-Zugriff. Umschalter übersprungen."
   }
 }

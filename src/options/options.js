@@ -45,6 +45,7 @@ const elements = {
   showDiscardedPrefix: document.getElementById("show-discarded-prefix"),
   discardedPrefix: document.getElementById("discarded-prefix"),
   prefixInputContainer: document.getElementById("prefix-input-container"),
+  showFaviconIndicator: document.getElementById("show-favicon-indicator"),
   whitelistContainer: document.getElementById("whitelist-container"),
   newWhitelist: document.getElementById("new-whitelist"),
   addWhitelist: document.getElementById("add-whitelist"),
@@ -125,6 +126,7 @@ async function loadSettings() {
   elements.showDiscardedPrefix.checked = currentSettings.showDiscardedPrefix && hasHost;
   elements.discardedPrefix.value = currentSettings.discardedPrefix;
   updatePrefixInputVisibility();
+  elements.showFaviconIndicator.checked = currentSettings.showFaviconIndicator && hasHost;
   elements.enableErrorReporting.checked = currentSettings.enableErrorReporting ?? false;
   elements.customSentryDsn.value = currentSettings.customSentryDsn ?? "";
 
@@ -298,6 +300,7 @@ function setupEventListeners() {
   bindHostPermToggle(elements.showDiscardedPrefix, "showDiscardedPrefix", "prefixPermDenied", () =>
     updatePrefixInputVisibility(),
   );
+  bindHostPermToggle(elements.showFaviconIndicator, "showFaviconIndicator", "faviconPermDenied");
 
   // Power mode radios
   for (const radio of elements.powerModeRadios) {

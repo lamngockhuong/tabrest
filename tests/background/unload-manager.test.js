@@ -225,6 +225,34 @@ describe("unload-manager", () => {
       expect(await discardTab(1, { settings })).toBe(true);
       expect(chrome.scripting.executeScript).toHaveBeenCalled();
     });
+
+    it("calls scripting.executeScript when showFaviconIndicator enabled", async () => {
+      chrome.tabs.get.mockResolvedValue({
+        id: 1,
+        url: "https://a.com",
+        active: false,
+      });
+      chrome.tabs.discard.mockResolvedValue();
+      chrome.scripting.executeScript.mockResolvedValue([]);
+      const settings = { ...baseSettings, showFaviconIndicator: true };
+
+      expect(await discardTab(1, { settings })).toBe(true);
+      expect(chrome.scripting.executeScript).toHaveBeenCalled();
+    });
+
+    it("does not inject favicon indicator when the setting is off", async () => {
+      chrome.tabs.get.mockResolvedValue({
+        id: 1,
+        url: "https://a.com",
+        active: false,
+      });
+      chrome.tabs.discard.mockResolvedValue();
+      chrome.scripting.executeScript.mockResolvedValue([]);
+      const settings = { ...baseSettings, showDiscardedPrefix: false, showFaviconIndicator: false };
+
+      expect(await discardTab(1, { settings })).toBe(true);
+      expect(chrome.scripting.executeScript).not.toHaveBeenCalled();
+    });
   });
 
   describe("discardCurrentTab", () => {

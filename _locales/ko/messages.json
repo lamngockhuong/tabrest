@@ -733,5 +733,14 @@
     "placeholders": {
       "1": { "content": "$1" }
     }
+  },
+  "showFaviconIndicator": {
+    "message": "언로드된 탭의 아이콘에 점선 링 표시"
+  },
+  "faviconIndicatorHelp": {
+    "message": "탭이 언로드될 때 아이콘에 점선 링을 추가하여 탭이 많아 제목이 가려져도 언로드된 탭을 알아볼 수 있습니다. 웹사이트 액세스 권한이 필요합니다."
+  },
+  "faviconPermDenied": {
+    "message": "아이콘 표시에는 웹사이트 액세스 권한이 필요합니다. 전환을 건너뛰었습니다."
   }
 }
