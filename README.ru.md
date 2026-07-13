@@ -166,6 +166,7 @@ pnpm run ci           # Запустить полный CI (validate + lint)
 
 - [GitHub Flex](https://github.com/lamngockhuong/github-flex) - Кросс-браузерное расширение, улучшающее интерфейс GitHub функциями повышения продуктивности
 - [Termote](https://github.com/lamngockhuong/termote) - Инструменты CLI для удалённого управления (Claude Code, GitHub Copilot, любой терминал) с мобильного устройства или компьютера через PWA
+- [Specpin](https://github.com/lamngockhuong/specpin) - Закрепляет живые бизнес-спецификации на элементах работающего веб-интерфейса. Git-нативный, local-first, независимый от фреймворка
 
 ## Лицензия
 

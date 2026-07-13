@@ -166,6 +166,7 @@ Si vous trouvez cette extension utile, envisagez de soutenir son développement 
 
 - [GitHub Flex](https://github.com/lamngockhuong/github-flex) - Extension multi-navigateur qui améliore l'interface de GitHub avec des fonctionnalités de productivité
 - [Termote](https://github.com/lamngockhuong/termote) - Outils CLI de contrôle à distance (Claude Code, GitHub Copilot, n'importe quel terminal) depuis mobile/bureau via PWA
+- [Specpin](https://github.com/lamngockhuong/specpin) - Épingle des spécifications métier vivantes sur les éléments de votre interface web en cours d'exécution. Git-natif, local-first, indépendant du framework
 
 ## Licence
 

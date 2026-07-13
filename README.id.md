@@ -166,6 +166,7 @@ Jika Anda merasa ekstensi ini bermanfaat, pertimbangkan untuk mendukung pengemba
 
 - [GitHub Flex](https://github.com/lamngockhuong/github-flex) - Ekstensi lintas browser yang menyempurnakan antarmuka GitHub dengan fitur-fitur produktivitas
 - [Termote](https://github.com/lamngockhuong/termote) - Alat CLI pengendali jarak jauh (Claude Code, GitHub Copilot, terminal apa pun) dari perangkat mobile/desktop melalui PWA
+- [Specpin](https://github.com/lamngockhuong/specpin) - Menyematkan spesifikasi bisnis hidup ke elemen-elemen antarmuka web yang sedang berjalan. Git-native, local-first, agnostik terhadap framework
 
 ## Lisensi
 

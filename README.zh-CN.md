@@ -166,6 +166,7 @@ Chrome Web Store 推广图片以 SVG 格式存放在 `assets/` 目录中。
 
 - [GitHub Flex](https://github.com/lamngockhuong/github-flex) - 跨浏览器扩展，通过生产力功能增强 GitHub 界面
 - [Termote](https://github.com/lamngockhuong/termote) - 通过 PWA 从移动端/桌面端远程控制 CLI 工具（Claude Code、GitHub Copilot 及任意终端）
+- [Specpin](https://github.com/lamngockhuong/specpin) - 将鲜活的业务规格钉在正在运行的 Web UI 元素上。Git 原生、本地优先、框架无关
 
 ## 许可证
 
