@@ -13,6 +13,9 @@ export const SETTINGS_DEFAULTS = {
   enableStats: true,
   showDiscardedPrefix: true,
   discardedPrefix: "\u{1F4A4}",
+  // Draw a dashed ring on the favicon of discarded tabs. Survives title
+  // truncation when many tabs are open (title prefix does not).
+  showFaviconIndicator: true,
   // Only auto-discard when inactive tabs exceed this count (0 = disabled)
   minTabsBeforeAutoDiscard: 6,
   // Toolbar click action: "popup" | "discard-current" | "discard-others"

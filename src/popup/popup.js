@@ -11,7 +11,7 @@ import {
 import { requestHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
-import { formatBytes, getBrowserInfo, isSafeHttpUrl } from "../shared/utils.js";
+import { formatBytes, getBrowserInfo, isSafeFaviconUrl, isSafeHttpUrl } from "../shared/utils.js";
 
 // DOM Elements
 const elements = {
@@ -132,7 +132,7 @@ function escapeHtml(text) {
 
 // Render a safe favicon <img> tag, or "" if URL is missing/unsafe
 function safeFaviconImg(url, className = "") {
-  if (!url || !isSafeHttpUrl(url)) return "";
+  if (!url || !isSafeFaviconUrl(url)) return "";
   const cls = className ? ` class="${className}"` : "";
   return `<img${cls} src="${escapeHtml(url)}" alt="">`;
 }
@@ -335,7 +335,7 @@ async function renderSiteWhitelistBar() {
   const isWhitelisted = settings.whitelist.includes(hostname);
 
   elements.siteWhitelistDomain.textContent = hostname;
-  if (tab.favIconUrl && isSafeHttpUrl(tab.favIconUrl)) {
+  if (tab.favIconUrl && isSafeFaviconUrl(tab.favIconUrl)) {
     elements.siteWhitelistFavicon.src = tab.favIconUrl;
     elements.siteWhitelistFavicon.style.display = "";
     attachFaviconErrorHandlers(elements.siteWhitelistBar, ".site-whitelist-favicon");

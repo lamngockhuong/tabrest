@@ -116,6 +116,15 @@ export function isSafeHttpUrl(url) {
   }
 }
 
+// Favicon sources shown in the popup/side panel: http(s) plus the data:image
+// URLs TabRest sets on discarded tabs (the favicon ring). Safe as an <img> src;
+// data:image cannot execute script. Kept separate from isSafeHttpUrl, which
+// still gates navigation targets to http(s) only.
+export function isSafeFaviconUrl(url) {
+  if (typeof url !== "string" || !url) return false;
+  return isSafeHttpUrl(url) || /^data:image\//i.test(url);
+}
+
 // Service worker has no "current window" when all windows are minimized/unfocused.
 export async function queryCurrentWindowTabs(extraQuery = {}) {
   try {

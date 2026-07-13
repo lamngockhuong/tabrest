@@ -110,9 +110,17 @@ export async function discardTab(tabId, options = {}) {
       }
     }
 
+    const preDiscard = [];
     if (settings.showDiscardedPrefix && settings.discardedPrefix) {
-      await addTitlePrefix(tabId, settings.discardedPrefix);
+      preDiscard.push(addTitlePrefix(tabId, settings.discardedPrefix));
     }
+    if (settings.showFaviconIndicator) {
+      preDiscard.push(addFaviconIndicator(tabId, FAVICON_RING_COLOR));
+    }
+    if (preDiscard.length) await Promise.all(preDiscard);
+
+    // Let Chrome commit the new favicon before the renderer is torn down.
+    if (settings.showFaviconIndicator) await delay(FAVICON_SETTLE_MS);
 
     await chrome.tabs.discard(tabId);
 
@@ -320,53 +328,143 @@ function isBlacklisted(url, settings) {
   return matchesDomainList(url, settings?.blacklist);
 }
 
-// Inject self-contained warning toast on the page. Uses Shadow DOM + all:initial
-// to avoid CSS collisions. Silent on restricted URLs / missing permission.
-async function injectSuspendWarning(tabId, delayMs, message) {
-  try {
-    await chrome.scripting.executeScript({
-      target: { tabId },
-      func: (d, m) => {
-        if (window.__tabrestSuspendWarningShown) return;
-        window.__tabrestSuspendWarningShown = true;
-        const host = document.createElement("div");
-        host.id = "__tabrest_warning_toast";
-        host.style.cssText = "position:fixed;top:16px;right:16px;z-index:2147483647;all:initial;";
-        const root = host.attachShadow({ mode: "closed" });
-        const style = document.createElement("style");
-        style.textContent =
-          ".toast{font:14px system-ui,-apple-system,Segoe UI,sans-serif;background:#1f2937;color:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.3);max-width:320px;line-height:1.4}";
-        const div = document.createElement("div");
-        div.className = "toast";
-        div.textContent = m;
-        root.append(style, div);
-        document.documentElement.appendChild(host);
-        setTimeout(() => {
-          host.remove();
-          delete window.__tabrestSuspendWarningShown;
-        }, d);
-      },
-      args: [delayMs, message],
-    });
-  } catch {
-    // Restricted page or no host permission - skip warning silently.
-  }
+// Run a function inside the page, swallowing failures on tabs that reject
+// injection (chrome://, about:, or no host permission granted). Awaits a
+// promise the injected function returns, so callers can sequence work after
+// the page-side changes commit.
+function safeExecuteScript(tabId, func, args) {
+  return chrome.scripting.executeScript({ target: { tabId }, func, args }).catch(() => {});
 }
 
-async function addTitlePrefix(tabId, prefix) {
-  try {
-    await chrome.scripting.executeScript({
-      target: { tabId },
-      func: (p) => {
-        if (!document.title.startsWith(p)) {
-          document.title = `${p} ${document.title}`;
+// Inject self-contained warning toast on the page. Uses Shadow DOM + all:initial
+// to avoid CSS collisions. Silent on restricted URLs / missing permission.
+function injectSuspendWarning(tabId, delayMs, message) {
+  return safeExecuteScript(
+    tabId,
+    (d, m) => {
+      if (window.__tabrestSuspendWarningShown) return;
+      window.__tabrestSuspendWarningShown = true;
+      const host = document.createElement("div");
+      host.id = "__tabrest_warning_toast";
+      host.style.cssText = "position:fixed;top:16px;right:16px;z-index:2147483647;all:initial;";
+      const root = host.attachShadow({ mode: "closed" });
+      const style = document.createElement("style");
+      style.textContent =
+        ".toast{font:14px system-ui,-apple-system,Segoe UI,sans-serif;background:#1f2937;color:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.3);max-width:320px;line-height:1.4}";
+      const div = document.createElement("div");
+      div.className = "toast";
+      div.textContent = m;
+      root.append(style, div);
+      document.documentElement.appendChild(host);
+      setTimeout(() => {
+        host.remove();
+        delete window.__tabrestSuspendWarningShown;
+      }, d);
+    },
+    [delayMs, message],
+  );
+}
+
+function addTitlePrefix(tabId, prefix) {
+  return safeExecuteScript(
+    tabId,
+    (p) => {
+      if (!document.title.startsWith(p)) {
+        document.title = `${p} ${document.title}`;
+      }
+    },
+    [prefix],
+  );
+}
+
+// Chrome-native discarded tabs are marked with a grey dotted ring; mirror that.
+const FAVICON_RING_COLOR = "#5f6368";
+
+// Grace period after setting the favicon so Chrome captures it before discard
+// tears the renderer down. Favicon updates commit asynchronously; without this
+// the tab keeps its original icon (unlike the title, which propagates at once).
+const FAVICON_SETTLE_MS = 300;
+
+// Draw a dashed ring on the tab's favicon to mark it as discarded. Unlike the
+// title prefix, this stays visible when many open tabs shrink each title away.
+// Chrome keeps the last favicon while the tab sleeps and the real one returns
+// on the reload that wakes it.
+function addFaviconIndicator(tabId, ringColor) {
+  return safeExecuteScript(
+    tabId,
+    /* v8 ignore start -- runs in the page (canvas/Image), verified via browser testing */
+    (color) => {
+      if (window.__tabrestFaviconApplied) return;
+      const SIZE = 32;
+
+      const drawRing = (ctx) => {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.arc(SIZE / 2, SIZE / 2, SIZE / 2 - 2, 0, Math.PI * 2);
+        ctx.stroke();
+      };
+
+      const links = Array.from(document.querySelectorAll('link[rel~="icon"]'));
+      const currentHref = links.find((l) => l.href)?.href || `${location.origin}/favicon.ico`;
+
+      const apply = (dataUrl) => {
+        const head = document.head || document.documentElement;
+        if (!head) return;
+        for (const l of links) l.remove();
+        const link = document.createElement("link");
+        link.rel = "icon";
+        link.href = dataUrl;
+        head.appendChild(link);
+        window.__tabrestFaviconApplied = true;
+      };
+
+      // Render on a fresh (untainted) canvas, optionally drawing the favicon
+      // first. Returns false when a cross-origin favicon taints the canvas
+      // (toDataURL throws) so the caller can retry ring-only on a clean canvas.
+      const render = (drawImg) => {
+        const c = document.createElement("canvas");
+        c.width = SIZE;
+        c.height = SIZE;
+        const ctx = c.getContext("2d");
+        if (!ctx) return false;
+        if (drawImg) drawImg(ctx);
+        drawRing(ctx);
+        try {
+          apply(c.toDataURL("image/png"));
+          return true;
+        } catch {
+          return false; // tainted canvas
         }
-      },
-      args: [prefix],
-    });
-  } catch {
-    // Tab may not support script injection (chrome://, about:, etc.)
-  }
+      };
+
+      return new Promise((resolve) => {
+        let done = false;
+        const end = (fn) => {
+          if (done) return;
+          done = true;
+          try {
+            fn();
+          } catch {}
+          resolve();
+        };
+
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () =>
+          end(() => {
+            if (!render((ctx) => ctx.drawImage(img, 3, 3, SIZE - 6, SIZE - 6))) render();
+          });
+        img.onerror = () => end(() => render());
+        img.src = currentHref;
+        // Guard against a favicon that never loads or errors.
+        setTimeout(() => end(() => render()), 1200);
+      });
+    },
+    /* v8 ignore stop */
+    [ringColor],
+  );
 }
 
 // Export for external use

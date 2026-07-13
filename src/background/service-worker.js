@@ -200,17 +200,23 @@ async function addCurrentSiteToWhitelist() {
   }
 }
 
-// Setup context menus
+// Setup context menus. Titles reuse the existing localized i18n keys so the
+// menu follows the browser UI language (chrome.i18n falls back to English when
+// a key is missing). The second arg to menuTitle is that English fallback.
+function menuTitle(key, fallback) {
+  return chrome.i18n.getMessage(key) || fallback;
+}
+
 function setupContextMenus() {
   chrome.contextMenus.removeAll(() => {
     chrome.contextMenus.create({
       id: "unload-tab",
-      title: "Unload This Tab",
+      title: menuTitle("unloadCurrent", "Unload This Tab"),
       contexts: ["page"],
     });
     chrome.contextMenus.create({
       id: "unload-others",
-      title: "Unload Other Tabs",
+      title: menuTitle("unloadOthers", "Unload Other Tabs"),
       contexts: ["page"],
     });
     chrome.contextMenus.create({
@@ -220,12 +226,12 @@ function setupContextMenus() {
     });
     chrome.contextMenus.create({
       id: "unload-right",
-      title: "Unload Tabs to the Right",
+      title: menuTitle("unloadRight", "Unload Tabs to the Right"),
       contexts: ["page"],
     });
     chrome.contextMenus.create({
       id: "unload-left",
-      title: "Unload Tabs to the Left",
+      title: menuTitle("unloadLeft", "Unload Tabs to the Left"),
       contexts: ["page"],
     });
     chrome.contextMenus.create({
@@ -236,41 +242,41 @@ function setupContextMenus() {
     // Snooze context menus
     chrome.contextMenus.create({
       id: "snooze-tab-30",
-      title: "Snooze Tab (30 min)",
+      title: menuTitle("snoozeTab30", "Snooze Tab (30 min)"),
       contexts: ["page"],
     });
     chrome.contextMenus.create({
       id: "snooze-tab-60",
-      title: "Snooze Tab (1 hour)",
+      title: menuTitle("snoozeTab60", "Snooze Tab (1 hour)"),
       contexts: ["page"],
     });
     chrome.contextMenus.create({
       id: "snooze-domain-60",
-      title: "Snooze Site (1 hour)",
+      title: menuTitle("snoozeDomain60", "Snooze Site (1 hour)"),
       contexts: ["page"],
     });
 
     // Open link in suspended tab
     chrome.contextMenus.create({
       id: "open-link-suspended",
-      title: "Open Link in Suspended Tab",
+      title: menuTitle("openLinkSuspended", "Open Link in Suspended Tab"),
       contexts: ["link"],
     });
 
     // Toolbar icon (action) context menu
     chrome.contextMenus.create({
       id: "action-unload-current",
-      title: "Unload Current Tab",
+      title: menuTitle("unloadCurrent", "Unload Current Tab"),
       contexts: ["action"],
     });
     chrome.contextMenus.create({
       id: "action-unload-others",
-      title: "Unload Other Tabs",
+      title: menuTitle("unloadOthers", "Unload Other Tabs"),
       contexts: ["action"],
     });
     chrome.contextMenus.create({
       id: "action-never-unload-site",
-      title: "Never Unload This Site",
+      title: menuTitle("neverUnloadSite", "Never Unload This Site"),
       contexts: ["action"],
     });
   });

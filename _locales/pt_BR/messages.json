@@ -733,5 +733,14 @@
     "placeholders": {
       "1": { "content": "$1" }
     }
+  },
+  "showFaviconIndicator": {
+    "message": "Marcar abas descarregadas com um anel no favicon"
+  },
+  "faviconIndicatorHelp": {
+    "message": "Adiciona um anel tracejado ao ícone da aba quando ela é descarregada, para reconhecer as abas descarregadas mesmo quando muitas abas ocultam o título. Requer permissão de acesso ao site."
+  },
+  "faviconPermDenied": {
+    "message": "O indicador de favicon requer permissão de acesso ao site. Alternância ignorada."
   }
 }

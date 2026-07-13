@@ -10,7 +10,11 @@ describe("permissions", () => {
   describe("HOST_PERM_DEPENDENT_FLAGS", () => {
     it("lists the settings that share the optional permission", async () => {
       const { HOST_PERM_DEPENDENT_FLAGS } = await importPermissions();
-      expect(HOST_PERM_DEPENDENT_FLAGS).toEqual(["protectFormTabs", "showDiscardedPrefix"]);
+      expect(HOST_PERM_DEPENDENT_FLAGS).toEqual([
+        "protectFormTabs",
+        "showDiscardedPrefix",
+        "showFaviconIndicator",
+      ]);
     });
   });
 

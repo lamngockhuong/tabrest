@@ -733,5 +733,14 @@
     "placeholders": {
       "1": { "content": "$1" }
     }
+  },
+  "showFaviconIndicator": {
+    "message": "用虚线圈标记已释放的标签页图标"
+  },
+  "faviconIndicatorHelp": {
+    "message": "标签页被释放时在其图标上添加一个虚线圈，即使标签页过多导致标题被压缩看不见，也能识别已释放的标签页。需要网站访问权限。"
+  },
+  "faviconPermDenied": {
+    "message": "图标标识需要网站访问权限。已跳过此开关。"
   }
 }

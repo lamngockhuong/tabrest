@@ -733,5 +733,14 @@
     "placeholders": {
       "1": { "content": "$1" }
     }
+  },
+  "showFaviconIndicator": {
+    "message": "Marquer les onglets déchargés d'un anneau sur le favicon"
+  },
+  "faviconIndicatorHelp": {
+    "message": "Ajoute un anneau en pointillés à l'icône d'un onglet lors de son déchargement, afin de repérer les onglets déchargés même lorsque de nombreux onglets masquent le titre. Nécessite l'autorisation d'accès au site web."
+  },
+  "faviconPermDenied": {
+    "message": "L'indicateur de favicon nécessite l'autorisation d'accès au site web. Option ignorée."
   }
 }

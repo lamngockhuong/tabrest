@@ -733,5 +733,14 @@
     "placeholders": {
       "1": { "content": "$1" }
     }
+  },
+  "showFaviconIndicator": {
+    "message": "Marcar las pestañas descargadas con un anillo en el favicon"
+  },
+  "faviconIndicatorHelp": {
+    "message": "Añade un anillo discontinuo al icono de una pestaña cuando se descarga, para reconocer las pestañas descargadas aunque muchas pestañas oculten el título. Requiere permiso de acceso al sitio web."
+  },
+  "faviconPermDenied": {
+    "message": "El indicador de favicon requiere permiso de acceso al sitio web. Cambio omitido."
   }
 }

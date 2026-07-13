@@ -965,5 +965,17 @@
     "placeholders": {
       "1": { "content": "$1" }
     }
+  },
+  "showFaviconIndicator": {
+    "message": "Mark unloaded tabs with a favicon ring",
+    "description": "Options setting label for the favicon discarded-tab indicator"
+  },
+  "faviconIndicatorHelp": {
+    "message": "Adds a dashed ring to a tab's icon when it is unloaded, so you can spot unloaded tabs even when many open tabs hide the title. Requires website access permission.",
+    "description": "Help text under the favicon indicator toggle"
+  },
+  "faviconPermDenied": {
+    "message": "Favicon indicator requires website access permission. Toggle skipped.",
+    "description": "Toast when user denies optional host permission for the favicon indicator"
   }
 }
