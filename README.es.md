@@ -57,7 +57,7 @@
 - **Cerrar pestañas duplicadas** - Deduplicación con un clic en la ventana actual
 - **Búsqueda de pestañas** - Filtrar la lista de pestañas por título o URL
 - **Grupos de pestañas** - Descargar grupos de pestañas completos
-- **Modo panel lateral** - Abrir TabRest en el panel lateral de Chrome (opcional)
+- **Modo panel lateral** - Abrir TabRest en el panel lateral de Chrome (opcional como acción predeterminada del icono, o mediante un botón en el encabezado del popup)
 - **Posponer pestañas/sitios** - Proteger temporalmente pestañas o dominios (30 min-2 horas)
 - **Aviso antes de descartar** - Notificación en pantalla de 3 s antes del descarte automático
 - **Indicador visual** - Prefijo personalizable (💤) en los títulos de las pestañas descartadas

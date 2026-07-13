@@ -57,7 +57,7 @@
 - **Đóng tab trùng lặp** - Một cú nhấp dedup trong cửa sổ hiện tại
 - **Tìm kiếm tab** - Lọc danh sách tab theo tiêu đề hoặc URL
 - **Nhóm tab** - Unload toàn bộ nhóm tab
-- **Chế độ side panel** - Mở TabRest trong side panel của Chrome (tuỳ chọn)
+- **Chế độ side panel** - Mở TabRest trong side panel của Chrome (tuỳ chọn làm hành động mặc định khi nhấn icon, hoặc qua nút trên header của popup)
 - **Snooze tab/site** - Tạm thời bảo vệ tab hoặc domain (30 phút - 2 giờ)
 - **Cảnh báo trước khi unload** - Toast 3 giây cảnh báo trên trang trước khi auto-discard
 - **Chỉ báo trực quan** - Tiền tố tuỳ chỉnh (💤) trên tiêu đề tab đã unload

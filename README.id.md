@@ -57,7 +57,7 @@
 - **Tutup tab duplikat** - Hapus duplikat dengan satu klik di jendela aktif
 - **Pencarian tab** - Filter daftar tab secara langsung berdasarkan judul atau URL
 - **Grup tab** - Membongkar seluruh grup tab sekaligus
-- **Mode panel samping** - Buka TabRest di panel samping Chrome (opsional)
+- **Mode panel samping** - Buka TabRest di panel samping Chrome (opsional sebagai aksi klik toolbar default, atau lewat tombol di header popup)
 - **Tunda tab/situs** - Lindungi tab atau domain untuk sementara (30 menit - 2 jam)
 - **Notifikasi peringatan penangguhan** - Peringatan di halaman selama 3 detik sebelum membuang tab secara otomatis
 - **Indikator visual** - Awalan yang dapat dikustomisasi (💤) pada judul tab yang telah dibongkar

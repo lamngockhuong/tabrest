@@ -57,7 +57,7 @@
 - **Fermer les onglets en double** - Dédoublonnage en un clic dans la fenêtre actuelle
 - **Recherche d'onglets** - Filtrage en direct de la liste des onglets par titre ou URL
 - **Groupes d'onglets** - Décharger des groupes d'onglets entiers
-- **Mode panneau latéral** - Ouvrir TabRest dans le panneau latéral de Chrome (optionnel)
+- **Mode panneau latéral** - Ouvrir TabRest dans le panneau latéral de Chrome (en option comme action par défaut de la barre d'outils, ou via un bouton dans l'en-tête du popup)
 - **Reporter des onglets/sites** - Protéger temporairement des onglets ou des domaines (30 min à 2 h)
 - **Notification d'avertissement** - Message d'avertissement de 3 s sur la page avant l'ignorement automatique
 - **Indicateur visuel** - Préfixe personnalisable (💤) sur les titres des onglets déchargés
