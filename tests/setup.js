@@ -47,6 +47,10 @@ global.chrome = {
     onUpdated: { addListener: vi.fn() },
     onRemoved: { addListener: vi.fn() },
   },
+  windows: {
+    getLastFocused: vi.fn(() => Promise.resolve({ id: 1 })),
+    create: vi.fn(() => Promise.resolve({ id: 2, tabs: [{ id: 998 }] })),
+  },
   alarms: {
     create: vi.fn(),
     clear: vi.fn(() => Promise.resolve(true)),

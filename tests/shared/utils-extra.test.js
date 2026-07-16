@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  createTabSafe,
   getBrowserInfo,
   isSafeFaviconUrl,
   isSafeHttpUrl,
@@ -122,6 +123,51 @@ describe("isSafeFaviconUrl", () => {
     expect(isSafeFaviconUrl("chrome://extensions")).toBe(false);
     expect(isSafeFaviconUrl("")).toBe(false);
     expect(isSafeFaviconUrl(null)).toBe(false);
+  });
+});
+
+describe("createTabSafe", () => {
+  const NO_WINDOW = () => Promise.reject(new Error("No current window"));
+
+  it("creates the tab directly when a current window exists", async () => {
+    chrome.tabs.create.mockResolvedValueOnce({ id: 42 });
+    const tab = await createTabSafe({ url: "https://example.com" });
+    expect(tab).toEqual({ id: 42 });
+    expect(chrome.tabs.create).toHaveBeenCalledTimes(1);
+    expect(chrome.windows.getLastFocused).not.toHaveBeenCalled();
+  });
+
+  it("retries in the last focused window on 'No current window'", async () => {
+    // Without the fix this rejection escapes as an unhandled promise rejection
+    // (reported to Sentry as "No current window"). The helper must recover.
+    chrome.tabs.create.mockImplementationOnce(NO_WINDOW);
+    chrome.tabs.create.mockResolvedValueOnce({ id: 7, windowId: 1 });
+    chrome.windows.getLastFocused.mockResolvedValueOnce({ id: 1 });
+
+    const tab = await createTabSafe({ url: "https://example.com" });
+
+    expect(tab).toEqual({ id: 7, windowId: 1 });
+    expect(chrome.tabs.create).toHaveBeenLastCalledWith({
+      url: "https://example.com",
+      windowId: 1,
+    });
+  });
+
+  it("opens a new window when no window exists at all", async () => {
+    chrome.tabs.create.mockImplementationOnce(NO_WINDOW);
+    chrome.windows.getLastFocused.mockRejectedValueOnce(new Error("No current window"));
+    chrome.windows.create.mockResolvedValueOnce({ id: 5, tabs: [{ id: 99 }] });
+
+    const tab = await createTabSafe({ url: "https://example.com" });
+
+    expect(chrome.windows.create).toHaveBeenCalledWith({ url: "https://example.com" });
+    expect(tab).toEqual({ id: 99 });
+  });
+
+  it("re-throws non-window errors so real bugs still surface", async () => {
+    chrome.tabs.create.mockImplementationOnce(() => Promise.reject(new Error("Tab boom")));
+    await expect(createTabSafe({ url: "https://example.com" })).rejects.toThrow("Tab boom");
+    expect(chrome.windows.getLastFocused).not.toHaveBeenCalled();
   });
 });
 

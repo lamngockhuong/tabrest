@@ -1,7 +1,7 @@
 // Session management module
 // Handles saving, restoring, and managing tab sessions
 
-import { isSafeHttpUrl, queryCurrentWindowTabs } from "../shared/utils.js";
+import { createTabSafe, isSafeHttpUrl, queryCurrentWindowTabs } from "../shared/utils.js";
 
 const MAX_SESSIONS = 20;
 const SESSIONS_KEY = "tabrest_sessions";
@@ -117,19 +117,19 @@ export async function restoreSession(id, mode = "open") {
 
     // Create first tab
     const firstTab = validTabs[0];
-    const newTab = await chrome.tabs.create({
+    const newTab = await createTabSafe({
       url: firstTab.url,
       pinned: firstTab.pinned,
       active: true,
     });
 
     // Close old tabs
-    const oldIds = currentTabs.map((t) => t.id).filter((tabId) => tabId !== newTab.id);
+    const oldIds = currentTabs.map((t) => t.id).filter((tabId) => tabId !== newTab?.id);
     if (oldIds.length) await chrome.tabs.remove(oldIds);
 
     // Create remaining tabs
     for (let i = 1; i < validTabs.length; i++) {
-      await chrome.tabs.create({
+      await createTabSafe({
         url: validTabs[i].url,
         pinned: validTabs[i].pinned,
         active: false,
@@ -138,7 +138,7 @@ export async function restoreSession(id, mode = "open") {
   } else {
     // Open mode - just add tabs
     for (const tab of validTabs) {
-      await chrome.tabs.create({
+      await createTabSafe({
         url: tab.url,
         pinned: tab.pinned,
         active: false,

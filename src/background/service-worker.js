@@ -13,6 +13,7 @@ import {
 import { HOST_PERM_DEPENDENT_FLAGS, hasHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import {
+  createTabSafe,
   isMinorOrMajorBump,
   isValidDomainOrIp,
   queryCurrentWindowTabs,
@@ -151,13 +152,13 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   if (details.reason === "install") {
     // First install - show onboarding, store version to track future bumps
     await chrome.storage.local.set({ tabrest_lastVersion: currentVersion });
-    chrome.tabs.create({ url: "src/pages/onboarding.html" });
+    await createTabSafe({ url: "src/pages/onboarding.html" });
   } else if (details.reason === "update") {
     const stored = await chrome.storage.local.get("tabrest_lastVersion");
     const prevVersion = details.previousVersion || stored.tabrest_lastVersion;
 
     if (prevVersion && isMinorOrMajorBump(prevVersion, currentVersion)) {
-      chrome.tabs.create({ url: "https://tabrest.ohnice.app/changelog" });
+      await createTabSafe({ url: "https://tabrest.ohnice.app/changelog" });
     }
     await chrome.storage.local.set({ tabrest_lastVersion: currentVersion });
   }
@@ -435,7 +436,8 @@ async function openLinkSuspended(url) {
   }
 
   // Create tab in background (not active)
-  const tab = await chrome.tabs.create({ url, active: false });
+  const tab = await createTabSafe({ url, active: false });
+  if (!tab?.id) return false;
 
   let timeoutId = null;
 
