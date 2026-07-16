@@ -134,6 +134,26 @@ export async function queryCurrentWindowTabs(extraQuery = {}) {
   }
 }
 
+// chrome.tabs.create() targets the "current window" when windowId is omitted,
+// throwing "No current window" if none is focused (all windows minimized, or the
+// service worker woke on an event with no focused window - e.g. onInstalled during
+// a background update). Resolve an explicit target so tab creation never rejects
+// on that condition. Non-window errors are re-thrown so genuine bugs still surface.
+export async function createTabSafe(createProps) {
+  try {
+    return await chrome.tabs.create(createProps);
+  } catch (error) {
+    if (!error?.message?.includes("No current window")) throw error;
+    // Fall back to the most recently focused normal window, else open a new one.
+    const win = await chrome.windows.getLastFocused({ windowTypes: ["normal"] }).catch(() => null);
+    if (win?.id != null) {
+      return await chrome.tabs.create({ ...createProps, windowId: win.id });
+    }
+    const created = await chrome.windows.create({ url: createProps.url });
+    return created?.tabs?.[0] ?? null;
+  }
+}
+
 // Format bytes to human readable string
 export function formatBytes(bytes) {
   if (!bytes || bytes === 0) return "0 B";
