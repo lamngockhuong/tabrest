@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.1](https://github.com/lamngockhuong/tabrest/compare/v0.7.0...v0.7.1) (2026-07-16)
+
+
+### Bug Fixes
+
+* **background:** prevent "No current window" from chrome.tabs.create ([#117](https://github.com/lamngockhuong/tabrest/issues/117)) ([426c14e](https://github.com/lamngockhuong/tabrest/commit/426c14ea0462ca42130a6c29906a0beebd46b502))
+* **deps:** update astro monorepo ([#114](https://github.com/lamngockhuong/tabrest/issues/114)) ([23f25b7](https://github.com/lamngockhuong/tabrest/commit/23f25b7ef113cdd7c8cb74bbf44463fa8df84c24))
+
 ## [0.7.0](https://github.com/lamngockhuong/tabrest/compare/v0.6.4...v0.7.0) (2026-07-13)
 
 
