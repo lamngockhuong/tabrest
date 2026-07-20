@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { useTranslations, getLocalizedPath, type Locale } from '../i18n';
+import { useTranslations, getLocalizedPath, stripLocalePrefix, type Locale } from '../i18n';
 
 interface Props {
   currentSlug: string;
@@ -11,16 +11,10 @@ const { currentSlug } = Astro.props;
 const locale = (Astro.props.locale || Astro.currentLocale || 'en') as Locale;
 const t = useTranslations(locale);
 
-// Get docs for current locale (filter by lang prefix once docs are restructured)
-const langPrefix = `${locale}/`;
-const allDocs = await getCollection('docs', ({ id }) => {
-  // Support both flat structure (current) and lang-prefixed structure (future)
-  if (id.includes('/')) {
-    return id.startsWith(langPrefix);
-  }
-  // Flat structure - show all for EN, none for VI until restructured
-  return locale === 'en';
-});
+// Get docs for current locale. Astro lowercases content collection ids, so the
+// doc-id prefix is the lowercased locale key (e.g. locale "zh_CN" -> id "zh_cn/").
+const langPrefix = `${locale.toLowerCase()}/`;
+const allDocs = await getCollection('docs', ({ id }) => id.startsWith(langPrefix));
 
 const sortedDocs = allDocs.sort((a, b) => a.data.order - b.data.order);
 
@@ -43,7 +37,7 @@ const groupedDocs = sortedDocs.reduce((acc, doc) => {
 }, {} as Record<SectionKey, typeof sortedDocs>);
 
 // Helper to get doc slug without language prefix
-const getDocSlug = (id: string) => id.replace(/^(en|vi)\//, '');
+const getDocSlug = (id: string) => stripLocalePrefix(id);
 ---
 
 <nav class="p-4 space-y-6">

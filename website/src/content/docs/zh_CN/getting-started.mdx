@@ -1,0 +1,112 @@
+---
+title: 快速开始
+description: 了解如何安装和配置 TabRest 以开始节省内存
+order: 1
+section: getting-started
+---
+
+# TabRest 快速开始
+
+TabRest 是一款浏览器扩展，可自动卸载不活动的标签页以释放内存。它可在**所有基于 Chromium 的浏览器**上运行：Chrome、Microsoft Edge、Brave、Opera、Vivaldi 和 Arc。
+
+## 安装
+
+### 从浏览器应用商店安装
+
+**Chrome 用户：**
+1. 访问 [Chrome 应用商店的 TabRest 页面](https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib)
+2. 点击 **添加到 Chrome**
+
+**Edge 用户：**
+1. 访问 [Microsoft Edge 加载项的 TabRest 页面](https://microsoftedge.microsoft.com/addons)（即将推出）
+2. 点击 **获取**
+
+**Brave、Opera、Vivaldi、Arc 用户：**
+- 直接从 Chrome 应用商店安装（这些浏览器支持 Chrome 扩展）
+
+3. 确认权限请求
+4. TabRest 图标将出现在您的浏览器工具栏中
+
+### 从源代码安装（开发者）
+
+1. 克隆仓库：
+   ```bash
+   git clone https://github.com/lamngockhuong/tabrest.git
+   cd tabrest
+   ```
+
+2. 打开浏览器并进入扩展页面：
+   - Chrome：`chrome://extensions`
+   - Edge：`edge://extensions`
+   - Brave：`brave://extensions`
+   - Opera：`opera://extensions`
+   - Vivaldi：`vivaldi://extensions`
+
+3. 启用**开发者模式**（右上角的开关）
+
+4. 点击 **加载已解压的扩展程序** 并选择 `tabrest` 文件夹
+
+5. 扩展现已激活
+
+## 第一步
+
+安装后，TabRest 会立即以默认设置运行：
+
+- **自动卸载计时器**：不活动 30 分钟
+- **内存阈值**：RAM 使用率 80%
+- **受保护的标签页**：固定标签页、播放音频的标签页、含有未保存表单的标签页
+- **白名单**：YouTube、Gmail、Google Docs（预先配置）
+
+### 快速配置
+
+1. **打开设置**：点击 TabRest 图标 → ⚙️ 设置按钮
+2. **调整计时器**：在 5 分钟到 4 小时之间选择
+3. **设置内存阈值**：RAM 使用率 60-95% 触发
+4. **添加到白名单**：保护特定站点不被自动卸载
+
+### 您的第一次手动卸载
+
+尝试手动卸载标签页，看看它的工作方式：
+
+1. 打开多个标签页
+2. 点击工具栏中的 TabRest 图标
+3. 选择一个操作：
+   - **卸载当前标签页**：卸载当前活动的标签页
+   - **卸载其他标签页**：卸载除当前之外的所有标签页
+   - **卸载左侧/右侧**：卸载某一侧的标签页
+
+已卸载的标签页仍在标签栏中可见，但在您点击时会重新加载。
+
+## 标签页被卸载时会发生什么？
+
+TabRest 使用浏览器原生的 `tabs.discard()` API。已卸载的标签页：
+
+- ✅ 保留在标签栏中，显示标题和网站图标
+- ✅ 保留滚动位置和表单数据
+- ✅ 点击时立即重新加载
+- ✅ 在不活动时释放内存
+- ❌ 无法运行后台脚本或播放媒体
+
+## 使用侧边栏模式
+
+希望 TabRest 始终可见，而不是打开弹出窗口？
+
+1. 点击 TabRest 图标 → **⚙️ 设置** 按钮
+2. 滚动到 **工具栏操作** 部分
+3. 将 **在侧边栏中打开** 切换为开启
+4. 下次点击将在浏览器侧边栏中打开 TabRest
+5. 当您在标签页之间切换时，面板保持打开
+6. 随时关闭切换即可返回弹出窗口模式
+
+**注意**：侧边栏需要 Chrome 114+。
+
+## 自动打开的更新日志
+
+当 TabRest 更新并带来新功能时（次要或主要版本），它会自动打开更新日志，让您了解有哪些新内容。补丁更新（错误修复）不会触发更新日志，以避免不必要的通知。
+
+## 后续步骤
+
+- 了解[键盘快捷键](/docs/keyboard-shortcuts)以实现更快的控制
+- 为重要站点配置[白名单保护](/docs/whitelist-config)，包括 localhost 和 IP 地址
+- 探索[所有功能](/docs/features)，包括标签组、导入/导出和侧边栏模式
+- 如遇到问题，请查看[故障排除](/docs/troubleshooting)

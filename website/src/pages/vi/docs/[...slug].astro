@@ -1,12 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { stripLocalePrefix } from '../../../i18n';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs', ({ id }) => id.startsWith('vi/'));
   return docs.map(doc => ({
     // Remove 'vi/' prefix from URL slug
-    params: { slug: doc.id.replace('vi/', '') },
+    params: { slug: stripLocalePrefix(doc.id) },
     props: { doc },
   }));
 }
@@ -19,7 +20,7 @@ const locale = 'vi';
 <DocsLayout
   title={doc.data.title}
   description={doc.data.description}
-  currentSlug={doc.id.replace('vi/', '')}
+  currentSlug={stripLocalePrefix(doc.id)}
   locale={locale}
 >
   <Content />

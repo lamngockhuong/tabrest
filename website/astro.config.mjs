@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://tabrest.ohnice.app',
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'vi'],
+    locales: ['en', 'vi', 'ja', 'zh_CN'],
     routing: {
       prefixDefaultLocale: false,
     },
@@ -17,9 +17,12 @@ export default defineConfig({
     sitemap({
       i18n: {
         defaultLocale: 'en',
+        // Map internal locale keys to BCP-47 hreflang codes (zh_CN -> zh-CN).
         locales: {
           en: 'en',
           vi: 'vi',
+          ja: 'ja',
+          zh_CN: 'zh-CN',
         },
       },
     }),
