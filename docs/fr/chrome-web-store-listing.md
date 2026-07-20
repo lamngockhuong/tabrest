@@ -5,18 +5,15 @@
 Collez le contenu ci-dessous dans le champ "Nouveautés" du Chrome Web Store à chaque version.
 
 ```
-NOUVEAU : Assistant de configuration interactif
+NOUVEAU : Pause globale
 
-La première installation ouvre désormais un assistant convivial en 6 étapes qui vous guide à travers les paramètres les plus utiles - minuteur de déchargement automatique, suggestions de liste blanche, mode d'alimentation et notifications. Chaque étape est facultative et vos valeurs par défaut existantes sont conservées si vous les ignorez.
-
-Déjà installé ? Vous pouvez relancer l'assistant à tout moment depuis Options > Pied de page > "Relancer la configuration".
+Besoin d'arrêter le déchargement automatique un moment ? Le popup dispose désormais d'un bouton de pause globale qui gèle TabRest pendant 30 minutes, 1 heure, 2 heures, ou jusqu'à ce que vous repreniez. Idéal pour les présentations, les téléchargements, ou chaque fois que vous voulez que tous vos onglets restent actifs.
 
 AUTRES AMÉLIORATIONS :
-- Expérience d'installation et d'accueil rafraîchie avec des transitions fluides entre les diapositives
-- Prise en charge des mouvements réduits pour l'accessibilité
-- Rappel d'épinglage à la barre d'outils pour retrouver TabRest plus rapidement
-- Pied de page de la page des options amélioré
-- Assistant multilingue (anglais et vietnamien)
+- Ouvrez l'interface de TabRest dans le panneau latéral directement depuis l'en-tête du popup
+- Les onglets déchargés reçoivent désormais un anneau de favicon pour repérer les onglets en veille d'un coup d'œil
+- Menu contextuel du clic droit localisé
+- Déchargement au démarrage plus fiable qui prend aussi en charge les onglets restaurés tardivement
 
 CONFIDENTIALITÉ :
 Tous les paramètres sont stockés localement sur votre appareil. Le rapport d'erreur anonyme facultatif reste en option d'adhésion (désactivé par défaut).
@@ -62,6 +59,7 @@ TabRest décharge automatiquement les onglets de navigateur inactifs pour libér
 • Liste blanche de domaines à ne jamais décharger
 • Reporter un onglet individuellement (30 min - 2 heures)
 • Reporter l'ensemble d'un domaine temporairement
+• Pause globale - arrêter TOUT déchargement automatique pendant 30 min, 1 h, 2 h, ou jusqu'à reprise
 • Ignorer les onglets avec de l'audio/vidéo en lecture
 • Ignorer les onglets avec des formulaires non enregistrés
 • Option de protection des onglets épinglés
@@ -71,6 +69,7 @@ TabRest décharge automatiquement les onglets de navigateur inactifs pour libér
 • Suivi du nombre total d'onglets déchargés
 • Suivi de la mémoire totale économisée
 • Indicateur visuel (💤) dans les titres des onglets ignorés
+• Anneau de favicon signalant les onglets déchargés d'un coup d'œil
 
 🔧 Fonctionnalités supplémentaires
 • Prise en charge des groupes d'onglets - décharger des groupes entiers

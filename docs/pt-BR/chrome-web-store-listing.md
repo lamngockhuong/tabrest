@@ -5,18 +5,15 @@
 Cole o conteúdo abaixo no campo "O que há de novo" do Chrome Web Store a cada lançamento.
 
 ```
-NOVO: Assistente de Configuração Interativo
+NOVO: Pausa Global
 
-A primeira instalação agora abre um assistente amigável de 6 etapas que guia você pelas configurações mais úteis - temporizador de inatividade, sugestões de lista branca, modo de energia e notificações. Cada etapa pode ser ignorada e seus padrões existentes são preservados caso você pule.
-
-Já instalado? Você pode executar o assistente novamente a qualquer momento em Opções > Rodapé > "Executar configuração novamente".
+Precisa interromper o descarregamento automático por um tempo? O popup agora tem um botão de pausa global que congela o TabRest por 30 minutos, 1 hora, 2 horas ou até você retomar. Ótimo para apresentações, downloads ou sempre que você quiser que todas as abas permaneçam ativas.
 
 OUTRAS MELHORIAS:
-- Experiência de instalação/boas-vindas renovada com transições suaves de slides
-- Suporte a movimento reduzido para acessibilidade
-- Lembrete de fixar na barra de ferramentas para encontrar o TabRest mais rápido
-- Rodapé da página de opções aprimorado
-- Assistente multilíngue (inglês e vietnamita)
+- Abra a interface do TabRest no painel lateral direto pelo cabeçalho do popup
+- As abas descarregadas agora ganham um anel no favicon para você identificar abas adormecidas rapidamente
+- Menu de contexto (clique com o botão direito) localizado
+- Descarregamento na inicialização mais confiável, que também captura abas restauradas tardiamente
 
 PRIVACIDADE:
 Todas as configurações são armazenadas localmente no seu dispositivo. O relatório de erros anônimo opcional continua sendo opt-in (desativado por padrão).
@@ -62,6 +59,7 @@ TabRest descarrega automaticamente abas inativas do navegador para liberar memó
 • Lista branca de domínios para nunca descarregar
 • Adiar abas individuais (30 min - 2 horas)
 • Adiar domínios inteiros temporariamente
+• Pausa global - interrompe TODO o descarregamento automático por 30 min, 1 h, 2 h ou até retomar
 • Ignorar abas com áudio/vídeo em reprodução
 • Ignorar abas com formulários não salvos
 • Opção de proteger abas fixadas
@@ -71,6 +69,7 @@ TabRest descarrega automaticamente abas inativas do navegador para liberar memó
 • Rastrear total de abas descarregadas
 • Rastrear total de memória economizada
 • Indicador visual (💤) nos títulos das abas descartadas
+• Anel no favicon marca abas descarregadas de forma rápida
 
 🔧 Recursos Adicionais
 • Suporte a grupos de abas - descarregar grupos inteiros

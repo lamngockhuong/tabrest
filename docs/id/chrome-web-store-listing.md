@@ -5,18 +5,15 @@
 Tempelkan konten di bawah ini ke kolom "What's new" di Chrome Web Store pada setiap rilis.
 
 ```
-BARU: Wizard Penyiapan Interaktif
+BARU: Jeda Global
 
-Instalasi pertama kali kini membuka wizard 6 langkah yang ramah pengguna, memandu Anda melalui pengaturan paling berguna - timer tidak aktif otomatis, saran daftar putih, mode daya, dan notifikasi. Setiap langkah dapat dilewati dan nilai default Anda yang sudah ada tetap dipertahankan jika Anda melewatinya.
-
-Sudah terpasang? Anda dapat menjalankan kembali wizard kapan saja dari Opsi > Footer > "Run setup again".
+Perlu menghentikan pembongkaran otomatis untuk sementara? Popup kini memiliki tombol jeda global yang membekukan TabRest selama 30 menit, 1 jam, 2 jam, atau hingga Anda melanjutkannya kembali. Cocok untuk presentasi, unduhan, atau kapan pun Anda ingin setiap tab tetap aktif.
 
 PENINGKATAN LAINNYA:
-- Pengalaman instalasi/sambutan yang diperbarui dengan transisi slide yang mulus
-- Dukungan reduced-motion untuk aksesibilitas
-- Pengingat sematan ke bilah alat agar Anda dapat menemukan TabRest lebih cepat
-- Tampilan halaman opsi footer yang lebih rapi
-- Wizard multibahasa (Inggris & Vietnam)
+- Buka UI TabRest di panel samping langsung dari header popup
+- Tab yang dibongkar kini mendapat cincin favicon sehingga Anda dapat mengenali tab yang tertidur secara sekilas
+- Menu konteks klik kanan yang dilokalkan
+- Pembongkaran saat startup yang lebih andal dan juga menangkap tab yang dipulihkan terlambat
 
 PRIVASI:
 Semua pengaturan disimpan secara lokal di perangkat Anda. Laporan kesalahan anonim opsional tetap bersifat opt-in (dinonaktifkan secara default).
@@ -62,6 +59,7 @@ TabRest secara otomatis membongkar tab browser yang tidak aktif untuk membebaska
 • Daftar putih domain agar tidak pernah dibongkar
 • Tunda tab individual (30 menit - 2 jam)
 • Tunda seluruh domain untuk sementara
+• Jeda global - hentikan SEMUA pembongkaran otomatis selama 30 menit, 1 jam, 2 jam, atau hingga dilanjutkan
 • Lewati tab dengan audio/video yang sedang diputar
 • Lewati tab dengan formulir yang belum disimpan
 • Opsi proteksi tab tersemat
@@ -71,6 +69,7 @@ TabRest secara otomatis membongkar tab browser yang tidak aktif untuk membebaska
 • Lacak total tab yang dibongkar
 • Lacak total memori yang dihemat
 • Indikator visual (💤) pada judul tab yang dibuang
+• Cincin favicon menandai tab yang dibongkar secara sekilas
 
 🔧 Fitur Tambahan
 • Dukungan grup tab - bongkar seluruh grup

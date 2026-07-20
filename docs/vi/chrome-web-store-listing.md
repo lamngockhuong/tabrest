@@ -5,18 +5,15 @@
 Dán nội dung dưới đây vào ô "Có gì mới" của Chrome Web Store ở mỗi lần phát hành.
 
 ```
-MỚI: Trình hướng dẫn cài đặt tương tác
+MỚI: Tạm dừng toàn cục
 
-Lần đầu cài đặt giờ đây sẽ mở một trình hướng dẫn 6 bước thân thiện, giúp bạn đi qua các cài đặt hữu ích nhất - hẹn giờ tự động giải phóng, gợi ý danh sách trắng, chế độ tiết kiệm và thông báo. Mỗi bước có thể bỏ qua, các giá trị mặc định hiện có được giữ nguyên nếu bạn bỏ qua.
-
-Đã cài rồi? Bạn có thể chạy lại trình hướng dẫn bất cứ lúc nào từ Tùy chọn > Chân trang > "Chạy lại cài đặt".
+Cần tạm ngừng tự động giải phóng trong chốc lát? Popup giờ có nút tạm dừng toàn cục giúp "đóng băng" TabRest trong 30 phút, 1 giờ, 2 giờ, hoặc cho đến khi bạn tiếp tục. Rất hợp khi thuyết trình, tải file, hay bất cứ lúc nào bạn muốn mọi tab luôn hoạt động.
 
 CẢI TIẾN KHÁC:
-- Trải nghiệm cài đặt/chào mừng được làm mới với chuyển cảnh trượt mượt mà
-- Hỗ trợ giảm chuyển động cho khả năng tiếp cận
-- Lời nhắc ghim vào thanh công cụ giúp bạn tìm TabRest nhanh hơn
-- Trang tùy chọn được trau chuốt phần chân trang
-- Trình hướng dẫn đa ngôn ngữ (tiếng Anh và tiếng Việt)
+- Mở giao diện TabRest trong side panel ngay từ đầu popup
+- Tab đã giải phóng giờ có vòng tròn trên favicon để bạn nhận ra tab đang "ngủ" trong nháy mắt
+- Menu chuột phải đã được bản địa hóa
+- Giải phóng khi khởi động đáng tin cậy hơn, bắt được cả các tab khôi phục muộn
 
 QUYỀN RIÊNG TƯ:
 Mọi cài đặt được lưu cục bộ trên thiết bị của bạn. Báo cáo lỗi ẩn danh tùy chọn vẫn là tùy chọn (mặc định tắt).
@@ -62,6 +59,7 @@ TabRest tự động giải phóng bộ nhớ các tab không hoạt động, gi
 • Danh sách trắng - không giải phóng domain được chọn
 • Tạm dừng tab riêng lẻ (30 phút - 2 giờ)
 • Tạm dừng toàn bộ domain
+• Tạm dừng toàn cục - dừng TẤT CẢ tự động giải phóng trong 30 phút, 1 giờ, 2 giờ, hoặc đến khi tiếp tục
 • Bỏ qua tab đang phát âm thanh/video
 • Bỏ qua tab có form chưa lưu
 • Bảo vệ tab đã ghim
@@ -71,6 +69,7 @@ TabRest tự động giải phóng bộ nhớ các tab không hoạt động, gi
 • Theo dõi tổng số tab đã giải phóng
 • Theo dõi tổng bộ nhớ đã tiết kiệm
 • Chỉ báo trực quan (💤) trên tiêu đề tab
+• Vòng favicon đánh dấu tab đã giải phóng trong nháy mắt
 
 🔧 Tính năng bổ sung
 • Hỗ trợ nhóm tab - giải phóng cả nhóm

@@ -5,18 +5,15 @@
 Den folgenden Inhalt in das Feld "Was ist neu" des Chrome Web Store bei jeder Veröffentlichung einfügen.
 
 ```
-NEU: Interaktiver Einrichtungsassistent
+NEU: Globale Pause
 
-Bei der Erstinstallation wird jetzt ein benutzerfreundlicher 6-Schritte-Assistent geöffnet, der Sie durch die nützlichsten Einstellungen führt - Inaktivitäts-Timer, Whitelist-Vorschläge, Energiemodus und Benachrichtigungen. Jeder Schritt ist überspringbar, und Ihre vorhandenen Standardwerte bleiben erhalten, wenn Sie einen Schritt überspringen.
-
-Bereits installiert? Sie können den Assistenten jederzeit über Einstellungen > Fußzeile > "Einrichtung erneut starten" aufrufen.
+Möchten Sie das automatische Entladen eine Weile stoppen? Das Popup hat jetzt einen globalen Pause-Schalter, der TabRest für 30 Minuten, 1 Stunde, 2 Stunden oder bis zur Fortsetzung einfriert. Ideal für Präsentationen, Downloads oder jederzeit, wenn alle Tabs aktiv bleiben sollen.
 
 WEITERE VERBESSERUNGEN:
-- Überarbeitete Installations- und Willkommenserfahrung mit sanften Folienübergängen
-- Unterstützung für reduzierte Bewegung zur Barrierefreiheit
-- Erinnerung zum Anheften an die Symbolleiste, damit Sie TabRest schneller finden
-- Überarbeitete Optionsseite mit verbesserter Fußzeile
-- Mehrsprachiger Assistent (Englisch und Vietnamesisch)
+- Die TabRest-Benutzeroberfläche direkt über die Popup-Kopfzeile in der Seitenleiste öffnen
+- Entladene Tabs erhalten jetzt einen Favicon-Ring, damit Sie schlafende Tabs auf einen Blick erkennen
+- Lokalisiertes Kontextmenü per Rechtsklick
+- Zuverlässigeres Entladen beim Start, das auch spät wiederhergestellte Tabs erfasst
 
 DATENSCHUTZ:
 Alle Einstellungen werden lokal auf Ihrem Gerät gespeichert. Optionale anonyme Fehlerberichte bleiben opt-in (standardmäßig deaktiviert).
@@ -62,6 +59,7 @@ TabRest entlädt inaktive Browser-Tabs automatisch, um Arbeitsspeicher freizugeb
 • Whitelist für Domains, die niemals entladen werden sollen
 • Einzelne Tabs snoozen (30 Min. bis 2 Stunden)
 • Ganze Domains vorübergehend snoozen
+• Globale Pause - ALLES automatische Entladen für 30 Min., 1 Std., 2 Std. oder bis zur Fortsetzung stoppen
 • Tabs mit laufender Audio-/Videowiedergabe überspringen
 • Tabs mit nicht gespeicherten Formulardaten überspringen
 • Option zum Schutz angehefteter Tabs
@@ -71,6 +69,7 @@ TabRest entlädt inaktive Browser-Tabs automatisch, um Arbeitsspeicher freizugeb
 • Gesamtzahl der entladenen Tabs verfolgen
 • Gesamten eingesparten Speicher verfolgen
 • Visueller Indikator (💤) in Titeln verworfener Tabs
+• Favicon-Ring kennzeichnet entladene Tabs auf einen Blick
 
 🔧 Weitere Funktionen
 • Tab-Gruppen-Unterstützung - ganze Gruppen entladen
