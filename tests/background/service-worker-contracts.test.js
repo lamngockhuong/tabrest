@@ -454,28 +454,39 @@ describe("service-worker-contracts: openLinkSuspended URL safety gate", () => {
 
 // --- alarm dispatch (service-worker.js:395-406) -------------------------------
 describe("service-worker-contracts: alarm name → handler routing", () => {
-  it("ALARM_NAMES exposes the three expected timers", () => {
+  it("ALARM_NAMES exposes the expected timers", () => {
     expect(ALARM_NAMES).toMatchObject({
       TAB_CHECK: expect.any(String),
       MEMORY_CHECK: expect.any(String),
       SNOOZE_CLEANUP: expect.any(String),
+      PAUSE_EXPIRY: expect.any(String),
     });
   });
 
   it("alarm names are unique (no accidental aliasing)", () => {
-    const values = [ALARM_NAMES.TAB_CHECK, ALARM_NAMES.MEMORY_CHECK, ALARM_NAMES.SNOOZE_CLEANUP];
-    expect(new Set(values).size).toBe(3);
+    const values = [
+      ALARM_NAMES.TAB_CHECK,
+      ALARM_NAMES.MEMORY_CHECK,
+      ALARM_NAMES.SNOOZE_CLEANUP,
+      ALARM_NAMES.PAUSE_EXPIRY,
+    ];
+    expect(new Set(values).size).toBe(4);
   });
 });
 
-// --- updateBadge (service-worker.js:674-687) ----------------------------------
-function badgeText({ enabled, discardedCount }) {
+// --- updateBadge (service-worker.js) ------------------------------------------
+// Paused overrides everything (shows the pause glyph); otherwise the discarded
+// count is shown when badges are enabled and count > 0.
+function badgeText({ paused, enabled, discardedCount }) {
+  if (paused) return "❚❚";
   if (!enabled) return "";
   return discardedCount > 0 ? String(discardedCount) : "";
 }
 
 describe("service-worker-contracts: badge text gating", () => {
   it.each([
+    [{ paused: true, enabled: false, discardedCount: 0 }, "❚❚"], // pause wins over disabled
+    [{ paused: true, enabled: true, discardedCount: 42 }, "❚❚"], // pause wins over count
     [{ enabled: false, discardedCount: 5 }, ""], // disabled wins over count
     [{ enabled: true, discardedCount: 0 }, ""], // zero never shown (no '0' clutter)
     [{ enabled: true, discardedCount: 1 }, "1"],
@@ -517,9 +528,10 @@ describe("service-worker-contracts: protectionReason chain", () => {
   });
 });
 
-// --- getTabsWithStatus timeUntilUnload visibility (service-worker.js:668) -----
-function timeUntilVisible({ active, discarded, isProtected, timeUntilUnload }) {
-  return active || discarded || isProtected ? null : timeUntilUnload;
+// --- getTabsWithStatus timeUntilUnload visibility (service-worker.js) ---------
+// A global pause also hides the countdown (no tab is on a timer while paused).
+function timeUntilVisible({ paused, active, discarded, isProtected, timeUntilUnload }) {
+  return paused || active || discarded || isProtected ? null : timeUntilUnload;
 }
 
 describe("service-worker-contracts: timeUntilUnload visibility", () => {
@@ -527,6 +539,10 @@ describe("service-worker-contracts: timeUntilUnload visibility", () => {
     expect(timeUntilVisible({ active: true, timeUntilUnload: 1000 })).toBeNull();
     expect(timeUntilVisible({ discarded: true, timeUntilUnload: 1000 })).toBeNull();
     expect(timeUntilVisible({ isProtected: true, timeUntilUnload: 1000 })).toBeNull();
+  });
+
+  it("hidden when globally paused", () => {
+    expect(timeUntilVisible({ paused: true, timeUntilUnload: 1000 })).toBeNull();
   });
 
   it("visible for plain unloadable tabs", () => {

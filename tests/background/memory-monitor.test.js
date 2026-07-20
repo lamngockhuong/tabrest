@@ -10,6 +10,10 @@ vi.mock("../../src/shared/storage.js", () => ({
   getSettings: vi.fn(),
 }));
 
+vi.mock("../../src/background/pause-manager.js", () => ({
+  isPaused: vi.fn(),
+}));
+
 vi.mock("../../src/background/snooze-manager.js", () => ({
   getSnoozeData: vi.fn(),
   isTabSnoozed: vi.fn(),
@@ -27,6 +31,7 @@ vi.mock("../../src/shared/utils.js", () => ({
   notifyAutoUnload: vi.fn(),
 }));
 
+import { isPaused } from "../../src/background/pause-manager.js";
 import { getSnoozeData, isTabSnoozed } from "../../src/background/snooze-manager.js";
 import { getLRUSortedTabs } from "../../src/background/tab-tracker.js";
 import { discardTab } from "../../src/background/unload-manager.js";
@@ -35,6 +40,7 @@ import { getSettings } from "../../src/shared/storage.js";
 describe("memory-monitor", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    isPaused.mockResolvedValue(false);
     // Reset navigator.onLine mock
     Object.defineProperty(navigator, "onLine", {
       value: true,
@@ -104,6 +110,13 @@ describe("memory-monitor", () => {
 
     it("returns 0 when offline and skipWhenOffline is enabled", async () => {
       Object.defineProperty(navigator, "onLine", { value: false, configurable: true });
+      const result = await checkMemoryAndUnload();
+      expect(result).toBe(0);
+      expect(chrome.system.memory.getInfo).not.toHaveBeenCalled();
+    });
+
+    it("returns 0 when globally paused", async () => {
+      isPaused.mockResolvedValue(true);
       const result = await checkMemoryAndUnload();
       expect(result).toBe(0);
       expect(chrome.system.memory.getInfo).not.toHaveBeenCalled();
@@ -190,6 +203,13 @@ describe("memory-monitor", () => {
       Object.defineProperty(navigator, "onLine", { value: false, configurable: true });
       const result = await checkPerTabMemory();
       expect(result).toBe(0);
+    });
+
+    it("returns 0 when globally paused", async () => {
+      isPaused.mockResolvedValue(true);
+      const result = await checkPerTabMemory();
+      expect(result).toBe(0);
+      expect(chrome.tabs.query).not.toHaveBeenCalled();
     });
 
     it("skips active tabs", async () => {

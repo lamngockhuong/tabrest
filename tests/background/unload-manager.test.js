@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   STARTUP_DISCARD_DELAY_MS,
   STARTUP_FOLLOWUP_DELAY_MS,
@@ -6,6 +6,10 @@ import {
 
 vi.mock("../../src/shared/storage.js", () => ({
   getSettings: vi.fn(),
+}));
+
+vi.mock("../../src/background/pause-manager.js", () => ({
+  isPaused: vi.fn(),
 }));
 
 vi.mock("../../src/background/form-injector.js", () => ({
@@ -17,6 +21,7 @@ vi.mock("../../src/background/stats-collector.js", () => ({
 }));
 
 import { ensureFormCheckerInjected } from "../../src/background/form-injector.js";
+import { isPaused } from "../../src/background/pause-manager.js";
 import { recordUnload } from "../../src/background/stats-collector.js";
 import {
   closeDuplicateTabs,
@@ -335,11 +340,19 @@ describe("unload-manager", () => {
   });
 
   describe("discardAllTabsOnStartup", () => {
+    beforeEach(() => isPaused.mockResolvedValue(false));
     afterEach(() => vi.useRealTimers());
 
     it("returns 0 when autoUnloadOnStartup is disabled", async () => {
       getSettings.mockResolvedValue({ ...baseSettings, autoUnloadOnStartup: false });
       expect(await discardAllTabsOnStartup()).toBe(0);
+    });
+
+    it("returns 0 when globally paused", async () => {
+      isPaused.mockResolvedValue(true);
+      getSettings.mockResolvedValue(baseSettings);
+      expect(await discardAllTabsOnStartup()).toBe(0);
+      expect(chrome.tabs.discard).not.toHaveBeenCalled();
     });
 
     it("discards non-active tabs across all windows after delay", async () => {
