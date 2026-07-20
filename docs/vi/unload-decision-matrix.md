@@ -15,6 +15,7 @@ Cách TabRest quyết định khi nào unload tab.
 
 | Bảo vệ                  | Timer | Memory | Per-tab Heap | Blacklist |
 | ----------------------- | :---: | :----: | :----------: | :-------: |
+| Đang tạm dừng toàn cục  |  Có   |   Có   |      Có      |    Có     |
 | Tab đang active         |  Có   |   Có   |      Có      |    Có     |
 | Đã discarded            |  Có   |   Có   |      Có      |    Có     |
 | Đang snooze             |  Có   |   Có   |      Có      |    Có     |
@@ -35,9 +36,16 @@ Cách TabRest quyết định khi nào unload tab.
 
 Timer = tiện lợi (không gấp), Memory/Heap = khẩn cấp (cần xử lý ngay để tránh crash).
 
+**Ghi chú:** Tạm dừng toàn cục được kiểm tra trước tất cả trigger ở trên và chặn cả 4 trigger cùng
+lúc - đây không phải bảo vệ theo từng tab như các mục còn lại. Nó không bao giờ ảnh hưởng đến các
+thao tác unload thủ công (Unload Current/Others/Left/Right, context menu, phím tắt, click toolbar).
+
 ## Thứ Tự Ưu Tiên Bảo Vệ
 
 ```
+0. GHI ĐÈ TOÀN CỤC (kiểm tra đầu tiên, chặn mọi trigger)
+   - Đang tạm dừng toàn cục (pause-manager.isPaused())
+
 1. TUYỆT ĐỐI (không bao giờ unload)
    - Tab đang active
    - Đã discarded
@@ -63,6 +71,12 @@ Timer = tiện lợi (không gấp), Memory/Heap = khẩn cấp (cần xử lý 
 
 ```
 Trigger đến (Timer/Memory/Heap/Blacklist)
+                │
+                ▼
+┌───────────────────────────────┐
+│ GHI ĐÈ TOÀN CỤC (tất cả)      │
+│ • Đang tạm dừng? → BỎ QUA HẾT │
+└───────────────────────────────┘
                 │
                 ▼
 ┌───────────────────────────────┐

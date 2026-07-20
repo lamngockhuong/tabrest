@@ -103,6 +103,9 @@ export const ALARM_NAMES = {
   TAB_CHECK: "tab-check-alarm",
   MEMORY_CHECK: "memory-check-alarm",
   SNOOZE_CLEANUP: "snooze-cleanup-alarm",
+  // One-shot: fires at a timed pause's deadline to refresh the badge promptly
+  // instead of waiting for the periodic cleanup sweep.
+  PAUSE_EXPIRY: "pause-expiry-alarm",
 };
 
 // Scroll position storage
@@ -111,6 +114,9 @@ export const SCROLL_MAX_ENTRIES = 100;
 
 // Snooze storage
 export const SNOOZE_KEY = "tabrest_snooze";
+
+// Global pause storage - temporarily disables ALL auto-discard
+export const PAUSE_KEY = "tabrest_pause";
 
 // Timeout for form data check (content script message)
 export const FORM_CHECK_TIMEOUT_MS = 300;

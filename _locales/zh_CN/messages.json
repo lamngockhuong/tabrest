@@ -742,5 +742,35 @@
   },
   "faviconPermDenied": {
     "message": "图标标识需要网站访问权限。已跳过此开关。"
+  },
+  "pause": {
+    "message": "暂停"
+  },
+  "resume": {
+    "message": "恢复"
+  },
+  "pauseActiveTitle": {
+    "message": "自动释放已开启"
+  },
+  "pauseActiveSubtitle": {
+    "message": "标签页将自动释放"
+  },
+  "pausePausedTitle": {
+    "message": "自动释放已暂停"
+  },
+  "pauseUntilResume": {
+    "message": "直到恢复"
+  },
+  "pauseResumesIn": {
+    "message": "$1后恢复",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "pausedToast": {
+    "message": "已暂停自动释放"
+  },
+  "resumedToast": {
+    "message": "已恢复自动释放"
   }
 }

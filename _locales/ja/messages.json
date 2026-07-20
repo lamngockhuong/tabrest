@@ -742,5 +742,35 @@
   },
   "faviconPermDenied": {
     "message": "アイコン表示にはウェブサイトへのアクセス権限が必要です。切り替えをスキップしました。"
+  },
+  "pause": {
+    "message": "一時停止"
+  },
+  "resume": {
+    "message": "再開"
+  },
+  "pauseActiveTitle": {
+    "message": "自動アンロード: オン"
+  },
+  "pauseActiveSubtitle": {
+    "message": "タブは自動的にアンロードされます"
+  },
+  "pausePausedTitle": {
+    "message": "自動アンロードを一時停止中"
+  },
+  "pauseUntilResume": {
+    "message": "再開するまで"
+  },
+  "pauseResumesIn": {
+    "message": "$1後に再開",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "pausedToast": {
+    "message": "自動アンロードを一時停止しました"
+  },
+  "resumedToast": {
+    "message": "自動アンロードを再開しました"
   }
 }

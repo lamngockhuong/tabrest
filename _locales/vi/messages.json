@@ -738,5 +738,35 @@
   },
   "faviconPermDenied": {
     "message": "Chỉ báo trên biểu tượng cần quyền truy cập trang web. Đã bỏ qua."
+  },
+  "pause": {
+    "message": "Tạm dừng"
+  },
+  "resume": {
+    "message": "Tiếp tục"
+  },
+  "pauseActiveTitle": {
+    "message": "Tự động dỡ tab đang bật"
+  },
+  "pauseActiveSubtitle": {
+    "message": "Tab được dỡ tự động"
+  },
+  "pausePausedTitle": {
+    "message": "Đã tạm dừng tự động dỡ tab"
+  },
+  "pauseUntilResume": {
+    "message": "Đến khi bật lại"
+  },
+  "pauseResumesIn": {
+    "message": "Tiếp tục sau $1",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "pausedToast": {
+    "message": "Đã tạm dừng tự động dỡ tab"
+  },
+  "resumedToast": {
+    "message": "Đã bật lại tự động dỡ tab"
   }
 }

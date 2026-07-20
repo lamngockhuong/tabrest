@@ -87,6 +87,7 @@ TabRest automatically unloads inactive browser tabs to free up memory and keep y
 • Whitelist domains to never unload
 • Snooze individual tabs (30 min - 2 hours)
 • Snooze entire domains temporarily
+• Global pause - stop ALL auto-unloading for 30 min, 1 hr, 2 hrs, or until resumed
 • Skip tabs with playing audio/video
 • Skip tabs with unsaved forms
 • Protect pinned tabs option

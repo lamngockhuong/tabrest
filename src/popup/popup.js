@@ -1,4 +1,9 @@
-import { REPORT_REASONS, REPORTER_COMMANDS, SETTINGS_DEFAULTS } from "../shared/constants.js";
+import {
+  PAUSE_KEY,
+  REPORT_REASONS,
+  REPORTER_COMMANDS,
+  SETTINGS_DEFAULTS,
+} from "../shared/constants.js";
 import { sanitizeString } from "../shared/error-reporter.js";
 import { localizeHtml, t } from "../shared/i18n.js";
 import { icon, injectIcons } from "../shared/icons.js";
@@ -55,6 +60,15 @@ const elements = {
   // Theme
   themeToggle: document.getElementById("theme-toggle"),
   themeIcon: document.getElementById("theme-icon"),
+  // Global pause bar
+  pauseBar: document.getElementById("pause-bar"),
+  pauseStatusIcon: document.getElementById("pause-status-icon"),
+  pauseTitle: document.getElementById("pause-title"),
+  pauseSubtitle: document.getElementById("pause-subtitle"),
+  pauseDropdown: document.getElementById("pause-dropdown"),
+  pauseBtn: document.getElementById("pause-btn"),
+  pauseMenu: document.getElementById("pause-menu"),
+  resumeBtn: document.getElementById("resume-btn"),
   // Toast
   toast: document.getElementById("toast"),
   // Sessions
@@ -159,6 +173,15 @@ function attachFaviconErrorHandlers(container, selector) {
   });
 }
 
+// Format a minute count as a compact label: "45m", "2h", "1h20m".
+function formatMinutesShort(mins) {
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  if (h === 0) return `${m}m`;
+  if (m === 0) return `${h}h`;
+  return `${h}h${m}m`;
+}
+
 // Get status badge HTML for a tab
 function getStatusBadge(tab) {
   if (tab.active) {
@@ -183,10 +206,7 @@ function getStatusBadge(tab) {
     return `<span class="badge badge-protected" title="${badge.title}">${icon(badge.icon, 12)} ${badge.text}</span>`;
   }
   if (tab.timeUntilUnload !== null && tab.timeUntilUnload > 0) {
-    const mins = Math.ceil(tab.timeUntilUnload / 60000);
-    const h = Math.floor(mins / 60);
-    const m = mins % 60;
-    const label = h === 0 ? `${m}m` : m === 0 ? `${h}h` : `${h}h${m}m`;
+    const label = formatMinutesShort(Math.ceil(tab.timeUntilUnload / 60000));
     return `<span class="badge badge-timer" title="Time until auto-unload">${icon("clock", 12)} ${label}</span>`;
   }
   return "";
@@ -320,6 +340,36 @@ async function updateStats() {
       elements.ramStat.title = `System RAM usage: ${usagePercent}%`;
     }
   }
+}
+
+// --- Global Pause Bar ---
+
+// Remaining pause time as a short label, e.g. "45m" or "1h20m".
+function formatPauseRemaining(until) {
+  return formatMinutesShort(Math.max(0, Math.ceil((until - Date.now()) / 60000)));
+}
+
+async function renderPauseBar() {
+  const info = await sendCommand("get-pause-info");
+  const paused = Boolean(info?.paused);
+  // The .paused class alone drives which control shows (see popup.css);
+  // JS only sets the class plus the icon and labels.
+  elements.pauseBar.classList.toggle("paused", paused);
+
+  if (paused) {
+    elements.pauseDropdown.classList.remove("open");
+    elements.pauseStatusIcon.setAttribute("data-icon", "pause");
+    elements.pauseTitle.textContent = t("pausePausedTitle") || "Auto-suspend paused";
+    elements.pauseSubtitle.textContent =
+      info.until === -1
+        ? t("pauseUntilResume") || "Until you resume"
+        : t("pauseResumesIn", [formatPauseRemaining(info.until)]);
+  } else {
+    elements.pauseStatusIcon.setAttribute("data-icon", "zap");
+    elements.pauseTitle.textContent = t("pauseActiveTitle") || "Auto-suspend on";
+    elements.pauseSubtitle.textContent = t("pauseActiveSubtitle") || "Tabs suspend automatically";
+  }
+  injectIcons();
 }
 
 // --- Site Whitelist Bar ---
@@ -1053,6 +1103,35 @@ function setupEventListeners() {
     await renderTabList();
   });
 
+  // Global pause bar handlers
+  elements.pauseBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    elements.pauseDropdown.classList.toggle("open");
+  });
+
+  elements.pauseMenu?.addEventListener("click", async (e) => {
+    const btn = e.target.closest("button[data-minutes]");
+    if (!btn) return;
+    const minutes = Number.parseInt(btn.dataset.minutes, 10);
+    await sendCommand("set-pause", { minutes });
+    elements.pauseDropdown.classList.remove("open");
+    await Promise.all([renderPauseBar(), renderTabList()]);
+    showToast(t("pausedToast") || "Auto-suspend paused");
+  });
+
+  elements.resumeBtn?.addEventListener("click", async () => {
+    await sendCommand("clear-pause");
+    await Promise.all([renderPauseBar(), renderTabList()]);
+    showToast(t("resumedToast") || "Auto-suspend resumed");
+  });
+
+  // Close pause dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".pause-dropdown")) {
+      elements.pauseDropdown?.classList.remove("open");
+    }
+  });
+
   // Form permission recovery banner handlers
   elements.formPermGrant?.addEventListener("click", handleFormPermGrant);
   elements.formPermDismiss?.addEventListener("click", dismissFormPermBanner);
@@ -1167,6 +1246,7 @@ async function init() {
     loadSettings(),
     updateStats(),
     loadTabGroups(),
+    renderPauseBar(),
     renderTabList(),
     renderSessions(),
     renderDetailedStats(),
@@ -1214,6 +1294,11 @@ function setupTabEventSync() {
   });
   chrome.tabs.onRemoved.addListener(scheduleRefresh);
   chrome.tabs.onCreated.addListener(scheduleRefresh);
+
+  // Reflect pause changes made elsewhere (expiry from the service worker, another surface).
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === "local" && changes[PAUSE_KEY]) renderPauseBar();
+  });
 
   if (!chrome.tabGroups) return;
   const scheduleGroupsRefresh = leadingDebounce(loadTabGroups);

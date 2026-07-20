@@ -8,6 +8,7 @@ import { hasHostPermission } from "../shared/permissions.js";
 import { getSettings } from "../shared/storage.js";
 import { notifyAutoUnload } from "../shared/utils.js";
 import { ensureFormCheckerInjected } from "./form-injector.js";
+import { isPaused } from "./pause-manager.js";
 import { getSnoozeData, isTabSnoozed } from "./snooze-manager.js";
 import { getLRUSortedTabs } from "./tab-tracker.js";
 import { discardTab } from "./unload-manager.js";
@@ -60,6 +61,9 @@ export function calculateMemoryUsagePercent(memoryInfo) {
 export async function checkMemoryAndUnload() {
   const settings = await getSettings();
   if (settings.memoryThresholdPercent <= 0) return 0;
+
+  // Skip while globally paused (auto-discard only; manual paths bypass this).
+  if (await isPaused()) return 0;
 
   // Skip if offline and setting enabled - tabs can't reload anyway
   if (settings.skipWhenOffline && !navigator.onLine) {
@@ -149,6 +153,9 @@ export function getTabMemory(tabId) {
 export async function checkPerTabMemory() {
   const settings = await getSettings();
   if (settings.perTabJsHeapThresholdMB <= 0) return 0;
+
+  // Skip while globally paused (auto-discard only; manual paths bypass this).
+  if (await isPaused()) return 0;
 
   // Skip if offline and setting enabled - tabs can't reload anyway
   if (settings.skipWhenOffline && !navigator.onLine) {

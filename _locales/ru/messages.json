@@ -742,5 +742,35 @@
   },
   "faviconPermDenied": {
     "message": "Индикатор на значке требует разрешения на доступ к сайту. Переключение пропущено."
+  },
+  "pause": {
+    "message": "Пауза"
+  },
+  "resume": {
+    "message": "Возобновить"
+  },
+  "pauseActiveTitle": {
+    "message": "Автовыгрузка включена"
+  },
+  "pauseActiveSubtitle": {
+    "message": "Вкладки выгружаются автоматически"
+  },
+  "pausePausedTitle": {
+    "message": "Автовыгрузка приостановлена"
+  },
+  "pauseUntilResume": {
+    "message": "До возобновления"
+  },
+  "pauseResumesIn": {
+    "message": "Возобновится через $1",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "pausedToast": {
+    "message": "Автовыгрузка приостановлена"
+  },
+  "resumedToast": {
+    "message": "Автовыгрузка возобновлена"
   }
 }

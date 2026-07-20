@@ -742,5 +742,35 @@
   },
   "faviconPermDenied": {
     "message": "L'indicateur de favicon nécessite l'autorisation d'accès au site web. Option ignorée."
+  },
+  "pause": {
+    "message": "Pause"
+  },
+  "resume": {
+    "message": "Reprendre"
+  },
+  "pauseActiveTitle": {
+    "message": "Déchargement auto activé"
+  },
+  "pauseActiveSubtitle": {
+    "message": "Les onglets se déchargent automatiquement"
+  },
+  "pausePausedTitle": {
+    "message": "Déchargement auto en pause"
+  },
+  "pauseUntilResume": {
+    "message": "Jusqu'à la reprise"
+  },
+  "pauseResumesIn": {
+    "message": "Reprise dans $1",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "pausedToast": {
+    "message": "Déchargement auto en pause"
+  },
+  "resumedToast": {
+    "message": "Déchargement auto repris"
   }
 }

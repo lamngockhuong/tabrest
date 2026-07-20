@@ -977,5 +977,44 @@
   "faviconPermDenied": {
     "message": "Favicon indicator requires website access permission. Toggle skipped.",
     "description": "Toast when user denies optional host permission for the favicon indicator"
+  },
+  "pause": {
+    "message": "Pause",
+    "description": "Button label to pause global auto-suspend"
+  },
+  "resume": {
+    "message": "Resume",
+    "description": "Button label to resume global auto-suspend"
+  },
+  "pauseActiveTitle": {
+    "message": "Auto-suspend on",
+    "description": "Pause bar title when auto-suspend is active"
+  },
+  "pauseActiveSubtitle": {
+    "message": "Tabs suspend automatically",
+    "description": "Pause bar subtitle when auto-suspend is active"
+  },
+  "pausePausedTitle": {
+    "message": "Auto-suspend paused",
+    "description": "Pause bar title when auto-suspend is paused"
+  },
+  "pauseUntilResume": {
+    "message": "Until resumed",
+    "description": "Pause option and status meaning paused indefinitely until the user resumes"
+  },
+  "pauseResumesIn": {
+    "message": "Resumes in $1",
+    "description": "Pause bar subtitle showing remaining time before auto-suspend resumes",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "pausedToast": {
+    "message": "Auto-suspend paused",
+    "description": "Toast confirming auto-suspend was paused"
+  },
+  "resumedToast": {
+    "message": "Auto-suspend resumed",
+    "description": "Toast confirming auto-suspend was resumed"
   }
 }

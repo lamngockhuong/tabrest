@@ -100,6 +100,22 @@ Prevent tabs from being discarded when network is unavailable:
 - **Behavior**: Pauses auto-unload when `navigator.onLine` is false
 - **Why**: Discarded tabs can't reload without network, avoiding frustration
 
+## Global Pause
+
+Temporarily disable all automatic tab unloading with one switch:
+
+- **Access**: Pause bar near the top of the popup and side panel
+- **Durations**: 30 minutes, 1 hour, 2 hours, or "Until resumed" (indefinite)
+- **While paused**: The bar shows a **Resume** button plus the remaining time (e.g. "Resumes in 45m"), or "Until resumed" for the indefinite option
+- **Blocks**: Inactivity timer, memory threshold, per-tab memory threshold, and startup auto-unload
+- **Does not block**: Manual unload actions (Current/Others/Left/Right), the right-click context menu, keyboard shortcuts, and the toolbar-click action - these always work
+- **Indicator**: Toolbar badge shows ❚❚ while paused; per-tab countdown timers are hidden in the popup tab list
+- **Persistence**: Stored locally per device (does not sync across devices); a timed pause auto-resumes when its deadline passes, survives service worker restarts
+
+**vs Snooze**: Snooze protects a single tab or domain; Global Pause is one switch that stops all auto-unloading at once.
+
+**Use case**: Presentations, downloading many files across tabs, gaming, or debugging - any time you don't want tabs unloading for a while.
+
 ## Manual Controls
 
 Control tab unloading on-demand from the popup:

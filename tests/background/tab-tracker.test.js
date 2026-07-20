@@ -11,6 +11,10 @@ vi.mock("../../src/shared/utils.js", () => ({
   notifyAutoUnload: vi.fn(),
 }));
 
+vi.mock("../../src/background/pause-manager.js", () => ({
+  isPaused: vi.fn(),
+}));
+
 vi.mock("../../src/background/snooze-manager.js", () => ({
   getSnoozeData: vi.fn(),
   isTabSnoozed: vi.fn(),
@@ -22,6 +26,7 @@ vi.mock("../../src/background/unload-manager.js", () => ({
   isUrlWhitelisted: vi.fn(),
 }));
 
+import { isPaused } from "../../src/background/pause-manager.js";
 import { getSnoozeData, isTabSnoozed } from "../../src/background/snooze-manager.js";
 import {
   discardTab,
@@ -46,6 +51,7 @@ const baseSettings = {
 describe("tab-tracker", () => {
   beforeEach(() => {
     vi.resetModules();
+    isPaused.mockResolvedValue(false);
     isUrlWhitelisted.mockReturnValue(false);
     Object.defineProperty(navigator, "onLine", {
       value: true,
@@ -145,6 +151,13 @@ describe("tab-tracker", () => {
         },
       );
       expect(await checkAndUnloadInactiveTabs()).toBe(0);
+    });
+
+    it("skips when globally paused", async () => {
+      isPaused.mockResolvedValue(true);
+      const { checkAndUnloadInactiveTabs } = await setupTracker({ 1: 0 });
+      expect(await checkAndUnloadInactiveTabs()).toBe(0);
+      expect(discardTab).not.toHaveBeenCalled();
     });
 
     it("skips when offline + skipWhenOffline true", async () => {

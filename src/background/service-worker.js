@@ -30,6 +30,13 @@ import {
   setupMemoryCheckAlarm,
 } from "./memory-monitor.js";
 import {
+  cleanupExpiredPause,
+  clearPause,
+  getPauseInfo,
+  isPaused,
+  setPause,
+} from "./pause-manager.js";
+import {
   deleteSession,
   getSessions,
   importSessions,
@@ -123,6 +130,7 @@ async function initCore() {
 chrome.runtime.onStartup.addListener(async () => {
   const allTabs = await initCore();
   await Promise.all([cleanupStaleActivity(allTabs), syncHostPermissionState(false)]);
+  // discardAllTabsOnStartup internally skips while globally paused.
   await discardAllTabsOnStartup();
   updateBadge();
 });
@@ -403,6 +411,7 @@ chrome.tabs.onRemoved.addListener((tabId) => {
 // Alarm handler for periodic checks
 chrome.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === ALARM_NAMES.TAB_CHECK) {
+    // Pause gating lives inside the check functions (beside skipWhenOffline).
     const count = await checkAndUnloadInactiveTabs();
     if (count > 0) updateBadge();
   } else if (alarm.name === ALARM_NAMES.MEMORY_CHECK) {
@@ -411,6 +420,11 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (systemCount + perTabCount > 0) updateBadge();
   } else if (alarm.name === ALARM_NAMES.SNOOZE_CLEANUP) {
     await cleanupExpiredSnooze();
+    // Backstop for the one-shot PAUSE_EXPIRY alarm (e.g. if it was lost).
+    if (await cleanupExpiredPause()) updateBadge();
+  } else if (alarm.name === ALARM_NAMES.PAUSE_EXPIRY) {
+    // Timed pause reached its deadline - clear state and refresh the badge.
+    if (await cleanupExpiredPause()) updateBadge();
   }
 });
 
@@ -418,6 +432,17 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 async function setupSnoozeCleanupAlarm() {
   await chrome.alarms.clear(ALARM_NAMES.SNOOZE_CLEANUP);
   chrome.alarms.create(ALARM_NAMES.SNOOZE_CLEANUP, { periodInMinutes: 5 });
+}
+
+// Arm (or clear) a one-shot alarm at a timed pause's deadline so the badge
+// refreshes exactly when it expires. Indefinite pauses (until === -1) have no
+// deadline, so no alarm is armed.
+async function schedulePauseExpiryAlarm() {
+  await chrome.alarms.clear(ALARM_NAMES.PAUSE_EXPIRY);
+  const info = await getPauseInfo();
+  if (info.paused && info.until !== -1) {
+    chrome.alarms.create(ALARM_NAMES.PAUSE_EXPIRY, { when: info.until });
+  }
 }
 
 /**
@@ -593,6 +618,17 @@ async function handleMessage(message) {
       return await getTabSnoozeInfo(tabId, url);
     case "get-active-snoozes":
       return await getActiveSnoozes();
+    // Global pause commands
+    case "set-pause":
+      await setPause(minutes);
+      await schedulePauseExpiryAlarm();
+      return { success: true };
+    case "clear-pause":
+      await clearPause();
+      await chrome.alarms.clear(ALARM_NAMES.PAUSE_EXPIRY);
+      return { success: true };
+    case "get-pause-info":
+      return await getPauseInfo();
     case "toggle-whitelist": {
       const normalized = unwrapHostname(hostname ?? "").replace(/^www\./, "");
       if (!normalized || !isValidDomainOrIp(normalized)) return { whitelisted: false };
@@ -633,6 +669,8 @@ async function getTabsWithStatus() {
   const tabActivity = getTabActivityMap();
   const now = Date.now();
   const unloadDelay = settings.unloadDelayMinutes * 60 * 1000;
+  // While globally paused, no tab is on a countdown - hide per-tab timers.
+  const paused = await isPaused();
 
   // Check form data for eligible tabs in parallel (only if form protection enabled)
   const formDataMap = new Map();
@@ -691,13 +729,23 @@ async function getTabsWithStatus() {
       isSnoozed,
       snoozeInfo,
       protectionReason,
-      timeUntilUnload: tab.active || tab.discarded || isProtected ? null : timeUntilUnload,
+      timeUntilUnload:
+        paused || tab.active || tab.discarded || isProtected ? null : timeUntilUnload,
     };
   });
 }
 
 // Update badge with discarded tab count
 async function updateBadge() {
+  // Paused state overrides the count so users always see auto-discard is off.
+  if ((await getPauseInfo()).paused) {
+    chrome.action.setBadgeText({ text: "❚❚" });
+    // Match the brand indigo used for the count badge so the pill blends with
+    // the toolbar icon instead of standing out.
+    chrome.action.setBadgeBackgroundColor({ color: "#4338CA" });
+    return;
+  }
+
   const settings = await getSettings();
 
   if (!settings.showBadgeCount) {

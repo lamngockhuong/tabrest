@@ -742,5 +742,35 @@
   },
   "faviconPermDenied": {
     "message": "아이콘 표시에는 웹사이트 액세스 권한이 필요합니다. 전환을 건너뛰었습니다."
+  },
+  "pause": {
+    "message": "일시중지"
+  },
+  "resume": {
+    "message": "재개"
+  },
+  "pauseActiveTitle": {
+    "message": "자동 언로드 켜짐"
+  },
+  "pauseActiveSubtitle": {
+    "message": "탭이 자동으로 언로드됩니다"
+  },
+  "pausePausedTitle": {
+    "message": "자동 언로드 일시중지됨"
+  },
+  "pauseUntilResume": {
+    "message": "재개할 때까지"
+  },
+  "pauseResumesIn": {
+    "message": "$1 후 재개",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "pausedToast": {
+    "message": "자동 언로드를 일시중지했습니다"
+  },
+  "resumedToast": {
+    "message": "자동 언로드를 재개했습니다"
   }
 }

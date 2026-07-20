@@ -218,6 +218,22 @@ A 3-second on-page notification that appears before TabRest auto-unloads a tab:
 
 **Example**: You step away from your browser and a tab is about to be unloaded for memory. The warning appears, giving you 3 seconds to cancel if you were still using it.
 
+### How do I temporarily stop TabRest from unloading tabs?
+
+Use **Global Pause**:
+
+1. Open the TabRest popup (or side panel)
+2. Find the pause bar near the top
+3. Choose a duration: **30 minutes**, **1 hour**, **2 hours**, or **Until resumed**
+4. TabRest stops all automatic unloading (inactivity timer, memory threshold, per-tab memory threshold, and startup auto-discard) until the pause ends
+5. Click **Resume** anytime to turn auto-unload back on early
+
+**What still works while paused**: Manual unload actions (Unload Current/Others/Left/Right), the right-click context menu, keyboard shortcuts, and the toolbar-click action all keep working - only automatic unloading is paused.
+
+**Indicator**: The toolbar badge shows ❚❚ while paused, and per-tab countdown timers are hidden in the popup tab list.
+
+**How is this different from Snooze?** Snooze protects one specific tab or domain. Global Pause is a single switch that stops auto-unloading everywhere at once.
+
 ### Can TabRest auto-unload tabs after X number of tabs are open?
 
 Not currently. TabRest triggers based on:
