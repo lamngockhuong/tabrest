@@ -59,6 +59,7 @@
 - **Grupos de pestañas** - Descargar grupos de pestañas completos
 - **Modo panel lateral** - Abrir TabRest en el panel lateral de Chrome (opcional como acción predeterminada del icono, o mediante un botón en el encabezado del popup)
 - **Posponer pestañas/sitios** - Proteger temporalmente pestañas o dominios (30 min-2 horas)
+- **Pausa global** - Detener temporalmente toda la descarga automática (30 min, 1 h, 2 h, o hasta reanudar)
 - **Aviso antes de descartar** - Notificación en pantalla de 3 s antes del descarte automático
 - **Indicador visual** - Prefijo personalizable (💤) en los títulos de las pestañas descartadas
 - **Lista blanca** - Proteger sitios del descarte automático (compatible con localhost e IP)

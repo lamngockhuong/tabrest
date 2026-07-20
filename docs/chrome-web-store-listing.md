@@ -30,18 +30,15 @@ Listing fields entered into the Chrome Web Store developer dashboard.
 Paste the content below into the Chrome Web Store "What's new" field on each release.
 
 ```
-NEW: Interactive Setup Wizard
+NEW: Global Pause
 
-First-time install now opens a friendly 6-step wizard that walks you through the most useful settings - auto-unload timer, whitelist suggestions, power mode, and notifications. Each step is skippable and your existing defaults are preserved if you skip.
-
-Already installed? You can rerun the wizard anytime from Options > Footer > "Run setup again".
+Need to stop auto-unloading for a while? The popup now has a global pause toggle that freezes TabRest for 30 minutes, 1 hour, 2 hours, or until you resume. Great for presentations, downloads, or any time you want every tab to stay live.
 
 OTHER IMPROVEMENTS:
-- Refreshed install/welcome experience with smooth slide transitions
-- Reduced-motion support for accessibility
-- Pin-to-toolbar reminder so you can find TabRest faster
-- Polished options page footer
-- Multi-language wizard (English & Vietnamese)
+- Open the TabRest UI in the side panel straight from the popup header
+- Unloaded tabs now get a favicon ring so you can spot sleeping tabs at a glance
+- Localized right-click context menu
+- More reliable startup unload that also catches late-restored tabs
 
 PRIVACY:
 All settings stored locally on your device. Optional anonymous error reporting remains opt-in (disabled by default).
@@ -97,6 +94,7 @@ TabRest automatically unloads inactive browser tabs to free up memory and keep y
 • Track total tabs unloaded
 • Track total memory saved
 • Visual indicator (💤) on discarded tab titles
+• Favicon ring marks unloaded tabs at a glance
 
 🔧 Additional Features
 • Tab group support - unload entire groups

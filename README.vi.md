@@ -59,6 +59,7 @@
 - **Nhóm tab** - Unload toàn bộ nhóm tab
 - **Chế độ side panel** - Mở TabRest trong side panel của Chrome (tuỳ chọn làm hành động mặc định khi nhấn icon, hoặc qua nút trên header của popup)
 - **Snooze tab/site** - Tạm thời bảo vệ tab hoặc domain (30 phút - 2 giờ)
+- **Tạm dừng toàn cục** - Tạm thời dừng toàn bộ việc tự động unload (30 phút, 1 giờ, 2 giờ, hoặc đến khi tiếp tục)
 - **Cảnh báo trước khi unload** - Toast 3 giây cảnh báo trên trang trước khi auto-discard
 - **Chỉ báo trực quan** - Tiền tố tuỳ chỉnh (💤) trên tiêu đề tab đã unload
 - **Whitelist** - Bảo vệ site khỏi auto-unload (hỗ trợ localhost & IP)

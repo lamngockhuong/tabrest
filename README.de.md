@@ -59,6 +59,7 @@
 - **Tab-Gruppen** - Ganze Tab-Gruppen entladen
 - **Seitenleisten-Modus** - TabRest in Chromes Seitenleiste öffnen (optional als Standardaktion beim Symbolklick oder über eine Schaltfläche in der Popup-Kopfzeile)
 - **Tabs/Seiten snoozen** - Tabs oder Domains vorübergehend schützen (30 Min.-2 Std.)
+- **Globale Pause** - Das automatische Entladen vorübergehend vollständig anhalten (30 Min., 1 Std., 2 Std. oder bis zur Fortsetzung)
 - **Warnhinweis vor dem Entladen** - 3-Sekunden-Hinweis auf der Seite vor dem automatischen Verwerfen
 - **Visueller Indikator** - Anpassbares Präfix (💤) in Tab-Titeln verworfener Tabs
 - **Whitelist** - Seiten vor dem automatischen Entladen schützen (unterstützt localhost und IP)

@@ -59,6 +59,7 @@
 - **Grupos de abas** - Descarregar grupos de abas inteiros
 - **Modo painel lateral** - Abrir o TabRest no painel lateral do Chrome (opcional como ação padrão da barra de ferramentas, ou por um botão no cabeçalho do popup)
 - **Adiar abas/sites** - Proteger temporariamente abas ou domínios (30min-2h)
+- **Pausa global** - Interromper temporariamente todo o descarregamento automático (30min, 1h, 2h ou até retomar)
 - **Aviso antes de descartar** - Toast de 3s na página antes do descarte automático
 - **Indicador visual** - Prefixo personalizável (💤) nos títulos das abas descartadas
 - **Lista branca** - Proteger sites do descarregamento automático (suporta localhost e IP)

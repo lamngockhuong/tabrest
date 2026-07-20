@@ -5,18 +5,15 @@
 Pegue el contenido a continuación en el campo "Novedades" de Chrome Web Store en cada lanzamiento.
 
 ```
-NOVEDAD: Asistente de configuración interactivo
+NOVEDAD: Pausa global
 
-La primera instalación ahora abre un amigable asistente de 6 pasos que guía al usuario a través de las configuraciones más útiles: temporizador de descargar automática, sugerencias de lista blanca, modo de energía y notificaciones. Cada paso es opcional y los valores predeterminados existentes se conservan si se omite.
-
-¿Ya lo tiene instalado? Puede volver a ejecutar el asistente en cualquier momento desde Opciones > Pie de página > "Ejecutar configuración de nuevo".
+¿Necesita detener la descarga automática por un tiempo? La ventana emergente ahora tiene un interruptor de pausa global que congela TabRest durante 30 minutos, 1 hora, 2 horas o hasta que reanude. Ideal para presentaciones, descargas o cualquier momento en que quiera que todas las pestañas permanezcan activas.
 
 OTRAS MEJORAS:
-- Experiencia de instalación/bienvenida renovada con transiciones de diapositivas suaves
-- Compatibilidad con movimiento reducido para accesibilidad
-- Recordatorio para fijar a la barra de herramientas para encontrar TabRest más rápido
-- Pie de página de la página de opciones mejorado
-- Asistente multilingüe (inglés y vietnamita)
+- Abra la interfaz de TabRest en el panel lateral directamente desde el encabezado de la ventana emergente
+- Las pestañas descargadas ahora tienen un anillo en el favicon para que pueda identificar las pestañas en reposo de un vistazo
+- Menú contextual del clic derecho localizado
+- Descarga al inicio más confiable que también detecta las pestañas restauradas tardíamente
 
 PRIVACIDAD:
 Toda la configuración se almacena localmente en su dispositivo. El informe de errores anónimo opcional sigue siendo opt-in (desactivado de forma predeterminada).
@@ -62,6 +59,7 @@ TabRest descarga automáticamente las pestañas del navegador inactivas para lib
 • Lista blanca de dominios para nunca descargar
 • Posponer pestañas individuales (30 min - 2 horas)
 • Posponer dominios completos temporalmente
+• Pausa global - detiene TODA la descarga automática durante 30 min, 1 h, 2 h o hasta que se reanude
 • Omitir pestañas con audio/video en reproducción
 • Omitir pestañas con formularios sin guardar
 • Opción para proteger pestañas fijadas
@@ -71,6 +69,7 @@ TabRest descarga automáticamente las pestañas del navegador inactivas para lib
 • Seguimiento del total de pestañas descargadas
 • Seguimiento del total de memoria ahorrada
 • Indicador visual (💤) en los títulos de pestañas descartadas
+• Anillo en el favicon que marca las pestañas descargadas de un vistazo
 
 🔧 Funciones adicionales
 • Soporte para grupos de pestañas - descargar grupos completos
