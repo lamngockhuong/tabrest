@@ -243,18 +243,18 @@ export const translations = {
   },
   vi: {
     meta: {
-      title: 'TabRest - Nghỉ ngơi tab, giải phóng bộ nhớ',
+      title: 'TabRest - Cho tab nghỉ ngơi, giải phóng bộ nhớ',
       description: 'Tiện ích trình duyệt cho Chrome, Edge, Brave, Opera & Vivaldi tự động giải phóng các tab không hoạt động để giảm sử dụng bộ nhớ.',
     },
     header: {
       features: 'Tính năng',
       howItWorks: 'Cách hoạt động',
-      faq: 'Câu hỏi',
+      faq: 'Hỏi đáp',
       docs: 'Tài liệu',
       github: 'GitHub',
     },
     hero: {
-      tagline: 'Nghỉ ngơi tab, giải phóng bộ nhớ',
+      tagline: 'Cho tab nghỉ ngơi, giải phóng bộ nhớ',
       description: 'Tự động giải phóng các tab không hoạt động để giảm sử dụng bộ nhớ và tăng tốc trình duyệt',
       cta: 'Cài đặt miễn phí',
       subtext: 'Chrome • Edge • Brave • Opera • Vivaldi',
@@ -265,7 +265,7 @@ export const translations = {
       after: 'Sau khi dùng TabRest',
       beforeItems: [
         '100+ tab tiêu tốn 8GB RAM',
-        'Trình duyệt đơ và crash',
+        'Trình duyệt đơ và treo',
         'Máy tính chạy chậm',
         'Quản lý tab thủ công rất mệt',
       ],
@@ -328,7 +328,7 @@ export const translations = {
         },
         {
           icon: 'bedDouble',
-          title: 'Chỉ khi máy nghỉ',
+          title: 'Chỉ khi máy rảnh',
           description: 'Chỉ tự động giải phóng tab khi máy tính không hoạt động, không làm gián đoạn duyệt web',
         },
         {
@@ -343,7 +343,7 @@ export const translations = {
         },
         {
           icon: 'pause',
-          title: 'Tạm hoãn tab',
+          title: 'Hoãn giải phóng tab',
           description: 'Tạm thời bảo vệ tab hoặc domain cụ thể khỏi tự động giải phóng (30 phút đến 2 giờ)',
         },
         {
@@ -353,7 +353,7 @@ export const translations = {
         },
         {
           icon: 'wifi',
-          title: 'Nhận biết offline',
+          title: 'Nhận biết khi mất mạng',
           description: 'Tạm dừng tự động giải phóng khi mất mạng để tab có thể tải lại khi có mạng',
         },
         {
@@ -431,7 +431,7 @@ export const translations = {
       links: {
         features: 'Tính năng',
         howItWorks: 'Cách hoạt động',
-        faq: 'Câu hỏi',
+        faq: 'Hỏi đáp',
         github: 'GitHub',
         reportIssue: 'Báo lỗi',
         chromeStore: 'Chrome Web Store',
