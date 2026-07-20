@@ -742,5 +742,35 @@
   },
   "faviconPermDenied": {
     "message": "Indikator favicon memerlukan izin akses situs web. Pengalihan dilewati."
+  },
+  "pause": {
+    "message": "Jeda"
+  },
+  "resume": {
+    "message": "Lanjutkan"
+  },
+  "pauseActiveTitle": {
+    "message": "Pembongkaran otomatis aktif"
+  },
+  "pauseActiveSubtitle": {
+    "message": "Tab dibongkar secara otomatis"
+  },
+  "pausePausedTitle": {
+    "message": "Pembongkaran otomatis dijeda"
+  },
+  "pauseUntilResume": {
+    "message": "Sampai dilanjutkan"
+  },
+  "pauseResumesIn": {
+    "message": "Lanjut dalam $1",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "pausedToast": {
+    "message": "Pembongkaran otomatis dijeda"
+  },
+  "resumedToast": {
+    "message": "Pembongkaran otomatis dilanjutkan"
   }
 }

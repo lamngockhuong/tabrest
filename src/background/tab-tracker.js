@@ -1,6 +1,7 @@
 import { ALARM_NAMES, POWER_MODE_CONFIG } from "../shared/constants.js";
 import { getSettings, getTabActivity, saveTabActivity } from "../shared/storage.js";
 import { notifyAutoUnload } from "../shared/utils.js";
+import { isPaused } from "./pause-manager.js";
 import { getSnoozeData, isTabSnoozed } from "./snooze-manager.js";
 import { discardTab, isUrlBlacklisted, isUrlWhitelisted } from "./unload-manager.js";
 
@@ -55,6 +56,11 @@ export function getLRUSortedTabs() {
 export async function checkAndUnloadInactiveTabs() {
   const settings = await getSettings();
   if (settings.unloadDelayMinutes <= 0) return 0;
+
+  // Skip while globally paused (sits beside the other auto-discard skip guards
+  // so any future trigger routed through here inherits it; manual discards
+  // bypass this function entirely).
+  if (await isPaused()) return 0;
 
   // Skip if offline and setting enabled - avoid discarding tabs that can't reload
   if (settings.skipWhenOffline && !navigator.onLine) {

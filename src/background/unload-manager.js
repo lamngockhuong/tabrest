@@ -7,6 +7,7 @@ import {
 import { getSettings } from "../shared/storage.js";
 import { delay, queryCurrentWindowTabs, unwrapHostname } from "../shared/utils.js";
 import { ensureFormCheckerInjected } from "./form-injector.js";
+import { isPaused } from "./pause-manager.js";
 import { recordUnload } from "./stats-collector.js";
 
 // Pinned + whitelist gates only. Returns null if cleared, else { protected, reason }.
@@ -222,6 +223,9 @@ async function batchDiscardEligible(settings) {
 export async function discardAllTabsOnStartup() {
   const settings = await getSettings();
   if (!settings.autoUnloadOnStartup) return 0;
+
+  // Skip startup auto-discard while globally paused (manual paths bypass this).
+  if (await isPaused()) return 0;
 
   await delay(STARTUP_DISCARD_DELAY_MS);
   let totalCount = await batchDiscardEligible(settings);

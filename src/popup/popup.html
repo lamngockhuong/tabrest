@@ -76,6 +76,34 @@
       </div>
     </div>
 
+    <!-- Global Pause Bar -->
+    <div class="pause-bar" id="pause-bar">
+      <div class="pause-info">
+        <span class="pause-status-icon" id="pause-status-icon" data-icon="zap"></span>
+        <div class="pause-text">
+          <span class="pause-title" id="pause-title" data-i18n="pauseActiveTitle">Auto-suspend on</span>
+          <span class="pause-subtitle" id="pause-subtitle" data-i18n="pauseActiveSubtitle">Tabs suspend automatically</span>
+        </div>
+      </div>
+      <div class="pause-dropdown" id="pause-dropdown">
+        <button class="pause-btn" id="pause-btn" title="Pause auto-suspend">
+          <span data-icon="pause"></span>
+          <span data-i18n="pause">Pause</span>
+        </button>
+        <div class="pause-menu" id="pause-menu">
+          <button data-minutes="30">30 min</button>
+          <button data-minutes="60">1 hour</button>
+          <button data-minutes="120">2 hours</button>
+          <hr>
+          <button data-minutes="-1" data-i18n="pauseUntilResume">Until I resume</button>
+        </div>
+      </div>
+      <button class="pause-btn resume" id="resume-btn" title="Resume auto-suspend">
+        <span data-icon="play"></span>
+        <span data-i18n="resume">Resume</span>
+      </button>
+    </div>
+
     <!-- Current Site Whitelist Toggle -->
     <div class="site-whitelist-bar" id="site-whitelist-bar" style="display: none;">
       <div class="site-whitelist-info">

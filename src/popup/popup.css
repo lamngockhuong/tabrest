@@ -490,7 +490,8 @@ footer {
   color: var(--text);
 }
 
-.snooze-menu {
+.snooze-menu,
+.pause-menu {
   display: none;
   position: absolute;
   right: 0;
@@ -511,11 +512,13 @@ footer {
   margin-bottom: 4px;
 }
 
-.snooze-dropdown.open .snooze-menu {
+.snooze-dropdown.open .snooze-menu,
+.pause-dropdown.open .pause-menu {
   display: block;
 }
 
-.snooze-menu button {
+.snooze-menu button,
+.pause-menu button {
   display: block;
   width: 100%;
   padding: 6px 12px;
@@ -528,11 +531,13 @@ footer {
   white-space: nowrap;
 }
 
-.snooze-menu button:hover {
+.snooze-menu button:hover,
+.pause-menu button:hover {
   background: var(--border);
 }
 
-.snooze-menu hr {
+.snooze-menu hr,
+.pause-menu hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: 4px 0;
@@ -867,6 +872,120 @@ footer {
 
 [data-theme="dark"] .site-whitelist-btn.active:hover {
   background: rgba(110, 231, 183, 0.2);
+}
+
+/* Global Pause Bar */
+.pause-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.pause-bar.paused {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: var(--warning);
+}
+
+.pause-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pause-status-icon {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.pause-bar.paused .pause-status-icon {
+  color: var(--warning);
+}
+
+.pause-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pause-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pause-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pause-dropdown {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pause-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--background);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.pause-btn:hover {
+  border-color: var(--secondary);
+  color: var(--text);
+}
+
+.pause-btn.resume {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.pause-btn.resume:hover {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+/* Shares base rules with .snooze-menu; only these two differ. */
+.pause-menu {
+  margin-top: 4px;
+  min-width: 120px;
+}
+
+/* Show/hide of pause dropdown vs resume button is class-driven (see renderPauseBar). */
+.pause-btn.resume {
+  display: none;
+}
+
+.pause-bar.paused .pause-dropdown {
+  display: none;
+}
+
+.pause-bar.paused .pause-btn.resume {
+  display: flex;
 }
 
 /* Quick Actions Row */
