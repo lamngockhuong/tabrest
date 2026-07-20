@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.0](https://github.com/lamngockhuong/tabrest/compare/v0.7.1...v0.8.0) (2026-07-20)
+
+
+### Features
+
+* add global pause toggle for auto-suspend ([#121](https://github.com/lamngockhuong/tabrest/issues/121)) ([aac2729](https://github.com/lamngockhuong/tabrest/commit/aac2729143c3273ee4a13038b11eb031e041e043))
+
+
+### Bug Fixes
+
+* **ci:** approve esbuild build script for pnpm 11 ([#123](https://github.com/lamngockhuong/tabrest/issues/123)) ([486eed7](https://github.com/lamngockhuong/tabrest/commit/486eed79b62b40b3030564a6b5d42b6e49cb4ae5))
+* **deps:** update dependency astro to v7.1.1 ([#120](https://github.com/lamngockhuong/tabrest/issues/120)) ([ebc3523](https://github.com/lamngockhuong/tabrest/commit/ebc3523ae4a1be709940259687063c1122ac34ad))
+
 ## [0.7.1](https://github.com/lamngockhuong/tabrest/compare/v0.7.0...v0.7.1) (2026-07-16)
 
 
