@@ -1,6 +1,10 @@
 packages:
   - "."
 
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
+# pnpm 11 defaults strictDepBuilds to true, so an unapproved dependency
+# build script fails the install (including the implicit install pnpm runs
+# before "pnpm run"). esbuild and sharp ship prebuilt binaries via their
+# platform packages, so their build scripts are not required - decline them.
+allowBuilds:
+  esbuild: false
+  sharp: false

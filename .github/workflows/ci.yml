@@ -75,7 +75,7 @@ jobs:
           cache-dependency-path: website/pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile --config.strictDepBuilds=false
+        run: pnpm install --frozen-lockfile
         working-directory: website
 
       - name: Build website

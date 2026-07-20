@@ -1,2 +1,5 @@
-onlyBuiltDependencies:
-  - esbuild
+# pnpm 11 defaults strictDepBuilds to true, so an unapproved dependency
+# build script fails the install. esbuild ships a prebuilt binary via its
+# platform packages, so its build script is not required - decline it.
+allowBuilds:
+  esbuild: false
