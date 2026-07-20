@@ -59,6 +59,7 @@
 - **Grup tab** - Membongkar seluruh grup tab sekaligus
 - **Mode panel samping** - Buka TabRest di panel samping Chrome (opsional sebagai aksi klik toolbar default, atau lewat tombol di header popup)
 - **Tunda tab/situs** - Lindungi tab atau domain untuk sementara (30 menit - 2 jam)
+- **Jeda global** - Hentikan sementara semua pembongkaran otomatis (30 menit, 1 jam, 2 jam, atau sampai dilanjutkan)
 - **Notifikasi peringatan penangguhan** - Peringatan di halaman selama 3 detik sebelum membuang tab secara otomatis
 - **Indikator visual** - Awalan yang dapat dikustomisasi (💤) pada judul tab yang telah dibongkar
 - **Daftar putih** - Lindungi situs dari pembongkaran otomatis (mendukung localhost & IP)

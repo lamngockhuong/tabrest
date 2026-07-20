@@ -59,6 +59,7 @@
 - **Groupes d'onglets** - Décharger des groupes d'onglets entiers
 - **Mode panneau latéral** - Ouvrir TabRest dans le panneau latéral de Chrome (en option comme action par défaut de la barre d'outils, ou via un bouton dans l'en-tête du popup)
 - **Reporter des onglets/sites** - Protéger temporairement des onglets ou des domaines (30 min à 2 h)
+- **Pause globale** - Arrêter temporairement tout le déchargement automatique (30 min, 1 h, 2 h, ou jusqu'à la reprise)
 - **Notification d'avertissement** - Message d'avertissement de 3 s sur la page avant l'ignorement automatique
 - **Indicateur visuel** - Préfixe personnalisable (💤) sur les titres des onglets déchargés
 - **Liste blanche** - Protéger des sites du déchargement automatique (prend en charge localhost et IP)
