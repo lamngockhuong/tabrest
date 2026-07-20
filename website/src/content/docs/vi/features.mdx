@@ -93,6 +93,22 @@ Nhận cảnh báo (toast) trên trang web trước khi tab bị tự động gi
 - **Có thể tùy chỉnh**: Thay đổi độ trễ (ms) trong Cài đặt
 - **Trường hợp sử dụng**: Tránh mất bất ngờ tab mà không biết
 
+## Tạm dừng toàn cục
+
+Tạm dừng toàn bộ việc tự động giải phóng tab bằng một nút bấm duy nhất:
+
+- **Truy cập**: Thanh tạm dừng ở gần đầu popup và side panel
+- **Thời lượng**: 30 phút, 1 giờ, 2 giờ, hoặc "Đến khi tiếp tục" (không giới hạn)
+- **Khi đang tạm dừng**: Thanh hiển thị nút **Tiếp tục** cùng thời gian còn lại (vd: "Tiếp tục sau 45p"), hoặc "Đến khi tiếp tục" cho tùy chọn không giới hạn
+- **Chặn**: Hẹn giờ không hoạt động, ngưỡng bộ nhớ, ngưỡng bộ nhớ từng tab, và giải phóng khi khởi động
+- **Không chặn**: Các thao tác giải phóng thủ công (Hiện tại/Khác/Trái/Phải), menu chuột phải, phím tắt, và hành động nhấp thanh công cụ - những thao tác này luôn hoạt động
+- **Chỉ báo**: Huy hiệu thanh công cụ hiển thị ❚❚ khi đang tạm dừng; đồng hồ đếm ngược từng tab bị ẩn trong danh sách tab của popup
+- **Lưu trữ**: Lưu cục bộ trên từng thiết bị (không đồng bộ giữa các thiết bị); tạm dừng có thời hạn sẽ tự động tiếp tục khi hết hạn, vẫn tồn tại qua các lần service worker khởi động lại
+
+**So với Tạm hoãn**: Tạm hoãn bảo vệ một tab hoặc domain cụ thể; Tạm dừng toàn cục là một công tắc duy nhất dừng toàn bộ việc tự động giải phóng cùng lúc.
+
+**Trường hợp sử dụng**: Thuyết trình, tải nhiều file cùng lúc trên nhiều tab, chơi game, hoặc debug - bất kỳ lúc nào bạn không muốn tab bị giải phóng.
+
 ## Điều khiển thủ công
 
 Điều khiển giải phóng tab theo yêu cầu từ popup:

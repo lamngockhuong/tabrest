@@ -15,6 +15,7 @@ How TabRest decides when to unload tabs.
 
 | Protection          | Timer | Memory | Per-tab Heap | Blacklist |
 | ------------------- | :---: | :----: | :----------: | :-------: |
+| Globally paused     |  Yes  |  Yes   |     Yes      |    Yes    |
 | Active tab          |  Yes  |  Yes   |     Yes      |    Yes    |
 | Already discarded   |  Yes  |  Yes   |     Yes      |    Yes    |
 | Snoozed             |  Yes  |  Yes   |     Yes      |    Yes    |
@@ -35,9 +36,16 @@ How TabRest decides when to unload tabs.
 
 Timer = convenience (non-urgent), Memory/Heap = emergency (must act immediately to prevent crash).
 
+**Note:** Global pause is checked before every trigger above and short-circuits all four at once -
+it is not a per-tab protection like the others. It never affects manual unload actions (Unload
+Current/Others/Left/Right, context menu, keyboard shortcuts, toolbar click).
+
 ## Protection Priority
 
 ```
+0. GLOBAL OVERRIDE (checked first, blocks all triggers)
+   - Globally paused (pause-manager.isPaused())
+
 1. ABSOLUTE (never unload)
    - Active tab
    - Already discarded
@@ -63,6 +71,12 @@ Timer = convenience (non-urgent), Memory/Heap = emergency (must act immediately 
 
 ```
 Trigger arrives (Timer/Memory/Heap/Blacklist)
+                │
+                ▼
+┌───────────────────────────────┐
+│ GLOBAL OVERRIDE (all)         │
+│ • Globally paused? → SKIP ALL │
+└───────────────────────────────┘
                 │
                 ▼
 ┌───────────────────────────────┐

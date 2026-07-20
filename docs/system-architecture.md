@@ -25,6 +25,8 @@
 │  │  │ unload-mgr  │ tab-tracker │ memory-mon  │ snooze-mgr   │ ││
 │  │  │             │             │             │              │ ││
 │  │  │ session-mgr │ stats-coll  │ window mgr* │ form-inject  │ ││
+│  │  ├─────────────┼─────────────┼─────────────┼──────────────┤ ││
+│  │  │ pause-mgr   │             │             │              │ ││
 │  │  └─────────────┴─────────────┴─────────────┴──────────────┘ ││
 │  │  * chrome.windows.onFocusChanged listener                   ││
 │  └──────┬──────────────────────────────────────────────────────┘│
@@ -67,6 +69,7 @@ service-worker.js
 │   ├── tab-tracker.js
 │   ├── memory-monitor.js
 │   ├── snooze-manager.js
+│   ├── pause-manager.js
 │   ├── session-manager.js
 │   ├── stats-collector.js
 │   ├── form-injector.js
@@ -83,10 +86,11 @@ service-worker.js
 
 | Module            | Primary Responsibility                          | Dependencies                               |
 | ----------------- | ----------------------------------------------- | ------------------------------------------ |
-| `unload-manager`  | Execute tab discards with protection checks     | stats-collector                            |
-| `tab-tracker`     | Track tab activity, trigger timer-based unloads | unload-manager, snooze-manager             |
-| `memory-monitor`  | Monitor RAM, trigger memory-based unloads       | tab-tracker, unload-manager, form-injector |
+| `unload-manager`  | Execute tab discards with protection checks     | stats-collector, pause-manager             |
+| `tab-tracker`     | Track tab activity, trigger timer-based unloads | unload-manager, snooze-manager, pause-manager |
+| `memory-monitor`  | Monitor RAM, trigger memory-based unloads       | tab-tracker, unload-manager, form-injector, pause-manager |
 | `snooze-manager`  | Manage temporary protections                    | storage                                    |
+| `pause-manager`   | Global switch: block all auto-discard triggers  | storage                                    |
 | `session-manager` | Save/restore tab sessions                       | storage                                    |
 | `stats-collector` | Track unload statistics                         | storage                                    |
 | `form-injector`   | Inject form-checker (eager on page load + lazy) | permissions                                |
@@ -102,6 +106,7 @@ service-worker.js
 2. tab-tracker.checkAndUnloadInactiveTabs()
        │
        ├── Check settings.unloadDelayMinutes > 0
+       ├── Check if globally paused (pause-manager.isPaused()) - abort entirely if true
        ├── Check navigator.onLine (if skipWhenOffline)
        ├── Check chrome.idle.queryState (if onlyDiscardWhenIdle)
        ├── Apply power mode delay multiplier
@@ -141,6 +146,7 @@ service-worker.js
 2. memory-monitor.checkMemoryAndUnload()
        │
        ├── Check settings.memoryThresholdPercent > 0
+       ├── Check if globally paused (pause-manager.isPaused()) - abort entirely if true
        ├── Proactively ensure form-checker injected (for per-tab heap data)
        ├── chrome.system.memory.getInfo()
        ├── Calculate usage percent
@@ -255,6 +261,11 @@ service-worker.js
     domains: { "example.com": 1712350000000 }
   },
 
+  // Global pause data (blocks ALL auto-discard, not synced)
+  tabrest_pause: {
+    until: 1712350000000  // epoch ms deadline, or -1 for "until resumed"
+  },
+
   // Scroll positions
   tabrest_scroll_positions: {
     "https://example.com/page": { x: 0, y: 500 },
@@ -278,7 +289,7 @@ service-worker.js
 
 | Event                    | Handler                                          | Action                   |
 | ------------------------ | ------------------------------------------------ | ------------------------ |
-| `runtime.onStartup`      | Initialize trackers, sync tabs, force-discard all non-active tabs (all windows) | Startup                  |
+| `runtime.onStartup`      | Initialize trackers, sync tabs, force-discard all non-active tabs (all windows, skipped while globally paused) | Startup                  |
 | `runtime.onInstalled`    | Same as startup + show onboarding/changelog      | Install/Update           |
 | `tabs.onActivated`       | Update tab activity timestamp                    | Tab focus                |
 | `tabs.onUpdated`         | Update activity, refresh badge                   | Tab navigation           |
@@ -297,6 +308,7 @@ service-worker.js
 | `tab-check-alarm`      | 1 minute   | Check inactive tabs    |
 | `memory-check-alarm`   | 30 seconds | Check RAM usage        |
 | `snooze-cleanup-alarm` | 5 minutes  | Remove expired snoozes |
+| `pause-expiry-alarm` (`ALARM_NAMES.PAUSE_EXPIRY`) | One-shot, at pause deadline | Refresh badge when a timed pause expires (periodic tab-check alarm is the backstop) |
 
 ## Advanced Features (v0.0.4+)
 
@@ -409,6 +421,9 @@ service-worker.js
 { command: "snooze-tab", tabId: 123, minutes: 30 }
 { command: "snooze-domain", domain: "example.com", minutes: 60 }
 { command: "cancel-tab-snooze", tabId: 123 }
+{ command: "set-pause", minutes: 30 }  // or -1 for "until resumed"
+{ command: "clear-pause" }
+{ command: "get-pause-info" }
 { command: "get-sessions" }
 { command: "save-session", name: "Research" }
 { command: "restore-session", id: "abc123", mode: "replace" }

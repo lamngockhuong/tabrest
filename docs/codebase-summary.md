@@ -41,6 +41,7 @@ tabrest/
 | `tab-tracker.js`     | 172 | LRU activity tracking, inactivity timer checks                                                                    |
 | `memory-monitor.js`  | 196 | System RAM monitoring, per-tab JS heap tracking                                                                   |
 | `snooze-manager.js`  | 164 | Temporary tab/domain protection                                                                                   |
+| `pause-manager.js`   | 80  | Global switch: temporarily disables ALL auto-discard (distinct from per-tab/domain snooze)                        |
 | `session-manager.js` | 209 | Save/restore tab sessions, import with merge & dedup                                                              |
 | `stats-collector.js` | 99  | Usage statistics tracking                                                                                         |
 | `form-injector.js`   | 24  | Form-checker injection (eager on page load + lazy on demand)                                                      |
@@ -90,16 +91,20 @@ tabrest/
 ```
 service-worker.js (orchestrator)
 ├── unload-manager.js
-│   └── stats-collector.js
+│   ├── stats-collector.js
+│   └── pause-manager.js
 ├── tab-tracker.js
 │   ├── unload-manager.js
-│   └── snooze-manager.js
+│   ├── snooze-manager.js
+│   └── pause-manager.js
 ├── memory-monitor.js
 │   ├── tab-tracker.js (getLRUSortedTabs)
-│   └── unload-manager.js
+│   ├── unload-manager.js
+│   └── pause-manager.js
 ├── session-manager.js
 │   └── import-export.js (schema validation)
 ├── snooze-manager.js
+├── pause-manager.js
 └── shared/*
     └── import-export.js
 ```
@@ -146,11 +151,20 @@ service-worker.js (orchestrator)
 }
 ```
 
+### Pause Data (chrome.storage.local)
+
+```javascript
+{
+  until: number   // epoch ms deadline, or -1 for "until resumed"
+}
+```
+
 ### Other Storage Keys (chrome.storage.local)
 
 - `popup_section_state` - Persistent collapse state for popup sections
 - `tabrest_lastVersion` - Current version for changelog gating
 - `tabrest_snooze` - Active snooze timers
+- `tabrest_pause` - Global pause state (device-local, not synced)
 - `tabrest_scroll_positions` - Cached scroll positions (max 100)
 - `youtube_timestamps` - YouTube playback positions (7-day max age)
 

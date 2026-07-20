@@ -348,8 +348,20 @@ Verify popup loads, manual unload works, side panel renders (where supported), s
 ## 41. Uninstall / Cleanup
 
 - [ ] Remove extension → all alarms cleared.
-- [ ] Storage entries cleaned up by Chrome (verify via fresh reinstall: stats reset, no leftover snooze/sessions).
+- [ ] Storage entries cleaned up by Chrome (verify via fresh reinstall: stats reset, no leftover snooze/pause/sessions).
 - [ ] No orphaned content scripts in previously injected tabs after reinstall.
+
+## 42. Global Pause
+
+- [ ] Pause for 30 min / 1 h / 2 h / "Until I resume" via the popup pause bar dropdown → bar shows a Resume button plus the remaining time (or "Until I resume").
+- [ ] While paused, auto-unload (timer, memory, per-tab heap, startup) does NOT discard any tab.
+- [ ] While paused, manual unload actions (Unload Current/Others/Left/Right, context menu, keyboard shortcuts, toolbar-click) still work normally.
+- [ ] Toolbar badge shows `❚❚` while paused.
+- [ ] Popup tab list hides per-tab countdown timers while paused.
+- [ ] A timed pause (30 min/1 h/2 h) auto-resumes when the deadline passes, without user action; badge and countdowns return to normal.
+- [ ] "Until I resume" pause stays active until the user clicks Resume.
+- [ ] Pause state is device-local (`chrome.storage.local`) - a paused state on one profile does NOT appear on another synced profile.
+- [ ] Side panel mode: pause bar reflects the same paused/resumed state as the popup.
 
 ---
 

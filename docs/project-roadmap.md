@@ -32,6 +32,7 @@
 - [x] Form data protection
 - [x] Snooze tab (30min-2hrs)
 - [x] Snooze domain (30min-2hrs)
+- [x] Global pause (30min/1hr/2hrs/until resumed) - stops all auto-unloading at once
 
 #### Quality of Life
 

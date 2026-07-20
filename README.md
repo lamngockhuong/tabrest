@@ -59,6 +59,7 @@
 - **Tab groups** - Unload entire tab groups
 - **Side panel mode** - Open TabRest in Chrome's side panel (opt-in as the default toolbar action, or via a header button in the popup)
 - **Snooze tabs/sites** - Temporarily protect tabs or domains (30min-2hrs)
+- **Global pause** - Temporarily stop all auto-unloading (30min, 1hr, 2hrs, or until resumed)
 - **Suspend warning toast** - 3s on-page warning before auto-discard
 - **Visual indicator** - Customizable prefix (💤) on discarded tab titles
 - **Whitelist** - Protect sites from auto-unload (supports localhost & IP)

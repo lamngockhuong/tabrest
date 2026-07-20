@@ -203,6 +203,22 @@ Cảnh báo suspend là một thông báo trên trang web xuất hiện **3 giâ
 - **Tùy chỉnh**: Thay đổi độ trễ (ms) trong **Suspend warning delay**
 - **Hành vi**: Nếu bạn nhấp, nhập, hoặc phát audio, cảnh báo sẽ bị hủy
 
+### Làm sao để tạm dừng TabRest không giải phóng tab nữa?
+
+Dùng tính năng **Tạm dừng toàn cục**:
+
+1. Mở popup TabRest (hoặc side panel)
+2. Tìm thanh tạm dừng ở gần đầu
+3. Chọn thời lượng: **30 phút**, **1 giờ**, **2 giờ**, hoặc **Đến khi tiếp tục**
+4. TabRest sẽ dừng toàn bộ việc tự động giải phóng (hẹn giờ không hoạt động, ngưỡng bộ nhớ, ngưỡng bộ nhớ từng tab, và giải phóng khi khởi động) cho đến khi hết thời gian tạm dừng
+5. Nhấn **Tiếp tục** bất kỳ lúc nào để bật lại tự động giải phóng sớm hơn
+
+**Những gì vẫn hoạt động khi đang tạm dừng**: Các thao tác giải phóng thủ công (Giải phóng tab hiện tại/Khác/Trái/Phải), menu chuột phải, phím tắt, và hành động nhấp thanh công cụ vẫn hoạt động bình thường - chỉ có tự động giải phóng bị tạm dừng.
+
+**Chỉ báo**: Huy hiệu thanh công cụ hiển thị ❚❚ khi đang tạm dừng.
+
+**Khác gì với Tạm hoãn (Snooze)?** Tạm hoãn chỉ bảo vệ một tab hoặc domain cụ thể. Tạm dừng toàn cục là một công tắc duy nhất dừng việc tự động giải phóng ở mọi nơi cùng lúc.
+
 ### TabRest có thể tự động giải phóng tab khi số tab đạt X không?
 
 Hiện tại không. TabRest kích hoạt dựa trên:
