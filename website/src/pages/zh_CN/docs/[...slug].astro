@@ -1,12 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
-import DocsLayout from '../../layouts/DocsLayout.astro';
-import { stripLocalePrefix } from '../../i18n';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { stripLocalePrefix } from '../../../i18n';
 
 export async function getStaticPaths() {
-  const docs = await getCollection('docs', ({ id }) => id.startsWith('en/'));
+  // Astro lowercases content collection ids, so the prefix is 'zh_cn/' (not 'zh_CN/').
+  const docs = await getCollection('docs', ({ id }) => id.startsWith('zh_cn/'));
   return docs.map(doc => ({
-    // Remove 'en/' prefix from URL slug
+    // Remove 'zh_cn/' prefix from URL slug
     params: { slug: stripLocalePrefix(doc.id) },
     props: { doc },
   }));
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 const { Content } = await render(doc);
-const locale = 'en';
+const locale = 'zh_CN';
 ---
 
 <DocsLayout

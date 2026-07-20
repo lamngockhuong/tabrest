@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { getLocalizedPath, getLocales, type Locale } from '../i18n';
+import { getLocalizedPath, getLocales, bcp47, ogLocales, type Locale } from '../i18n';
 import BackToTop from '../components/BackToTop.astro';
 
 interface Props {
@@ -23,7 +23,7 @@ const locales = getLocales();
 ---
 
 <!doctype html>
-<html lang={locale} class="scroll-smooth">
+<html lang={bcp47[locale]} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,7 +37,7 @@ const locales = getLocales();
     {locales.map(lang => (
       <link
         rel="alternate"
-        hreflang={lang}
+        hreflang={bcp47[lang]}
         href={new URL(getLocalizedPath(currentPath, lang), Astro.site)}
       />
     ))}
@@ -49,7 +49,7 @@ const locales = getLocales();
     <meta property="og:title" content={`${title} | TabRest`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.site)} />
-    <meta property="og:locale" content={locale === 'vi' ? 'vi_VN' : 'en_US'} />
+    <meta property="og:locale" content={ogLocales[locale]} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
