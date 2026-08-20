@@ -2,42 +2,42 @@
 🇰🇷 [한국어](README.ko.md) • 🇩🇪 [Deutsch](README.de.md) • 🇫🇷 [Français](README.fr.md) • 🇷🇺 [Русский](README.ru.md) • 🇮🇩 [Bahasa Indonesia](README.id.md)
 
 <p align="center">
-  <img src="icons/icon-128.png" alt="TabRest Logo" width="128" height="128">
+  <img src="icons/icon-128.png" alt="Biểu trưng TabRest" width="128" height="128">
 </p>
 
 <h1 align="center">TabRest</h1>
 
 <p align="center">
-  Cho tab nghỉ ngơi, giải phóng bộ nhớ - tiện ích Chrome tự động unload các tab không hoạt động.
+  Cho tab nghỉ ngơi, giải phóng bộ nhớ - tiện ích Chrome tự động giải phóng tab không hoạt động.
 </p>
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib">
-    <img src="https://img.shields.io/chrome-web-store/v/agajndkecodedlklmpnjgikglkpeopib?label=chrome&style=flat-square&logo=googlechrome&logoColor=white&color=4285F4" alt="Chrome Web Store Version">
+    <img src="https://img.shields.io/chrome-web-store/v/agajndkecodedlklmpnjgikglkpeopib?label=chrome&style=flat-square&logo=googlechrome&logoColor=white&color=4285F4" alt="Phiên bản trên Chrome Web Store">
   </a>
   <a href="https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib">
-    <img src="https://img.shields.io/chrome-web-store/users/agajndkecodedlklmpnjgikglkpeopib?style=flat-square&color=6ee7b7" alt="Chrome Web Store Users">
+    <img src="https://img.shields.io/chrome-web-store/users/agajndkecodedlklmpnjgikglkpeopib?style=flat-square&color=6ee7b7" alt="Người dùng trên Chrome Web Store">
   </a>
   <a href="https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib">
-    <img src="https://img.shields.io/chrome-web-store/rating/agajndkecodedlklmpnjgikglkpeopib?style=flat-square&color=facc15" alt="Chrome Web Store Rating">
+    <img src="https://img.shields.io/chrome-web-store/rating/agajndkecodedlklmpnjgikglkpeopib?style=flat-square&color=facc15" alt="Điểm đánh giá trên Chrome Web Store">
   </a>
   <a href="https://github.com/lamngockhuong/tabrest/actions/workflows/ci.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/lamngockhuong/tabrest/ci.yml?style=flat-square&label=CI&color=22c55e" alt="CI">
   </a>
   <a href="LICENSE">
-    <img src="https://img.shields.io/github/license/lamngockhuong/tabrest?style=flat-square&color=60a5fa" alt="MIT License">
+    <img src="https://img.shields.io/github/license/lamngockhuong/tabrest?style=flat-square&color=60a5fa" alt="Giấy phép MIT">
   </a>
   <a href="https://github.com/lamngockhuong/tabrest/stargazers">
-    <img src="https://img.shields.io/github/stars/lamngockhuong/tabrest?style=flat-square&color=f59e0b" alt="GitHub Stars">
+    <img src="https://img.shields.io/github/stars/lamngockhuong/tabrest?style=flat-square&color=f59e0b" alt="Lượt thích trên GitHub">
   </a>
 </p>
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/tabrest-rest-your-tabs-fr/agajndkecodedlklmpnjgikglkpeopib">
-    <img src="https://img.shields.io/badge/Install_from-Chrome_Web_Store-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Install from Chrome Web Store">
+    <img src="https://img.shields.io/badge/Install_from-Chrome_Web_Store-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Cài đặt từ Chrome Web Store">
   </a>
   <a href="https://tabrest.ohnice.app">
-    <img src="https://img.shields.io/badge/Visit-Website-8957e5?style=for-the-badge&logo=astro&logoColor=white" alt="Website">
+    <img src="https://img.shields.io/badge/Visit-Website-8957e5?style=for-the-badge&logo=astro&logoColor=white" alt="Trang web">
   </a>
 </p>
 
@@ -49,51 +49,51 @@
 
 ## Tính năng
 
-- **Tự động unload tab không hoạt động** - Hẹn giờ tuỳ chỉnh (5 phút đến 4 giờ)
-- **Ngưỡng bộ nhớ** - Unload khi RAM vượt 60-95%
-- **Giới hạn bộ nhớ mỗi tab** - Unload tab dùng >100MB-1GB JS heap
-- **Unload khi khởi động** - Giải phóng bộ nhớ khi mở trình duyệt
-- **Điều khiển thủ công** - Unload tab hiện tại/trái/phải/khác
-- **Đóng tab trùng lặp** - Một cú nhấp dedup trong cửa sổ hiện tại
-- **Tìm kiếm tab** - Lọc danh sách tab theo tiêu đề hoặc URL
-- **Nhóm tab** - Unload toàn bộ nhóm tab
-- **Chế độ side panel** - Mở TabRest trong side panel của Chrome (tuỳ chọn làm hành động mặc định khi nhấn icon, hoặc qua nút trên header của popup)
-- **Snooze tab/site** - Tạm thời bảo vệ tab hoặc domain (30 phút - 2 giờ)
-- **Tạm dừng toàn cục** - Tạm thời dừng toàn bộ việc tự động unload (30 phút, 1 giờ, 2 giờ, hoặc đến khi tiếp tục)
-- **Cảnh báo trước khi unload** - Toast 3 giây cảnh báo trên trang trước khi auto-discard
-- **Chỉ báo trực quan** - Tiền tố tuỳ chỉnh (💤) trên tiêu đề tab đã unload
-- **Whitelist** - Bảo vệ site khỏi auto-unload (hỗ trợ localhost & IP)
-- **Import/Export** - Sao lưu whitelist, blacklist và session ra JSON
-- **Session** - Lưu và khôi phục bộ tab
+- **Tự động giải phóng tab không hoạt động** - Hẹn giờ tùy chỉnh từ 5 phút đến 4 giờ
+- **Ngưỡng bộ nhớ** - Giải phóng tab khi RAM vượt 60-95%
+- **Giới hạn bộ nhớ theo tab** - Giải phóng tab dùng hơn 100MB-1GB vùng nhớ JavaScript
+- **Giải phóng khi khởi động** - Thu hồi bộ nhớ ngay khi mở trình duyệt
+- **Điều khiển thủ công** - Giải phóng tab hiện tại, bên trái, bên phải hoặc các tab khác
+- **Đóng tab trùng lặp** - Dọn tab trùng trong cửa sổ hiện tại chỉ bằng một cú nhấp
+- **Tìm kiếm tab** - Lọc tức thì danh sách tab theo tiêu đề hoặc URL
+- **Nhóm tab** - Giải phóng cả nhóm tab
+- **Chế độ bảng bên** - Mở TabRest trong bảng bên của Chrome (có thể đặt làm hành động mặc định khi bấm biểu tượng trên thanh công cụ hoặc mở bằng nút ở đầu cửa sổ bật lên)
+- **Tạm hoãn tab/trang web** - Tạm thời bảo vệ tab hoặc tên miền trong 30 phút đến 2 giờ
+- **Tạm dừng toàn bộ** - Tạm ngưng mọi hoạt động tự động giải phóng trong 30 phút, 1 giờ, 2 giờ hoặc đến khi bạn bật lại
+- **Cảnh báo trước khi giải phóng** - Hiện cảnh báo trên trang trong 3 giây trước khi tự động giải phóng tab
+- **Dấu hiệu nhận biết** - Thêm tiền tố tùy chỉnh (💤) vào tiêu đề tab đã giải phóng
+- **Danh sách trắng** - Bảo vệ trang web khỏi việc tự động giải phóng (hỗ trợ `localhost` và địa chỉ IP)
+- **Nhập/xuất dữ liệu** - Sao lưu danh sách trắng, danh sách đen và phiên làm việc dưới dạng JSON
+- **Phiên làm việc** - Lưu và khôi phục một nhóm tab
 - **Khôi phục cuộn trang** - Khôi phục vị trí cuộn khi tab tải lại
-- **Timestamp YouTube** - Tiếp tục video tại vị trí cuối sau khi tải lại
-- **Bỏ qua khi offline** - Không discard tab khi mất mạng
-- **Chỉ unload khi nhàn rỗi** - Chỉ auto-unload khi máy tính idle
-- **Power Mode** - Chế độ tiết kiệm pin, bình thường, hoặc hiệu năng cao
-- **Thông báo auto-unload** - Nhận thông báo khi tab được unload
-- **Tooltip bộ nhớ** - Hover thống kê để xem ước tính RAM tiết kiệm trên mỗi tab
-- **Trình hướng dẫn cài đặt** - Wizard nhiều bước tương tác khi mở lần đầu
-- **Báo lỗi tuỳ chọn** - Gửi báo cáo sự cố ẩn danh qua Sentry (mặc định tắt) và form gửi báo lỗi thủ công
-- **Tự mở changelog** - Mở release notes khi cập nhật minor/major
-- **Host permissions tuỳ chọn** - Bảo vệ form chỉ yêu cầu quyền khi bật
-- **Hiển thị RAM** - Phần trăm RAM trực tiếp trên popup
-- **Thống kê** - Theo dõi số tab đã unload và bộ nhớ đã tiết kiệm
+- **Vị trí phát YouTube** - Tiếp tục nội dung từ vị trí gần nhất sau khi tải lại
+- **Bỏ qua khi mất mạng** - Không giải phóng tab khi không có kết nối mạng
+- **Chỉ chạy khi máy tính rảnh** - Chỉ tự động giải phóng khi máy tính không được sử dụng
+- **Chế độ nguồn** - Chọn cấu hình tiết kiệm pin, bình thường hoặc hiệu suất
+- **Thông báo tự động** - Nhận thông báo khi tab được tự động giải phóng
+- **Gợi ý bộ nhớ** - Di chuột lên số liệu để xem lượng RAM ước tính tiết kiệm được trên mỗi tab
+- **Hướng dẫn làm quen** - Thiết lập tương tác theo từng bước trong lần chạy đầu tiên
+- **Tùy chọn báo lỗi** - Gửi báo cáo sự cố ẩn danh qua Sentry (mặc định tắt) hoặc chủ động gửi báo lỗi
+- **Tự mở nhật ký thay đổi** - Mở ghi chú phát hành sau các bản cập nhật lớn hoặc nhỏ
+- **Quyền truy cập trang web tùy chọn** - Chỉ yêu cầu quyền bảo vệ biểu mẫu khi bạn bật tính năng
+- **Hiển thị RAM** - Xem trực tiếp phần trăm RAM trong đầu cửa sổ bật lên
+- **Thống kê** - Theo dõi số tab đã giải phóng và lượng bộ nhớ tiết kiệm được
 - **Đa ngôn ngữ** - Hỗ trợ 11 ngôn ngữ
 
 ## Phím tắt
 
 | Phím tắt      | Hành động              |
 | ------------- | ---------------------- |
-| `Alt+Shift+D` | Unload tab hiện tại    |
-| `Alt+Shift+O` | Unload các tab khác    |
-| `Alt+Shift+→` | Unload tab bên phải    |
-| `Alt+Shift+←` | Unload tab bên trái    |
+| `Alt+Shift+D` | Giải phóng tab hiện tại |
+| `Alt+Shift+O` | Giải phóng các tab khác |
+| `Alt+Shift+→` | Giải phóng tab bên phải |
+| `Alt+Shift+←` | Giải phóng tab bên trái |
 
 ## Cài đặt
 
 ### Từ mã nguồn
 
-1. Clone repository này
+1. Sao chép kho lưu trữ này về máy
 2. Mở `chrome://extensions` trong Chrome
 3. Bật "Chế độ nhà phát triển" (góc trên bên phải)
 4. Nhấp "Tải tiện ích đã giải nén"
@@ -105,10 +105,10 @@
 
 ## Cách hoạt động
 
-TabRest sử dụng API native `chrome.tabs.discard()` của Chrome để unload tab. Tab đã discard:
+TabRest dùng API `chrome.tabs.discard()` có sẵn của Chrome để giải phóng tab. Tab đã giải phóng:
 
 - Vẫn hiển thị trên thanh tab
-- Giữ nguyên vị trí cuộn và dữ liệu form
+- Giữ nguyên vị trí cuộn và dữ liệu biểu mẫu
 - Tải lại ngay lập tức khi nhấp vào
 - Giải phóng bộ nhớ khi không hoạt động
 
@@ -117,27 +117,27 @@ TabRest sử dụng API native `chrome.tabs.discard()` của Chrome để unload
 ```text
 tabrest/
 ├── manifest.json           # Cấu hình tiện ích (MV3)
-├── _locales/               # Bản dịch i18n (11 locale)
+├── _locales/               # Bản dịch giao diện (11 ngôn ngữ)
 ├── src/
-│   ├── background/         # Module service worker
-│   ├── content/            # Form checker, YouTube tracker
-│   ├── popup/              # UI popup / side panel
+│   ├── background/         # Các mô-đun service worker
+│   ├── content/            # Kiểm tra biểu mẫu, theo dõi YouTube
+│   ├── popup/              # Giao diện cửa sổ bật lên / bảng bên
 │   ├── options/            # Trang cài đặt
-│   ├── pages/              # Onboarding, changelog
+│   ├── pages/              # Làm quen, nhật ký thay đổi
 │   └── shared/             # Tiện ích dùng chung
 ├── icons/                  # Biểu tượng tiện ích
-├── website/                # Trang docs Astro (tabrest.ohnice.app)
+├── website/                # Trang tài liệu Astro (tabrest.ohnice.app)
 └── docs/                   # Tài liệu dự án
 ```
 
 ## Phát triển
 
 ```bash
-pnpm install          # Cài dependencies
-pnpm run lint         # Kiểm tra code với Biome
-pnpm run lint:fix     # Tự động sửa lỗi lint
-pnpm run format       # Format code
-pnpm run ci           # Chạy CI đầy đủ (validate + lint)
+pnpm install          # Cài các gói phụ thuộc
+pnpm run lint         # Kiểm tra mã nguồn bằng Biome
+pnpm run lint:fix     # Tự động sửa lỗi kiểm tra
+pnpm run format       # Định dạng mã nguồn
+pnpm run ci           # Chạy toàn bộ quy trình CI (xác thực + kiểm tra)
 ```
 
 ## Tài nguyên quảng bá
@@ -151,8 +151,8 @@ Hình ảnh quảng bá Chrome Web Store nằm trong `assets/` dưới dạng ng
 ## Quyền riêng tư
 
 - Không thu thập dữ liệu
-- Không có server bên ngoài
-- Tất cả cài đặt lưu cục bộ
+- Không dùng máy chủ bên ngoài
+- Mọi cài đặt đều được lưu trên máy
 - Xem [Chính sách quyền riêng tư](docs/privacy-policy.md)
 
 ## Tài trợ
@@ -165,9 +165,9 @@ Nếu bạn thấy tiện ích này hữu ích, hãy cân nhắc hỗ trợ phá
 
 ## Dự án khác
 
-- [GitHub Flex](https://github.com/lamngockhuong/github-flex) - Tiện ích đa trình duyệt nâng cấp giao diện GitHub với các tính năng tăng năng suất
-- [Termote](https://github.com/lamngockhuong/termote) - Điều khiển CLI từ xa (Claude Code, GitHub Copilot, bất kỳ terminal nào) từ di động/máy tính qua PWA
-- [Specpin](https://github.com/lamngockhuong/specpin) - Ghim đặc tả nghiệp vụ sống động lên các phần tử của giao diện web đang chạy. Git-native, local-first, không phụ thuộc framework
+- [GitHub Flex](https://github.com/lamngockhuong/github-flex) - Tiện ích đa trình duyệt giúp giao diện GitHub tiện dụng và hiệu quả hơn
+- [Termote](https://github.com/lamngockhuong/termote) - Điều khiển từ xa các công cụ dòng lệnh (Claude Code, GitHub Copilot hoặc bất kỳ cửa sổ dòng lệnh nào) từ điện thoại và máy tính qua PWA
+- [Specpin](https://github.com/lamngockhuong/specpin) - Ghim đặc tả nghiệp vụ đang được duy trì vào từng phần tử trên giao diện web. Tích hợp với Git, ưu tiên chạy cục bộ và không phụ thuộc framework
 
 ## Giấy phép
 
@@ -175,4 +175,4 @@ MIT
 
 ## Lời cảm ơn
 
-Một phần của dự án này được kế thừa từ [Drowzy](https://github.com/ml3dev/drowzy), Copyright (c) 2026 ml3dev, Giấy phép MIT.
+Một phần dự án được phát triển từ [Drowzy](https://github.com/ml3dev/drowzy), bản quyền (c) 2026 ml3dev, theo Giấy phép MIT.

@@ -7,7 +7,7 @@ section: getting-started
 
 # Bắt đầu với TabRest
 
-TabRest là tiện ích trình duyệt tự động giải phóng các tab không hoạt động để giải phóng bộ nhớ. Hoạt động trên **tất cả trình duyệt Chromium**: Chrome, Microsoft Edge, Brave, Opera, Vivaldi và Arc.
+TabRest tự động giải phóng tab không hoạt động để thu hồi bộ nhớ. Tiện ích chạy trên **mọi trình duyệt dùng nhân Chromium**: Chrome, Microsoft Edge, Brave, Opera, Vivaldi và Arc.
 
 ## Cài đặt
 
@@ -29,7 +29,7 @@ TabRest là tiện ích trình duyệt tự động giải phóng các tab khôn
 
 ### Từ mã nguồn (Dành cho lập trình viên)
 
-1. Clone repository:
+1. Sao chép kho mã nguồn:
    ```bash
    git clone https://github.com/lamngockhuong/tabrest.git
    cd tabrest
@@ -54,7 +54,7 @@ Sau khi cài đặt, TabRest hoạt động ngay với cài đặt mặc định
 
 - **Hẹn giờ tự động giải phóng**: 30 phút không hoạt động
 - **Ngưỡng bộ nhớ**: 80% RAM
-- **Tab được bảo vệ**: Tab ghim, tab có audio, tab có form chưa lưu
+- **Tab được bảo vệ**: Tab đã ghim, tab đang phát âm thanh, tab có biểu mẫu chưa lưu
 - **Danh sách trắng**: YouTube, Gmail, Google Docs (cấu hình sẵn)
 
 ### Cấu hình nhanh
@@ -77,40 +77,36 @@ Thử giải phóng tab thủ công để xem cách hoạt động:
 
 Tab đã giải phóng vẫn hiển thị trên thanh tab nhưng sẽ tải lại khi bạn nhấn vào.
 
-### Sử dụng Side Panel
-
-TabRest cũng có thể mở trong bảng bên (sidebar) của Chrome thay vì popup:
-
-1. **Bật Side Panel**: Cài đặt → Phần "Toolbar Action" → Bật "Mở trong Side Panel"
-2. **Sử dụng**: Nhấp biểu tượng TabRest → Bảng bên sẽ mở ở bên phải
-3. **Lợi ích**: Bảng bên ở lại trong khi bạn duyệt web, không cần nhấp lại
-4. **Kích thước**: Bạn có thể thay đổi kích thước bằng cách kéo ranh giới
-
-**So sánh**:
-- **Popup**: Đóng lại sau mỗi lần nhấp, phù hợp cho kiểm tra nhanh
-- **Side Panel**: Ở lại mở, phù hợp để giám sát liên tục
-
 ## Điều gì xảy ra khi tab bị giải phóng?
 
 TabRest sử dụng API `tabs.discard()` của trình duyệt. Tab đã giải phóng:
 
-- ✅ Vẫn hiển thị trên thanh tab với tiêu đề và favicon
-- ✅ Giữ nguyên vị trí cuộn và dữ liệu form
+- ✅ Vẫn hiển thị trên thanh tab với tiêu đề và biểu tượng trang
+- ✅ Giữ nguyên vị trí cuộn và dữ liệu biểu mẫu
 - ✅ Tải lại ngay khi nhấn vào
 - ✅ Giải phóng bộ nhớ khi không hoạt động
-- ❌ Không thể chạy script nền hoặc phát media
+- ❌ Không thể chạy tập lệnh nền hoặc phát nội dung đa phương tiện
 
-### Cập nhật và Changelog
+## Sử dụng chế độ bảng bên
 
-Khi TabRest được cập nhật với phiên bản **minor hoặc major** mới:
+Muốn TabRest luôn hiển thị thay vì mở cửa sổ bật lên?
 
-- Trang **Changelog** sẽ tự động mở để bạn xem các tính năng mới
-- Cập nhật **patch** (ví dụ: v0.0.4 → v0.0.5) không mở changelog để tránh làm phiền
-- Bạn có thể xem changelog bất kỳ lúc nào trong popup → Footer → Version link
+1. Nhấn biểu tượng TabRest → nút **⚙️ Cài đặt**
+2. Kéo xuống phần **Thao tác trên thanh công cụ**
+3. Bật **Mở trong bảng bên**
+4. Lần nhấn tiếp theo sẽ mở TabRest trong bảng bên của trình duyệt
+5. Bảng bên vẫn mở khi bạn chuyển qua lại giữa các tab
+6. Tắt lại bất cứ lúc nào để quay về chế độ cửa sổ bật lên
+
+**Ghi chú**: Bảng bên yêu cầu Chrome 114 trở lên.
+
+## Tự mở nhật ký thay đổi
+
+Khi TabRest cập nhật kèm tính năng mới (phiên bản minor hoặc major), tiện ích tự mở nhật ký thay đổi để bạn xem có gì mới. Bản vá lỗi (patch) không mở nhật ký, tránh làm bạn bị phiền.
 
 ## Bước tiếp theo
 
 - Tìm hiểu về [phím tắt](/vi/docs/keyboard-shortcuts) để điều khiển nhanh hơn
-- Cấu hình [danh sách trắng](/vi/docs/whitelist-config) cho các trang quan trọng
-- Khám phá [tất cả tính năng](/vi/docs/features) bao gồm nhóm tab và thống kê
-- Xem [khắc phục sự cố](/vi/docs/troubleshooting) nếu gặp vấn đề
+- Cấu hình [bảo vệ bằng danh sách trắng](/vi/docs/whitelist-config) cho các trang quan trọng, kể cả localhost và địa chỉ IP
+- Khám phá [tất cả tính năng](/vi/docs/features) gồm nhóm tab, nhập/xuất và chế độ bảng bên
+- Xem [khắc phục sự cố](/vi/docs/troubleshooting) nếu bạn gặp vấn đề

@@ -13,7 +13,7 @@ TabRest cho phép bạn bảo vệ các website cụ thể khỏi tự động g
 
 TabRest đi kèm các trang đã cấu hình sẵn:
 
-- `youtube.com` - Bảo vệ video và playlist
+- `youtube.com` - Bảo vệ nội dung nghe nhìn và danh sách phát
 - `gmail.com` - Giữ tab email được tải
 - `docs.google.com` - Bảo vệ Google Docs, Sheets, Slides
 
@@ -25,26 +25,26 @@ Các trang này có thể được xóa hoặc tùy chỉnh trong cài đặt.
 
 1. Nhấn biểu tượng TabRest → nút **⚙️ Cài đặt**
 2. Cuộn đến phần **Danh sách trắng**
-3. Nhập tên domain (vd: `github.com`)
+3. Nhập tên miền (vd: `github.com`)
 4. Nhấn **Enter** hoặc nhấn **Thêm**
 5. Thay đổi lưu tự động
 
-### Thêm nhanh từ Popup
+### Thêm nhanh từ cửa sổ TabRest
 
-Thêm nhanh trang hiện tại trực tiếp từ popup:
+Thêm nhanh trang hiện tại ngay trong cửa sổ TabRest:
 
 1. Truy cập trang bạn muốn bảo vệ
 2. Nhấn biểu tượng TabRest trên thanh công cụ
 3. Tìm liên kết **Thêm trang hiện tại vào danh sách trắng**
-4. Nhấn để thêm domain hiện tại
+4. Nhấn để thêm tên miền hiện tại
 
-**Lưu ý**: Tính năng này chỉ thêm domain (vd: `example.com`), không phải URL đầy đủ.
+**Lưu ý**: Tính năng này chỉ thêm tên miền (vd: `example.com`), không phải URL đầy đủ.
 
-## Quy tắc khớp domain
+## Quy tắc khớp tên miền
 
-TabRest sử dụng khớp domain đơn giản:
+TabRest dùng quy tắc khớp tên miền đơn giản:
 
-### Khớp domain chính xác
+### Khớp chính xác tên miền
 
 ```
 Danh sách trắng: github.com
@@ -54,9 +54,9 @@ Danh sách trắng: github.com
 ❌ Không khớp: https://api.github.com
 ```
 
-### Khớp subdomain
+### Khớp miền con
 
-Để bảo vệ tất cả subdomain, thêm domain gốc:
+Để bảo vệ mọi miền con, hãy thêm miền gốc:
 
 ```
 Danh sách trắng: google.com
@@ -65,7 +65,7 @@ Danh sách trắng: google.com
 ✅ Khớp: drive.google.com
 ```
 
-**Hoặc** thêm subdomain cụ thể:
+**Hoặc** thêm từng miền con cụ thể:
 
 ```
 Danh sách trắng: docs.google.com
@@ -77,14 +77,14 @@ Danh sách trắng: docs.google.com
 
 | Mục danh sách trắng | Bảo vệ |
 |---------------------|--------|
-| `example.com` | `example.com` và tất cả subdomain |
+| `example.com` | `example.com` và mọi miền con |
 | `www.example.com` | Chỉ `www.example.com` |
 | `app.example.com` | Chỉ `app.example.com` |
 
 ## Xóa trang
 
 1. Mở trang **Cài đặt**
-2. Tìm domain trong danh sách trắng
+2. Tìm tên miền trong danh sách trắng
 3. Nhấn nút **X** bên cạnh
 4. Thay đổi lưu tự động
 
@@ -127,85 +127,76 @@ Danh sách trắng hoạt động cùng các bảo vệ tab khác:
 
 | Loại bảo vệ | Ưu tiên | Mô tả |
 |-------------|---------|-------|
-| Danh sách trắng | Cao nhất | Bảo vệ dựa trên domain |
+| Danh sách trắng | Cao nhất | Bảo vệ theo tên miền |
 | Tab ghim | Cao | Bảo vệ tab ghim (có thể cấu hình) |
-| Tab audio | Cao | Bảo vệ tab đang phát media (có thể cấu hình) |
-| Tab form | Cao | Bảo vệ tab có form chưa lưu (có thể cấu hình) |
+| Tab âm thanh | Cao | Bảo vệ tab đang phát nội dung đa phương tiện (có thể cấu hình) |
+| Tab biểu mẫu | Cao | Bảo vệ tab có biểu mẫu chưa lưu (có thể cấu hình) |
 
 **Ví dụ**: Ngay cả khi trang không nằm trong danh sách trắng, nó vẫn không bị giải phóng nếu:
 - Tab được ghim (và "Giải phóng tab ghim" bị tắt)
-- Tab đang phát audio (và "Bảo vệ tab audio" được bật)
-- Tab có dữ liệu form chưa lưu (và "Bảo vệ tab form" được bật)
+- Tab đang phát âm thanh (và đã bật bảo vệ tab âm thanh)
+- Tab có dữ liệu biểu mẫu chưa lưu (và đã bật bảo vệ tab biểu mẫu)
 
-## Import/Export danh sách + Sessions
+## Nhập và xuất
 
-TabRest hỗ trợ xuất/nhập danh sách trắng, danh sách đen, và phiên được lưu:
+TabRest hỗ trợ sao lưu và khôi phục danh sách trắng, danh sách đen cùng các phiên bằng JSON:
 
-### Xuất (Export)
+### Xuất danh sách trắng hoặc phiên
 
-1. Mở **popup TabRest**
-2. Kéo xuống phần **Sessions** hoặc **More Actions**
-3. Nhấn nút **Export** (Xuất)
-4. Chọn loại dữ liệu:
-   - Whitelist (danh sách trắng)
-   - Blacklist (danh sách đen)
-   - Sessions (phiên)
-5. JSON sẽ được sao chép vào clipboard
-6. Lưu vào tệp tin hoặc ghi chú
+1. Nhấp biểu tượng TabRest → **⚙️ Cài đặt** (hoặc mở mục Phiên trong cửa sổ TabRest)
+2. Cuộn đến mục **Danh sách trắng** hoặc **Phiên**
+3. Nhấn **Xuất**
+4. Dữ liệu JSON được sao chép vào bảng nhớ tạm
+5. Dán vào một tệp văn bản để lưu
 
-### Nhập (Import)
-
-1. Mở **popup TabRest**
-2. Kéo xuống **Sessions** hoặc **More Actions**
-3. Nhấn **Import** (Nhập)
-4. Dán JSON vào trường nhập
-5. Nhấn **Confirm** (Xác nhận)
-6. TabRest sẽ hợp nhất dữ liệu (loại bỏ trùng lặp)
-
-### Định dạng JSON
-
-JSON có sơ đồ phiên bản để tương thích trong tương lai:
-
+**Định dạng dữ liệu xuất** (lược đồ phiên bản 1):
 ```json
 {
   "version": 1,
   "whitelist": ["github.com", "localhost"],
-  "blacklist": ["ads.example.com"],
-  "sessions": [
-    {
-      "id": "session-1",
-      "name": "Work",
-      "timestamp": 1609459200000,
-      "tabs": [...]
-    }
-  ]
+  "blacklist": [],
+  "sessions": [...]
 }
 ```
 
-### Sao lưu thủ công (Nâng cao)
+### Nhập danh sách trắng hoặc phiên
 
-Nếu muốn sao lưu bằng console:
+1. Sao chép dữ liệu JSON đã lưu vào bảng nhớ tạm
+2. Nhấp biểu tượng TabRest → **⚙️ Cài đặt** (hoặc mở mục Phiên trong cửa sổ TabRest)
+3. Nhấn **Nhập**
+4. Dán dữ liệu JSON
+5. Nhấn **Xác nhận**
+6. Các mục mới được thêm vào danh sách hiện có
+7. Mục trùng lặp được tự động loại bỏ
+
+**Cách nhập dữ liệu hoạt động**:
+- **Bổ sung**: Mục mới được thêm vào danh sách trắng hoặc danh sách đen hiện có
+- **Loại bỏ trùng lặp**: Nếu bạn nhập `["github.com"]` khi mục này đã tồn tại, TabRest không tạo thêm bản sao
+- **Không phá hủy dữ liệu**: Các mục hiện có không bị xóa
+
+### Đồng bộ tự động
+
+Danh sách trắng cũng được lưu trong `chrome.storage.sync` và tự động đồng bộ giữa các trình duyệt Chrome nếu bạn bật Chrome Sync.
+
+**Cách tắt đồng bộ tự động**:
+1. Mở Cài đặt Chrome → **Đồng bộ hóa và các dịch vụ của Google**
+2. Tắt **Đồng bộ hóa mọi thứ** hoặc bỏ chọn **Tiện ích**
+3. Danh sách trắng từ đó chỉ còn trên thiết bị này
+
+### Sao lưu thủ công (nâng cao)
+
+Nếu muốn sao lưu bằng bảng điều khiển:
 
 1. Mở `chrome://extensions`
 2. Tìm TabRest → **Chi tiết**
-3. Cuộn đến **Kiểm tra views: service worker**
-4. Trong console, chạy:
+3. Cuộn đến `Inspect views: service worker`
+4. Chạy trong bảng điều khiển:
    ```javascript
    chrome.storage.sync.get('settings', (data) => {
-     console.log(JSON.stringify(data.settings));
+     console.log(JSON.stringify(data.settings.whitelist));
    });
    ```
-5. Sao chép kết quả JSON
-
-**Khôi phục**: Chỉnh sửa mảng trong UI cài đặt hoặc dùng console:
-```javascript
-chrome.storage.sync.set({
-  settings: {
-    ...existingSettings,
-    whitelist: ['github.com', 'example.com']
-  }
-});
-```
+5. Sao chép mảng JSON được in ra
 
 ## Mẹo
 
@@ -240,9 +231,9 @@ zoom.us
 teams.microsoft.com
 ```
 
-### Hỗ trợ Wildcard
+### Hỗ trợ ký tự đại diện
 
-TabRest hiện **không** hỗ trợ wildcard (vd: `*.google.com`). Thêm từng domain riêng:
+TabRest hiện **không** hỗ trợ ký tự đại diện (ví dụ: `*.google.com`). Hãy thêm từng miền riêng:
 
 ```
 ✅ Thêm: mail.google.com, drive.google.com, docs.google.com
@@ -251,19 +242,19 @@ TabRest hiện **không** hỗ trợ wildcard (vd: `*.google.com`). Thêm từng
 
 ## Cùng tồn tại với Chrome Memory Saver
 
-Từ Chrome 108, Chrome có sẵn tính năng giải phóng tab gọi là **Memory Saver** (tại `chrome://settings/performance`). Tính năng này chạy ở tầng trình duyệt và **không** tham khảo bất kỳ extension nào, bao gồm cả TabRest.
+Từ Chrome 108, Chrome có sẵn tính năng giải phóng tab **Memory Saver** tại `chrome://settings/performance`. Tính năng này chạy ở tầng trình duyệt và **không** tham khảo bất kỳ tiện ích nào, kể cả TabRest.
 
 ### Điều này nghĩa là gì
 
-Danh sách trắng của TabRest yêu cầu **TabRest** không giải phóng một domain. Nó **không** yêu cầu **Chrome** giữ tab được tải. Nếu Chrome Memory Saver đang bật và quyết định một tab đã không hoạt động đủ lâu, Chrome sẽ giải phóng tab đó dù domain nằm trong danh sách trắng của TabRest.
+Danh sách trắng chỉ yêu cầu **TabRest** không giải phóng tab thuộc một tên miền. Nó **không** yêu cầu **Chrome** giữ tab ở trạng thái đã tải. Nếu Chrome Memory Saver đang bật và xác định một tab đã không hoạt động đủ lâu, Chrome vẫn có thể giải phóng tab đó dù tên miền nằm trong danh sách trắng của TabRest.
 
-Đây là giới hạn của nền tảng Chrome. Không có Extension API nào cho phép loại trừ một tab khỏi Memory Saver.
+Đây là giới hạn của nền tảng Chrome. Không có API tiện ích nào cho phép loại trừ tab khỏi Memory Saver.
 
 ### Dấu hiệu nhận biết
 
-- Domain đã có trong danh sách trắng của TabRest
+- Tên miền đã có trong danh sách trắng của TabRest
 - Tab vẫn bị giải phóng tự động
-- Tab bị giải phóng mà không thấy toast cảnh báo của TabRest (vì TabRest không phải bên giải phóng)
+- Tab bị giải phóng mà không thấy thông báo cảnh báo của TabRest (vì TabRest không thực hiện thao tác đó)
 
 ### Cách bảo vệ tab hoàn toàn
 
@@ -278,20 +269,20 @@ Chọn **một** trong các cách sau:
 **Cách B: duy trì danh sách thứ hai trong Chrome**
 
 1. Mở `chrome://settings/performance`
-2. Trong mục **Always keep these sites active** (Luôn giữ các trang này hoạt động), thêm cùng các domain bạn đã có trong danh sách trắng của TabRest
+2. Trong mục **Luôn duy trì hoạt động cho các trang web này**, thêm các miền đang có trong danh sách trắng của TabRest
 3. Cả hai hệ thống sẽ bỏ qua các tab đó
 
 **Tab được bảo vệ tự nhiên** (hoạt động ở cả hai hệ thống mà không cần cấu hình):
 
-- Tab đang phát audio hoặc video
-- Tab đang dùng camera hoặc microphone
-- Tab có form chưa lưu
+- Tab đang phát âm thanh hoặc hình ảnh
+- Tab đang dùng máy ảnh hoặc micrô
+- Tab có biểu mẫu chưa lưu
 - Tab đã pin
 
 ## Quyền riêng tư
 
 Các mục danh sách trắng:
-- Lưu cục bộ trong Chrome sync storage
+- Lưu trong vùng đồng bộ cục bộ của Chrome
 - Đồng bộ giữa các trình duyệt Chrome của bạn (nếu sync được bật)
 - Không bao giờ gửi đến server bên ngoài
 - Không bao giờ chia sẻ với bên thứ ba

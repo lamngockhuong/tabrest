@@ -9,6 +9,8 @@ section: features
 
 TabRest cung cấp nhiều cách để quản lý tab và giải phóng bộ nhớ.
 
+**Mẹo dùng cửa sổ TabRest**: Các mục có thể thu gọn (Tab, Cài đặt nhanh, Thao tác khác, Phiên và Thống kê) sẽ nhớ trạng thái mở hoặc đóng sau khi bạn đóng cửa sổ, giúp thao tác lặp lại nhanh hơn.
+
 ## Giải phóng tự động
 
 ### Giải phóng theo thời gian
@@ -25,7 +27,7 @@ Tự động giải phóng tab sau thời gian không hoạt động:
 | 2 giờ    | Giữ tab lâu hơn |
 | 4 giờ    | Tự động giải phóng tối thiểu |
 
-**Cách hoạt động**: TabRest theo dõi lần tương tác cuối cùng với mỗi tab (click, cuộn, focus). Sau thời gian cấu hình, các tab không hoạt động sẽ được giải phóng.
+**Cách hoạt động**: TabRest theo dõi lần tương tác gần nhất với mỗi tab (nhấp, cuộn, chuyển tiêu điểm). Khi hết thời gian đã đặt, các tab không hoạt động sẽ được giải phóng.
 
 ### Giải phóng theo ngưỡng bộ nhớ
 
@@ -42,7 +44,7 @@ Khi kích hoạt, TabRest giải phóng các tab ít sử dụng nhất (LRU) ch
 Giải phóng bộ nhớ ngay khi Chrome khởi động:
 
 - **Mặc định**: Bật
-- **Hành vi**: Giải phóng tất cả tab không active ở mọi cửa sổ, bỏ qua mọi bảo vệ (tab pin, whitelist, audio, form)
+- **Hành vi**: Giải phóng mọi tab không hoạt động trong tất cả cửa sổ, bỏ qua các cơ chế bảo vệ (tab đã ghim, danh sách trắng, âm thanh, biểu mẫu)
 - **Hữu ích cho**: Khôi phục nhiều tab từ phiên trước mà không lãng phí bộ nhớ
 
 ### Ngưỡng số tab
@@ -61,7 +63,7 @@ Chỉ tự động giải phóng tab khi máy tính không hoạt động:
 
 - **Mặc định**: Tắt
 - **Ngưỡng**: 2-15 phút không hoạt động
-- **Phát hiện**: Sử dụng API idle của Chrome (phát hiện hoạt động chuột/bàn phím)
+- **Phát hiện**: Dùng API trạng thái nghỉ của Chrome (phát hiện hoạt động chuột/bàn phím)
 
 **Trường hợp sử dụng**: Không bao giờ làm gián đoạn phiên duyệt web đang hoạt động.
 
@@ -69,49 +71,54 @@ Chỉ tự động giải phóng tab khi máy tính không hoạt động:
 
 Tự động giải phóng các tab tiêu thụ quá nhiều bộ nhớ:
 
-- **Phạm vi**: 100MB - 1GB (JavaScript heap)
+- **Phạm vi**: 100MB - 1GB (vùng nhớ JavaScript)
 - **Mặc định**: Tắt
 - **Lưu ý**: Chỉ đo bộ nhớ JS, không phải tổng bộ nhớ tab
 
 **Trường hợp sử dụng**: Nhắm mục tiêu các tab nặng bộ nhớ cụ thể thay vì theo thời gian.
 
-### Bỏ qua khi offline
+#### Cảnh báo trước khi giải phóng
+
+Xem cảnh báo 3 giây ngay trên trang trước khi tab bị tự động giải phóng:
+
+- **Mặc định**: Bật
+- **Độ trễ**: Tùy chỉnh từ 1 đến 10 giây (mặc định 3 giây)
+- **Hành vi**: Hiện thanh thông báo trước khi tự động giải phóng; bạn có thể hủy bằng cách:
+  - Chuyển sang tab đó
+  - Phát âm thanh trên trang
+  - Sửa một trường biểu mẫu
+  - Tạm hoãn tab
+- **Lý do**: Tránh mất dữ liệu chưa lưu hoặc làm gián đoạn tác vụ quan trọng
+
+**Ví dụ**: Bạn rời khỏi một tab đang có nội dung chưa lưu. TabRest cảnh báo trước 3 giây để bạn kịp lưu hoặc hủy thao tác.
+
+## Bỏ qua khi không có mạng
 
 Ngăn tab bị giải phóng khi mất kết nối mạng:
 
 - **Mặc định**: Bật
-- **Hành vi**: Tạm dừng tự động giải phóng khi `navigator.onLine` là false
+- **Hành vi**: Tạm dừng tự động giải phóng khi `navigator.onLine` là `false`
 - **Lý do**: Tab đã giải phóng không thể tải lại khi không có mạng
-
-### Cảnh báo trước khi suspend
-
-Nhận cảnh báo (toast) trên trang web trước khi tab bị tự động giải phóng:
-
-- **Mặc định**: Bật
-- **Khoảng thời gian**: 3 giây cảnh báo trước khi giải phóng
-- **Hành vi**: Nếu bạn tương tác với tab (click, nhập, phát audio) thì cảnh báo sẽ bị hủy
-- **Có thể tùy chỉnh**: Thay đổi độ trễ (ms) trong Cài đặt
-- **Trường hợp sử dụng**: Tránh mất bất ngờ tab mà không biết
 
 ## Tạm dừng toàn cục
 
 Tạm dừng toàn bộ việc tự động giải phóng tab bằng một nút bấm duy nhất:
 
-- **Truy cập**: Thanh tạm dừng ở gần đầu popup và side panel
+- **Truy cập**: Thanh tạm dừng ở gần đầu cửa sổ bật lên và bảng bên
 - **Thời lượng**: 30 phút, 1 giờ, 2 giờ, hoặc "Đến khi tiếp tục" (không giới hạn)
 - **Khi đang tạm dừng**: Thanh hiển thị nút **Tiếp tục** cùng thời gian còn lại (vd: "Tiếp tục sau 45p"), hoặc "Đến khi tiếp tục" cho tùy chọn không giới hạn
 - **Chặn**: Hẹn giờ không hoạt động, ngưỡng bộ nhớ, ngưỡng bộ nhớ từng tab, và giải phóng khi khởi động
-- **Không chặn**: Các thao tác giải phóng thủ công (Hiện tại/Khác/Trái/Phải), menu chuột phải, phím tắt, và hành động nhấp thanh công cụ - những thao tác này luôn hoạt động
-- **Chỉ báo**: Huy hiệu thanh công cụ hiển thị ❚❚ khi đang tạm dừng; đồng hồ đếm ngược từng tab bị ẩn trong danh sách tab của popup
+- **Không chặn**: Thao tác giải phóng thủ công (Hiện tại/Khác/Trái/Phải), trình đơn chuột phải, phím tắt và thao tác trên thanh công cụ
+- **Chỉ báo**: Huy hiệu thanh công cụ hiển thị ❚❚ khi đang tạm dừng; đồng hồ đếm ngược từng tab bị ẩn trong cửa sổ bật lên
 - **Lưu trữ**: Lưu cục bộ trên từng thiết bị (không đồng bộ giữa các thiết bị); tạm dừng có thời hạn sẽ tự động tiếp tục khi hết hạn, vẫn tồn tại qua các lần service worker khởi động lại
 
-**So với Tạm hoãn**: Tạm hoãn bảo vệ một tab hoặc domain cụ thể; Tạm dừng toàn cục là một công tắc duy nhất dừng toàn bộ việc tự động giải phóng cùng lúc.
+**So với Tạm hoãn**: Tạm hoãn bảo vệ một tab hoặc tên miền cụ thể; Tạm dừng toàn cục là một công tắc duy nhất dừng toàn bộ việc tự động giải phóng cùng lúc.
 
-**Trường hợp sử dụng**: Thuyết trình, tải nhiều file cùng lúc trên nhiều tab, chơi game, hoặc debug - bất kỳ lúc nào bạn không muốn tab bị giải phóng.
+**Trường hợp sử dụng**: Thuyết trình, tải nhiều tệp trên nhiều tab, chơi trò chơi hoặc gỡ lỗi - bất cứ lúc nào bạn không muốn tab bị giải phóng.
 
 ## Điều khiển thủ công
 
-Điều khiển giải phóng tab theo yêu cầu từ popup:
+Chủ động giải phóng tab từ cửa sổ bật lên:
 
 | Hành động | Mô tả |
 |-----------|-------|
@@ -126,7 +133,7 @@ Truy cập qua biểu tượng TabRest trên thanh công cụ hoặc [phím tắ
 
 Tự động đóng các tab trùng lặp trong cửa sổ hiện tại:
 
-- **Truy cập**: Mở popup → More Actions (Thêm hành động) → Close Duplicates (Đóng tab trùng lặp)
+- **Truy cập**: Mở cửa sổ bật lên → Thao tác khác → Đóng tab trùng lặp
 - **Cách hoạt động**: Quét tất cả các tab theo URL và giữ lại tab cũ nhất, đóng các tab trùng mới hơn
 - **Trường hợp sử dụng**: Nhanh chóng dọn dẹp nhiều tab của cùng một trang web được mở nhầm
 
@@ -134,12 +141,14 @@ Tự động đóng các tab trùng lặp trong cửa sổ hiện tại:
 
 ### Tìm kiếm tab
 
-Tìm kiếm nhanh các tab theo tiêu đề hoặc URL:
+Bộ lọc tìm kiếm tức thời cho danh sách tab trong cửa sổ bật lên:
 
-- **Truy cập**: Mở popup → Nhấn biểu tượng tìm kiếm hoặc nút toggle tìm kiếm
-- **Cách hoạt động**: Tìm kiếm live trên tiêu đề và URL (không phân biệt chữ hoa/thường)
-- **Kết hợp**: Tìm kiếm hoạt động cùng với các chip bộ lọc (Tất cả/Đang ngủ/Tạm hoãn/Được bảo vệ)
+- **Truy cập**: Mở cửa sổ bật lên → ô tìm kiếm (bật để hiện)
+- **Cách hoạt động**: Lọc theo thời gian thực dựa trên tiêu đề và URL (không phân biệt chữ hoa/thường)
+- **Kết hợp**: Tìm kiếm hoạt động cùng các bộ lọc (Tất cả/Đã giải phóng/Tạm hoãn/Được bảo vệ)
 - **Trường hợp sử dụng**: Nhanh chóng định vị tab khi bạn có nhiều tab mở
+
+**Ví dụ**: Nhập "github" để lọc ra mọi tab liên quan tới GitHub.
 
 ### Thao tác thanh công cụ
 
@@ -147,11 +156,12 @@ Tùy chỉnh hành động khi nhấp vào biểu tượng tiện ích:
 
 | Tùy chọn | Hành vi |
 |----------|---------|
-| **Mở popup** | Mặc định - hiển thị danh sách tab và cài đặt nhanh |
+| **Mở cửa sổ bật lên** | Mặc định - hiển thị danh sách tab và cài đặt nhanh |
+| **Mở trong bảng bên** | Mở TabRest trong bảng bên cố định của trình duyệt (phải chủ động bật) |
 | **Giải phóng tab hiện tại** | Giải phóng tab hiện tại ngay lập tức |
 | **Giải phóng các tab khác** | Giải phóng tất cả tab khác ngay lập tức |
 
-**Trường hợp sử dụng**: Người dùng nâng cao muốn giải phóng một click mà không mở popup.
+**Trường hợp sử dụng**: Người dùng nâng cao muốn giải phóng bằng một lần nhấp, hoặc muốn vào ngay bảng bên cố định mà không phải mở cửa sổ bật lên.
 
 ## Chế độ nguồn
 
@@ -176,43 +186,71 @@ Bảo vệ các tab cụ thể khỏi tự động giải phóng:
 - **Mặc định**: Được bảo vệ khỏi tự động giải phóng
 - **Có thể cấu hình**: Bật "Giải phóng tab ghim" trong cài đặt để ghi đè
 
-### Tab Audio/Video
-- **Mặc định**: Được bảo vệ khi đang phát media
+### Tab đang phát âm thanh hoặc hình ảnh
+- **Mặc định**: Được bảo vệ khi đang phát nội dung đa phương tiện
 - **Phát hiện**: Kiểm tra thuộc tính `tab.audible`
-- **Có thể cấu hình**: Tắt "Bảo vệ tab đang phát audio/video" để cho phép giải phóng
+- **Có thể cấu hình**: Tắt "Bảo vệ tab đang phát âm thanh/hình ảnh" để cho phép giải phóng
 
-### Tab Form
-- **Mặc định**: Được bảo vệ khi form có dữ liệu chưa lưu
-- **Phát hiện**: Content script kiểm tra các trường input đã thay đổi
-- **Có thể cấu hình**: Tắt "Bảo vệ tab có form chưa lưu" để cho phép giải phóng
+### Tab có biểu mẫu
+- **Mặc định**: Được bảo vệ khi biểu mẫu có dữ liệu chưa lưu
+- **Phát hiện**: Mã chạy trong trang kiểm tra các trường nhập đã thay đổi
+- **Quyền truy cập**: Chỉ yêu cầu quyền truy cập trang web khi bạn bật tính năng bảo vệ biểu mẫu
+- **Có thể cấu hình**: Tắt "Bảo vệ tab có biểu mẫu chưa lưu" để cho phép giải phóng
+- **Lưu ý**: Hoạt động với biểu mẫu HTML thông thường; có thể không phát hiện trình soạn thảo văn bản đa dạng thức như TinyMCE hoặc CKEditor. Hãy thêm các trang đó vào danh sách trắng.
 
 ### Danh sách trắng
 - **Mặc định**: YouTube, Gmail, Google Docs, Miro, Figma, Notion
 - **Tùy chỉnh**: Thêm bất kỳ trang nào để ngăn tự động giải phóng
 - **Chi tiết**: Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config)
 
-### Tạm hoãn Tab/Domain
+### Tạm hoãn tab/tên miền
 
-Tạm thời bảo vệ tab hoặc domain cụ thể khỏi tự động giải phóng:
+Tạm thời bảo vệ tab hoặc tên miền cụ thể khỏi tự động giải phóng:
 
 | Tùy chọn | Thời gian |
 |----------|-----------|
 | Tạm hoãn tab | 30 phút, 1 giờ, 2 giờ |
-| Tạm hoãn domain | 1 giờ |
+| Tạm hoãn tên miền | 1 giờ |
 
-**Truy cập**: Nhấn chuột phải trên trang → Tùy chọn tạm hoãn, hoặc dùng nút ⏸️ trong danh sách tab popup.
+**Truy cập**: Nhấp chuột phải trên trang → tùy chọn tạm hoãn, hoặc dùng nút ⏸️ trong danh sách tab của cửa sổ bật lên.
 
 **Trường hợp sử dụng**: Làm việc tập trung trên một trang mà không cần thêm vào danh sách trắng vĩnh viễn.
+
+## Chế độ bảng bên
+
+Mở TabRest trong bảng bên cố định của Chrome thay vì cửa sổ bật lên:
+
+- **Truy cập**: Cài đặt → Thao tác trên thanh công cụ → bật "Mở trong bảng bên"
+- **Mặc định**: Tắt; bạn phải chủ động bật
+- **Hành vi**: Mở bảng bên và giữ nó hiển thị khi bạn chuyển tab
+- **Tương thích màn hình**: Bảng bên tự điều chỉnh bố cục theo từng kích thước màn hình
+- **Khôi phục**: Tắt tùy chọn để quay lại chế độ cửa sổ bật lên
+- **Yêu cầu**: Chrome 114 trở lên để có API bảng bên
+
+**Trường hợp sử dụng**: Luôn để TabRest hiển thị để truy cập nhanh các thao tác và thống kê tab mà không phải đóng bảng sau mỗi lần dùng.
 
 ## Nhóm tab
 
 Giải phóng toàn bộ nhóm tab cùng lúc:
 
 1. **Tạo nhóm tab** trong Chrome (nhấn chuột phải tab → Thêm vào nhóm mới)
-2. **Mở popup TabRest** và nhấn tên nhóm
+2. **Mở cửa sổ bật lên của TabRest** và nhấn tên nhóm
 3. **Tất cả tab trong nhóm giải phóng** cùng lúc
 
 **Lưu ý**: Nhóm tab là tính năng Chrome (Chrome 88+). TabRest tích hợp với các nhóm hiện có.
+
+## Nhập và xuất
+
+Sao lưu và khôi phục cấu hình:
+
+- **Dữ liệu xuất**: Danh sách trắng, danh sách đen và các phiên đã lưu
+- **Định dạng**: JSON, sao chép qua bộ nhớ tạm để dễ lưu hoặc chia sẻ
+- **Phiên bản cấu trúc**: v1 (sẵn sàng cho việc di chuyển về sau)
+- **Khi nhập**: Thêm mục mới vào danh sách hiện có và tự loại bỏ mục trùng
+- **Truy cập**: Cài đặt hoặc Cửa sổ bật lên → mục Phiên → nút Xuất/Nhập
+- **Trường hợp sử dụng**: Chuyển cài đặt giữa các trình duyệt, sao lưu trước khi thay đổi lớn, chia sẻ danh sách trắng với đồng nghiệp
+
+**Ví dụ**: Xuất danh sách trắng ra JSON, gửi qua email, rồi nhập lại trên thiết bị khác.
 
 ## Thống kê
 
@@ -235,12 +273,12 @@ Hiển thị số tab đã giải phóng trên biểu tượng tiện ích:
 
 ## Hiển thị RAM
 
-Xem mức sử dụng RAM hệ thống trong header popup:
+Xem mức sử dụng RAM hệ thống ở đầu cửa sổ bật lên:
 
 - **Hiển thị**: Hiện % RAM cùng với thống kê tab
 - **Cảnh báo**: Làm nổi bật khi RAM vượt ngưỡng đã cấu hình
-- **Tooltip**: Di chuột để xem ước tính bộ nhớ được giải phóng (~150 MB mỗi tab)
-- **Ước tính**: Hiển thị xấp xỉ bao nhiêu bộ nhớ có thể được giải phóng nếu các tab đang ngủ được tải lại
+- **Ước tính bộ nhớ**: Di chuột lên phần RAM để xem ước tính bộ nhớ thu hồi được trên mỗi tab đã giải phóng (trung bình khoảng 150 MB một tab)
+- **Chú giải**: Hiển thị so sánh với ngưỡng đã đặt và lượng bộ nhớ ước tính thu hồi được
 
 ## Khôi phục vị trí cuộn
 
@@ -262,41 +300,13 @@ Nhận thông báo khi tab bị tự động giải phóng:
 
 **Trường hợp sử dụng**: Theo dõi những gì TabRest đang làm trong nền.
 
-## Mở link ở trạng thái ngủ
+## Mở liên kết ở trạng thái đã giải phóng
 
-Mở link trực tiếp ở trạng thái đã giải phóng:
+Mở liên kết trực tiếp ở trạng thái đã giải phóng:
 
-- **Truy cập**: Nhấn chuột phải lên link → "Mở link ở trạng thái ngủ"
+- **Truy cập**: Nhấp chuột phải vào liên kết → "Mở liên kết trong tab đã giải phóng"
 - **Hành vi**: Tạo tab, đợi tải xong, rồi giải phóng ngay
-- **Trường hợp sử dụng**: Lưu link để đọc sau mà không tốn bộ nhớ
-
-## Side Panel (Bảng bên)
-
-Mở TabRest trong một bảng bên (sidebar) thay vì popup:
-
-- **Truy cập**: Cài đặt → Toolbar Action → Bật "Mở trong Side Panel"
-- **Lợi ích**: Bảng bên luôn hiển thị khi chuyển đổi giữa các tab
-- **Bố cục**: Giao diện responsive, có thể thay đổi kích thước
-- **Trường hợp sử dụng**: Giám sát thời gian thực cho việc giải phóng tab và thống kê
-- **So sánh**: Popup đóng lại sau mỗi lần nhấp; Side Panel ở lại cho phép quan sát liên tục
-
-## Xuất/Nhập cài đặt
-
-Sao lưu và khôi phục danh sách trắng, danh sách đen, và các phiên:
-
-- **Truy cập**: Popup → Sessions section → Export/Import buttons
-- **Định dạng**: JSON (có thể sao chép từ clipboard)
-- **Hành vi Xuất**: Sao lưu danh sách trắng, danh sách đen, và tất cả phiên đã lưu
-- **Hành vi Nhập**: Tự động hợp nhất, loại bỏ các mục trùng lặp theo tên
-- **Trường hợp sử dụng**: Chuyển các cài đặt sang thiết bị khác hoặc sao lưu dữ liệu quan trọng
-
-## Trạng thái giao diện bền vững
-
-Nhớ lại trạng thái mở/đóng của các phần trong popup:
-
-- **Hoạt động**: Các phần như "Tabs in this window", "Quick Settings" ghi nhớ trạng thái
-- **Lưu trữ**: Trạng thái lưu cục bộ, khôi phục khi mở popup lại
-- **Tính năng QoL**: Cải thiện trải nghiệm người dùng với tùy chỉnh nhanh
+- **Trường hợp sử dụng**: Lưu liên kết để đọc sau mà không tốn bộ nhớ
 
 ## Hỗ trợ đa ngôn ngữ
 
@@ -314,8 +324,18 @@ Ngôn ngữ tự động phát hiện từ cài đặt Chrome.
 - Sử dụng tài nguyên hiệu quả
 - Tuân thủ tiêu chuẩn Chrome mới nhất
 
+### Quyền truy cập máy chủ tùy chọn
+- Chỉ yêu cầu quyền khi bạn bật bảo vệ biểu mẫu hoặc tính năng cần truy cập trang
+- Có thể thu hồi quyền bất cứ lúc nào trong cài đặt Chrome mà không ảnh hưởng tính năng khác
+- Hiển thị lời nhắc rõ ràng khi kích hoạt tính năng
+
+### Phát hiện biểu mẫu theo nhu cầu
+- Chỉ chèn mã kiểm tra biểu mẫu khi bật bảo vệ biểu mẫu
+- Hầu như không ảnh hưởng hiệu năng khi tính năng tắt
+- Phát hiện trường nhập, vùng văn bản và danh sách chọn đã thay đổi
+
 ### ES Modules
-- Module JavaScript native
+- Mô-đun JavaScript có sẵn
 - Không cần bước build
 - Tải và thực thi nhanh
 

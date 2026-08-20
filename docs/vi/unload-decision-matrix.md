@@ -1,76 +1,76 @@
-# Ma Trận Quyết Định Unload
+# Ma trận quyết định giải phóng tab
 
-Cách TabRest quyết định khi nào unload tab.
+Cách TabRest quyết định khi nào cần giải phóng tab.
 
-## Triggers
+## Tác nhân kích hoạt
 
-| Trigger          | Tần suất    | Mục đích                                                        |
+| Tác nhân | Tần suất | Mục đích |
 | ---------------- | ----------- | --------------------------------------------------------------- |
-| **Timer**        | Mỗi 1 phút  | Unload tab không hoạt động quá `unloadDelayMinutes`             |
-| **Memory**       | Mỗi 30 giây | Unload tab LRU khi RAM vượt `memoryThresholdPercent`            |
-| **Per-tab Heap** | Mỗi 30 giây | Unload tab có JS heap vượt `perTabJsHeapThresholdMB`            |
-| **Blacklist**    | Cùng Timer  | Unload ngay lập tức các tab khớp với domain trong danh sách đen |
+| **Bộ hẹn giờ** | Mỗi 1 phút | Giải phóng tab không hoạt động quá `unloadDelayMinutes` |
+| **Bộ nhớ** | Mỗi 30 giây | Giải phóng tab LRU khi RAM vượt `memoryThresholdPercent` |
+| **Vùng nhớ từng tab** | Mỗi 30 giây | Giải phóng tab có vùng nhớ JavaScript vượt `perTabJsHeapThresholdMB` |
+| **Danh sách đen** | Cùng bộ hẹn giờ | Giải phóng ngay tab khớp với miền trong danh sách đen |
 
-## Ma Trận Bảo Vệ
+## Ma trận bảo vệ
 
-| Bảo vệ                  | Timer | Memory | Per-tab Heap | Blacklist |
+| Bảo vệ                  | Bộ hẹn giờ | Bộ nhớ | Vùng nhớ từng tab | Danh sách đen |
 | ----------------------- | :---: | :----: | :----------: | :-------: |
 | Đang tạm dừng toàn cục  |  Có   |   Có   |      Có      |    Có     |
-| Tab đang active         |  Có   |   Có   |      Có      |    Có     |
-| Đã discarded            |  Có   |   Có   |      Có      |    Có     |
-| Đang snooze             |  Có   |   Có   |      Có      |    Có     |
-| Pinned (nếu bật)        |  Có   |   Có   |      Có      |    Có     |
-| Whitelist               |  Có   |   Có   |      Có      |    Có     |
+| Tab đang hoạt động      |  Có   |   Có   |      Có      |    Có     |
+| Tab đã giải phóng       |  Có   |   Có   |      Có      |    Có     |
+| Đang tạm hoãn           |  Có   |   Có   |      Có      |    Có     |
+| Tab đã ghim (nếu bật)   |  Có   |   Có   |      Có      |    Có     |
+| Danh sách trắng         |  Có   |   Có   |      Có      |    Có     |
 | Đang phát âm thanh      |  Có   |   Có   |      Có      |    Có     |
-| Form chưa lưu           |  Có   |   Có   |      Có      |    Có     |
-| Bỏ qua khi offline      |  Có   |   Có   |      Có      |    Có     |
-| Chỉ khi idle            |  Có   | Không  |    Không     |   Không   |
+| Biểu mẫu chưa lưu       |  Có   |   Có   |      Có      |    Có     |
+| Bỏ qua khi ngoại tuyến  |  Có   |   Có   |      Có      |    Có     |
+| Chỉ khi không hoạt động |  Có   | Không  |    Không     |   Không   |
 | Ngưỡng số tab tối thiểu |  Có   | Không  |    Không     |   Không   |
 
-**Ghi chú:** Idle-only và Min tabs threshold chỉ áp dụng cho Timer:
+**Ghi chú:** Chế độ chỉ chạy khi người dùng không hoạt động và ngưỡng số tab tối thiểu chỉ áp dụng cho bộ hẹn giờ:
 
-| Bảo vệ            | Tại sao chỉ Timer?                                                            |
+| Bảo vệ | Tại sao chỉ áp dụng cho bộ hẹn giờ? |
 | ----------------- | ----------------------------------------------------------------------------- |
-| **Chỉ khi idle**  | Memory là trường hợp khẩn cấp - đợi idle có thể gây treo hệ thống nếu RAM đầy |
-| **Ngưỡng số tab** | Memory pressure cần giải phóng ngay, không quan tâm số lượng tab              |
+| **Chỉ khi không hoạt động** | Thiếu bộ nhớ là tình huống khẩn cấp; chờ người dùng ngừng hoạt động có thể làm treo máy nếu RAM đầy |
+| **Ngưỡng số tab** | Áp lực bộ nhớ cần được xử lý ngay, bất kể số tab |
 
-Timer = tiện lợi (không gấp), Memory/Heap = khẩn cấp (cần xử lý ngay để tránh crash).
+Bộ hẹn giờ phục vụ sự tiện lợi, còn bộ nhớ/vùng nhớ là tình huống khẩn cấp cần xử lý ngay để tránh sự cố.
 
-**Ghi chú:** Tạm dừng toàn cục được kiểm tra trước tất cả trigger ở trên và chặn cả 4 trigger cùng
-lúc - đây không phải bảo vệ theo từng tab như các mục còn lại. Nó không bao giờ ảnh hưởng đến các
-thao tác unload thủ công (Unload Current/Others/Left/Right, context menu, phím tắt, click toolbar).
+**Ghi chú:** Tạm dừng toàn cục được kiểm tra trước mọi tác nhân ở trên và chặn cả bốn tác nhân cùng
+lúc. Đây không phải cơ chế bảo vệ từng tab. Nó không ảnh hưởng đến thao tác giải phóng thủ công
+(tab hiện tại/tab khác/bên trái/bên phải, trình đơn chuột phải, phím tắt hoặc nhấp thanh công cụ).
 
-## Thứ Tự Ưu Tiên Bảo Vệ
+## Thứ tự ưu tiên bảo vệ
 
 ```
 0. GHI ĐÈ TOÀN CỤC (kiểm tra đầu tiên, chặn mọi trigger)
    - Đang tạm dừng toàn cục (pause-manager.isPaused())
 
-1. TUYỆT ĐỐI (không bao giờ unload)
-   - Tab đang active
-   - Đã discarded
+1. TUYỆT ĐỐI (không bao giờ giải phóng)
+   - Tab đang hoạt động
+   - Tab đã giải phóng
 
 2. BẢO VỆ RÕ RÀNG TỪ USER
-   - Tab/domain đang snooze
+   - Tab/miền đang tạm hoãn
 
 3. BẢO VỆ DỮ LIỆU
-   - Form chưa lưu
-   - Chế độ offline (tab không thể reload)
+   - Biểu mẫu chưa lưu
+   - Chế độ ngoại tuyến (tab không thể tải lại)
 
 4. BẢO VỆ TRẢI NGHIỆM
    - Đang phát âm thanh
-   - Domain trong whitelist
-   - Tab pinned
+   - Miền trong danh sách trắng
+   - Tab đã ghim
 
-5. CÓ ĐIỀU KIỆN (chỉ Timer)
+5. CÓ ĐIỀU KIỆN (chỉ bộ hẹn giờ)
    - Kiểm tra idle-only
    - Ngưỡng số tab tối thiểu
 ```
 
-## Luồng Quyết Định
+## Luồng quyết định
 
 ```
-Trigger đến (Timer/Memory/Heap/Blacklist)
+Tác nhân đến (Bộ hẹn giờ/Bộ nhớ/Vùng nhớ/Danh sách đen)
                 │
                 ▼
 ┌───────────────────────────────┐
@@ -81,61 +81,61 @@ Trigger đến (Timer/Memory/Heap/Blacklist)
                 ▼
 ┌───────────────────────────────┐
 │ KIỂM TRA TUYỆT ĐỐI (tất cả)   │
-│ • Active? → BỎ QUA            │
-│ • Discarded? → BỎ QUA         │
-│ • Snoozed? → BỎ QUA           │
+│ • Đang hoạt động? → BỎ QUA    │
+│ • Đã giải phóng? → BỎ QUA     │
+│ • Đang tạm hoãn? → BỎ QUA     │
 └───────────────────────────────┘
                 │
                 ▼
 ┌───────────────────────────────┐
 │ BẢO VỆ DỮ LIỆU (tất cả)       │
-│ • Form chưa lưu? → BỎ QUA     │
-│ • Offline? → BỎ QUA           │
+│ • Biểu mẫu chưa lưu? → BỎ QUA │
+│ • Ngoại tuyến? → BỎ QUA       │
 └───────────────────────────────┘
                 │
                 ▼
 ┌───────────────────────────────┐
 │ TRẢI NGHIỆM (tất cả)          │
-│ • Đang phát audio? → BỎ QUA   │
-│ • Trong whitelist? → BỎ QUA   │
-│ • Pinned (bảo vệ)? → BỎ QUA   │
+│ • Đang phát âm thanh? → BỎ QUA│
+│ • Trong danh sách trắng? → BỎ QUA│
+│ • Đã ghim (bảo vệ)? → BỎ QUA  │
 └───────────────────────────────┘
                 │
                 ▼
 ┌───────────────────────────────┐
-│ CÓ ĐIỀU KIỆN (chỉ Timer)      │
+│ CÓ ĐIỀU KIỆN (chỉ bộ hẹn giờ) │
 │ • User không idle? → BỎ QUA   │
 │ • Dưới minTabs? → BỎ QUA      │
 └───────────────────────────────┘
                 │
                 ▼
-          ✓ UNLOAD TAB
+          ✓ GIẢI PHÓNG TAB
 ```
 
-## Chế Độ Power
+## Chế độ năng lượng
 
-| Chế độ        | Hệ số delay            | Offset ngưỡng Memory   |
+| Chế độ | Hệ số thời gian | Mức điều chỉnh ngưỡng bộ nhớ |
 | ------------- | ---------------------- | ---------------------- |
 | Battery Saver | 0.5x (tích cực hơn)    | -10% (ngưỡng thấp hơn) |
 | Normal        | 1.0x                   | 0%                     |
 | Performance   | 2.0x (ít tích cực hơn) | +10% (ngưỡng cao hơn)  |
 
-## Cùng Tồn Tại Với Chrome Memory Saver
+## Cùng tồn tại với Chrome Memory Saver
 
-Chrome có sẵn cơ chế discard tab riêng (Memory Saver, `chrome://settings/performance`, từ Chrome 108). Cơ chế này chạy ở tầng trình duyệt và **không** tham khảo bất kỳ extension nào, kể cả TabRest.
+Từ Chrome 108, trình duyệt có cơ chế giải phóng tab riêng mang tên Memory Saver tại `chrome://settings/performance`. Cơ chế này chạy ở tầng trình duyệt và **không** tham khảo bất kỳ tiện ích nào, kể cả TabRest.
 
 ### Điều này nghĩa là gì trong thực tế
 
-- Whitelist và snooze là cờ của TabRest lưu trong `chrome.storage`. Chúng ngăn **TabRest** discard một tab. Chúng **không** ngăn được **Chrome Memory Saver** discard cùng tab đó.
-- Chrome Memory Saver chỉ tôn trọng các điều kiện riêng của nó: tab đang phát audio, đang dùng camera/mic, có form chưa lưu, đã pin, hoặc nằm trong danh sách "Always keep these sites active" của Chrome.
-- Không có Chrome Extension API nào cho phép loại trừ một tab khỏi Memory Saver.
+- Danh sách trắng và trạng thái tạm hoãn của TabRest được lưu trong `chrome.storage`. Chúng ngăn **TabRest** giải phóng tab nhưng **không** ngăn Chrome Memory Saver giải phóng.
+- Chrome Memory Saver chỉ tôn trọng điều kiện riêng: tab đang phát âm thanh, dùng máy ảnh/micrô, có biểu mẫu chưa lưu, đã ghim hoặc nằm trong danh sách **Luôn duy trì hoạt động cho các trang web này** của Chrome.
+- Không có API tiện ích Chrome nào cho phép loại trừ tab khỏi Memory Saver.
 
-### Các thiết lập khuyến nghị cho user
+### Thiết lập khuyến nghị
 
 | Thiết lập                                                                                                                | Đánh đổi                                                             |
 | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
 | Tắt Chrome Memory Saver, chỉ dùng TabRest                                                                                | Hành vi sạch nhất; toàn quyền kiểm soát qua cài đặt TabRest          |
-| Giữ Chrome Memory Saver bật VÀ duplicate các domain quan trọng vào danh sách "Always keep these sites active" của Chrome | Hai hệ thống cùng chạy; user phải duy trì hai danh sách              |
-| Giữ Chrome Memory Saver bật mà không duplicate                                                                           | Whitelist/snooze trông như "hỏng" với những tab Chrome quyết discard |
+| Giữ Chrome Memory Saver và thêm lại các miền quan trọng vào danh sách **Luôn duy trì hoạt động cho các trang web này** của Chrome | Hai hệ thống cùng chạy; người dùng phải duy trì hai danh sách |
+| Giữ Chrome Memory Saver mà không thêm danh sách tương ứng | Danh sách trắng/tạm hoãn có vẻ "không hoạt động" với tab do Chrome giải phóng |
 
 Đây là giới hạn của nền tảng Chrome, không phải giới hạn của TabRest.

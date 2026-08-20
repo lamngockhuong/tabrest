@@ -7,7 +7,7 @@ section: features
 
 # Nhóm tab
 
-TabRest tích hợp với tính năng nhóm tab native của Chrome, cho phép bạn giải phóng toàn bộ nhóm cùng lúc.
+TabRest tích hợp với tính năng nhóm tab có sẵn của Chrome, cho phép bạn giải phóng cả nhóm cùng lúc.
 
 ## Nhóm tab là gì?
 
@@ -26,9 +26,9 @@ Nhóm tab là tính năng Chrome (thêm từ Chrome 88) cho phép bạn tổ ch�
 
 ## Giải phóng nhóm tab
 
-TabRest thêm giải phóng theo nhóm vào popup:
+TabRest cho phép giải phóng theo nhóm ngay trong cửa sổ:
 
-### Từ Popup
+### Từ cửa sổ TabRest
 
 1. Nhấn **biểu tượng TabRest** trên thanh công cụ
 2. Cuộn đến phần **Nhóm tab**
@@ -36,7 +36,7 @@ TabRest thêm giải phóng theo nhóm vào popup:
 4. Tất cả tab trong nhóm sẽ được giải phóng
 
 **Chỉ báo trực quan**:
-- Tên và màu nhóm hiển thị trong popup
+- Tên và màu nhóm hiển thị trong cửa sổ TabRest
 - Số tab trong mỗi nhóm được hiển thị
 - Tab đã giải phóng đánh dấu bằng biểu tượng 💤
 
@@ -47,11 +47,11 @@ Ngay cả khi giải phóng nhóm, bảo vệ tab riêng lẻ vẫn áp dụng:
 | Loại tab | Hành vi |
 |----------|---------|
 | **Tab ghim** | Được bảo vệ (nếu "Giải phóng tab ghim" bị tắt) |
-| **Tab audio** | Được bảo vệ (nếu "Bảo vệ tab audio" được bật) |
-| **Tab form** | Được bảo vệ (nếu "Bảo vệ tab form" được bật) |
+| **Tab đang phát âm thanh** | Được bảo vệ (nếu bật bảo vệ tab âm thanh) |
+| **Tab có biểu mẫu** | Được bảo vệ (nếu bật "Bảo vệ tab có biểu mẫu") |
 | **Danh sách trắng** | Được bảo vệ (luôn luôn) |
 
-**Ví dụ**: Nếu bạn giải phóng nhóm có 10 tab, nhưng 2 tab có form chưa lưu, chỉ 8 tab sẽ được giải phóng.
+**Ví dụ**: Nếu bạn giải phóng một nhóm gồm 10 tab, nhưng 2 tab có biểu mẫu chưa lưu, chỉ 8 tab được giải phóng.
 
 ## Giải phóng tự động
 
@@ -59,7 +59,7 @@ Giải phóng tự động của TabRest (dựa trên thời gian và ngưỡng 
 
 **Không có bảo vệ nhóm đặc biệt**: Nhóm tab không ngăn giải phóng tự động. Nếu bạn muốn bảo vệ một nhóm:
 
-1. Thêm domain nhóm vào danh sách trắng
+1. Thêm tên miền của nhóm vào danh sách trắng
 2. Ghim tab trong nhóm
 3. Giữ tab hoạt động (tương tác thường xuyên)
 
@@ -68,8 +68,8 @@ Giải phóng tự động của TabRest (dựa trên thời gian và ngưỡng 
 TabRest có công tắc cho tính năng nhóm tab:
 
 **Bật nhóm tab** (mặc định: bật):
-- Khi bật: Phần Nhóm tab hiển thị trong popup
-- Khi tắt: Nhóm ẩn khỏi popup, nhưng giải phóng tự động vẫn hoạt động
+- Khi bật: Mục Nhóm tab xuất hiện trong cửa sổ TabRest
+- Khi tắt: Mục này bị ẩn, nhưng tính năng giải phóng tự động vẫn hoạt động
 
 **Để tắt**:
 1. Mở trang Cài đặt
@@ -97,16 +97,16 @@ Sử dụng nhóm như phiên tạm thời:
 3. Khi xong, giải phóng toàn bộ nhóm
 4. Giữ tab được nhóm cho sau
 
-Tốt hơn bookmark vì:
+Tiện hơn dấu trang vì:
 - Tab vẫn mở (chỉ giải phóng)
 - Khôi phục nhanh hơn
-- Giữ nguyên vị trí cuộn và dữ liệu form
+- Giữ nguyên vị trí cuộn và dữ liệu biểu mẫu
 
 ### Quản lý bộ nhớ
 
 Xác định nhóm ngốn bộ nhớ:
 
-1. Tạo nhóm cho trang ngốn bộ nhớ (vd: video, công cụ thiết kế)
+1. Tạo nhóm cho trang ngốn bộ nhớ (ví dụ: trang xem phim, công cụ thiết kế)
 2. Giải phóng nhóm khi không dùng tích cực
 3. Tải lại khi cần
 
@@ -135,10 +135,10 @@ Gán màu theo ưu tiên hoặc danh mục:
 
 ### Kết hợp với danh sách trắng
 
-Với nhóm quan trọng, thêm domain vào danh sách trắng:
+Với nhóm quan trọng, hãy thêm tên miền vào danh sách trắng:
 
 1. Xác định tab trong nhóm
-2. Thêm domain vào danh sách trắng
+2. Thêm tên miền vào danh sách trắng
 3. Nhóm vẫn được tải tự động
 
 ## Hạn chế
@@ -180,7 +180,7 @@ TabRest không cung cấp phím tắt cho thao tác nhóm. Dùng phím tắt tí
 
 ## Xử lý sự cố
 
-### Nhóm không hiển thị trong Popup
+### Nhóm không hiển thị trong cửa sổ TabRest
 
 **Vấn đề**: Phần Nhóm tab trống.
 
@@ -194,7 +194,7 @@ TabRest không cung cấp phím tắt cho thao tác nhóm. Dùng phím tắt tí
 **Vấn đề**: Nhấn tên nhóm không có tác dụng.
 
 **Giải pháp**:
-1. **Kiểm tra bảo vệ tab**: Một số tab có thể được bảo vệ (ghim, audio, danh sách trắng)
+1. **Kiểm tra bảo vệ tab**: Một số tab có thể được bảo vệ (đã ghim, đang phát âm thanh hoặc thuộc danh sách trắng)
 2. **Xác minh tab hoạt động**: Bạn không thể giải phóng tab đang hoạt động
 3. **Kiểm tra phiên bản Chrome**: Yêu cầu Chrome 88+
 
@@ -215,4 +215,4 @@ Cải tiến dự kiến cho nhóm tab:
 - Hẹn giờ giải phóng riêng cho từng nhóm
 - Export/import cấu hình nhóm
 
-Xem [GitHub repository](https://github.com/lamngockhuong/tabrest) để yêu cầu tính năng.
+Truy cập [kho mã nguồn GitHub](https://github.com/lamngockhuong/tabrest) để đề xuất tính năng.

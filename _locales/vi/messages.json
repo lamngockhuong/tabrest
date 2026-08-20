@@ -1,9 +1,9 @@
 {
   "extName": {
-    "message": "TabRest - Rest your tabs, free your RAM"
+    "message": "TabRest - Cho tab nghỉ ngơi, giải phóng RAM"
   },
   "extDescription": {
-    "message": "Cho tab nghỉ ngơi, giải phóng bộ nhớ - tự động dỡ các tab không hoạt động"
+    "message": "Cho tab nghỉ ngơi, giải phóng bộ nhớ - tự động giải phóng tab không hoạt động"
   },
   "sleeping": {
     "message": "đang ngủ"
@@ -15,10 +15,10 @@
     "message": "đã tiết kiệm"
   },
   "unloadOthers": {
-    "message": "Dỡ tab khác"
+    "message": "Giải phóng các tab khác"
   },
   "unloadCurrent": {
-    "message": "Dỡ tab hiện tại"
+    "message": "Giải phóng tab hiện tại"
   },
   "tabsInWindow": {
     "message": "Tab trong cửa sổ này"
@@ -36,7 +36,7 @@
     "message": "Thao tác khác"
   },
   "autoUnloadAfter": {
-    "message": "Tự động dỡ sau"
+    "message": "Tự động giải phóng sau"
   },
   "ramThreshold": {
     "message": "Ngưỡng RAM"
@@ -60,10 +60,10 @@
     "message": "Tổng cộng"
   },
   "tabsUnloadedToday": {
-    "message": "Tab đã dỡ hôm nay"
+    "message": "Tab đã giải phóng hôm nay"
   },
   "tabsUnloadedTotal": {
-    "message": "Tổng tab đã dỡ"
+    "message": "Tổng số tab đã giải phóng"
   },
   "ramSaved": {
     "message": "RAM tiết kiệm (ước tính)"
@@ -87,10 +87,10 @@
     "message": "Đã xóa phiên"
   },
   "tabUnloaded": {
-    "message": "Đã dỡ tab"
+    "message": "Đã giải phóng tab"
   },
   "tabsUnloaded": {
-    "message": "Đã dỡ $1 tab",
+    "message": "Đã giải phóng $1 tab",
     "placeholders": { "1": { "content": "$1" } }
   },
   "restoredTabs": {
@@ -101,7 +101,7 @@
     "message": "Đã làm mới"
   },
   "copyTabListTooltip": {
-    "message": "Sao chép danh sách tab vào clipboard"
+    "message": "Sao chép danh sách tab vào bộ nhớ tạm"
   },
   "tabListCopied": {
     "message": "Đã sao chép danh sách tab"
@@ -131,7 +131,7 @@
     "message": "Có"
   },
   "cannotUnloadActive": {
-    "message": "Không thể dỡ tab đang hoạt động"
+    "message": "Không thể giải phóng tab đang hoạt động"
   },
   "failedToSave": {
     "message": "Lưu thất bại"
@@ -155,22 +155,22 @@
     "message": "Hành vi thông minh"
   },
   "behaviorIndicators": {
-    "message": "Hiển thị & thông báo"
+    "message": "Hiển thị và thông báo"
   },
   "autoUnload": {
-    "message": "Tự động dỡ"
+    "message": "Tự động giải phóng"
   },
   "unloadOnStartup": {
-    "message": "Dỡ tab khi khởi động trình duyệt"
+    "message": "Giải phóng tab khi khởi động trình duyệt"
   },
   "unloadInactiveAfter": {
-    "message": "Dỡ tab không hoạt động sau:"
+    "message": "Giải phóng tab không hoạt động sau:"
   },
   "memoryManagement": {
     "message": "Quản lý bộ nhớ"
   },
   "unloadWhenRamExceeds": {
-    "message": "Dỡ tab khi RAM vượt quá:"
+    "message": "Giải phóng tab khi RAM vượt quá:"
   },
   "behavior": {
     "message": "Hành vi"
@@ -179,7 +179,7 @@
     "message": "Bao gồm tab đã ghim"
   },
   "showUnloadedCount": {
-    "message": "Hiện số lượng tab đã dỡ trên icon"
+    "message": "Hiện số tab đã giải phóng trên biểu tượng"
   },
   "trackStatistics": {
     "message": "Theo dõi thống kê"
@@ -194,16 +194,16 @@
     "message": "Danh sách trắng"
   },
   "whitelistHelp": {
-    "message": "Các trang sẽ không bao giờ bị dỡ tự động"
+    "message": "Các trang không bao giờ bị tự động giải phóng"
   },
   "neverUnloadSite": {
-    "message": "Không dỡ"
+    "message": "Không giải phóng"
   },
   "whitelistedClickRemove": {
     "message": "Đã bảo vệ"
   },
   "whitelistedStatus": {
-    "message": "Đã bảo vệ - sẽ không bị dỡ"
+    "message": "Đã bảo vệ - sẽ không bị giải phóng"
   },
   "activeStatus": {
     "message": "Đang hoạt động"
@@ -215,7 +215,7 @@
     "message": "Đã xóa khỏi danh sách trắng"
   },
   "memorySaverNoteBody": {
-    "message": "Tính năng Memory Saver tích hợp của Chrome chạy độc lập và vẫn có thể dỡ các trang này."
+    "message": "Trình tiết kiệm bộ nhớ tích hợp của Chrome hoạt động riêng và vẫn có thể giải phóng các trang này."
   },
   "learnMoreLink": {
     "message": "Tìm hiểu thêm"
@@ -230,7 +230,7 @@
     "message": "Thống kê"
   },
   "tabsUnloadedLabel": {
-    "message": "Tab đã dỡ"
+    "message": "Tab đã giải phóng"
   },
   "memorySavedLabel": {
     "message": "Bộ nhớ đã tiết kiệm"
@@ -273,19 +273,19 @@
     "message": "Đã đặt lại thống kê"
   },
   "unloadRight": {
-    "message": "Dỡ tab bên phải"
+    "message": "Giải phóng tab bên phải"
   },
   "unloadLeft": {
-    "message": "Dỡ tab bên trái"
+    "message": "Giải phóng tab bên trái"
   },
   "blacklist": {
     "message": "Danh sách đen"
   },
   "blacklistHelp": {
-    "message": "Các trang sẽ luôn bị dỡ tự động (kể cả khi mới hoạt động)"
+    "message": "Các trang luôn bị tự động giải phóng (kể cả khi vừa hoạt động)"
   },
   "enableTabGroups": {
-    "message": "Hiển thị nhóm tab trong popup"
+    "message": "Hiện nhóm tab trong cửa sổ bật lên"
   },
   "tabGroups": {
     "message": "Nhóm tab"
@@ -294,7 +294,7 @@
     "message": "Chọn nhóm tab..."
   },
   "unloadGroup": {
-    "message": "Dỡ nhóm"
+    "message": "Giải phóng nhóm"
   },
   "untitledTabGroup": {
     "message": "Nhóm $ID$",
@@ -306,19 +306,19 @@
     }
   },
   "showDiscardedPrefix": {
-    "message": "Thêm ký hiệu vào tab đã dỡ"
+    "message": "Thêm ký hiệu vào tab đã giải phóng"
   },
   "discardedPrefixLabel": {
     "message": "Ký hiệu:"
   },
   "prefixHelp": {
-    "message": "Cần quyền truy cập website. Không hoạt động trên các trang được bảo vệ (Chrome Web Store, tài khoản Google, v.v.)"
+    "message": "Cần quyền truy cập trang web. Không hoạt động trên các trang được bảo vệ (Chrome Web Store, tài khoản Google, v.v.)"
   },
   "prefixPermDenied": {
-    "message": "Tiền tố tab cần quyền truy cập website. Đã bỏ qua."
+    "message": "Tiền tố tab cần quyền truy cập trang web. Thay đổi này đã bị bỏ qua."
   },
   "minTabsLabel": {
-    "message": "Chỉ tự động dỡ khi số tab không hoạt động vượt quá:"
+    "message": "Chỉ tự động giải phóng khi số tab không hoạt động vượt quá:"
   },
   "toolbarAction": {
     "message": "Thao tác thanh công cụ"
@@ -327,19 +327,19 @@
     "message": "Khi nhấp vào biểu tượng tiện ích:"
   },
   "actionOpenPopup": {
-    "message": "Mở popup"
+    "message": "Mở cửa sổ bật lên"
   },
   "actionDiscardCurrent": {
-    "message": "Dỡ tab hiện tại"
+    "message": "Giải phóng tab hiện tại"
   },
   "actionDiscardOthers": {
-    "message": "Dỡ các tab khác"
+    "message": "Giải phóng các tab khác"
   },
   "useSidePanel": {
-    "message": "Mở trong side panel thay vì popup"
+    "message": "Mở trong bảng bên thay vì cửa sổ bật lên"
   },
   "useSidePanelHelp": {
-    "message": "Side panel giữ mở khi chuyển tab. Yêu cầu Chrome 114+."
+    "message": "Bảng bên vẫn mở khi bạn chuyển tab. Yêu cầu Chrome 114 trở lên."
   },
   "saveYouTubeTimestamp": {
     "message": "Lưu vị trí phát YouTube"
@@ -348,13 +348,13 @@
     "message": "Tiếp tục video từ vị trí đã lưu khi tab tải lại"
   },
   "onlyDiscardWhenIdle": {
-    "message": "Chỉ tự động dỡ khi máy tính không hoạt động"
+    "message": "Chỉ tự động giải phóng khi máy tính ở trạng thái rảnh"
   },
   "idleThreshold": {
     "message": "Ngưỡng không hoạt động:"
   },
   "perTabMemoryLabel": {
-    "message": "Dỡ tab sử dụng hơn (JS heap):"
+    "message": "Giải phóng tab dùng nhiều hơn mức sau (vùng nhớ JavaScript):"
   },
   "perTabMemoryHelp": {
     "message": "Chỉ đo bộ nhớ JavaScript, không phải tổng bộ nhớ tab"
@@ -363,7 +363,7 @@
     "message": "Chế độ nguồn"
   },
   "powerModeHelp": {
-    "message": "Điều chỉnh mức độ tích cực dựa trên tình trạng nguồn điện"
+    "message": "Điều chỉnh mức giải phóng theo tình trạng nguồn điện"
   },
   "batterySaver": {
     "message": "Tiết kiệm pin"
@@ -384,10 +384,10 @@
     "message": "Ít tích cực hơn, giữ tab lâu hơn"
   },
   "skipWhenOffline": {
-    "message": "Bỏ qua khi offline"
+    "message": "Bỏ qua khi mất mạng"
   },
   "skipWhenOfflineHelp": {
-    "message": "Không tự động ngủ tab khi mất kết nối mạng"
+    "message": "Không tự động giải phóng tab khi mất kết nối mạng"
   },
   "restoreScrollPosition": {
     "message": "Khôi phục vị trí cuộn"
@@ -414,10 +414,10 @@
     "message": "Tạm hoãn trang web (1 giờ)"
   },
   "openLinkSuspended": {
-    "message": "Mở link ở trạng thái ngủ"
+    "message": "Mở liên kết trong tab đã giải phóng"
   },
   "notifyOnAutoUnload": {
-    "message": "Thông báo khi tab bị tự động ngủ"
+    "message": "Thông báo khi tab được tự động giải phóng"
   },
   "notifyOnAutoUnloadHelp": {
     "message": "Hiển thị thông báo với lý do (hết thời gian/RAM)"
@@ -432,22 +432,22 @@
     "message": "Có gì sai?"
   },
   "debugInfoAttached": {
-    "message": "Thông tin debug sẽ được đính kèm"
+    "message": "Thông tin chẩn đoán sẽ được đính kèm"
   },
   "copyForGithub": {
-    "message": "Sao chép & Mở GitHub"
+    "message": "Sao chép và mở GitHub"
   },
   "copiedToClipboard": {
-    "message": "Đã sao chép! Dán vào GitHub issue."
+    "message": "Đã sao chép! Hãy dán vào issue trên GitHub."
   },
   "supportFeedback": {
-    "message": "Hỗ trợ & Phản hồi"
+    "message": "Hỗ trợ và phản hồi"
   },
   "enableErrorReporting": {
     "message": "Gửi báo lỗi ẩn danh"
   },
   "errorReportingHelp": {
-    "message": "Tự động báo cáo crash để cải thiện TabRest. Không thu thập dữ liệu cá nhân."
+    "message": "Tự động báo cáo sự cố để cải thiện TabRest. Không thu thập dữ liệu cá nhân."
   },
   "reportIssue": {
     "message": "Báo lỗi"
@@ -477,28 +477,28 @@
     "message": "Ước tính dựa trên ~150 MB mỗi tab. Mức tiết kiệm thực tế thay đổi theo nội dung trang."
   },
   "formProtectPermDenied": {
-    "message": "Bảo vệ form cần quyền truy cập website. Đã bỏ qua."
+    "message": "Tính năng bảo vệ biểu mẫu cần quyền truy cập trang web. Thay đổi này đã bị bỏ qua."
   },
   "formPermBannerText": {
-    "message": "Quyền truy cập website đã bị đặt lại. Bật để khôi phục các tuỳ chọn liên quan."
+    "message": "Quyền truy cập trang web đã bị đặt lại. Hãy bật quyền để khôi phục các tùy chọn liên quan."
   },
   "enable": {
     "message": "Bật"
   },
   "formPermGranted": {
-    "message": "Đã khôi phục tuỳ chọn"
+    "message": "Đã khôi phục tùy chọn"
   },
   "showSuspendWarningLabel": {
-    "message": "Hiển thị cảnh báo trước khi tự động tạm dừng"
+    "message": "Hiển thị cảnh báo trước khi tự động giải phóng tab"
   },
   "showSuspendWarningHelp": {
-    "message": "Hiện toast ngắn trên trang để bạn có thể tương tác và giữ tab"
+    "message": "Hiện cảnh báo ngắn trên trang để bạn có thể tương tác và giữ tab hoạt động"
   },
   "suspendWarningDelayLabel": {
     "message": "Thời gian cảnh báo:"
   },
   "suspendWarningMessage": {
-    "message": "TabRest sắp tạm dừng tab này để giải phóng bộ nhớ…"
+    "message": "TabRest sắp giải phóng tab này để thu hồi bộ nhớ…"
   },
   "exportList": {
     "message": "Xuất"
@@ -513,7 +513,7 @@
     "message": "Nhập phiên"
   },
   "exportedToClipboard": {
-    "message": "Đã sao chép vào clipboard"
+    "message": "Đã sao chép vào bộ nhớ tạm"
   },
   "exportFailed": {
     "message": "Xuất thất bại"
@@ -541,7 +541,7 @@
     "message": "Nhập thất bại: sai loại danh sách"
   },
   "privacyDiagnosticsHeader": {
-    "message": "Quyền riêng tư & Chẩn đoán"
+    "message": "Quyền riêng tư và chẩn đoán"
   },
   "errorReportingHint": {
     "message": "Giúp cải thiện TabRest bằng cách gửi báo cáo lỗi ẩn danh. Tắt mặc định. Không gửi URL, tiêu đề trang hay dữ liệu cá nhân."
@@ -623,7 +623,7 @@
     "message": "Chào mừng đến với TabRest"
   },
   "obWelcomeBody": {
-    "message": "Cài đặt nhanh giúp TabRest chạy hợp với cách bạn duyệt web. Bạn có thể đổi mọi tuỳ chọn trong Cài đặt sau."
+    "message": "Cài đặt nhanh giúp TabRest chạy hợp với cách bạn duyệt web. Bạn có thể đổi mọi tùy chọn trong phần Cài đặt sau."
   },
   "obWelcomeStart": {
     "message": "Bắt đầu thôi"
@@ -677,7 +677,7 @@
     "message": "Ghim TabRest lên thanh công cụ"
   },
   "obPinDesc": {
-    "message": "Bấm biểu tượng puzzle ở góc phải trên trình duyệt rồi ghim TabRest để truy cập nhanh."
+    "message": "Bấm biểu tượng mảnh ghép ở góc trên bên phải trình duyệt, rồi ghim TabRest để truy cập nhanh."
   },
   "obPinnedTitle": {
     "message": "Đã ghim!"
@@ -731,13 +731,13 @@
     }
   },
   "showFaviconIndicator": {
-    "message": "Đánh dấu tab đã dỡ bằng vòng tròn trên biểu tượng"
+    "message": "Đánh dấu tab đã giải phóng bằng vòng nét đứt trên biểu tượng"
   },
   "faviconIndicatorHelp": {
-    "message": "Thêm vòng tròn nét đứt vào biểu tượng của tab khi tab được dỡ, giúp bạn nhận ra tab đã dỡ ngay cả khi nhiều tab làm ẩn tiêu đề. Yêu cầu quyền truy cập trang web."
+    "message": "Thêm vòng nét đứt quanh biểu tượng của tab đã giải phóng, giúp bạn dễ nhận ra tab ngay cả khi mở quá nhiều tab khiến tiêu đề bị ẩn. Cần quyền truy cập trang web."
   },
   "faviconPermDenied": {
-    "message": "Chỉ báo trên biểu tượng cần quyền truy cập trang web. Đã bỏ qua."
+    "message": "Chỉ báo trên biểu tượng cần quyền truy cập trang web. Thay đổi này đã bị bỏ qua."
   },
   "pause": {
     "message": "Tạm dừng"
@@ -746,13 +746,13 @@
     "message": "Tiếp tục"
   },
   "pauseActiveTitle": {
-    "message": "Tự động dỡ tab đang bật"
+    "message": "Đang tự động giải phóng tab"
   },
   "pauseActiveSubtitle": {
-    "message": "Tab được dỡ tự động"
+    "message": "Tab sẽ tự động được giải phóng"
   },
   "pausePausedTitle": {
-    "message": "Đã tạm dừng tự động dỡ tab"
+    "message": "Đã tạm dừng tự động giải phóng tab"
   },
   "pauseUntilResume": {
     "message": "Đến khi bật lại"
@@ -764,9 +764,9 @@
     }
   },
   "pausedToast": {
-    "message": "Đã tạm dừng tự động dỡ tab"
+    "message": "Đã tạm dừng tự động giải phóng tab"
   },
   "resumedToast": {
-    "message": "Đã bật lại tự động dỡ tab"
+    "message": "Đã tiếp tục tự động giải phóng tab"
   }
 }

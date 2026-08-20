@@ -1,265 +1,275 @@
 ---
-title: Chính sách bảo mật
-description: Chính sách bảo mật và thực hành xử lý dữ liệu của TabRest
+title: Chính sách quyền riêng tư
+description: Chính sách quyền riêng tư và cách TabRest xử lý dữ liệu
 order: 8
 section: reference
 ---
 
-# Chính sách bảo mật
+# Chính sách quyền riêng tư
 
 **Cập nhật lần cuối**: Ngày 29 tháng 4 năm 2026
 
-TabRest cam kết bảo vệ quyền riêng tư của bạn. Chính sách này giải thích dữ liệu chúng tôi thu thập (hoặc không thu thập) và cách sử dụng.
+TabRest cam kết bảo vệ quyền riêng tư của bạn. Chính sách này giải thích những dữ liệu chúng tôi có (hoặc không) thu thập và cách chúng được sử dụng.
 
 ## Tóm tắt
 
 - ✅ **Mặc định không thu thập dữ liệu cá nhân**
-- ✅ **Mặc định không có yêu cầu mạng - tất cả dữ liệu ở trên thiết bị của bạn**
-- ✅ **Không bao giờ có behavioral tracking, analytics, hoặc telemetry sử dụng**
-- ✅ **Báo cáo crash ẩn danh hoàn toàn opt-in (TẮT mặc định, xem [Báo cáo lỗi](#error-reporting))**
-- ✅ **Mã nguồn mở và có thể kiểm tra**
+- ✅ **Mặc định không gửi yêu cầu qua mạng - mọi dữ liệu đều nằm trên thiết bị của bạn**
+- ✅ **Không bao giờ theo dõi, phân tích hay ghi nhận hành vi sử dụng**
+- ✅ **Bạn phải chủ động chọn bật báo cáo sự cố ẩn danh (mặc định TẮT, xem [Báo cáo lỗi](#error-reporting))**
+- ✅ **Mã nguồn mở, ai cũng có thể kiểm tra**
 
 ## Thu thập dữ liệu
 
-TabRest tách biệt hành vi thành hai chế độ. Mặc định, tiện ích chạy hoàn toàn cục bộ. Một tính năng - báo cáo crash ẩn danh - là opt-in và chỉ gửi payload đã làm sạch tới Sentry sau khi bạn chủ động bật.
+TabRest hoạt động theo hai chế độ tách biệt. Mặc định, tiện ích chạy hoàn toàn trên thiết bị. Tính năng báo cáo sự cố ẩn danh chỉ gửi một gói dữ liệu đã được làm sạch đến Sentry sau khi bạn chủ động bật.
 
-### Chúng tôi thu thập gì
+### Dữ liệu chúng tôi thu thập
 
-| Loại dữ liệu | Mặc định (out of the box) | Nếu bạn bật báo cáo lỗi |
+| Loại dữ liệu | Mặc định (ngay sau khi cài đặt) | Khi bạn chọn bật báo cáo lỗi |
 | --- | --- | --- |
-| Lịch sử duyệt web (URL bạn truy cập) | ❌ Không bao giờ | ❌ Không bao giờ (URL trong stack trace bị thay bằng `[REDACTED]` ngay client) |
-| Nội dung trang, tiêu đề, dữ liệu form | ❌ Không bao giờ | ❌ Không bao giờ |
-| Thông tin cá nhân (tên, email, IP) | ❌ Không bao giờ | ❌ Email/IP redact ngay client; payload Sentry đặt `user.ip_address: null` |
-| Analytics / behavioral telemetry | ❌ Không bao giờ | ❌ Không bao giờ (không có page-view, click, hay feature-use tracking) |
-| Báo cáo crash | ❌ Không bao giờ | ✅ Tên lỗi, message, stack trace đã làm sạch |
-| Thông tin thiết bị/môi trường | ❌ Không bao giờ | ✅ Phiên bản extension, browser + OS string |
-| Bộ đếm tổng hợp | ❌ Không bao giờ | ✅ Tab counts (tổng/discarded/pinned/audible), RAM stats, settings, ngày cài đặt |
-| Nội dung whitelist / blacklist | ❌ Không bao giờ | ❌ Loại trừ - chỉ gửi số lượng entry |
+| Lịch sử duyệt web (các URL bạn truy cập) | ❌ Không bao giờ thu thập | ❌ Không bao giờ thu thập (URL trong dấu vết ngăn xếp được thay bằng `[REDACTED]` ngay trên thiết bị) |
+| Nội dung trang, tiêu đề, dữ liệu biểu mẫu | ❌ Không bao giờ thu thập | ❌ Không bao giờ thu thập |
+| Thông tin cá nhân (tên, email, IP) | ❌ Không bao giờ thu thập | ❌ Email/IP được che ngay trên thiết bị; gói dữ liệu Sentry đặt `user.ip_address: null` |
+| Dữ liệu phân tích hoặc ghi nhận hành vi sử dụng | ❌ Không bao giờ thu thập | ❌ Không bao giờ thu thập (không theo dõi lượt xem trang, lượt nhấp hay việc dùng tính năng) |
+| Báo cáo sự cố | ❌ Không bao giờ thu thập | ✅ Tên lỗi, thông báo lỗi và dấu vết ngăn xếp đã được làm sạch |
+| Thiết bị/môi trường | ❌ Không bao giờ thu thập | ✅ Phiên bản tiện ích, chuỗi thông tin trình duyệt và hệ điều hành |
+| Các số liệu tổng hợp | ❌ Không bao giờ thu thập | ✅ Số tab (tổng/đã giải phóng/đã ghim/đang phát âm thanh), số liệu RAM, giá trị cài đặt, ngày cài tiện ích |
+| Nội dung danh sách trắng/đen | ❌ Không bao giờ thu thập | ❌ Không gửi nội dung - chỉ gửi số lượng mục |
 
-Báo cáo lỗi opt-in được mô tả đầy đủ trong [Báo cáo lỗi](#error-reporting). Bạn có thể tắt bất cứ lúc nào tại Tùy chọn → Privacy & Diagnostics.
+Xem đầy đủ tại [Báo cáo lỗi](#error-reporting). Bạn có thể tắt bất cứ lúc nào trong Tùy chọn → Quyền riêng tư & Chẩn đoán.
 
-### Chúng tôi lưu cục bộ những gì
+### Dữ liệu được lưu trên thiết bị
 
-TabRest lưu trữ dữ liệu sau **chỉ trên thiết bị của bạn**:
+TabRest chỉ lưu những dữ liệu sau **trên thiết bị của bạn**:
 
-| Loại dữ liệu | Vị trí lưu trữ | Mục đích | Đồng bộ? |
-|--------------|----------------|----------|----------|
-| Cài đặt | `chrome.storage.sync` | Tùy chọn người dùng (hẹn giờ, ngưỡng, v.v.) | Có* |
-| Danh sách trắng | `chrome.storage.sync` | Domain được bảo vệ | Có* |
-| Hoạt động tab | `chrome.storage.local` | Thời gian hoạt động cuối mỗi tab (cho LRU) | Không |
-| Thống kê | `chrome.storage.local` | Số tab đã giải phóng, bộ nhớ đã tiết kiệm | Không |
+| Loại dữ liệu | Nơi lưu trữ | Mục đích | Có đồng bộ? |
+| --- | --- | --- | --- |
+| Cài đặt | `chrome.storage.sync` | Tùy chọn của người dùng (hẹn giờ, ngưỡng, v.v.) | Có\* |
+| Danh sách cho phép | `chrome.storage.sync` | Các tên miền được bảo vệ | Có\* |
+| Hoạt động của tab | `chrome.storage.local` | Thời điểm hoạt động gần nhất của từng tab (dùng cho LRU) | Không |
+| Thống kê | `chrome.storage.local` | Số tab đã giải phóng, lượng bộ nhớ đã tiết kiệm | Không |
 
-*Đồng bộ qua Chrome Sync nếu bạn đã bật Chrome sync trong cài đặt trình duyệt. Chúng tôi không kiểm soát hoặc truy cập dữ liệu đồng bộ này.
+\*Được đồng bộ qua Chrome Sync nếu bạn đã bật tính năng này trong cài đặt trình duyệt. Chúng tôi không kiểm soát hay truy cập dữ liệu đồng bộ đó.
 
-## Quyền Chrome
+## Quyền của Chrome
 
-TabRest yêu cầu các quyền sau:
+TabRest cần các quyền sau:
 
 ### `tabs` - "Đọc lịch sử duyệt web"
 
-**Thực tế làm gì**:
+**Quyền này thực sự được dùng để**:
 
-- Đọc URL tab để khớp với danh sách trắng
-- Đọc trạng thái tab (ghim, audio, hoạt động)
+- Đọc URL của tab để đối chiếu với danh sách trắng
+- Đọc trạng thái tab (đã ghim, đang phát âm thanh, đang hoạt động)
 - Gọi `chrome.tabs.discard()` để giải phóng tab
 
-**Thực tế KHÔNG làm gì**:
+**Quyền này KHÔNG được dùng để**:
 
-- Gửi lịch sử duyệt web đi đâu
-- Theo dõi trang bạn truy cập
+- Gửi lịch sử duyệt web ra ngoài
+- Theo dõi các trang bạn truy cập
 - Lưu lịch sử duyệt web
 
-**Tại sao Chrome hiển thị nhãn này**: Quyền `tabs` cho phép truy cập URL tab. Nhãn quyền của Chrome là chung chung và không phản ánh cách sử dụng thực tế.
+**Vì sao Chrome hiển thị nhãn này**: Quyền `tabs` cho phép truy cập URL của tab. Nhãn quyền của Chrome mang tính khái quát, không phản ánh chính xác cách từng tiện ích sử dụng quyền đó.
 
-### `storage` - Lưu dữ liệu cục bộ
+### `storage` - Lưu dữ liệu trên thiết bị
 
-**Làm gì**:
+**Quyền này được dùng để**:
 
-- Lưu cài đặt (hẹn giờ, ngưỡng, bảo vệ)
-- Lưu mục danh sách trắng
-- Lưu hoạt động tab cho theo dõi LRU
-- Theo dõi thống kê (tab đã giải phóng, bộ nhớ đã tiết kiệm)
+- Lưu cài đặt (hẹn giờ, ngưỡng, cơ chế bảo vệ)
+- Lưu các mục trong danh sách trắng
+- Lưu hoạt động của tab để theo dõi theo cơ chế LRU
+- Ghi thống kê (số tab đã giải phóng, lượng bộ nhớ đã tiết kiệm)
 
-**Tất cả dữ liệu ở trên thiết bị của bạn.** Không có storage bên ngoài hoặc dịch vụ cloud.
+**Mọi dữ liệu đều nằm trên thiết bị của bạn.** TabRest không dùng kho lưu trữ bên ngoài hay dịch vụ đám mây.
 
 ### `alarms` - Lên lịch tác vụ định kỳ
 
-**Làm gì**:
+**Quyền này được dùng để**:
 
-- Lên lịch kiểm tra tab định kỳ (mỗi 1 phút)
-- Lên lịch kiểm tra ngưỡng bộ nhớ (mỗi 30 giây)
+- Lên lịch kiểm tra tab mỗi phút
+- Lên lịch kiểm tra ngưỡng bộ nhớ mỗi 30 giây
 
-**Tại sao cần**: Chrome service worker kết thúc khi rảnh. Alarm đánh thức service worker để thực hiện kiểm tra.
+**Vì sao cần quyền này**: Chrome dừng service worker khi không hoạt động. Alarm sẽ đánh thức service worker để thực hiện các lượt kiểm tra.
 
-### `system.memory` - Đọc sử dụng bộ nhớ
+### `system.memory` - Đọc mức sử dụng bộ nhớ
 
-**Làm gì**:
+**Quyền này được dùng để**:
 
-- Đọc tổng và RAM hệ thống khả dụng
-- Tính phần trăm sử dụng bộ nhớ
-- Kích hoạt giải phóng khi vượt ngưỡng
+- Đọc tổng RAM và RAM còn trống của hệ thống
+- Tính tỷ lệ bộ nhớ đang được sử dụng
+- Bắt đầu giải phóng tab khi vượt ngưỡng
 
-**Thực tế KHÔNG làm gì**:
+**Quyền này KHÔNG được dùng để**:
 
-- Truy cập bất kỳ thông tin hệ thống khác
+- Truy cập thông tin hệ thống nào khác
 - Thu thập hoặc lưu dữ liệu bộ nhớ
-- Gửi dữ liệu bộ nhớ đi đâu
+- Gửi dữ liệu bộ nhớ ra ngoài
 
-### `contextMenus` - Thêm mục menu chuột phải
+### `contextMenus` - Thêm mục vào trình đơn chuột phải
 
-**Làm gì**:
+**Quyền này được dùng để**:
 
-- Thêm tùy chọn "Giải phóng tab" vào menu ngữ cảnh chuột phải (tính năng tương lai)
+- Thêm tùy chọn "Giải phóng tab" vào trình đơn chuột phải (tính năng trong tương lai)
 
 ### `tabGroups` - Đọc thông tin nhóm tab
 
-**Làm gì**:
+**Quyền này được dùng để**:
 
-- Đọc tên và màu nhóm tab
-- Hiển thị nhóm trong popup
+- Đọc tên và màu của nhóm tab
+- Hiển thị các nhóm trong cửa sổ bật lên
 - Giải phóng tab theo nhóm
 
-**Thực tế KHÔNG làm gì**:
+**Quyền này KHÔNG được dùng để**:
 
-- Sửa đổi hoặc tạo nhóm tab
+- Sửa hoặc tạo nhóm tab
 - Chia sẻ thông tin nhóm
 
-## Quyền tùy chọn (Optional Permissions)
+### Quyền truy cập máy chủ tùy chọn (v0.0.4+)
 
-TabRest yêu cầu quyền **tùy chọn** cho một số tính năng. Bạn có toàn quyền kiểm soát:
+TabRest chỉ yêu cầu quyền truy cập máy chủ **tùy chọn** khi bạn bật một số tính năng nhất định:
 
-### `http://*/*` và `https://*/*` - Kiểm tra form chưa lưu
+**`http://*/*` và `https://*/*` (Tùy chọn)**
 
-**Khi cần**:
-- Bật "Bảo vệ tab với form chưa lưu" trong Cài đặt
-- Bật tính năng "Prepend symbol to discarded tabs" (thêm ký hiệu vào tab đã giải phóng)
+**Khi nào quyền được yêu cầu**: Chỉ khi bạn bật một trong các tính năng sau:
+- Bảo vệ biểu mẫu (cài đặt "Bảo vệ tab có biểu mẫu chưa lưu")
+- Thêm ký hiệu vào đầu tiêu đề tab đã giải phóng
 
-**Làm gì**:
-- Injection content script để phát hiện trường input đã thay đổi
-- Thêm ký hiệu vào tiêu đề tab đã giải phóng
+**Quyền này được dùng để**:
+- Chèn mã phát hiện biểu mẫu khi tính năng bảo vệ biểu mẫu được bật
+- Chèn mã cập nhật tiêu đề khi tính năng thêm ký hiệu được bật
 
-**Bạn có thể**:
-- Tắt tính năng bất kỳ lúc nào → quyền sẽ được gỡ bỏ
-- Chọn từ chối quyền → tính năng vẫn hoạt động nhưng form protection bị vô hiệu
+**Quyền này KHÔNG được dùng để**:
+- Chạy liên tục khi tính năng chưa bật
+- Thu thập hoặc lưu nội dung trang
+- Truy cập dữ liệu nhạy cảm
 
-**Ghi chú**: Quyền này là **tùy chọn** - bạn chỉ cấp nó khi cần tính năng.
+**Cách kiểm soát**:
+- Bật/tắt trong Cài đặt → "Bảo vệ tab có biểu mẫu chưa lưu" hoặc "Hiển thị ký hiệu cho tab đã giải phóng"
+- Nếu đã tắt tính năng, bạn có thể thu hồi quyền trong Chrome:
+  1. Truy cập `chrome://extensions`
+  2. Tìm TabRest → **Chi tiết**
+  3. Cuộn đến **Quyền truy cập máy chủ**
+  4. Nhấp **Xóa** nếu tính năng đang tắt
+- Chrome sẽ hỏi lại khi bạn bật lại tính năng
+
+**Vì sao đây là quyền tùy chọn**: TabRest chỉ hỏi quyền truy cập khi tính năng thực sự cần đến, nhờ đó bảo vệ quyền riêng tư của bạn.
 
 ## Dịch vụ bên thứ ba
 
-| Dịch vụ bên thứ ba | Mặc định | Nếu bạn opt-in |
+| Dịch vụ bên thứ ba | Mặc định | Khi bạn chọn bật |
 | --- | --- | --- |
-| Analytics (Google Analytics, v.v.) | ❌ Không dùng | ❌ Không dùng |
-| Mạng quảng cáo | ❌ Không dùng | ❌ Không dùng |
-| CDN để tải code | ❌ Không dùng (code extension được bundle và chạy cục bộ) | ❌ Không dùng |
+| Phân tích (Google Analytics, v.v.) | ❌ Không bao giờ sử dụng | ❌ Không bao giờ sử dụng |
+| Mạng quảng cáo | ❌ Không bao giờ sử dụng | ❌ Không bao giờ sử dụng |
+| CDN để tải mã | ❌ Không bao giờ sử dụng (mã tiện ích được đóng gói và chạy trên thiết bị) | ❌ Không bao giờ sử dụng |
 | API bên ngoài | ❌ Không có | ❌ Không có |
-| Theo dõi lỗi (Sentry SaaS, khu vực US) | ❌ Tắt - không gửi request nào | ✅ Chỉ kích hoạt sau khi bạn tick toggle opt-in. Xem [Báo cáo lỗi](#error-reporting) để biết payload chính xác. |
+| Theo dõi lỗi (Sentry SaaS, khu vực Mỹ) | ❌ Tắt - không gửi yêu cầu nào | ✅ Chỉ bật sau khi bạn chọn công tắc đồng ý. Xem [Báo cáo lỗi](#error-reporting) để biết chính xác dữ liệu được gửi. |
 
-**Tất cả code khác chạy cục bộ trong trình duyệt của bạn.** Endpoint Sentry (`*.ingest.us.sentry.io`) là điểm đến mạng DUY NHẤT mà TabRest có thể liên hệ, và chỉ khi bạn bật báo cáo lỗi.
+**Toàn bộ phần mã còn lại đều chạy trong trình duyệt của bạn.** Điểm tiếp nhận Sentry (`*.ingest.us.sentry.io`) là đích mạng duy nhất TabRest có thể liên hệ, và chỉ khi bạn bật báo cáo lỗi.
 
 ## Chia sẻ dữ liệu
 
-TabRest **không** chia sẻ bất kỳ dữ liệu nào với công ty bên thứ ba, nhà quảng cáo, nhà cung cấp analytics, hay tiện ích khác.
+TabRest **không** chia sẻ dữ liệu với công ty bên thứ ba, nhà quảng cáo, nhà cung cấp dịch vụ phân tích hay tiện ích khác.
 
-**Hai ngoại lệ:**
+**Có hai ngoại lệ:**
 
-1. **Chrome Sync** (nếu bạn bật trong Chrome): Bản thân Chrome đồng bộ cài đặt và danh sách trắng giữa các thiết bị. Chúng tôi không kiểm soát hoặc truy cập dữ liệu đồng bộ này.
-2. **Sentry SaaS** (chỉ khi bạn opt-in báo cáo lỗi): Payload crash đã làm sạch được gửi đến endpoint US-region của Sentry. Xem [Báo cáo lỗi](#error-reporting) để biết payload đầy đủ, retention, và cách opt-out.
+1. **Chrome Sync** (nếu bạn bật trong Chrome): Chrome đồng bộ cài đặt và danh sách trắng giữa các thiết bị. Chúng tôi không kiểm soát hay truy cập dữ liệu đồng bộ này.
+2. **Sentry SaaS** (chỉ khi bạn chọn bật báo cáo lỗi): Một gói dữ liệu sự cố đã được làm sạch sẽ được gửi đến điểm tiếp nhận tại Mỹ của Sentry. Xem [Báo cáo lỗi](#error-reporting) để biết đầy đủ dữ liệu được gửi, thời hạn lưu giữ và cách tắt.
 
 ## Chrome Sync
 
-TabRest sử dụng `chrome.storage.sync` cho cài đặt và danh sách trắng. Nếu Chrome Sync được bật trong trình duyệt:
+TabRest dùng `chrome.storage.sync` cho cài đặt và danh sách trắng. Nếu Chrome Sync được bật trong trình duyệt:
 
-- **Những gì đồng bộ**: Chỉ cài đặt và danh sách trắng
-- **Ai kiểm soát**: Google Chrome, không phải TabRest
+- **Dữ liệu được đồng bộ**: Chỉ cài đặt và danh sách trắng
+- **Bên kiểm soát**: Google Chrome, không phải TabRest
 - **Cách tắt**: Tắt Chrome Sync trong cài đặt Chrome
-- **Quyền riêng tư**: Tuân theo [Chính sách bảo mật Google](https://policies.google.com/privacy), không phải của chúng tôi
+- **Quyền riêng tư**: Tuân theo [Chính sách quyền riêng tư của Google](https://policies.google.com/privacy), không phải chính sách này
 
-**Chúng tôi không truy cập hoặc kiểm soát dữ liệu Chrome Sync của bạn.**
+**Chúng tôi không truy cập hay kiểm soát dữ liệu Chrome Sync của bạn.**
 
 ## Bảo mật dữ liệu
 
-Mặc định, TabRest:
+Theo mặc định, TabRest:
 
-- Chỉ lưu dữ liệu cục bộ
-- Không thực hiện yêu cầu mạng
-- Không chứa thành phần server
+- Chỉ lưu dữ liệu trên thiết bị
+- Không gửi yêu cầu qua mạng
+- Không có thành phần phía máy chủ
 
-**Khi báo cáo lỗi tắt (mặc định), không có dữ liệu để bị xâm phạm.** Dữ liệu của bạn không bao giờ rời khỏi thiết bị, ngoại trừ qua Chrome Sync nếu bạn bật. Nếu bạn opt-in báo cáo lỗi, payload crash đã làm sạch (không URL, không PII) sẽ được truyền qua HTTPS đến endpoint US-region của Sentry và lưu trong 30 ngày.
+**Khi báo cáo lỗi đang tắt (mặc định), không có dữ liệu nào có nguy cơ bị lộ.** Dữ liệu không rời khỏi thiết bị, ngoại trừ qua Chrome Sync nếu bạn bật. Nếu bạn chọn bật báo cáo lỗi, dữ liệu sự cố đã được làm sạch (không có URL hay thông tin nhận dạng cá nhân) sẽ được gửi qua HTTPS đến điểm tiếp nhận tại Mỹ của Sentry và lưu trong 30 ngày.
 
-### Tính toàn vẹn code
+### Tính toàn vẹn của mã nguồn
 
-- **Mã nguồn mở**: Mã nguồn đầy đủ có tại [github.com/lamngockhuong/tabrest](https://github.com/lamngockhuong/tabrest)
-- **Có thể kiểm tra**: Bất kỳ ai cũng có thể xem xét code
-- **Không obfuscation**: JavaScript thuần, không minification hoặc bundling
-- **Giấy phép MIT**: Tự do kiểm tra, sửa đổi, và phân phối lại
+- **Mã nguồn mở**: Toàn bộ mã nguồn có tại [github.com/lamngockhuong/tabrest](https://github.com/lamngockhuong/tabrest)
+- **Có thể kiểm tra**: Bất kỳ ai cũng có thể xem mã nguồn
+- **Không làm rối mã**: JavaScript thuần, không rút gọn hay đóng gói mã
+- **Giấy phép MIT**: Được tự do kiểm tra, sửa đổi và phân phối lại
 
-## Quyền riêng tư trẻ em
+## Quyền riêng tư của trẻ em
 
-TabRest không thu thập bất kỳ dữ liệu nào từ bất kỳ ai, bao gồm trẻ em dưới 13 tuổi (hoặc độ tuổi tối thiểu tương đương trong khu vực pháp lý của bạn).
+TabRest không thu thập dữ liệu của bất kỳ ai, kể cả trẻ em dưới 13 tuổi (hoặc độ tuổi tối thiểu tương đương tại nơi bạn sinh sống).
 
-## Lưu giữ dữ liệu
+## Thời hạn lưu dữ liệu
 
-- **Cài đặt & danh sách trắng**: Lưu cho đến khi bạn gỡ tiện ích hoặc xóa Chrome storage
-- **Hoạt động tab**: Lưu cho đến khi bạn gỡ tiện ích
-- **Thống kê**: Lưu cho đến khi bạn đặt lại thống kê hoặc gỡ tiện ích
+- **Cài đặt và danh sách trắng**: Được lưu đến khi bạn gỡ tiện ích hoặc xóa dữ liệu lưu trữ của Chrome
+- **Hoạt động của tab**: Được lưu đến khi bạn gỡ tiện ích
+- **Thống kê**: Được lưu đến khi bạn đặt lại thống kê hoặc gỡ tiện ích
 
-**Để xóa tất cả dữ liệu**:
+**Để xóa toàn bộ dữ liệu**:
 
-1. Vào `chrome://extensions`
+1. Truy cập `chrome://extensions`
 2. Tìm TabRest → **Xóa**
-3. Tất cả dữ liệu được xóa ngay lập tức
+3. Toàn bộ dữ liệu sẽ bị xóa ngay lập tức
 
-## Thay đổi chính sách này
+## Thay đổi chính sách
 
-Chúng tôi có thể cập nhật chính sách này theo thời gian. Thay đổi sẽ được:
+Đôi khi chúng tôi có thể cập nhật chính sách này. Mọi thay đổi sẽ:
 
-- Đăng trên trang này
-- Cập nhật với ngày "Cập nhật lần cuối" mới
-- Phản ánh trong GitHub repository
+- Được đăng trên trang này
+- Đi kèm ngày "Cập nhật lần cuối" mới
+- Được phản ánh trong kho mã nguồn GitHub
 
-**Thay đổi lớn** sẽ được thông báo qua:
+**Các thay đổi lớn** sẽ được thông báo qua:
 
-- Ghi chú phát hành GitHub
-- Mô tả cập nhật tiện ích (Chrome Web Store)
+- Ghi chú phát hành trên GitHub
+- Mô tả bản cập nhật trên Chrome Web Store
 
-<h2 id="error-reporting">Báo cáo lỗi</h2>
+## Báo cáo lỗi
 
-_Báo cáo crash qua Sentry SaaS (khu vực US)._
+_Báo cáo sự cố qua Sentry SaaS (khu vực Mỹ)._
 
-TabRest có thể gửi báo cáo lỗi ẩn danh để giúp sửa lỗi nhanh hơn. **Tính năng này mặc định TẮT** - bạn phải bật trong Tùy chọn → Quyền riêng tư & Chẩn đoán.
+TabRest có thể gửi báo cáo sự cố ẩn danh để giúp sửa lỗi nhanh hơn. **Tính năng này mặc định TẮT** - bạn phải chủ động bật tại Tùy chọn → Quyền riêng tư & Chẩn đoán.
 
-**Dữ liệu gửi đi khi bật:**
+**Dữ liệu được gửi khi tính năng này bật:**
 
-- Tên lỗi, thông báo và stack trace đã làm sạch (URL, địa chỉ email và IP thay bằng `[REDACTED]`)
+- Tên lỗi, thông báo lỗi và dấu vết ngăn xếp đã được làm sạch (URL, địa chỉ email và địa chỉ IP được thay bằng `[REDACTED]`)
 - Phiên bản tiện ích, tên và phiên bản trình duyệt, chuỗi nền tảng hệ điều hành
-- Số lượng tab: tổng, đã dỡ, đã ghim, đang phát âm thanh, số cửa sổ - không gửi URL hay tiêu đề trang
-- Thống kê bộ nhớ hệ thống: phần trăm sử dụng, tổng RAM, RAM khả dụng
-- Giá trị cài đặt (hẹn giờ tự động dỡ, ngưỡng RAM, các tuỳ chọn tính năng, v.v.) - danh sách trắng và danh sách đen **không được gửi**; chỉ gửi số lượng mục
-- Thống kê tích lũy: tổng tab đã dỡ và số hôm nay, ngày cài đặt
+- Chỉ số lượng tab: tổng số, số đã giải phóng, số đã ghim, số đang phát âm thanh và số cửa sổ - không có URL hay tiêu đề trang
+- Số liệu bộ nhớ hệ thống: tỷ lệ sử dụng, tổng RAM và RAM còn trống
+- Giá trị cài đặt (hẹn giờ tự động giải phóng, ngưỡng RAM, các cờ tính năng, v.v.) - **không gửi** tên miền trong danh sách trắng và danh sách đen; chỉ gửi số lượng mục
+- Thống kê tích lũy: tổng số tab đã giải phóng từ trước đến nay và trong ngày, ngày cài đặt
 
-**Dữ liệu KHÔNG BAO GIỜ gửi:**
+**Dữ liệu KHÔNG BAO GIỜ được gửi:**
 
-- URL các trang bạn truy cập
-- Tiêu đề trang, nội dung, dữ liệu form hay vị trí cuộn
-- Địa chỉ email hoặc IP (đã xóa ở phía client trước khi gửi)
-- Nội dung danh sách trắng hoặc danh sách đen
-- Bất kỳ thông tin nào có thể liên kết báo cáo với bạn
+- URL của các trang bạn truy cập
+- Tiêu đề, nội dung trang, dữ liệu biểu mẫu hoặc vị trí cuộn
+- Địa chỉ email hoặc IP (được che ngay trên thiết bị trước khi gửi)
+- Các tên miền trong danh sách trắng hoặc danh sách đen
+- Bất kỳ mã định danh nào có thể liên kết báo cáo với bạn
 
-**Báo cáo lỗi thủ công:** Khi bạn nhấn "Gửi tới Sentry" trong cửa sổ báo cáo lỗi của popup, mô tả đã làm sạch (đã xóa thông tin cá nhân) và dữ liệu chẩn đoán nêu trên sẽ được gửi - không có gì thêm.
+**Báo lỗi thủ công:** Khi bạn nhấp "Gửi đến Sentry" trong hộp thoại báo lỗi của cửa sổ bật lên, TabRest chỉ gửi phần mô tả đã loại bỏ thông tin cá nhân cùng bản chụp dữ liệu chẩn đoán ở trên.
 
-**Bên thứ ba:** Báo cáo được gửi đến [Sentry](https://sentry.io) (khu vực Mỹ, `*.ingest.us.sentry.io`). Xem [Chính sách bảo mật của Sentry](https://sentry.io/privacy/) để biết thêm chi tiết.
+**Bên thứ ba:** Báo cáo được gửi đến [Sentry](https://sentry.io) (khu vực Mỹ, `*.ingest.us.sentry.io`). Xem [Chính sách quyền riêng tư của Sentry](https://sentry.io/privacy/) để biết cách họ xử lý dữ liệu.
 
-**Địa chỉ IP của bạn:** Payload gửi đến Sentry đặt `user.ip_address: null` để Sentry không lưu IP của bạn cùng với báo cáo lỗi.
+**Địa chỉ IP của bạn:** Gói dữ liệu Sentry đặt rõ `user.ip_address: null`, vì vậy Sentry không liên kết địa chỉ IP của bạn với sự kiện lỗi.
 
-**Lưu giữ dữ liệu:** Sentry giữ sự kiện trong 30 ngày, sau đó tự động xóa.
+**Thời hạn lưu giữ:** Mặc định, Sentry giữ sự kiện trong 30 ngày rồi tự động xóa.
 
-**Cách tắt:** Mở trang Tùy chọn của tiện ích → Quyền riêng tư & Chẩn đoán → bỏ chọn "Bật báo cáo lỗi ẩn danh". Các báo cáo đã gửi sẽ bị xóa khi hết thời hạn lưu giữ và không thể thu hồi.
+**Cách tắt:** Mở trang Tùy chọn của tiện ích → Quyền riêng tư & Chẩn đoán → bỏ chọn "Bật báo cáo lỗi ẩn danh". Báo cáo đã gửi không thể thu hồi và sẽ được xóa khi hết thời hạn lưu giữ.
 
-**DSN tùy chỉnh:** Người dùng nâng cao có thể cung cấp DSN Sentry riêng trong Tùy chọn. Quy tắc làm sạch dữ liệu áp dụng như nhau bất kể điểm đến.
+**DSN tùy chỉnh:** Người dùng nâng cao có thể cung cấp DSN Sentry riêng trong Tùy chọn. Dù gửi đến đâu, TabRest vẫn áp dụng cùng các quy tắc làm sạch dữ liệu.
 
 ## Liên hệ
 
-Câu hỏi hoặc lo ngại về quyền riêng tư?
+Bạn có câu hỏi hoặc lo ngại về quyền riêng tư?
 
 - **Email**: hi@khuong.dev
 - **GitHub Issues**: [github.com/lamngockhuong/tabrest/issues](https://github.com/lamngockhuong/tabrest/issues)
@@ -267,40 +277,40 @@ Câu hỏi hoặc lo ngại về quyền riêng tư?
 
 ## Pháp lý
 
-### Khu vực pháp lý
+### Thẩm quyền tài phán
 
-Tiện ích này được phát triển và duy trì bởi Lam Ngoc Khuong, một nhà phát triển cá nhân.
+Tiện ích này do Lam Ngoc Khuong, một nhà phát triển độc lập, phát triển và duy trì.
 
 ### Tuân thủ
 
 TabRest tuân thủ:
 
-- Chính sách chương trình nhà phát triển Chrome Web Store
-- General Data Protection Regulation (GDPR) - bằng cách không thu thập bất kỳ dữ liệu nào
-- California Consumer Privacy Act (CCPA) - bằng cách không thu thập bất kỳ dữ liệu nào
+- Chính sách chương trình dành cho nhà phát triển của Chrome Web Store
+- Quy định chung về bảo vệ dữ liệu (GDPR) - bằng cách không thu thập dữ liệu cá nhân
+- Đạo luật về quyền riêng tư của người tiêu dùng California (CCPA) - bằng cách không thu thập dữ liệu cá nhân
 
 ### Quyền của bạn
 
-Vì TabRest không thu thập bất kỳ dữ liệu cá nhân nào:
+Vì TabRest không thu thập dữ liệu cá nhân:
 
-- Không có dữ liệu để truy cập, sửa đổi, hoặc xóa
-- Không có dữ liệu để export
-- Không có hoạt động xử lý dữ liệu để phản đối
+- Không có dữ liệu cá nhân để truy cập, sửa hoặc xóa
+- Không có dữ liệu cá nhân để xuất
+- Không có hoạt động xử lý dữ liệu cá nhân nào để bạn phải phản đối
 
-Tất cả dữ liệu được lưu cục bộ trên thiết bị của bạn và hoàn toàn dưới quyền kiểm soát của bạn.
+Mọi dữ liệu trên thiết bị đều nằm hoàn toàn dưới quyền kiểm soát của bạn.
 
 ## Minh bạch
 
-TabRest được xây dựng với minh bạch:
+TabRest được xây dựng theo hướng minh bạch:
 
-- **Mã nguồn mở**: Giấy phép MIT, repository công khai
-- **Không có analytics hay behavioral telemetry**: Không có code page-view, click, hay feature-use tracking trong codebase
-- **Mặc định không yêu cầu bên ngoài**: Kiểm tra lưu lượng mạng với báo cáo tắt, bạn sẽ không tìm thấy request nào từ TabRest
-- **Một điểm đến mạng opt-in duy nhất**: Chỉ endpoint US của Sentry, chỉ khi bạn bật báo cáo lỗi
-- **Kiến trúc đơn giản**: Vanilla JavaScript, dependencies tối thiểu, dễ kiểm tra
+- **Mã nguồn mở**: Kho mã nguồn công khai theo giấy phép MIT
+- **Không phân tích hay ghi nhận hành vi**: Mã nguồn không chứa chức năng theo dõi lượt xem trang, lượt nhấp hay việc dùng tính năng
+- **Mặc định không gửi yêu cầu ra ngoài**: Nếu kiểm tra lưu lượng mạng khi báo cáo lỗi đang tắt, bạn sẽ không thấy yêu cầu nào từ TabRest
+- **Một đích mạng duy nhất do người dùng chọn bật**: Chỉ điểm tiếp nhận tại Mỹ của Sentry, và chỉ khi bạn bật báo cáo lỗi
+- **Kiến trúc đơn giản**: JavaScript thuần, ít phần phụ thuộc, dễ kiểm tra
 
-**Tự xác minh**: Clone repository và kiểm tra mã nguồn. Bạn sẽ không tìm thấy analytics, không tracking, và không có yêu cầu mạng nào ngoài error reporter opt-in đã ghi rõ.
+**Hãy tự xác minh**: Sao chép kho mã nguồn và kiểm tra mã. Bạn sẽ không thấy chức năng phân tích, theo dõi hay bất kỳ yêu cầu mạng nào ngoài trình báo lỗi tự nguyện đã được mô tả ở đây.
 
 ---
 
-**Tóm lại**: TabRest là tiện ích ưu tiên quyền riêng tư. Mặc định, dữ liệu của bạn ở trên thiết bị của bạn - chúng tôi không thu thập gì, không gửi gì, không theo dõi gì. Một tính năng duy nhất, báo cáo lỗi, hoàn toàn opt-in và được ghi rõ ràng.
+**Tóm lại**: TabRest là tiện ích đặt quyền riêng tư lên hàng đầu. Theo mặc định, dữ liệu của bạn nằm trên thiết bị - chúng tôi không thu thập, không gửi và không theo dõi gì cả. Báo cáo lỗi là tính năng duy nhất có thể gửi dữ liệu, chỉ hoạt động khi bạn chủ động bật và đã được mô tả rõ ràng.
