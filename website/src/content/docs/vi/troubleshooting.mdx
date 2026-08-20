@@ -18,15 +18,15 @@ Giải pháp cho các vấn đề phổ biến khi sử dụng TabRest.
 TabRest bảo vệ một số tab theo mặc định. Kiểm tra xem tab có:
 
 - **Được ghim**: Tab ghim được bảo vệ (trừ khi "Giải phóng tab ghim" được bật)
-- **Đang phát audio**: Tab có audio đang hoạt động được bảo vệ (trừ khi "Bảo vệ tab audio" bị tắt)
-- **Có form chưa lưu**: Tab có trường input đã thay đổi được bảo vệ (trừ khi "Bảo vệ tab form" bị tắt)
-- **Nằm trong danh sách trắng**: Domain nằm trong danh sách trắng của bạn
+- **Đang phát âm thanh**: Tab đang phát âm thanh được bảo vệ (trừ khi bạn tắt "Bảo vệ tab đang phát âm thanh")
+- **Có biểu mẫu chưa lưu**: Tab có trường nhập đã thay đổi được bảo vệ (trừ khi bạn tắt "Bảo vệ tab có biểu mẫu")
+- **Nằm trong danh sách trắng**: Tên miền thuộc danh sách trắng của bạn
 
-**Giải pháp**: Tắt bảo vệ liên quan trong Cài đặt hoặc xóa domain khỏi danh sách trắng.
+**Giải pháp**: Tắt cơ chế bảo vệ liên quan trong Cài đặt hoặc xóa tên miền khỏi danh sách trắng.
 
 ### Nguyên nhân 2: Tab đang hoạt động
 
-Chrome không thể giải phóng tab đang hoạt động (được focus).
+Chrome không thể giải phóng tab đang hoạt động (đang nhận tiêu điểm).
 
 **Giải pháp**: Chuyển sang tab khác trước, sau đó giải phóng tab mục tiêu.
 
@@ -79,9 +79,9 @@ TabRest yêu cầu quyền `tabs` để giải phóng tab.
 
 1. Vào `chrome://extensions`
 2. Tìm TabRest → **Chi tiết**
-3. Cuộn đến **Kiểm tra views**
+3. Cuộn đến **Kiểm tra chế độ xem**
 4. Nhấn **service worker**
-5. Kiểm tra console để xem lỗi
+5. Kiểm tra bảng điều khiển để xem lỗi
 
 **Lỗi phổ biến**:
 - `Storage quota exceeded`: Xóa storage tiện ích
@@ -143,11 +143,11 @@ Một số phím tắt không hoạt động trên:
 
 ### Xác minh tab thực sự đang giải phóng
 
-1. Mở Task Manager: `Shift+Esc` (Windows/Linux) hoặc menu Chrome → Công cụ khác → Task Manager
+1. Mở Trình quản lý tác vụ: `Shift+Esc` (Windows/Linux) hoặc trình đơn Chrome → Công cụ khác → Trình quản lý tác vụ
 2. Tìm tab đánh dấu "Đã giải phóng" hoặc có bộ nhớ rất thấp (< 1 MB)
 3. Nếu tab hiển thị bộ nhớ cao, chúng chưa được giải phóng
 
-**Giải pháp**: Kiểm tra cài đặt bảo vệ tab (ghim, audio, form, danh sách trắng).
+**Giải pháp**: Kiểm tra cài đặt bảo vệ tab (đã ghim, đang phát âm thanh, biểu mẫu, danh sách trắng).
 
 ### Kiểm tra cài đặt tự động giải phóng
 
@@ -186,7 +186,7 @@ Nếu bạn mở hàng trăm tab:
 
 ### Xác minh giải phóng đang diễn ra
 
-1. Giải phóng thủ công một tab bằng popup
+1. Giải phóng thủ công một tab bằng cửa sổ bật lên
 2. Mở Cài đặt → phần Thống kê
 3. Kiểm tra số đếm đã tăng chưa
 
@@ -205,9 +205,9 @@ Nếu thống kê bị hỏng:
 
 **Vấn đề**: Các trang trong danh sách trắng vẫn bị giải phóng.
 
-### Xác minh định dạng domain
+### Xác minh định dạng tên miền
 
-Mục danh sách trắng chỉ nên là tên domain:
+Mỗi mục trong danh sách trắng chỉ nên chứa tên miền:
 
 ```
 ✅ Đúng: github.com
@@ -228,7 +228,7 @@ Nếu **Chế độ danh sách đen** được bật, hành vi bị đảo ngư�
 
 ### Phân biệt chữ hoa/thường
 
-Khớp domain không phân biệt chữ hoa/thường:
+Khi đối chiếu tên miền, TabRest không phân biệt chữ hoa và chữ thường:
 - `GitHub.com` = `github.com` ✅
 
 **Giải pháp**: Dùng chữ thường để nhất quán.
@@ -237,131 +237,110 @@ Khớp domain không phân biệt chữ hoa/thường:
 
 **Đây là nguyên nhân phổ biến nhất khi danh sách trắng có vẻ không hoạt động trên Chrome 108+.**
 
-Chrome có sẵn tính năng giải phóng tab (`chrome://settings/performance` -> Memory Saver). Tính năng này chạy ở tầng trình duyệt và bỏ qua trạng thái của extension. Nếu Memory Saver đang bật, nó có thể giải phóng một tab dù domain nằm trong danh sách trắng của TabRest, vì Memory Saver không bao giờ hỏi TabRest.
+Chrome có sẵn tính năng giải phóng tab (`chrome://settings/performance` → Memory Saver). Tính năng này chạy ở cấp trình duyệt và không biết trạng thái của tiện ích. Khi Memory Saver bật, Chrome vẫn có thể giải phóng tab có tên miền nằm trong danh sách trắng của TabRest.
 
 **Cách xác nhận đây là nguyên nhân**:
 
-1. Tab bị giải phóng mà không thấy toast cảnh báo của TabRest hiện trước
+1. Tab bị giải phóng mà không thấy thanh cảnh báo của TabRest hiện trước
 2. Tab vẫn bị giải phóng ngay cả khi TabRest đang tạm dừng hoặc tắt
 3. Bạn thấy Memory Saver đang được bật tại `chrome://settings/performance`
 
 **Giải pháp (chọn một)**:
 
 - **Cách A**: Mở `chrome://settings/performance` và tắt Memory Saver. TabRest sẽ có toàn quyền kiểm soát.
-- **Cách B**: Giữ Memory Saver bật, đồng thời thêm domain vào danh sách **Always keep these sites active** của Chrome tại `chrome://settings/performance`. Bạn sẽ phải tự đồng bộ giữa danh sách trắng của TabRest và danh sách của Chrome.
+- **Cách B**: Giữ Memory Saver bật, đồng thời thêm tên miền vào danh sách **Luôn duy trì hoạt động cho các trang web này** của Chrome tại `chrome://settings/performance`. Bạn phải tự đồng bộ danh sách của TabRest với danh sách của Chrome.
 
-Xem [Cấu hình danh sách trắng -> Cùng tồn tại với Chrome Memory Saver](/vi/docs/whitelist-config#cùng-tồn-tại-với-chrome-memory-saver) để biết giải thích đầy đủ.
+Xem [Cấu hình danh sách trắng → Dùng cùng Chrome Memory Saver](/vi/docs/whitelist-config#cùng-tồn-tại-với-chrome-memory-saver) để biết giải thích đầy đủ.
 
-## Bảo vệ form không hoạt động
+## Bảo vệ biểu mẫu không hoạt động
 
-**Vấn đề**: Tab có form chưa lưu bị giải phóng.
+**Vấn đề**: Tab có biểu mẫu chưa lưu vẫn bị giải phóng.
 
-### Kiểm tra cài đặt bảo vệ form
+### Kiểm tra cài đặt bảo vệ biểu mẫu
 
 1. Mở Cài đặt
-2. Đảm bảo **Bảo vệ tab có form chưa lưu** được bật
+2. Đảm bảo **Bảo vệ tab có biểu mẫu chưa lưu** được bật
 
-### Xác minh phát hiện form
+### Xác minh khả năng phát hiện biểu mẫu
 
-TabRest phát hiện form với:
-- Trường `<input>` đã thay đổi (text, email, password, v.v.)
+TabRest phát hiện biểu mẫu qua:
+- Trường `<input>` đã thay đổi (văn bản, email, mật khẩu, v.v.)
 - Trường `<textarea>` đã thay đổi
 - Dropdown `<select>` đã thay đổi
 
 **KHÔNG phát hiện**:
 - Trình soạn thảo rich text (vd: TinyMCE, CKEditor) - dùng danh sách trắng thay thế
-- Trình soạn thảo dựa trên canvas
-- Thư viện form JavaScript tùy chỉnh
+- Trình soạn thảo dùng vùng vẽ
+- Thư viện biểu mẫu JavaScript tùy chỉnh
 
-**Giải pháp**: Thêm các trang có form phức tạp vào danh sách trắng.
+**Giải pháp**: Thêm các trang có biểu mẫu phức tạp vào danh sách trắng.
 
 ### Thời điểm content script
 
-Nếu form được điền rất nhanh sau khi trang tải, TabRest có thể chưa phát hiện được.
+Nếu biểu mẫu được điền ngay sau khi trang tải, TabRest có thể chưa kịp phát hiện.
 
-**Giải pháp**: Đợi vài giây sau khi điền form trước khi chuyển tab.
+**Giải pháp**: Đợi vài giây sau khi điền biểu mẫu rồi mới chuyển tab.
 
-## Side Panel không mở
+## Sự cố với bảng bên
 
-**Vấn đề**: Side Panel (bảng bên) không xuất hiện hoặc không phản hồi.
+### Bảng bên không mở
 
-### Kiểm tra cài đặt Side Panel
+**Vấn đề**: Nhấp biểu tượng trên thanh công cụ nhưng cửa sổ bật lên vẫn mở, hoặc không có tùy chọn bảng bên.
 
-1. Mở **Cài đặt** (nhấn ⚙️ trong popup)
-2. Tìm phần **Toolbar Action**
-3. Xác minh nút **"Mở trong Side Panel"** được bật
-4. Nếu tắt, hãy bật nó
+**Nguyên nhân có thể**:
 
-### Tải lại tiện ích
+1. **Trình duyệt quá cũ**: API bảng bên cần Chrome 114 trở lên
+2. **Chưa bật cài đặt**: Kiểm tra tùy chọn "Mở trong bảng bên" trong Cài đặt
 
-Nếu Side Panel không mở dù đã bật:
+**Giải pháp**:
+- Cập nhật Chrome lên phiên bản 114 trở lên
+- Mở Cài đặt và bật bảng bên
+- Tải lại tiện ích (`chrome://extensions` → Làm mới)
 
-1. Vào `chrome://extensions`
-2. Tìm TabRest → Nhấn biểu tượng làm mới
-3. Thử lại
+### Bảng bên tự đóng hoặc biến mất
 
-### Chrome yêu cầu phiên bản mới
+**Vấn đề**: Bảng bên đóng khi chuyển tab hoặc bất ngờ biến mất.
 
-Side Panel yêu cầu Chrome 114+. Kiểm tra phiên bản:
+**Nguyên nhân có thể**:
 
-1. Vào `chrome://version`
-2. Nếu phiên bản < 114, cập nhật Chrome (menu → Giúp → Thông tin về Google Chrome)
+1. **Bảng đã thu gọn**: Kiểm tra cạnh cửa sổ xem bảng có đang bị thu gọn không
+2. **Service worker gặp sự cố**: Tải lại tiện ích
 
-## Cảnh báo suspend không xuất hiện
+**Giải pháp**:
+1. Nếu bảng nằm ở cạnh cửa sổ, nhấp để mở rộng
+2. Truy cập `chrome://extensions` → TabRest → Làm mới
+3. Tắt rồi bật lại "Mở trong bảng bên"
 
-**Vấn đề**: Không nhìn thấy thông báo cảnh báo trước khi tab bị giải phóng.
+## Sự cố bảo vệ biểu mẫu
 
-### Kiểm tra cài đặt cảnh báo
+### Bảo vệ biểu mẫu yêu cầu cấp quyền
 
-1. Mở **Cài đặt**
-2. Tìm phần **Behavior**
-3. Xác minh **"Show suspend warning"** được bật
-4. Kiểm tra **"Suspend warning delay"** > 0 (nên ≥ 1000 ms)
+**Vấn đề**: Khi bật "Bảo vệ tab có biểu mẫu chưa lưu", Chrome hỏi quyền truy cập máy chủ.
 
-### Xác minh tab đang bị tự động giải phóng
+**Giải thích**: TabRest cần chèn mã phát hiện vào trang web để bảo vệ biểu mẫu, nên phải xin quyền truy cập máy chủ tùy chọn.
 
-Cảnh báo chỉ xuất hiện khi tab **tự động** giải phóng (không giải phóng thủ công):
+**Giải pháp**:
+1. Nhấp **Cho phép** khi Chrome hỏi
+2. Nếu vô tình nhấp **Chặn**, hãy khôi phục quyền:
+   - Truy cập `chrome://extensions`
+   - Tìm TabRest → **Chi tiết**
+   - Cuộn đến **Quyền truy cập máy chủ**
+   - Nhấp **Cho phép** hoặc đổi thành "Trên tất cả trang web"
 
-1. Kiểm tra cài đặt hẹn giờ (ví dụ: 30 phút)
-2. Không tương tác với tab trong thời gian hẹn giờ
-3. Sau khi hẹn giờ hết, bạn sẽ thấy cảnh báo trước 3 giây
+### Cảnh báo trước khi giải phóng không xuất hiện
 
-**Ghi chú**: Giải phóng thủ công không hiển thị cảnh báo.
+**Vấn đề**: Không có thanh cảnh báo trước khi tab được tự động giải phóng.
 
-### Trang web chặn toast
+**Nguyên nhân có thể**:
 
-Một số trang web có thể chặn toast notification:
+1. **Chưa cấp quyền máy chủ**: Chèn cảnh báo cần quyền truy cập trang
+2. **Cài đặt đang tắt**: Kiểm tra "Hiển thị cảnh báo trước khi giải phóng"
+3. **Service worker gặp sự cố**: Tải lại tiện ích
 
-**Giải pháp**: Cảnh báo vẫn hoạt động nếu bạn nhìn thấy nó trên một số trang khác.
-
-## Form Protection xin quyền
-
-**Vấn đề**: TabRest yêu cầu quyền host (`http://*/*`, `https://*/*`) cho form protection.
-
-### Tại sao cần quyền này?
-
-Để phát hiện form chưa lưu, TabRest cần inject content script vào các trang web. Quyền này là **tùy chọn** - bạn có thể từ chối nó.
-
-### Cấp quyền
-
-1. Khi TabRest yêu cầu, nhấn **Cho phép** (Allow)
-2. Hoặc trong **Cài đặt** → Behavior → Bật "Protect tabs with unsaved forms"
-3. Chrome sẽ nhắc bạn cấp quyền
-
-### Từ chối quyền
-
-- Nhấn **Từ chối** (Block) hoặc **Tất cả các trang trên trang web này**
-- Form protection sẽ bị vô hiệu
-- Bạn vẫn có thể dùng các tính năng khác
-
-### Khôi phục quyền đã từ chối
-
-Nếu bạn đã từ chối và muốn cho phép lại:
-
-1. Vào `chrome://extensions`
-2. Tìm TabRest → **Chi tiết**
-3. Cuộn xuống **Quyền** (Permissions)
-4. Nhấn **Cho phép trên tất cả các trang** (Allow on all sites)
+**Giải pháp**:
+1. Mở Cài đặt và bật "Hiển thị cảnh báo trước khi giải phóng"
+2. Kiểm tra quyền máy chủ (xem mục "Bảo vệ biểu mẫu yêu cầu cấp quyền" ở trên)
+3. Tải lại tiện ích: `chrome://extensions` → TabRest → Làm mới
 
 ## Báo cáo lỗi
 
@@ -374,7 +353,7 @@ Nếu bạn gặp lỗi không có trong danh sách này:
 3. **Các bước tái tạo**: Những hành động nào kích hoạt lỗi
 4. **Hành vi mong đợi**: Điều gì nên xảy ra
 5. **Hành vi thực tế**: Điều gì thực sự xảy ra
-6. **Lỗi console**: Mở inspector service worker, kiểm tra lỗi
+6. **Lỗi trong bảng điều khiển**: Mở trình kiểm tra service worker và xem các lỗi
 
 ### Báo cáo trên GitHub
 

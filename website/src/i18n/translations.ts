@@ -244,7 +244,7 @@ export const translations = {
   vi: {
     meta: {
       title: 'TabRest - Cho tab nghỉ ngơi, giải phóng bộ nhớ',
-      description: 'Tiện ích trình duyệt cho Chrome, Edge, Brave, Opera & Vivaldi tự động giải phóng các tab không hoạt động để giảm sử dụng bộ nhớ.',
+      description: 'Tiện ích cho Chrome, Edge, Brave, Opera và Vivaldi, tự động giải phóng tab không hoạt động để giảm mức dùng bộ nhớ.',
     },
     header: {
       features: 'Tính năng',
@@ -255,25 +255,25 @@ export const translations = {
     },
     hero: {
       tagline: 'Cho tab nghỉ ngơi, giải phóng bộ nhớ',
-      description: 'Tự động giải phóng các tab không hoạt động để giảm sử dụng bộ nhớ và tăng tốc trình duyệt',
+      description: 'Tự động giải phóng tab không hoạt động để giảm mức dùng bộ nhớ và giúp trình duyệt chạy nhanh hơn',
       cta: 'Cài đặt miễn phí',
       subtext: 'Chrome • Edge • Brave • Opera • Vivaldi',
     },
     problem: {
-      title: 'Vấn đề với Tab',
+      title: 'Nỗi khổ vì quá nhiều tab',
       before: 'Trước khi dùng TabRest',
       after: 'Sau khi dùng TabRest',
       beforeItems: [
-        '100+ tab tiêu tốn 8GB RAM',
-        'Trình duyệt đơ và treo',
+        'Hơn 100 tab ngốn 8GB RAM',
+        'Trình duyệt đơ hoặc bị sập',
         'Máy tính chạy chậm',
-        'Quản lý tab thủ công rất mệt',
+        'Quản lý tab thủ công quá phiền',
       ],
       afterItems: [
         'Cùng số tab, chỉ dùng 2GB RAM',
         'Duyệt web mượt mà',
         'Máy tính chạy nhanh',
-        'Tự động và thông minh',
+        'Tự động, thông minh',
       ],
       savings: 'Tiết kiệm đến <highlight>75% bộ nhớ</highlight> mà không cần đóng tab',
     },
@@ -283,58 +283,58 @@ export const translations = {
       items: [
         {
           icon: 'clock',
-          title: 'Hẹn giờ tự động giải phóng',
-          description: 'Tự động giải phóng tab sau thời gian không hoạt động tùy chỉnh (10 phút đến 4 giờ)',
+          title: 'Hẹn giờ giải phóng tab',
+          description: 'Tự động giải phóng tab sau khoảng thời gian không hoạt động do bạn chọn (10 phút đến 4 giờ)',
         },
         {
           icon: 'database',
           title: 'Ngưỡng bộ nhớ',
-          description: 'Kích hoạt giải phóng khi sử dụng bộ nhớ hệ thống đạt ngưỡng (60-90%)',
+          description: 'Bắt đầu giải phóng tab khi mức dùng bộ nhớ hệ thống chạm ngưỡng bạn đặt (60-90%)',
         },
         {
           icon: 'rocket',
           title: 'Giải phóng khi khởi động',
-          description: 'Tùy chọn giải phóng tất cả tab khi khởi động trình duyệt để bắt đầu gọn gàng',
+          description: 'Có thể giải phóng toàn bộ tab khi mở trình duyệt để bắt đầu với bộ nhớ gọn nhẹ',
         },
         {
           icon: 'shield',
           title: 'Danh sách trắng thông minh',
-          description: 'Bảo vệ các tab quan trọng với danh sách domain và quy tắc đặc biệt cho audio/form',
+          description: 'Bảo vệ tab quan trọng bằng danh sách tên miền và quy tắc riêng cho âm thanh, biểu mẫu',
         },
         {
           icon: 'keyboard',
           title: 'Phím tắt',
-          description: 'Truy cập nhanh qua phím tắt tùy chỉnh: giải phóng tab hiện tại, các tab khác, hoặc tất cả',
+          description: 'Thao tác nhanh bằng phím tắt tùy chỉnh: giải phóng tab hiện tại, các tab khác hoặc tất cả tab',
         },
         {
           icon: 'barChart',
           title: 'Thống kê sử dụng',
-          description: 'Theo dõi bộ nhớ đã tiết kiệm và số tab đã giải phóng để thấy tác động thực tế',
+          description: 'Theo dõi bộ nhớ tiết kiệm được và số tab đã giải phóng để thấy hiệu quả thực tế trên máy',
         },
         {
           icon: 'moon',
           title: 'Chỉ báo trực quan',
-          description: 'Dễ dàng nhận biết tab đã giải phóng với ký hiệu tùy chỉnh trên tiêu đề tab',
+          description: 'Dễ nhận ra tab đã giải phóng nhờ ký hiệu tùy chỉnh ở đầu tiêu đề tab',
         },
         {
           icon: 'hash',
           title: 'Ngưỡng số tab',
-          description: 'Chỉ bắt đầu tự động giải phóng khi có nhiều hơn số tab không hoạt động được chỉ định',
+          description: 'Chỉ tự động giải phóng khi số tab không hoạt động vượt quá ngưỡng bạn đặt',
         },
         {
           icon: 'mousePointer',
           title: 'Thao tác thanh công cụ',
-          description: 'Tùy chỉnh hành động khi nhấp vào icon tiện ích: mở popup hoặc giải phóng nhanh',
+          description: 'Chọn việc xảy ra khi bấm biểu tượng tiện ích: mở cửa sổ bật lên hoặc giải phóng nhanh',
         },
         {
           icon: 'bedDouble',
-          title: 'Chỉ khi máy rảnh',
-          description: 'Chỉ tự động giải phóng tab khi máy tính không hoạt động, không làm gián đoạn duyệt web',
+          title: 'Chỉ khi máy tính rảnh',
+          description: 'Chỉ tự động giải phóng tab khi máy tính ở trạng thái rảnh, không làm gián đoạn lúc bạn đang duyệt web',
         },
         {
           icon: 'battery',
           title: 'Chế độ nguồn',
-          description: 'Chuyển đổi giữa Tiết kiệm pin, Bình thường và Hiệu suất để điều chỉnh mức độ tích cực',
+          description: 'Chuyển giữa chế độ Tiết kiệm pin, Bình thường và Hiệu suất để chọn mức giải phóng phù hợp',
         },
         {
           icon: 'trendingUp',
@@ -343,28 +343,28 @@ export const translations = {
         },
         {
           icon: 'pause',
-          title: 'Hoãn giải phóng tab',
-          description: 'Tạm thời bảo vệ tab hoặc domain cụ thể khỏi tự động giải phóng (30 phút đến 2 giờ)',
+          title: 'Tạm hoãn tab',
+          description: 'Tạm thời bảo vệ một tab hoặc cả tên miền khỏi việc tự động giải phóng (30 phút đến 2 giờ)',
         },
         {
           icon: 'scroll',
           title: 'Khôi phục vị trí cuộn',
-          description: 'Tự động lưu và khôi phục vị trí cuộn khi tab được giải phóng và tải lại',
+          description: 'Tự động lưu rồi khôi phục vị trí cuộn khi tab đã giải phóng được tải lại',
         },
         {
           icon: 'wifi',
           title: 'Nhận biết khi mất mạng',
-          description: 'Tạm dừng tự động giải phóng khi mất mạng để tab có thể tải lại khi có mạng',
+          description: 'Tạm dừng tự động giải phóng khi mất mạng để tab có thể tải lại sau khi kết nối trở lại',
         },
         {
           icon: 'bell',
           title: 'Thông báo',
-          description: 'Nhận thông báo khi tab tự động giải phóng với lý do (hẹn giờ hoặc ngưỡng bộ nhớ)',
+          description: 'Nhận thông báo khi tab được tự động giải phóng, kèm lý do (hẹn giờ hoặc ngưỡng bộ nhớ)',
         },
         {
           icon: 'globe',
           title: 'Hỗ trợ đa trình duyệt',
-          description: 'Hoạt động trên tất cả trình duyệt Chromium: Chrome, Edge, Brave, Opera, Vivaldi và Arc',
+          description: 'Hoạt động trên mọi trình duyệt dùng nhân Chromium: Chrome, Edge, Brave, Opera, Vivaldi và Arc',
         },
       ],
     },
@@ -374,15 +374,15 @@ export const translations = {
       steps: [
         {
           title: 'Cài đặt tiện ích',
-          description: 'Thêm TabRest từ Chrome Web Store chỉ với một click. Không cần tài khoản hay đăng ký.',
+          description: 'Thêm TabRest từ Chrome Web Store chỉ bằng một cú nhấp. Không cần tài khoản hay đăng ký.',
         },
         {
           title: 'Cấu hình tùy chọn',
-          description: 'Đặt thời gian chờ, ngưỡng bộ nhớ và danh sách trắng. Hoặc dùng cài đặt mặc định thông minh.',
+          description: 'Đặt thời gian chờ, ngưỡng bộ nhớ và danh sách trắng theo ý bạn, hoặc dùng cấu hình mặc định phù hợp với hầu hết người dùng.',
         },
         {
           title: 'Thư giãn và duyệt web',
-          description: 'TabRest hoạt động im lặng trong nền, tự động quản lý tab. Click vào tab đã giải phóng để khôi phục ngay.',
+          description: 'TabRest âm thầm chạy trong nền và tự quản lý tab. Chỉ cần bấm vào tab đã giải phóng để khôi phục ngay.',
         },
       ],
       cta: 'Bắt đầu ngay',
@@ -393,23 +393,23 @@ export const translations = {
       items: [
         {
           question: 'Tôi có mất tab khi chúng bị giải phóng không?',
-          answer: 'Không! Giải phóng tab không giống đóng tab. Tab vẫn ở trong trình duyệt với cùng URL và vị trí. Click vào để tải lại ngay trang đúng nơi bạn đã dừng.',
+          answer: 'Không. Giải phóng tab khác với đóng tab: tab vẫn nằm trong trình duyệt, giữ nguyên URL và vị trí. Bấm vào tab để tải lại trang ngay đúng chỗ bạn dừng.',
         },
         {
           question: 'TabRest thực sự tiết kiệm bao nhiêu bộ nhớ?',
-          answer: 'Tùy thuộc vào website, thường là 50-150MB mỗi tab. Với 50-100 tab không hoạt động, bạn có thể tiết kiệm 5-10GB RAM. Xem thống kê trong popup để biết số liệu thực.',
+          answer: 'Tùy trang web, mỗi tab thường tiết kiệm được 50-150MB. Với 50-100 tab không hoạt động, bạn có thể giải phóng 5-10GB RAM. Xem mục thống kê trong cửa sổ bật lên để biết con số thực tế.',
         },
         {
           question: 'Tôi có thể ngăn một số tab bị giải phóng không?',
-          answer: 'Có! Thêm domain vào danh sách trắng trong cài đặt. Bạn cũng có thể bật bảo vệ tự động cho tab đang phát audio hoặc có form chưa lưu.',
+          answer: 'Có. Hãy thêm tên miền vào danh sách trắng trong phần cài đặt. Bạn cũng có thể tự động bảo vệ tab đang phát âm thanh hoặc chứa biểu mẫu có dữ liệu chưa lưu.',
         },
         {
-          question: 'TabRest có hoạt động offline không?',
-          answer: 'Có! TabRest là tiện ích cục bộ, không cần kết nối internet. Cài đặt và dữ liệu tab không bao giờ rời khỏi máy tính của bạn.',
+          question: 'TabRest có hoạt động khi mất mạng không?',
+          answer: 'Có. TabRest chạy ngay trên máy và không cần kết nối Internet. Cài đặt cùng dữ liệu tab không bao giờ rời khỏi máy tính của bạn.',
         },
         {
           question: 'TabRest có phải mã nguồn mở không?',
-          answer: 'Có! TabRest hoàn toàn mã nguồn mở theo giấy phép MIT. Bạn có thể xem code, đóng góp cải tiến, hoặc báo lỗi trên GitHub.',
+          answer: 'Có. TabRest là phần mềm mã nguồn mở hoàn toàn theo giấy phép MIT. Bạn có thể xem mã nguồn, đóng góp cải tiến hoặc báo lỗi trên GitHub.',
         },
         {
           question: 'TabRest hỗ trợ những trình duyệt nào?',
@@ -426,7 +426,7 @@ export const translations = {
       sections: {
         product: 'Sản phẩm',
         resources: 'Tài nguyên',
-        legal: 'Pháp lý',
+        legal: 'Điều khoản',
       },
       links: {
         features: 'Tính năng',
@@ -446,7 +446,7 @@ export const translations = {
         sections: {
           'getting-started': 'Bắt đầu',
           features: 'Tính năng',
-          reference: 'Tham khảo',
+          reference: 'Tra cứu',
         },
       },
     },

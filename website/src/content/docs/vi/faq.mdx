@@ -27,7 +27,7 @@ Không. Khác biệt chính:
 | Sử dụng bộ nhớ | Rất thấp (~1 MB) | Không |
 | Cách khôi phục | Nhấn để tải lại | Mở lại từ lịch sử |
 | Giữ nguyên vị trí | ✅ Có | ❌ Không |
-| Giữ nguyên dữ liệu form | ✅ Có | ❌ Không |
+| Giữ nguyên dữ liệu biểu mẫu | ✅ Có | ❌ Không |
 
 ### TabRest tiết kiệm bao nhiêu bộ nhớ?
 
@@ -35,7 +35,7 @@ Tiết kiệm bộ nhớ phụ thuộc vào website bạn dùng:
 
 - **Trang đơn giản**: 50-100 MB mỗi tab
 - **Ứng dụng web phức tạp**: 200-500 MB mỗi tab
-- **Trang nặng** (video, công cụ thiết kế): 500+ MB mỗi tab
+- **Trang nặng** (phát hình, công cụ thiết kế): 500+ MB mỗi tab
 
 **Ví dụ**: Giải phóng 20 tab thông thường có thể giải phóng 2-4 GB RAM.
 
@@ -47,27 +47,27 @@ Không. TabRest chỉ chạy khi Chrome mở. Tuy nhiên:
 - **Cài đặt được lưu** qua các phiên trình duyệt
 - **Danh sách trắng đồng bộ** đến thiết bị khác (nếu Chrome sync được bật)
 
-### TabRest có hoạt động offline không?
+### TabRest có hoạt động khi không có mạng không?
 
-Có. TabRest hoạt động hoàn toàn offline vì:
+Có. TabRest hoạt động hoàn toàn không cần mạng vì:
 
 - Tất cả logic chạy cục bộ trong trình duyệt
 - Không cần yêu cầu mạng
 - Không có server bên ngoài
 
-**Lưu ý**: Tải lại tab đã giải phóng cần kết nối internet nếu trang không được cache.
+**Lưu ý**: Nếu trang chưa có trong bộ nhớ đệm, bạn vẫn cần kết nối mạng để tải lại tab đã giải phóng.
 
 ## Quyền riêng tư & Bảo mật
 
 ### TabRest có thu thập dữ liệu của tôi không?
 
-**Không.** TabRest không thu thập bất kỳ dữ liệu cá nhân nào.
+**Không.** TabRest không thu thập dữ liệu cá nhân nào.
 
-- Không theo dõi hoặc analytics
-- Không gửi dữ liệu đến server bên ngoài
-- Không telemetry hoặc báo cáo crash
+- Không theo dõi, không phân tích hành vi
+- Mặc định không gửi dữ liệu tới máy chủ bên ngoài
+- Không có telemetry; bạn phải chủ động chọn bật báo cáo sự cố ẩn danh (mặc định TẮT)
 
-Xem [Chính sách bảo mật](/vi/docs/privacy-policy) để biết chi tiết.
+Xem [Chính sách quyền riêng tư](/vi/docs/privacy-policy) để biết chi tiết.
 
 ### TabRest lưu trữ dữ liệu gì?
 
@@ -76,7 +76,7 @@ TabRest lưu cục bộ trong Chrome:
 | Loại dữ liệu | Storage | Mục đích |
 |--------------|---------|----------|
 | Cài đặt | `chrome.storage.sync` | Tùy chọn người dùng |
-| Danh sách trắng | `chrome.storage.sync` | Domain được bảo vệ |
+| Danh sách cho phép | `chrome.storage.sync` | Tên miền được bảo vệ |
 | Hoạt động tab | `chrome.storage.local` | Theo dõi LRU |
 | Thống kê | `chrome.storage.local` | Thống kê sử dụng |
 
@@ -87,7 +87,7 @@ TabRest lưu cục bộ trong Chrome:
 Quyền này (`tabs`) cần để:
 
 - Đọc tiêu đề và URL tab (để khớp danh sách trắng)
-- Phát hiện trạng thái tab (ghim, audio, hoạt động)
+- Phát hiện trạng thái tab (đã ghim, đang phát âm thanh, đang hoạt động)
 - Giải phóng tab qua `chrome.tabs.discard()`
 
 **TabRest KHÔNG**:
@@ -113,7 +113,7 @@ Bạn có thể:
 
 Manifest V3 (MV3) là nền tảng tiện ích mới nhất của Chrome. Khác biệt chính so với V2:
 
-- **Service worker** thay vì background page (hiệu quả hơn)
+- **Service worker** thay cho trang chạy nền (hiệu quả hơn)
 - **Quyền hạn chặt hơn** (bảo mật tốt hơn)
 - **Hiệu suất tốt hơn** (Chrome ưu tiên tiện ích MV3)
 
@@ -125,7 +125,7 @@ Không. TabRest được thiết kế với tác động hiệu suất tối thi
 
 - **Service worker**: Chỉ chạy khi cần, kết thúc khi rảnh
 - **Kiểm tra định kỳ**: Mỗi phút một lần (tab) và mỗi 30 giây (bộ nhớ)
-- **API hiệu quả**: Dùng API Chrome native, không tính toán nặng
+- **API hiệu quả**: Dùng API có sẵn của Chrome, không tính toán nặng
 
 **Chứng minh**: Kiểm tra Chrome Task Manager (`Shift+Esc`) - TabRest thường dùng < 10 MB.
 
@@ -165,59 +165,74 @@ TabRest nên hoạt động trên trình duyệt dựa trên Chromium hỗ trợ
 
 ## Câu hỏi về tính năng
 
-### Làm sao bật chế độ Side Panel?
+### Làm sao bật chế độ bảng bên?
 
-1. Mở **Cài đặt** → Nhấn biểu tượng ⚙️
-2. Tìm phần **Toolbar Action**
-3. Bật nút chuyển **"Mở trong Side Panel"** (Open in side panel)
-4. Biểu tượng TabRest bây giờ sẽ mở một bảng bên thay vì popup
+TabRest có thể mở trong bảng bên cố định thay vì cửa sổ bật lên:
 
-**Lợi ích**: Side Panel ở lại trong khi bạn duyệt web, không cần nhấp lại để xem cập nhật.
+1. Nhấn biểu tượng TabRest → nút **⚙️ Cài đặt**
+2. Kéo xuống phần **Thao tác trên thanh công cụ**
+3. Bật **Mở trong bảng bên**
+4. Lần nhấn tiếp theo sẽ mở TabRest trong bảng bên thay vì cửa sổ bật lên
+5. Bảng bên vẫn mở khi bạn chuyển qua lại giữa các tab
+
+**Ghi chú**: Yêu cầu Chrome 114 trở lên. Nếu không dùng được thì trình duyệt của bạn đã quá cũ.
 
 ### Làm sao đóng tab trùng lặp?
 
-1. Mở **popup TabRest** (nhấp biểu tượng trên thanh công cụ)
-2. Kéo xuống phần **More Actions** (Thêm hành động)
-3. Nhấp **Close Duplicates** (Đóng tab trùng lặp)
-4. TabRest sẽ quét tất cả tab trong cửa sổ hiện tại
-5. Giữ lại tab cũ nhất và đóng các tab trùng mới hơn
+Dùng công cụ đóng tab trùng lặp có sẵn:
 
-**Ghi chú**: Chỉ ảnh hưởng cửa sổ hiện tại, không phải các cửa sổ khác.
+1. Mở cửa sổ bật lên của TabRest
+2. Kéo xuống phần **Thao tác khác**
+3. Nhấn **Đóng tab trùng lặp**
+4. TabRest quét cửa sổ hiện tại và đóng các tab trùng mới hơn, giữ lại tab cũ nhất
 
-### Làm sao sao lưu whitelist hoặc sessions?
+**Ví dụ**: Nếu bạn vô tình mở `github.com` ba lần, TabRest đóng tab #2 và #3, giữ lại tab #1.
 
-1. Mở **popup TabRest**
-2. Kéo xuống phần **Sessions** hoặc **More Actions**
-3. Nhấp nút **Export** (Xuất)
-4. Sao chép JSON vào clipboard
-5. Lưu vào tệp tin hoặc ghi chú (Google Keep, OneNote, v.v.)
+### Làm sao sao lưu danh sách trắng hoặc các phiên?
 
-**Để khôi phục**: Dán JSON vào trường Nhập → Nhấp **Import** (Nhập).
+Xuất cấu hình ra JSON rồi lưu hoặc chia sẻ:
 
-### Cảnh báo suspend là gì?
+1. Nhấn biểu tượng TabRest → **⚙️ Cài đặt** (hoặc mở cửa sổ bật lên → mục Phiên)
+2. Kéo xuống phần **Danh sách trắng** hoặc **Phiên**
+3. Nhấn **Xuất**
+4. JSON được sao chép vào bộ nhớ tạm
+5. Lưu vào tệp hoặc gửi qua email
 
-Cảnh báo suspend là một thông báo trên trang web xuất hiện **3 giây trước** khi TabRest tự động giải phóng tab:
+Để khôi phục trên thiết bị khác:
+1. Nhấn **Nhập**
+2. Dán JSON từ bộ nhớ tạm
+3. Các mục mới được thêm vào danh sách hiện có (mục trùng tự động bị loại bỏ)
 
-- **Mục đích**: Cho bạn cơ hội ngăn chặn (tương tác với tab hoặc chuyển hướng)
-- **Bật/Tắt**: Cài đặt → Behavior → "Show suspend warning"
-- **Tùy chỉnh**: Thay đổi độ trễ (ms) trong **Suspend warning delay**
-- **Hành vi**: Nếu bạn nhấp, nhập, hoặc phát audio, cảnh báo sẽ bị hủy
+### Cảnh báo trước khi giải phóng là gì?
+
+Một thông báo 3 giây hiện trên trang trước khi TabRest tự động giải phóng tab:
+
+- **Nội dung hiện ra**: Thông báo "Sắp giải phóng tab trong 3 giây..." trên trang
+- **Lý do**: Cho bạn cơ hội lưu lại công việc hoặc hủy việc giải phóng
+- **Cách hủy**:
+  - Nhấn vào tab đó (chuyển tiêu điểm sang nó)
+  - Phát âm thanh trên trang
+  - Sửa một trường biểu mẫu
+  - Tạm hoãn tab
+- **Có thể tùy chỉnh**: Đổi độ trễ trong Cài đặt (1 đến 10 giây)
+
+**Ví dụ**: Bạn rời khỏi máy và một tab sắp bị giải phóng để nhường bộ nhớ. Cảnh báo hiện ra, cho bạn 3 giây để hủy nếu vẫn đang dùng tab đó.
 
 ### Làm sao để tạm dừng TabRest không giải phóng tab nữa?
 
 Dùng tính năng **Tạm dừng toàn cục**:
 
-1. Mở popup TabRest (hoặc side panel)
+1. Mở cửa sổ bật lên của TabRest (hoặc bảng bên)
 2. Tìm thanh tạm dừng ở gần đầu
 3. Chọn thời lượng: **30 phút**, **1 giờ**, **2 giờ**, hoặc **Đến khi tiếp tục**
 4. TabRest sẽ dừng toàn bộ việc tự động giải phóng (hẹn giờ không hoạt động, ngưỡng bộ nhớ, ngưỡng bộ nhớ từng tab, và giải phóng khi khởi động) cho đến khi hết thời gian tạm dừng
 5. Nhấn **Tiếp tục** bất kỳ lúc nào để bật lại tự động giải phóng sớm hơn
 
-**Những gì vẫn hoạt động khi đang tạm dừng**: Các thao tác giải phóng thủ công (Giải phóng tab hiện tại/Khác/Trái/Phải), menu chuột phải, phím tắt, và hành động nhấp thanh công cụ vẫn hoạt động bình thường - chỉ có tự động giải phóng bị tạm dừng.
+**Những gì vẫn hoạt động khi đang tạm dừng**: Các thao tác giải phóng thủ công (tab hiện tại/khác/bên trái/bên phải), trình đơn chuột phải, phím tắt và thao tác trên thanh công cụ vẫn hoạt động - chỉ việc tự động giải phóng bị dừng.
 
 **Chỉ báo**: Huy hiệu thanh công cụ hiển thị ❚❚ khi đang tạm dừng.
 
-**Khác gì với Tạm hoãn (Snooze)?** Tạm hoãn chỉ bảo vệ một tab hoặc domain cụ thể. Tạm dừng toàn cục là một công tắc duy nhất dừng việc tự động giải phóng ở mọi nơi cùng lúc.
+**Khác gì với Tạm hoãn?** Tạm hoãn chỉ bảo vệ một tab hoặc tên miền cụ thể. Tạm dừng toàn cục là một công tắc duy nhất dừng việc tự động giải phóng ở mọi nơi cùng lúc.
 
 ### TabRest có thể tự động giải phóng tab khi số tab đạt X không?
 
@@ -233,16 +248,15 @@ Có, dùng **chế độ danh sách đen**:
 
 1. Mở Cài đặt
 2. Bật **Chế độ danh sách đen**
-3. Thêm domain vào danh sách
-4. Chỉ các domain đó sẽ bị giải phóng; tất cả domain khác được bảo vệ
+3. Thêm tên miền vào danh sách
+4. Chỉ những tên miền đó sẽ bị giải phóng; mọi tên miền khác được bảo vệ
 
 Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết chi tiết.
 
-### TabRest có bảo vệ localhost và IP addresses không?
+### TabRest có hỗ trợ localhost và địa chỉ IP trong danh sách trắng không?
 
-Có. TabRest hỗ trợ thêm localhost và IP addresses vào danh sách trắng:
+Có. Bạn có thể thêm máy chủ phát triển cục bộ vào danh sách trắng:
 
-**Ví dụ**:
 ```
 localhost
 127.0.0.1
@@ -250,9 +264,7 @@ localhost
 ::1 (IPv6 localhost)
 ```
 
-**Trường hợp sử dụng**: Bảo vệ các máy chủ cục bộ (development servers) khỏi tự động giải phóng.
-
-Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết ví dụ đầy đủ.
+**Trường hợp sử dụng**: Bảo vệ môi trường phát triển cục bộ khỏi tự động giải phóng, trong khi các trang khác vẫn được giải phóng bình thường.
 
 ### TabRest có thể khôi phục tất cả tab đã giải phóng cùng lúc không?
 
@@ -273,10 +285,10 @@ Hiện tại không. Tự động giải phóng của TabRest là liên tục, k
 Có. TabRest hoạt động trên tất cả cửa sổ Chrome:
 
 - Tự động giải phóng kiểm tra tất cả cửa sổ
-- Giải phóng thủ công từ popup chỉ ảnh hưởng cửa sổ hiện tại
+- Giải phóng thủ công từ cửa sổ bật lên chỉ ảnh hưởng cửa sổ hiện tại
 - Phím tắt chỉ ảnh hưởng cửa sổ hiện tại
 
-### TabRest có hoạt động với tiện ích tab suspender khác không?
+### TabRest có hoạt động cùng tiện ích tạm ngưng tab khác không?
 
 TabRest nên hoạt động cùng các tiện ích quản lý tab khác, nhưng:
 
@@ -290,12 +302,12 @@ TabRest nên hoạt động cùng các tiện ích quản lý tab khác, nhưng:
 Từ Chrome 108, Chrome có sẵn **Memory Saver** tại `chrome://settings/performance`, tự động giải phóng tab không hoạt động ở cấp trình duyệt. TabRest và Memory Saver chạy độc lập:
 
 - **Memory Saver không tham khảo TabRest**. Không có Chrome Extension API nào cho phép loại trừ một tab khỏi Memory Saver.
-- **Danh sách trắng và snooze của TabRest chỉ áp dụng cho cơ chế giải phóng của TabRest**. Chúng không ngăn được Chrome tự giải phóng cùng tab đó.
+- **Danh sách trắng và trạng thái tạm hoãn của TabRest chỉ áp dụng cho cơ chế giải phóng của TabRest**. Chúng không ngăn được Chrome tự giải phóng chính tab đó.
 
 **Nếu bật cả hai**, một tab trong danh sách trắng vẫn có thể bị Chrome giải phóng. Để tránh điều này, hãy chọn một trong hai cách:
 
 1. Tắt Chrome Memory Saver và để TabRest quản lý hoàn toàn (khuyến nghị cho người dùng muốn kiểm soát chi tiết), hoặc
-2. Giữ cả hai bật, đồng thời thêm các domain quan trọng vào danh sách **Always keep these sites active** của Chrome tại `chrome://settings/performance`
+2. Giữ cả hai bật, đồng thời thêm các tên miền quan trọng vào danh sách **Luôn duy trì hoạt động cho các trang web này** của Chrome tại `chrome://settings/performance`
 
 Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config#cùng-tồn-tại-với-chrome-memory-saver) để biết chi tiết.
 
@@ -305,11 +317,11 @@ Nguyên nhân phổ biến nhất là Chrome Memory Saver chạy song song với
 
 Các nguyên nhân khác có thể có:
 
-- Định dạng domain sai (dùng `example.com`, không phải `https://example.com/path`)
-- Đang bật chế độ blacklist (danh sách trắng trở thành danh sách giải phóng)
+- Định dạng tên miền sai (dùng `example.com`, không phải `https://example.com/path`)
+- Đang bật chế độ danh sách đen (danh sách trắng trở thành danh sách giải phóng)
 - Có tiện ích quản lý tab khác cũng được cài đặt
 
-Xem [Xử lý sự cố -> Danh sách trắng không hoạt động](/vi/docs/troubleshooting#danh-sách-trắng-không-hoạt-động) để biết các bước chẩn đoán đầy đủ.
+Xem [Xử lý sự cố → Danh sách trắng không hoạt động](/vi/docs/troubleshooting#danh-sách-trắng-không-hoạt-động) để biết đầy đủ các bước chẩn đoán.
 
 ## Xử lý sự cố
 
@@ -331,7 +343,7 @@ Xem [Xử lý sự cố -> Danh sách trắng không hoạt động](/vi/docs/tr
 2. **Service worker kết thúc**: Huy hiệu cập nhật khi service worker chạy
 3. **Lỗi tiện ích**: Tải lại tiện ích
 
-**Giải pháp**: Mở popup (điều này đánh thức service worker) và huy hiệu sẽ cập nhật.
+**Giải pháp**: Mở cửa sổ bật lên để đánh thức service worker; huy hiệu sẽ được cập nhật.
 
 ### Tôi có thể export cài đặt không?
 
@@ -339,8 +351,8 @@ Không trực tiếp từ UI. Cài đặt được lưu trong `chrome.storage.sy
 
 **Export thủ công** (nâng cao):
 1. Vào `chrome://extensions`
-2. TabRest → **Chi tiết** → **Kiểm tra views: service worker**
-3. Trong console:
+2. TabRest → **Chi tiết** → **Kiểm tra chế độ xem: service worker**
+3. Trong bảng điều khiển:
    ```javascript
    chrome.storage.sync.get('settings', console.log);
    ```
@@ -348,7 +360,7 @@ Không trực tiếp từ UI. Cài đặt được lưu trong `chrome.storage.sy
 
 ### Làm sao để báo cáo lỗi?
 
-Xem [Khắc phục sự cố → Báo cáo lỗi](/vi/docs/troubleshooting#báo-cáo-lỗi) để biết hướng dẫn chi tiết.
+Xem [Xử lý sự cố → Báo lỗi](/vi/docs/troubleshooting#báo-cáo-lỗi) để biết hướng dẫn chi tiết.
 
 ## Bắt đầu
 
@@ -357,7 +369,7 @@ Xem [Khắc phục sự cố → Báo cáo lỗi](/vi/docs/troubleshooting#báo-
 1. **Test giải phóng thủ công**: Mở vài tab, nhấn biểu tượng TabRest → "Giải phóng các tab khác"
 2. **Kiểm tra cài đặt mặc định**: Mở trang Cài đặt, xem lại hẹn giờ và bảo vệ
 3. **Tùy chỉnh danh sách trắng**: Thêm trang quan trọng (email, docs, chat)
-4. **Học phím tắt**: Thiết lập [phím tắt](/vi/docs/keyboard-shortcuts) để điều khiển nhanh hơn
+4. **Tìm hiểu phím tắt**: Thiết lập [phím tắt](/vi/docs/keyboard-shortcuts) để thao tác nhanh hơn
 
 ### Nên dùng chế độ danh sách trắng hay danh sách đen?
 
@@ -378,8 +390,8 @@ Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết ví
 - **Ngưỡng bộ nhớ**: 60% (tích cực)
 - **Giải phóng khi khởi động**: Bật
 - **Bảo vệ tab ghim**: Tắt
-- **Bảo vệ tab audio**: Tắt
-- **Bảo vệ tab form**: Bật (giữ bật để tránh mất dữ liệu)
+- **Bảo vệ tab đang phát âm thanh**: Tắt
+- **Bảo vệ tab có biểu mẫu**: Bật (nên giữ bật để tránh mất dữ liệu)
 - **Danh sách trắng**: Trống hoặc tối thiểu (chỉ trang quan trọng)
 
 **Cảnh báo**: Điều này có thể làm gián đoạn quy trình làm việc. Test và điều chỉnh theo cách sử dụng của bạn.
@@ -391,8 +403,8 @@ Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết ví
 - **Ngưỡng bộ nhớ**: 80%
 - **Giải phóng khi khởi động**: Bật
 - **Bảo vệ tab ghim**: Bật
-- **Bảo vệ tab audio**: Bật
-- **Bảo vệ tab form**: Bật
+- **Bảo vệ tab đang phát âm thanh**: Bật
+- **Bảo vệ tab có biểu mẫu**: Bật
 - **Danh sách trắng**: YouTube, Gmail, Google Docs
 
 Điều này cung cấp tiết kiệm bộ nhớ mà không làm gián đoạn duyệt web bình thường.
@@ -400,6 +412,6 @@ Xem [Cấu hình danh sách trắng](/vi/docs/whitelist-config) để biết ví
 ## Còn câu hỏi?
 
 - **Đọc tài liệu**: Khám phá tất cả [trang tài liệu](/vi/docs/getting-started)
-- **Xem khắc phục sự cố**: Truy cập [Khắc phục sự cố](/vi/docs/troubleshooting)
+- **Xem cách xử lý sự cố**: Truy cập [Xử lý sự cố](/vi/docs/troubleshooting)
 - **Hỏi trên GitHub**: [Mở thảo luận](https://github.com/lamngockhuong/tabrest/discussions)
 - **Báo cáo lỗi**: [Tạo issue](https://github.com/lamngockhuong/tabrest/issues)
