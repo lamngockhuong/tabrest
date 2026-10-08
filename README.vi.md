@@ -150,8 +150,8 @@ Hình ảnh quảng bá Chrome Web Store nằm trong `assets/` dưới dạng ng
 
 ## Quyền riêng tư
 
-- Không thu thập dữ liệu
-- Không dùng máy chủ bên ngoài
+- Không thu thập dữ liệu cá nhân
+- Không dùng máy chủ bên ngoài, trừ tính năng gửi báo lỗi ẩn danh (mặc định tắt, phải tự bật)
 - Mọi cài đặt đều được lưu trên máy
 - Xem [Chính sách quyền riêng tư](docs/privacy-policy.md)
 

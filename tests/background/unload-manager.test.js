@@ -245,6 +245,34 @@ describe("unload-manager", () => {
       expect(chrome.scripting.executeScript).toHaveBeenCalled();
     });
 
+    it("sends saveYouTubeTimestamp only to real YouTube watch pages", async () => {
+      chrome.tabs.get.mockResolvedValue({
+        id: 1,
+        url: "https://www.youtube.com/watch?v=abc",
+        active: false,
+      });
+      chrome.tabs.discard.mockResolvedValue();
+      const settings = { ...baseSettings, saveYouTubeTimestamp: true };
+
+      expect(await discardTab(1, { settings })).toBe(true);
+      expect(chrome.tabs.sendMessage).toHaveBeenCalledWith(1, { action: "saveYouTubeTimestamp" });
+    });
+
+    it("ignores pages whose URL merely contains youtube.com/watch", async () => {
+      chrome.tabs.get.mockResolvedValue({
+        id: 1,
+        url: "https://evil.test/#youtube.com/watch",
+        active: false,
+      });
+      chrome.tabs.discard.mockResolvedValue();
+      const settings = { ...baseSettings, saveYouTubeTimestamp: true };
+
+      expect(await discardTab(1, { settings })).toBe(true);
+      expect(chrome.tabs.sendMessage).not.toHaveBeenCalledWith(1, {
+        action: "saveYouTubeTimestamp",
+      });
+    });
+
     it("does not inject favicon indicator when the setting is off", async () => {
       chrome.tabs.get.mockResolvedValue({
         id: 1,

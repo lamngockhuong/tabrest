@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   formatBytes,
+  getHostname,
   isMinorOrMajorBump,
   isValidDomainOrIp,
   parseSemver,
@@ -128,5 +129,19 @@ describe("isMinorOrMajorBump", () => {
 
   it("handles same version", () => {
     expect(isMinorOrMajorBump("1.0.0", "1.0.0")).toBe(false);
+  });
+});
+
+describe("getHostname", () => {
+  it("strips a leading www. label", () => {
+    expect(getHostname("https://www.google.com/search")).toBe("google.com");
+  });
+
+  it("keeps hosts that only contain www (VULN-05)", () => {
+    expect(getHostname("https://gwww.oogle.com/")).toBe("gwww.oogle.com");
+  });
+
+  it("returns empty string for invalid URLs", () => {
+    expect(getHostname("not a url")).toBe("");
   });
 });

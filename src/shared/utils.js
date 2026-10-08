@@ -75,6 +75,15 @@ export function unwrapHostname(host) {
   return host?.replace(/^\[|\]$/g, "") ?? "";
 }
 
+// Display hostname without a leading "www." label ("gwww.oogle.com" stays intact)
+export function getHostname(url) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
 // Validate whitelist/blacklist entry: domain, IPv4, IPv6, or 'localhost'
 export function isValidDomainOrIp(input) {
   if (!input || typeof input !== "string") return false;

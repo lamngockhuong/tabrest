@@ -16,7 +16,13 @@ import {
 import { requestHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
-import { formatBytes, getBrowserInfo, isSafeFaviconUrl, isSafeHttpUrl } from "../shared/utils.js";
+import {
+  formatBytes,
+  getBrowserInfo,
+  getHostname,
+  isSafeFaviconUrl,
+  isSafeHttpUrl,
+} from "../shared/utils.js";
 
 // DOM Elements
 const elements = {
@@ -129,15 +135,6 @@ function isSidePanel() {
 // Cached at init so the click handler can call sidePanel.open() synchronously.
 // chrome.sidePanel.open() loses its user-gesture token after any await (see service-worker.js).
 let currentWindowId = null;
-
-// Get hostname from URL
-function getHostname(url) {
-  try {
-    return new URL(url).hostname.replace("www.", "");
-  } catch {
-    return "";
-  }
-}
 
 const HTML_ESCAPE_RE = /[&<>"']/g;
 const HTML_ESCAPE_MAP = {

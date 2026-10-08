@@ -1,10 +1,10 @@
 # Privacy Policy for TabRest
 
-Last updated: 2026-04-08
+Last updated: 2026-10-08
 
 ## Data Collection
 
-TabRest does NOT collect, store, or transmit any personal data to external servers.
+TabRest does NOT collect, store, or transmit any personal data to external servers. TabRest itself sends nothing off your device except the optional anonymous error reports described below, which are off by default. Settings sync through your Chrome account when Chrome Sync is on.
 
 ## Data Storage
 
@@ -81,7 +81,7 @@ Sentry is GDPR-compliant and stores data in the US. For details, visit: <https:/
 
 ## Third Parties
 
-This extension does not communicate with any external servers or third parties. All functionality runs entirely within your browser.
+This extension does not communicate with any external servers or third parties, except Sentry when you opt in to [error reporting](#error-reporting-v010). All other functionality runs entirely within your browser.
 
 ## Data Retention
 

@@ -94,7 +94,7 @@ export async function discardTab(tabId, options = {}) {
     }
 
     // Save YouTube timestamp before discarding
-    if (settings.saveYouTubeTimestamp && currentTab.url?.includes("youtube.com/watch")) {
+    if (settings.saveYouTubeTimestamp && isYouTubeWatchUrl(currentTab.url)) {
       try {
         await chrome.tabs.sendMessage(tabId, { action: "saveYouTubeTimestamp" });
       } catch {
@@ -317,6 +317,16 @@ export function matchesDomainList(url, domainList) {
   try {
     const hostname = unwrapHostname(new URL(url).hostname);
     return domainList.some((domain) => hostname === domain || hostname.endsWith(`.${domain}`));
+  } catch {
+    return false;
+  }
+}
+
+// Match by origin, not substring: a page URL like https://evil.test/#youtube.com/watch must not
+// trigger the YouTube timestamp message (youtube-tracker.js only runs on youtube.com/watch)
+function isYouTubeWatchUrl(url) {
+  try {
+    return new URL(url).pathname === "/watch" && matchesDomainList(url, ["youtube.com"]);
   } catch {
     return false;
   }

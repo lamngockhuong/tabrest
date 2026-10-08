@@ -26,6 +26,9 @@ let cachedAuthHeader = null;
 let cachedAppVersion = null;
 let cachedBrowserName = null;
 let sentryInitialized = false;
+let globalHandlersRegistered = false;
+// Bumped by resetErrorReporter so an init that started before the reset cannot win
+let initGeneration = 0;
 
 // Patterns to redact from error messages
 const PII_PATTERNS = [
@@ -70,7 +73,10 @@ export async function initErrorReporter(options = {}) {
   // Prevent duplicate initialization (and duplicate listeners)
   if (sentryInitialized) return;
 
+  const generation = initGeneration;
   const settings = await getSettings();
+  // Reset landed mid-init: start over so callers await a real init, not a no-op
+  if (generation !== initGeneration) return initErrorReporter(options);
 
   // Respect user opt-out
   if (settings.enableErrorReporting === false) {
@@ -95,24 +101,54 @@ export async function initErrorReporter(options = {}) {
     }
   }
 
-  // Set up global error handler for uncaught errors
-  self.addEventListener("error", (event) => {
-    captureError(event.error || new Error(event.message), {
-      source: "uncaught",
-      filename: sanitizeString(event.filename),
-      lineno: event.lineno,
-      colno: event.colno,
-    });
-  });
+  // Global handlers survive resetErrorReporter(), so register them only once
+  if (!globalHandlersRegistered) {
+    globalHandlersRegistered = true;
 
-  // Set up unhandled promise rejection handler
-  self.addEventListener("unhandledrejection", (event) => {
-    const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
-    captureError(error, { source: "unhandledrejection" });
-  });
+    // Set up global error handler for uncaught errors
+    self.addEventListener("error", (event) => {
+      captureError(event.error || new Error(event.message), {
+        source: "uncaught",
+        filename: sanitizeString(event.filename),
+        lineno: event.lineno,
+        colno: event.colno,
+      });
+    });
+
+    // Set up unhandled promise rejection handler
+    self.addEventListener("unhandledrejection", (event) => {
+      const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+      captureError(error, { source: "unhandledrejection" });
+    });
+  }
 
   sentryInitialized = true;
   console.log("[ErrorReporter] Initialized");
+}
+
+/**
+ * True when a settings change affects consent or DSN, i.e. the reporter must be reset.
+ * @param {Object} [oldValue] - Previous settings object (absent on first write)
+ * @param {Object} [newValue] - New settings object
+ */
+export function isReporterConfigChange(oldValue = {}, newValue = {}) {
+  return (
+    oldValue.enableErrorReporting !== newValue.enableErrorReporting ||
+    oldValue.customSentryDsn !== newValue.customSentryDsn
+  );
+}
+
+/**
+ * Drop transport state so the next initErrorReporter() re-reads consent and DSN.
+ * Called when the user changes error-reporting settings, so revoking consent
+ * stops sending immediately instead of at the next service-worker restart.
+ */
+export function resetErrorReporter() {
+  initGeneration++;
+  sentryInitialized = false;
+  parsedDsn = null;
+  rawDsn = null;
+  cachedAuthHeader = null;
 }
 
 /**

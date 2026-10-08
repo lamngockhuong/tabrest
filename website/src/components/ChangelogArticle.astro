@@ -4,11 +4,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { marked } from 'marked';
+import sanitizeHtml from 'sanitize-html';
 
 // CHANGELOG.md lives at the repo root, one level above the website/ working dir.
 const changelogPath = path.join(process.cwd(), '..', 'CHANGELOG.md');
 const changelogContent = fs.readFileSync(changelogPath, 'utf-8');
-const changelogHtml = marked(changelogContent);
+// The changelog is generated from PR titles and commit bodies, so treat it as untrusted:
+// marked passes raw HTML through, and set:html renders it unescaped.
+const changelogHtml = sanitizeHtml(await marked(changelogContent));
 ---
 
 <main class="pt-24 pb-12 px-4 min-h-screen">

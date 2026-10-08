@@ -150,8 +150,8 @@ Las imágenes promocionales de Chrome Web Store se encuentran en `assets/` como 
 
 ## Privacidad
 
-- Sin recopilación de datos
-- Sin servidores externos
+- Sin recopilación de datos personales
+- Sin servidores externos, salvo el envío opcional y anónimo de informes de errores (desactivado por defecto)
 - Toda la configuración se almacena localmente
 - Consulte la [Política de privacidad](docs/privacy-policy.md)
 
