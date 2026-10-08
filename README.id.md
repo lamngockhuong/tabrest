@@ -150,8 +150,8 @@ Gambar promosi Chrome Web Store tersedia di `assets/` sebagai sumber SVG.
 
 ## Privasi
 
-- Tidak ada pengumpulan data
-- Tidak ada server eksternal
+- Tidak ada pengumpulan data pribadi
+- Tidak ada server eksternal, kecuali laporan error anonim opsional (nonaktif secara default)
 - Semua pengaturan disimpan secara lokal
 - Lihat [Kebijakan Privasi](docs/privacy-policy.md)
 

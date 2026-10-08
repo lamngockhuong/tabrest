@@ -150,8 +150,8 @@ Werbebilder für den Chrome Web Store befinden sich als SVG-Quellen im Verzeichn
 
 ## Datenschutz
 
-- Keine Datenerfassung
-- Keine externen Server
+- Keine Erfassung personenbezogener Daten
+- Keine externen Server, außer der optionalen anonymen Fehlerberichterstattung (standardmäßig aus)
 - Alle Einstellungen werden lokal gespeichert
 - Siehe [Datenschutzrichtlinie](docs/privacy-policy.md)
 

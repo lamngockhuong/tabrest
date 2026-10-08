@@ -150,8 +150,8 @@ Chrome Web Store promotional images are in `assets/` as SVG sources.
 
 ## Privacy
 
-- No data collection
-- No external servers
+- No personal data collection
+- No external servers, except opt-in anonymous error reporting (off by default)
 - All settings stored locally
 - See [Privacy Policy](docs/privacy-policy.md)
 
