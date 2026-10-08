@@ -1,10 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { MESSAGE_ROUTES, resolveMessageRoute } from "../../src/background/message-route.js";
+import { REPORTER_COMMANDS } from "../../src/shared/constants.js";
 import { captureError, captureMessage } from "../../src/shared/error-reporter.js";
 
 /**
- * Content Bridge Tests for Phase 04
- * Verify that chrome.runtime.onMessage routes content script errors
- * to captureError/captureMessage correctly.
+ * Verify that chrome.runtime.onMessage turns reporter messages into
+ * captureError/captureMessage calls. Content scripts may only send
+ * captureError; captureMessage is accepted from extension pages alone
+ * (see resolveMessageRoute in message-route.js).
  */
 
 describe("content-bridge: message routing", () => {
@@ -211,40 +214,28 @@ describe("content-bridge: message routing", () => {
     });
   });
 
-  describe("origin filtering (extension vs host page)", () => {
-    it("accepts messages with extension origin", async () => {
-      const message = {
-        command: "captureError",
-        error: { name: "Error", message: "test", stack: "" },
-        context: { surface: "content" },
-      };
+  describe("sender filtering (content script vs extension page)", () => {
+    const ORIGIN = "chrome-extension://abc123/";
+    // A content script's sender.url is the page it runs in, not the extension
+    const contentScript = { url: "https://example.com/page", tab: { id: 1 } };
+    const extensionPage = { url: `${ORIGIN}src/popup/popup.html` };
 
-      const sender = {
-        url: "chrome-extension://abc123/src/content.js",
-        tab: { id: 1 },
-      };
-
-      // Extension origin check: sender.url contains "chrome-extension://"
-      expect(sender.url).toContain("chrome-extension://");
-
-      // Message should be accepted
-      expect(message.command).toBe("captureError");
+    it("accepts captureError from a content script", () => {
+      expect(
+        resolveMessageRoute({ command: REPORTER_COMMANDS.CAPTURE_ERROR }, contentScript, ORIGIN),
+      ).toBe(MESSAGE_ROUTES.CAPTURE_ERROR);
     });
 
-    it("rejects messages from host page (non-extension origin)", async () => {
-      // In real implementation, content script is injected and uses
-      // chrome.runtime.sendMessage which is only available from extension
-      // and injected scripts. This test documents the filtering logic.
+    it("rejects captureMessage from a content script", () => {
+      expect(
+        resolveMessageRoute({ command: REPORTER_COMMANDS.CAPTURE_MESSAGE }, contentScript, ORIGIN),
+      ).toBe(MESSAGE_ROUTES.FORBIDDEN);
+    });
 
-      const sender = {
-        url: "https://example.com/page",
-        tab: { id: 1 },
-      };
-
-      // Host page cannot send chrome.runtime.sendMessage messages
-      // Only extension-injected content scripts can
-      const isExtensionOrigin = sender.url?.startsWith("chrome-extension://");
-      expect(isExtensionOrigin).not.toBe(true);
+    it("accepts captureMessage from an extension page", () => {
+      expect(
+        resolveMessageRoute({ command: REPORTER_COMMANDS.CAPTURE_MESSAGE }, extensionPage, ORIGIN),
+      ).toBe(MESSAGE_ROUTES.PRIVILEGED);
     });
   });
 

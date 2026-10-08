@@ -15,6 +15,8 @@ import { HOST_PERM_DEPENDENT_FLAGS } from "../../src/shared/permissions.js";
 // Approach A: service-worker.js is excluded because importing it registers
 // chrome.* listeners as a side effect. These tests pin the routing/decision
 // contracts the SW relies on by re-implementing the relevant fragments.
+// The onMessage sender gate is the exception: service-worker-message-gate.test.js
+// imports the real file so the listener itself is exercised.
 
 // --- configureToolbarAction (service-worker.js:73-87) -------------------------
 // sidePanel mode takes precedence over toolbarClickAction.

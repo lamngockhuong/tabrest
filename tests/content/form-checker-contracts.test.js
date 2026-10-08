@@ -3,9 +3,10 @@ import vm from "node:vm";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { REPORTER_COMMANDS, SCROLL_MAX_ENTRIES } from "../../src/shared/constants.js";
 
-// Approach A: form-checker.js is excluded (IIFE content script bound to live
-// DOM/window). These tests pin the pure-logic contracts: storage pruning,
-// extension-frame error filtering, and the form-modified detection algorithm.
+// Most tests here re-implement fragments of form-checker.js (an IIFE content
+// script bound to live DOM/window) to pin the pure-logic contracts: storage
+// pruning, extension-frame error filtering, and the form-modified detection
+// algorithm. The flag-ownership block at the end runs the real file in node:vm.
 
 // Importing SCROLL_MAX_ENTRIES from shared/constants is deliberate even though
 // the source duplicates it locally (content scripts can't use ES imports).
