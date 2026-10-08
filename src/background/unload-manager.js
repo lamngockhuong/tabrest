@@ -18,6 +18,11 @@ function passesStaticGates(tab, settings) {
   return null;
 }
 
+// Global pause or a per-tab/domain snooze, read fresh (not from a sweep snapshot).
+async function isAutoDiscardSuspended(tabId, url) {
+  return (await isPaused()) || (await isTabSnoozed(tabId, url));
+}
+
 /**
  * Check if tab should be protected from unloading
  * @param {object} tab - Chrome tab object
@@ -75,6 +80,10 @@ export async function discardTab(tabId, options = {}) {
       if (protection.protected) return false;
     }
 
+    // Sweeps snapshot pause/snooze once, then discard tabs one by one. Check
+    // before the toast so a pause stops the sweep's warnings at the next tab.
+    if (auto && !force && (await isAutoDiscardSuspended(tabId, tab.url))) return false;
+
     // Auto paths: show warning toast and re-check before committing.
     let currentTab = tab;
     if (auto && !force && settings.showSuspendWarning && currentTab.url?.startsWith("http")) {
@@ -88,20 +97,16 @@ export async function discardTab(tabId, options = {}) {
       const refreshed = await chrome.tabs.get(tabId).catch(() => null);
       if (!refreshed || refreshed.active || refreshed.discarded) return false;
       if (refreshed.status === "loading") return false;
-      // Fresh read: the caller's snapshot may predate a whitelist edit made
-      // while the toast was showing. getSettings() is cached, so this is cheap.
-      if (passesStaticGates(refreshed, await getSettings())) return false;
       const recheck = await shouldProtectTab(refreshed, settings);
       if (recheck.protected) return false;
       currentTab = refreshed;
     }
 
-    // Sweeps snapshot pause/snooze once, then discard tabs one by one (each
-    // waiting out the warning toast). Re-read both so a pause or snooze issued
-    // mid-sweep is honored for the remaining tabs.
+    // Re-check right before committing: the caller's snapshot may predate a
+    // whitelist edit, pause or snooze made mid-sweep or while the toast showed.
     if (auto && !force) {
-      if (await isPaused()) return false;
-      if (await isTabSnoozed(tabId, currentTab.url)) return false;
+      if (passesStaticGates(currentTab, await getSettings())) return false;
+      if (await isAutoDiscardSuspended(tabId, currentTab.url)) return false;
     }
 
     // Save YouTube timestamp before discarding

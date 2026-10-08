@@ -113,6 +113,7 @@ describe("unload-manager", () => {
       });
 
       afterEach(() => {
+        getSettings.mockReset();
         isPaused.mockReset();
         isTabSnoozed.mockReset();
         isTabSnoozed.mockResolvedValue(false);
@@ -140,12 +141,28 @@ describe("unload-manager", () => {
         expect(chrome.tabs.discard).toHaveBeenCalledWith(1);
       });
 
-      it("re-checks after the warning toast, not before it", async () => {
+      it("skips the warning toast when already paused", async () => {
         const toastSettings = { ...baseSettings, showSuspendWarning: true, suspendWarningDelayMs: 0 };
         getSettings.mockResolvedValue(toastSettings);
         isPaused.mockResolvedValue(true);
         expect(await discardTab(1, { settings: toastSettings, auto: true })).toBe(false);
+        expect(chrome.scripting.executeScript).not.toHaveBeenCalled();
+        expect(chrome.tabs.discard).not.toHaveBeenCalled();
+      });
+
+      it("re-checks after the warning toast for a pause issued during it", async () => {
+        const toastSettings = { ...baseSettings, showSuspendWarning: true, suspendWarningDelayMs: 0 };
+        getSettings.mockResolvedValue(toastSettings);
+        isPaused.mockResolvedValueOnce(false).mockResolvedValueOnce(true);
+        expect(await discardTab(1, { settings: toastSettings, auto: true })).toBe(false);
         expect(chrome.scripting.executeScript).toHaveBeenCalled();
+        expect(chrome.tabs.discard).not.toHaveBeenCalled();
+      });
+
+      it("honors a mid-sweep whitelist edit with the warning toast off", async () => {
+        getSettings.mockResolvedValue({ ...baseSettings, whitelist: ["a.com"] });
+        isPaused.mockResolvedValue(false);
+        expect(await discardTab(1, { settings: baseSettings, auto: true })).toBe(false);
         expect(chrome.tabs.discard).not.toHaveBeenCalled();
       });
 
