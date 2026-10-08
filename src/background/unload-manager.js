@@ -8,6 +8,7 @@ import { getSettings } from "../shared/storage.js";
 import { delay, queryCurrentWindowTabs, unwrapHostname } from "../shared/utils.js";
 import { ensureFormCheckerInjected } from "./form-injector.js";
 import { isPaused } from "./pause-manager.js";
+import { isTabSnoozed } from "./snooze-manager.js";
 import { recordUnload } from "./stats-collector.js";
 
 // Pinned + whitelist gates only. Returns null if cleared, else { protected, reason }.
@@ -15,6 +16,11 @@ function passesStaticGates(tab, settings) {
   if (tab.pinned && !settings.unloadPinnedTabs) return { protected: true, reason: "pinned" };
   if (isWhitelisted(tab.url, settings)) return { protected: true, reason: "whitelist" };
   return null;
+}
+
+// Global pause or a per-tab/domain snooze, read fresh (not from a sweep snapshot).
+async function isAutoDiscardSuspended(tabId, url) {
+  return (await isPaused()) || (await isTabSnoozed(tabId, url));
 }
 
 /**
@@ -74,6 +80,10 @@ export async function discardTab(tabId, options = {}) {
       if (protection.protected) return false;
     }
 
+    // Sweeps snapshot pause/snooze once, then discard tabs one by one. Check
+    // before the toast so a pause stops the sweep's warnings at the next tab.
+    if (auto && !force && (await isAutoDiscardSuspended(tabId, tab.url))) return false;
+
     // Auto paths: show warning toast and re-check before committing.
     let currentTab = tab;
     if (auto && !force && settings.showSuspendWarning && currentTab.url?.startsWith("http")) {
@@ -87,10 +97,16 @@ export async function discardTab(tabId, options = {}) {
       const refreshed = await chrome.tabs.get(tabId).catch(() => null);
       if (!refreshed || refreshed.active || refreshed.discarded) return false;
       if (refreshed.status === "loading") return false;
-      if (passesStaticGates(refreshed, settings)) return false;
       const recheck = await shouldProtectTab(refreshed, settings);
       if (recheck.protected) return false;
       currentTab = refreshed;
+    }
+
+    // Re-check right before committing: the caller's snapshot may predate a
+    // whitelist edit, pause or snooze made mid-sweep or while the toast showed.
+    if (auto && !force) {
+      if (passesStaticGates(currentTab, await getSettings())) return false;
+      if (await isAutoDiscardSuspended(tabId, currentTab.url)) return false;
     }
 
     // Save YouTube timestamp before discarding

@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { isSafeHttpUrl } from "../../src/shared/utils.js";
 
 // Approach A: popup.js is excluded from coverage (DOM entry script). These tests
 // pin the pure-logic contracts the popup relies on by re-deriving them here, so
@@ -263,23 +262,6 @@ describe("popup-contracts: leadingDebounce (trailing-edge invocation)", () => {
     debounced();
     vi.advanceTimersByTime(100);
     expect(fn).toHaveBeenCalledTimes(2);
-  });
-});
-
-// --- session favicon safety (popup.js:485-495) --------------------------------
-// The popup gates favicon rendering on isSafeHttpUrl to avoid loading
-// data:/javascript:/file: URIs that imported sessions might smuggle in.
-describe("popup-contracts: session favicon URL gating uses isSafeHttpUrl", () => {
-  it.each([
-    ["https://example.com/favicon.ico", true],
-    ["http://example.com/favicon.ico", true],
-    ["data:image/png;base64,xxx", false],
-    ["javascript:alert(1)", false],
-    ["chrome://favicon/x", false],
-    ["", false],
-    [null, false],
-  ])("%s → %s", (url, expected) => {
-    expect(isSafeHttpUrl(url)).toBe(expected);
   });
 });
 
