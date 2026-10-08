@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.0](https://github.com/lamngockhuong/tabrest/compare/v0.8.0...v0.9.0) (2026-10-08)
+
+
+### Features
+
+* **website:** add Japanese and Simplified Chinese locales ([#125](https://github.com/lamngockhuong/tabrest/issues/125)) ([1b2460a](https://github.com/lamngockhuong/tabrest/commit/1b2460a830c5d1cb8afc29da9f8e2668e560aa28))
+
+
+### Bug Fixes
+
+* address security audit findings ([#138](https://github.com/lamngockhuong/tabrest/issues/138)) ([c29cb50](https://github.com/lamngockhuong/tabrest/commit/c29cb50a4e66acc58c8ce86401f48fa8c14d2305))
+* **website:** improve Vietnamese translation naturalness ([#127](https://github.com/lamngockhuong/tabrest/issues/127)) ([f5e7577](https://github.com/lamngockhuong/tabrest/commit/f5e7577b500d199ceab4b0ce6774cf772a1337f0))
+* **website:** resync Vietnamese docs and correct FAQ crash-reporting claim ([#134](https://github.com/lamngockhuong/tabrest/issues/134)) ([624b42a](https://github.com/lamngockhuong/tabrest/commit/624b42a7fb578d85819603ec5dad08e99ec1063a))
+
 ## [0.8.0](https://github.com/lamngockhuong/tabrest/compare/v0.7.1...v0.8.0) (2026-07-20)
 
 
