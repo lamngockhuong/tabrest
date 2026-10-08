@@ -158,10 +158,13 @@ if (!window.__tabrestYoutubeErrorBridgeLoaded) {
   }
 
   window.addEventListener("error", (e) => {
-    forwardError(e.error || new Error(e.message), "uncaught");
+    // Page-dispatched (untrusted) or cross-world errors carry no Error object we own
+    if (!e.isTrusted || !e.error) return;
+    forwardError(e.error, "uncaught");
   });
   window.addEventListener("unhandledrejection", (e) => {
-    const reason = e.reason instanceof Error ? e.reason : new Error(String(e.reason));
-    forwardError(reason, "unhandledrejection");
+    // Wrapping a non-Error reason here would stamp it with an extension frame
+    if (!e.isTrusted || !(e.reason instanceof Error)) return;
+    forwardError(e.reason, "unhandledrejection");
   });
 }
