@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import vm from "node:vm";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { REPORTER_COMMANDS, SCROLL_MAX_ENTRIES } from "../../src/shared/constants.js";
 
@@ -354,5 +356,89 @@ describe("form-checker-contracts: memory reporter shutdown on context invalidati
     clearInterval.mockClear();
     tick();
     expect(clearInterval).not.toHaveBeenCalled();
+  });
+});
+
+// --- form-modified flag ownership (real form-checker.js in a sandbox) ---------
+// The page shares the DOM with the content script, so the flag must live in the
+// script's own scope and only trusted (user-generated) input may set it.
+const FORM_CHECKER_SOURCE = readFileSync(
+  new URL("../../src/content/form-checker.js", import.meta.url),
+  "utf8",
+);
+
+function loadFormChecker() {
+  const docListeners = {};
+  let onMessage;
+  const body = { dataset: {} };
+  const document = {
+    readyState: "complete",
+    body,
+    addEventListener: (type, fn) => {
+      docListeners[type] = fn;
+    },
+    querySelectorAll: () => [],
+  };
+  const chrome = {
+    runtime: {
+      id: "test",
+      sendMessage: () => Promise.resolve({}),
+      onMessage: {
+        addListener: (fn) => {
+          onMessage = fn;
+        },
+      },
+    },
+    storage: { local: { get: () => Promise.resolve({}), set: () => Promise.resolve() } },
+  };
+  const window = { addEventListener: () => {} };
+  vm.runInNewContext(FORM_CHECKER_SOURCE, {
+    window,
+    document,
+    chrome,
+    location: { href: "https://example.com/" },
+    performance: {},
+    setInterval: () => 1,
+    clearInterval: () => {},
+    setTimeout: () => 1,
+  });
+
+  const hasFormData = () => {
+    let result;
+    onMessage({ action: "checkFormData" }, {}, (r) => {
+      result = r;
+    });
+    return result.hasFormData;
+  };
+  return { body, hasFormData, fireInput: (event) => docListeners.input(event) };
+}
+
+describe("form-checker-contracts: form-modified flag cannot be set by the page", () => {
+  it("starts unmodified", () => {
+    expect(loadFormChecker().hasFormData()).toBe(false);
+  });
+
+  it("ignores a script-dispatched input event", () => {
+    const page = loadFormChecker();
+    page.fireInput({ isTrusted: false });
+    expect(page.hasFormData()).toBe(false);
+  });
+
+  it("ignores a DOM attribute the page sets on <body>", () => {
+    const page = loadFormChecker();
+    page.body.dataset.tabrestFormModified = "true";
+    expect(page.hasFormData()).toBe(false);
+  });
+
+  it("a trusted input event marks the page as modified", () => {
+    const page = loadFormChecker();
+    page.fireInput({ isTrusted: true });
+    expect(page.hasFormData()).toBe(true);
+  });
+
+  it("does not write the flag back to the DOM", () => {
+    const page = loadFormChecker();
+    page.fireInput({ isTrusted: true });
+    expect(page.body.dataset.tabrestFormModified).toBeUndefined();
   });
 });

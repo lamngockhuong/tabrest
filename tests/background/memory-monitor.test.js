@@ -3,6 +3,9 @@ import {
   calculateMemoryUsagePercent,
   checkMemoryAndUnload,
   checkPerTabMemory,
+  getTabMemory,
+  removeTabMemory,
+  reportTabMemory,
 } from "../../src/background/memory-monitor.js";
 
 // Mock dependencies
@@ -225,5 +228,32 @@ describe("memory-monitor", () => {
       // Tab 1 is snoozed, should not be discarded
       expect(discardTab).not.toHaveBeenCalledWith(1, expect.anything());
     });
+  });
+});
+
+describe("reportTabMemory input validation", () => {
+  const TAB = 4242;
+
+  beforeEach(() => removeTabMemory(TAB));
+
+  it("stores a finite, non-negative heap size", () => {
+    reportTabMemory(TAB, 0);
+    expect(getTabMemory(TAB)).toBe(0);
+    reportTabMemory(TAB, 512);
+    expect(getTabMemory(TAB)).toBe(512);
+  });
+
+  it.each([
+    ["negative", -1],
+    ["NaN", Number.NaN],
+    ["Infinity", Number.POSITIVE_INFINITY],
+    ["numeric string", "512"],
+    ["null", null],
+    ["undefined", undefined],
+    ["object", { valueOf: () => 512 }],
+  ])("drops a %s value and keeps the previous report", (_label, value) => {
+    reportTabMemory(TAB, 100);
+    reportTabMemory(TAB, value);
+    expect(getTabMemory(TAB)).toBe(100);
   });
 });

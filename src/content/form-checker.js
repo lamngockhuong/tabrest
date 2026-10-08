@@ -8,6 +8,10 @@ if (!window.__tabrestFormCheckLoaded) {
   const SCROLL_POSITIONS_KEY = "tabrest_scroll_positions";
   const SCROLL_MAX_ENTRIES = 100;
 
+  // Set by the trusted-input listener below. Kept in the isolated world, not
+  // the DOM, so the page cannot mark its own tab as having unsaved data.
+  let formModified = false;
+
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message.action === "checkFormData") {
       const hasFormData = checkForUnsavedData();
@@ -96,9 +100,9 @@ if (!window.__tabrestFormCheckLoaded) {
    * @returns {boolean}
    */
   function checkForUnsavedData() {
-    // Global flag set by input listener - most reliable signal across SPA
+    // Flag set by input listener - most reliable signal across SPA
     // navigations, React re-renders, and rich editors (Lexical/ProseMirror).
-    if (document.body?.dataset.tabrestFormModified === "true") return true;
+    if (formModified) return true;
 
     // Check text inputs and textareas - only if MODIFIED from default
     const inputs = document.querySelectorAll(
@@ -153,14 +157,12 @@ if (!window.__tabrestFormCheckLoaded) {
 
   // Mark page as modified on any user input. value/defaultValue tracking is
   // unreliable for React-controlled inputs and rich editors, so a single
-  // global flag set on the first keystroke is the most robust signal.
-  // Guarded against redundant attribute writes that would re-fire MutationObservers.
+  // flag set on the first keystroke is the most robust signal.
+  // Script-dispatched events are ignored so the page cannot set the flag itself.
   document.addEventListener(
     "input",
-    () => {
-      if (document.body && document.body.dataset.tabrestFormModified !== "true") {
-        document.body.dataset.tabrestFormModified = "true";
-      }
+    (event) => {
+      if (event.isTrusted) formModified = true;
     },
     true,
   );
