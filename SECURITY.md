@@ -21,7 +21,8 @@ This extension runs locally in Chrome and:
 
 - Does not collect or transmit personal data
 - Stores settings via `chrome.storage.sync` and tab activity via `chrome.storage.local`
-- Makes no external network requests, except anonymous error reports to Sentry when the user opts in (off by default, see the [privacy policy](docs/privacy-policy.md))
+- Sends data to only one external service: anonymous error reports to Sentry when the user opts in (off by default, see the [privacy policy](docs/privacy-policy.md))
+- Loads tab and saved-session favicons in the popup and side panel from the URL each site provides, so opening TabRest can request those images from the sites' servers
 - Requests host permissions only when the user enables features that need them (e.g. discarded-tab title prefix, form protection)
 - Uses Manifest V3 with no remote code execution
 
