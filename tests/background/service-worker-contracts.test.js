@@ -1,5 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  isExtensionPageSender,
+  MESSAGE_ROUTES,
+  resolveMessageRoute,
+} from "../../src/background/message-route.js";
+import {
   ALARM_NAMES,
   CONSENT_RESET_MIGRATION_KEY,
   REPORT_REASONS,
@@ -547,5 +552,117 @@ describe("service-worker-contracts: timeUntilUnload visibility", () => {
 
   it("visible for plain unloadable tabs", () => {
     expect(timeUntilVisible({ timeUntilUnload: 1000 })).toBe(1000);
+  });
+});
+
+// --- onMessage sender gate (message-route.js, used by the SW listener) --------
+// Content scripts run inside web pages, so they may only report about their own
+// tab or forward their own errors. Everything else needs an extension-page sender.
+describe("service-worker-contracts: message sender gate", () => {
+  const ORIGIN = "chrome-extension://abcdefghijklmnop/";
+  const contentScript = {
+    id: "abcdefghijklmnop",
+    tab: { id: 7 },
+    frameId: 0,
+    url: "https://www.youtube.com/watch?v=x",
+  };
+  const popup = { id: "abcdefghijklmnop", url: `${ORIGIN}src/popup/popup.html` };
+  const sidePanel = { id: "abcdefghijklmnop", url: `${ORIGIN}src/popup/popup.html?sidepanel=1` };
+  // Options and onboarding open in a normal tab, so sender.tab is set for them too
+  const optionsTab = {
+    id: "abcdefghijklmnop",
+    tab: { id: 9 },
+    url: `${ORIGIN}src/options/options.html`,
+  };
+  const onboardingTab = {
+    id: "abcdefghijklmnop",
+    tab: { id: 10 },
+    url: `${ORIGIN}src/pages/onboarding.html`,
+  };
+
+  const PRIVILEGED_COMMANDS = [
+    "get-tabs-with-status",
+    "get-sessions",
+    "import-sessions",
+    "restore-session",
+    "close-duplicates",
+    "set-pause",
+    "toggle-whitelist",
+    "reset-stats",
+    REPORTER_COMMANDS.CAPTURE_MESSAGE,
+    REPORTER_COMMANDS.REPORT_BUG,
+  ];
+
+  it.each(PRIVILEGED_COMMANDS)("rejects %s from a content script", (command) => {
+    expect(resolveMessageRoute({ command }, contentScript, ORIGIN)).toBe(MESSAGE_ROUTES.FORBIDDEN);
+  });
+
+  it("rejects privileged commands from a sender without a URL", () => {
+    expect(resolveMessageRoute({ command: "get-sessions" }, {}, ORIGIN)).toBe(
+      MESSAGE_ROUTES.FORBIDDEN,
+    );
+    expect(resolveMessageRoute({ command: "get-sessions" }, undefined, ORIGIN)).toBe(
+      MESSAGE_ROUTES.FORBIDDEN,
+    );
+  });
+
+  it("rejects a look-alike origin that only shares a prefix", () => {
+    const spoof = { url: "chrome-extension://abcdefghijklmnopq/src/popup/popup.html" };
+    expect(resolveMessageRoute({ command: "get-sessions" }, spoof, ORIGIN)).toBe(
+      MESSAGE_ROUTES.FORBIDDEN,
+    );
+  });
+
+  it("does not fall through to a privileged command when the allowed action is not usable", () => {
+    // getTabId without sender.tab is not answered, so the attached command must not run
+    const noTab = { url: "https://evil.example/" };
+    expect(
+      resolveMessageRoute({ action: "getTabId", command: "get-sessions" }, noTab, ORIGIN),
+    ).toBe(MESSAGE_ROUTES.FORBIDDEN);
+  });
+
+  it("an allowed action wins over a privileged command in the same message", () => {
+    expect(
+      resolveMessageRoute(
+        { action: "getTabId", command: "restore-session" },
+        contentScript,
+        ORIGIN,
+      ),
+    ).toBe(MESSAGE_ROUTES.TAB_ID);
+  });
+
+  it("content scripts keep reportTabMemory, getTabId and captureError", () => {
+    expect(resolveMessageRoute({ action: "reportTabMemory" }, contentScript, ORIGIN)).toBe(
+      MESSAGE_ROUTES.TAB_MEMORY,
+    );
+    expect(resolveMessageRoute({ action: "getTabId" }, contentScript, ORIGIN)).toBe(
+      MESSAGE_ROUTES.TAB_ID,
+    );
+    expect(
+      resolveMessageRoute({ command: REPORTER_COMMANDS.CAPTURE_ERROR }, contentScript, ORIGIN),
+    ).toBe(MESSAGE_ROUTES.CAPTURE_ERROR);
+  });
+
+  it.each([
+    ["popup", popup],
+    ["side panel", sidePanel],
+    ["options page in a tab", optionsTab],
+    ["onboarding page in a tab", onboardingTab],
+  ])("routes privileged commands from the %s", (_label, sender) => {
+    for (const command of PRIVILEGED_COMMANDS) {
+      expect(resolveMessageRoute({ command }, sender, ORIGIN)).toBe(MESSAGE_ROUTES.PRIVILEGED);
+    }
+  });
+
+  it("rejects non-object messages without throwing", () => {
+    for (const message of [null, undefined, "get-sessions", 42]) {
+      expect(resolveMessageRoute(message, popup, ORIGIN)).toBe(MESSAGE_ROUTES.FORBIDDEN);
+    }
+  });
+
+  it("isExtensionPageSender needs a non-empty origin", () => {
+    expect(isExtensionPageSender(popup, "")).toBe(false);
+    expect(isExtensionPageSender(popup, undefined)).toBe(false);
+    expect(isExtensionPageSender(popup, ORIGIN)).toBe(true);
   });
 });

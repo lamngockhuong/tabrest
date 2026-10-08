@@ -31,6 +31,7 @@ import {
   reportTabMemory,
   setupMemoryCheckAlarm,
 } from "./memory-monitor.js";
+import { MESSAGE_ROUTES, resolveMessageRoute } from "./message-route.js";
 import {
   cleanupExpiredPause,
   clearPause,
@@ -522,21 +523,29 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
 
 // Message handler for popup commands and content script reports
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  const route = resolveMessageRoute(message, sender, chrome.runtime.getURL(""));
+
+  // Content scripts may only use the three routes below; the rest is for extension pages
+  if (route === MESSAGE_ROUTES.FORBIDDEN) {
+    sendResponse({ ok: false, reason: "forbidden" });
+    return false;
+  }
+
   // Handle per-tab memory reports from content script
-  if (message.action === "reportTabMemory" && sender.tab?.id) {
+  if (route === MESSAGE_ROUTES.TAB_MEMORY) {
     reportTabMemory(sender.tab.id, message.heapMB);
     sendResponse({ received: true });
     return true;
   }
 
   // Handle getTabId for scroll position restore
-  if (message.action === "getTabId" && sender.tab?.id) {
+  if (route === MESSAGE_ROUTES.TAB_ID) {
     sendResponse({ tabId: sender.tab.id });
     return true;
   }
 
   // Bridge content script errors to error-reporter (consent gate is inside captureError)
-  if (message.command === REPORTER_COMMANDS.CAPTURE_ERROR) {
+  if (route === MESSAGE_ROUTES.CAPTURE_ERROR) {
     const errPayload = message.error || {};
     const err = new Error(errPayload.message || "Unknown error");
     err.name = errPayload.name || "Error";
