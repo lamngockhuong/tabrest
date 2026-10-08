@@ -42,15 +42,24 @@ jobs:
     steps:
       - name: Extract version
         id: version
+        # Pass inputs via env (not inline expressions in run:) so they cannot inject shell
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          INPUT_PRERELEASE: ${{ inputs.prerelease || 'false' }}
         run: |
-          if [ -n "${{ inputs.version }}" ]; then
-            VERSION="${{ inputs.version }}"
-            DRY_RUN="${{ inputs.dry_run || 'false' }}"
-            PRERELEASE="${{ inputs.prerelease || 'false' }}"
+          if [ -n "$INPUT_VERSION" ]; then
+            VERSION="$INPUT_VERSION"
+            DRY_RUN="$INPUT_DRY_RUN"
+            PRERELEASE="$INPUT_PRERELEASE"
           else
             VERSION="${GITHUB_REF#refs/tags/v}"
             DRY_RUN="false"
             PRERELEASE="false"
+          fi
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.]+)?$ ]]; then
+            echo "::error::Invalid version: $VERSION"
+            exit 1
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "dry_run=$DRY_RUN" >> $GITHUB_OUTPUT
@@ -81,9 +90,11 @@ jobs:
       - run: pnpm run build
 
       - name: Create ZIP
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           cd dist
-          zip -r ../tabrest-v${{ needs.prepare.outputs.version }}.zip .
+          zip -r "../tabrest-v${VERSION}.zip" .
 
       - name: Generate checksums
         run: sha256sum tabrest-*.zip > checksums.txt

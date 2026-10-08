@@ -11,8 +11,7 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
+  pages: read # configure-pages reads the Pages site config
 
 concurrency:
   group: "pages"
@@ -54,6 +53,10 @@ jobs:
 
   deploy:
     name: Deploy to GitHub Pages
+    # Only the deploy job needs Pages write + OIDC; the build job runs repo content
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
