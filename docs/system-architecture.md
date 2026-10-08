@@ -359,6 +359,7 @@ service-worker.js
 
 1. Timer/memory trigger identifies tab for auto-discard
 2. If `showSuspendWarning` enabled:
+   - Skipped entirely when TabRest is paused or the tab is snoozed (read fresh, not from the sweep's snapshot)
    - Inject warning content script via `chrome.scripting.executeScript()`
    - Warning toast appears on-page (3s default, configurable via `suspendWarningDelayMs`)
 3. User can interact during warning:

@@ -40,10 +40,11 @@ Timer = convenience (non-urgent), Memory/Heap = emergency (must act immediately 
 it is not a per-tab protection like the others. It never affects manual unload actions (Unload
 Current/Others/Left/Right, context menu, keyboard shortcuts, toolbar click).
 
-**Note:** Sweeps read pause and snooze once, then discard tabs one by one. Automatic discards
-(`auto` and not `force`) re-read global pause and per-tab/domain snooze right before committing, so a
-pause or snooze issued mid-sweep is honored for the remaining tabs. Manual and startup (`force`)
-discards skip this re-check.
+**Note:** Sweeps read settings, pause and snooze once, then discard tabs one by one. Automatic
+discards (`auto` and not `force`) re-read global pause and per-tab/domain snooze before the warning
+toast and again right before committing, together with the pinned/whitelist gates, so a pause, snooze
+or whitelist edit made mid-sweep is honored for the remaining tabs, with or without the toast. Manual
+discards (no `auto` flag) and startup discards (`force`) skip this re-check.
 
 ## Protection Priority
 

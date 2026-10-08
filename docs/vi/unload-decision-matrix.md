@@ -40,6 +40,13 @@ Bộ hẹn giờ phục vụ sự tiện lợi, còn bộ nhớ/vùng nhớ là 
 lúc. Đây không phải cơ chế bảo vệ từng tab. Nó không ảnh hưởng đến thao tác giải phóng thủ công
 (tab hiện tại/tab khác/bên trái/bên phải, trình đơn chuột phải, phím tắt hoặc nhấp thanh công cụ).
 
+**Ghi chú:** Mỗi lượt quét đọc cài đặt, trạng thái tạm dừng và tạm hoãn một lần, rồi giải phóng từng
+tab. Giải phóng tự động (`auto` và không `force`) đọc lại tạm dừng toàn cục và tạm hoãn theo tab/tên
+miền trước khi hiện thông báo cảnh báo và một lần nữa ngay trước khi giải phóng, kèm kiểm tra ghim và
+danh sách trắng. Nhờ vậy, tạm dừng, tạm hoãn hoặc sửa danh sách trắng giữa lượt quét được áp dụng cho
+các tab còn lại, dù có bật thông báo hay không. Giải phóng thủ công (không có cờ `auto`) và giải phóng
+khi khởi động (`force`) bỏ qua bước kiểm tra lại này.
+
 ## Thứ tự ưu tiên bảo vệ
 
 ```

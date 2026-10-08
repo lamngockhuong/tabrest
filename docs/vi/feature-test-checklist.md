@@ -303,6 +303,7 @@ Kiểm tra từng loại: **danh sách trắng**, **danh sách đen**, **phiên*
 - [ ] Cài mới → tab onboarding tự mở.
 - [ ] Đi qua các tính năng chính và link tới Options.
 - [ ] Giao diện khớp với lựa chọn của người dùng.
+- [ ] Chạy lại onboarding sau khi thêm một tên miền tùy chỉnh vào danh sách trắng trong Options → tên miền tùy chỉnh được giữ nguyên; chỉ các tên miền gợi ý được thêm/bỏ theo ô đánh dấu.
 
 ## 36. Bao phủ i18n
 
