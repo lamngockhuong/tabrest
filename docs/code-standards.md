@@ -108,8 +108,14 @@ function debouncedSave() {
 ### Message Passing
 
 ```javascript
-// Background: keep channel open for async
+// Background: route by sender first, then keep channel open for async
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  const route = resolveMessageRoute(message, sender, chrome.runtime.getURL(""));
+  if (route === MESSAGE_ROUTES.FORBIDDEN) {
+    sendResponse({ ok: false, reason: "forbidden" });
+    return false;
+  }
+  // ...content-script routes (TAB_MEMORY, TAB_ID, CAPTURE_ERROR) handled here
   handleMessage(message).then(sendResponse);
   return true; // Keep channel open
 });
@@ -117,6 +123,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // Popup: await response
 const result = await chrome.runtime.sendMessage({ command: "get-stats" });
 ```
+
+Content scripts run inside web pages, so treat their messages as untrusted. A new command is privileged by default; only add it to the content-script routes in `src/background/message-route.js` when a content script truly needs it, and validate its payload.
 
 ## Settings Management
 

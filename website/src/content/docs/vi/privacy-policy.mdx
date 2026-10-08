@@ -7,14 +7,14 @@ section: reference
 
 # Chính sách quyền riêng tư
 
-**Cập nhật lần cuối**: Ngày 29 tháng 4 năm 2026
+**Cập nhật lần cuối**: Ngày 8 tháng 10 năm 2026
 
 TabRest cam kết bảo vệ quyền riêng tư của bạn. Chính sách này giải thích những dữ liệu chúng tôi có (hoặc không) thu thập và cách chúng được sử dụng.
 
 ## Tóm tắt
 
 - ✅ **Mặc định không thu thập dữ liệu cá nhân**
-- ✅ **Mặc định không gửi yêu cầu qua mạng - mọi dữ liệu đều nằm trên thiết bị của bạn**
+- ✅ **Mặc định không gửi dữ liệu đến bất kỳ máy chủ nào - mọi dữ liệu đều nằm trên thiết bị của bạn**
 - ✅ **Không bao giờ theo dõi, phân tích hay ghi nhận hành vi sử dụng**
 - ✅ **Bạn phải chủ động chọn bật báo cáo sự cố ẩn danh (mặc định TẮT, xem [Báo cáo lỗi](#error-reporting))**
 - ✅ **Mã nguồn mở, ai cũng có thể kiểm tra**
@@ -164,7 +164,7 @@ TabRest chỉ yêu cầu quyền truy cập máy chủ **tùy chọn** khi bạn
 | API bên ngoài | ❌ Không có | ❌ Không có |
 | Theo dõi lỗi (Sentry SaaS, khu vực Mỹ) | ❌ Tắt - không gửi yêu cầu nào | ✅ Chỉ bật sau khi bạn chọn công tắc đồng ý. Xem [Báo cáo lỗi](#error-reporting) để biết chính xác dữ liệu được gửi. |
 
-**Toàn bộ phần mã còn lại đều chạy trong trình duyệt của bạn.** Điểm tiếp nhận Sentry (`*.ingest.us.sentry.io`) là đích mạng duy nhất TabRest có thể liên hệ, và chỉ khi bạn bật báo cáo lỗi.
+**Toàn bộ phần mã còn lại đều chạy trong trình duyệt của bạn.** Điểm tiếp nhận Sentry (`*.ingest.us.sentry.io`) là dịch vụ duy nhất TabRest gửi dữ liệu đến, và chỉ khi bạn bật báo cáo lỗi. Ngoài ra, popup và bảng điều khiển bên tải favicon của các tab và phiên đã lưu từ URL mà mỗi trang cung cấp, nên khi mở chúng, trình duyệt có thể yêu cầu các ảnh đó từ máy chủ của trang.
 
 ## Chia sẻ dữ liệu
 
@@ -191,7 +191,7 @@ TabRest dùng `chrome.storage.sync` cho cài đặt và danh sách trắng. Nế
 Theo mặc định, TabRest:
 
 - Chỉ lưu dữ liệu trên thiết bị
-- Không gửi yêu cầu qua mạng
+- Không gửi dữ liệu đến máy chủ bên ngoài
 - Không có thành phần phía máy chủ
 
 **Khi báo cáo lỗi đang tắt (mặc định), không có dữ liệu nào có nguy cơ bị lộ.** Dữ liệu không rời khỏi thiết bị, ngoại trừ qua Chrome Sync nếu bạn bật. Nếu bạn chọn bật báo cáo lỗi, dữ liệu sự cố đã được làm sạch (không có URL hay thông tin nhận dạng cá nhân) sẽ được gửi qua HTTPS đến điểm tiếp nhận tại Mỹ của Sentry và lưu trong 30 ngày.
@@ -305,11 +305,11 @@ TabRest được xây dựng theo hướng minh bạch:
 
 - **Mã nguồn mở**: Kho mã nguồn công khai theo giấy phép MIT
 - **Không phân tích hay ghi nhận hành vi**: Mã nguồn không chứa chức năng theo dõi lượt xem trang, lượt nhấp hay việc dùng tính năng
-- **Mặc định không gửi yêu cầu ra ngoài**: Nếu kiểm tra lưu lượng mạng khi báo cáo lỗi đang tắt, bạn sẽ không thấy yêu cầu nào từ TabRest
-- **Một đích mạng duy nhất do người dùng chọn bật**: Chỉ điểm tiếp nhận tại Mỹ của Sentry, và chỉ khi bạn bật báo cáo lỗi
+- **Mặc định không gửi dữ liệu**: Nếu kiểm tra lưu lượng mạng khi báo cáo lỗi đang tắt, yêu cầu duy nhất từ TabRest là ảnh favicon mà popup và bảng điều khiển bên tải từ các trang trong tab và phiên đã lưu của bạn
+- **Một đích nhận dữ liệu duy nhất do người dùng chọn bật**: Chỉ điểm tiếp nhận tại Mỹ của Sentry, và chỉ khi bạn bật báo cáo lỗi
 - **Kiến trúc đơn giản**: JavaScript thuần, ít phần phụ thuộc, dễ kiểm tra
 
-**Hãy tự xác minh**: Sao chép kho mã nguồn và kiểm tra mã. Bạn sẽ không thấy chức năng phân tích, theo dõi hay bất kỳ yêu cầu mạng nào ngoài trình báo lỗi tự nguyện đã được mô tả ở đây.
+**Hãy tự xác minh**: Sao chép kho mã nguồn và kiểm tra mã. Bạn sẽ không thấy chức năng phân tích, theo dõi hay yêu cầu mạng nào ngoài trình báo lỗi tự nguyện đã được mô tả ở đây và ảnh favicon hiển thị trong popup và bảng điều khiển bên.
 
 ---
 

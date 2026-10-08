@@ -343,7 +343,7 @@ service-worker.js
 3. Form checker injected via `chrome.scripting.executeScript()` from two paths:
    - **Eager** (`tabs.onUpdated` with `status="complete"`): so the input listener registers before the user types - required for React-controlled inputs and contenteditable editors (Lexical/ProseMirror) where `value`/`defaultValue` tracking is unreliable
    - **Lazy** (auto-unload timer / memory check): catches tabs already open before the extension loaded
-4. On any keystroke, form-checker sets a global `document.body.dataset.tabrestFormModified` flag - single robust signal that survives SPA navigation and React re-renders
+4. On any trusted (user-generated) `input` event, form-checker sets a `formModified` variable in its own isolated world - single robust signal that survives SPA navigation and React re-renders. The flag is not stored in the DOM, so the page can neither set it nor read it, and script-dispatched events (`isTrusted: false`) are ignored
 5. Permission recovery: if user revokes access, banner appears in options with "Grant permission" button
 6. `permissions.requestHostPermissions()` uses `chrome.permissions.request()` with silent fallback
 
@@ -443,6 +443,8 @@ service-worker.js
 { action: "getTabId" }
 ```
 
+**Sender routing:** the service worker passes every runtime message through `resolveMessageRoute` (`src/background/message-route.js`) before running it. Content scripts live inside web pages, so they may only send `reportTabMemory`, `getTabId` and `captureError`. Every other command needs a sender whose `url` starts with `chrome.runtime.getURL("")` (popup, side panel, options, onboarding); anything else gets `{ ok: false, reason: "forbidden" }`.
+
 ### Background → Content Script
 
 ```javascript
@@ -474,7 +476,8 @@ service-worker.js
 
 ### Data Security
 
-- No external network requests (except optional Sentry error reporting)
+- Sends data to only one external service: optional Sentry error reporting (off by default)
+- The popup and side panel load tab and saved-session favicons from the URL each site provides, so opening TabRest can request those images from the sites' servers
 - All data stored locally
 - No user tracking or analytics
 
