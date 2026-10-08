@@ -9,6 +9,7 @@ import {
   captureMessage,
   initErrorReporter,
   reportBug,
+  resetErrorReporter,
 } from "../shared/error-reporter.js";
 import { HOST_PERM_DEPENDENT_FLAGS, hasHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
@@ -506,6 +507,15 @@ async function openLinkSuspended(url) {
 // Settings changed - reconfigure alarms, toolbar action, and badge
 chrome.storage.onChanged.addListener(async (changes, area) => {
   if (area === "sync" && changes.settings) {
+    const { oldValue = {}, newValue = {} } = changes.settings;
+    if (
+      oldValue.enableErrorReporting !== newValue.enableErrorReporting ||
+      oldValue.customSentryDsn !== newValue.customSentryDsn
+    ) {
+      // Apply consent/DSN changes now, not at the next service-worker restart
+      resetErrorReporter();
+      await initErrorReporter().catch((e) => console.error("[ErrorReporter] re-init failed:", e));
+    }
     await setupTabCheckAlarm();
     await setupMemoryCheckAlarm();
     await configureToolbarAction();
