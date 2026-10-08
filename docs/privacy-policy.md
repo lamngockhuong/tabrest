@@ -4,7 +4,7 @@ Last updated: 2026-10-08
 
 ## Data Collection
 
-TabRest does NOT collect, store, or transmit any personal data to external servers. The only data that can leave your device is the optional anonymous error reporting described below, which is off by default.
+TabRest does NOT collect, store, or transmit any personal data to external servers. TabRest itself sends nothing off your device except the optional anonymous error reports described below, which are off by default. Settings sync through your Chrome account when Chrome Sync is on.
 
 ## Data Storage
 
