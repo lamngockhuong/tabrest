@@ -75,7 +75,8 @@ export async function initErrorReporter(options = {}) {
 
   const generation = initGeneration;
   const settings = await getSettings();
-  if (generation !== initGeneration) return;
+  // Reset landed mid-init: start over so callers await a real init, not a no-op
+  if (generation !== initGeneration) return initErrorReporter(options);
 
   // Respect user opt-out
   if (settings.enableErrorReporting === false) {
@@ -123,6 +124,18 @@ export async function initErrorReporter(options = {}) {
 
   sentryInitialized = true;
   console.log("[ErrorReporter] Initialized");
+}
+
+/**
+ * True when a settings change affects consent or DSN, i.e. the reporter must be reset.
+ * @param {Object} [oldValue] - Previous settings object (absent on first write)
+ * @param {Object} [newValue] - New settings object
+ */
+export function isReporterConfigChange(oldValue = {}, newValue = {}) {
+  return (
+    oldValue.enableErrorReporting !== newValue.enableErrorReporting ||
+    oldValue.customSentryDsn !== newValue.customSentryDsn
+  );
 }
 
 /**
