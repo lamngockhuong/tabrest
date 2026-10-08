@@ -366,7 +366,8 @@ service-worker.js
    - Play audio/video → triggers audio protection
    - Edit form → triggers form protection
    - Snooze button in toast → suspends discard
-4. After delay: re-check all protections
+4. After delay: re-check all protections (pinned/whitelist gates use freshly read settings, not the
+   sweep's snapshot; global pause and snooze are re-read too)
    - If tab now protected, abort discard
    - Otherwise, proceed with discard
 

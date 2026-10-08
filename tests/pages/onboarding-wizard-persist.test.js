@@ -38,7 +38,7 @@ describe("persistAutoUnload", () => {
 });
 
 describe("persistWhitelist", () => {
-  it("dedupes and lowercases domains", async () => {
+  it("dedupes and lowercases suggestions", async () => {
     await persistWhitelist(["GitHub.com", "github.com", " Notion.so "]);
     expect(saveSettings.mock.calls[0][0].whitelist).toEqual(["github.com", "notion.so"]);
   });
@@ -48,10 +48,29 @@ describe("persistWhitelist", () => {
     expect(saveSettings).not.toHaveBeenCalled();
   });
 
-  it("accepts empty array (replaces with empty list)", async () => {
+  it("ignores values outside the suggestion list", async () => {
+    await persistWhitelist(["evil.example", "github.com"]);
+    expect(saveSettings.mock.calls[0][0].whitelist).toEqual(["github.com"]);
+  });
+
+  it("keeps custom entries in place and replaces only the suggestion selection", async () => {
+    getSettings.mockResolvedValue({
+      ...baseSettings,
+      whitelist: ["youtube.com", "jira.example.com", "notion.so"],
+    });
+    await persistWhitelist(["youtube.com", "figma.com"]);
+    expect(saveSettings.mock.calls[0][0].whitelist).toEqual([
+      "youtube.com",
+      "jira.example.com",
+      "figma.com",
+    ]);
+  });
+
+  it("empty selection clears suggestions but keeps custom entries", async () => {
+    getSettings.mockResolvedValue({ ...baseSettings, whitelist: ["jira.example.com", "github.com"] });
     await persistWhitelist([]);
     expect(saveSettings).toHaveBeenCalledTimes(1);
-    expect(saveSettings.mock.calls[0][0].whitelist).toEqual([]);
+    expect(saveSettings.mock.calls[0][0].whitelist).toEqual(["jira.example.com"]);
   });
 });
 

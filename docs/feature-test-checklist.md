@@ -303,6 +303,7 @@ For each of: **whitelist**, **blacklist**, **sessions**:
 - [ ] Fresh install → onboarding tab opens automatically.
 - [ ] Walks through key features and links to Options.
 - [ ] Theme matches user preference.
+- [ ] Re-run onboarding after adding a custom whitelist domain in Options → custom domain is kept; only the suggested domains are added/removed per the checkboxes.
 
 ## 36. i18n Coverage
 

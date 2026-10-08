@@ -12,6 +12,10 @@ vi.mock("../../src/background/pause-manager.js", () => ({
   isPaused: vi.fn(),
 }));
 
+vi.mock("../../src/background/snooze-manager.js", () => ({
+  isTabSnoozed: vi.fn(() => Promise.resolve(false)),
+}));
+
 vi.mock("../../src/background/form-injector.js", () => ({
   ensureFormCheckerInjected: vi.fn(() => Promise.resolve(true)),
 }));
@@ -22,6 +26,7 @@ vi.mock("../../src/background/stats-collector.js", () => ({
 
 import { ensureFormCheckerInjected } from "../../src/background/form-injector.js";
 import { isPaused } from "../../src/background/pause-manager.js";
+import { isTabSnoozed } from "../../src/background/snooze-manager.js";
 import { recordUnload } from "../../src/background/stats-collector.js";
 import {
   closeDuplicateTabs,
@@ -99,6 +104,60 @@ describe("unload-manager", () => {
   });
 
   describe("discardTab", () => {
+    describe("auto path re-checks pause and snooze before committing", () => {
+      const idleTab = { id: 1, url: "https://a.com", active: false, discarded: false };
+
+      beforeEach(() => {
+        chrome.tabs.get.mockResolvedValue(idleTab);
+        chrome.tabs.discard.mockResolvedValue();
+      });
+
+      afterEach(() => {
+        isPaused.mockReset();
+        isTabSnoozed.mockReset();
+        isTabSnoozed.mockResolvedValue(false);
+      });
+
+      it("aborts when auto-discard was paused after the sweep started", async () => {
+        isPaused.mockResolvedValue(true);
+        expect(await discardTab(1, { settings: baseSettings, auto: true })).toBe(false);
+        expect(chrome.tabs.discard).not.toHaveBeenCalled();
+      });
+
+      it("aborts when the tab was snoozed after the sweep started", async () => {
+        isPaused.mockResolvedValue(false);
+        isTabSnoozed.mockResolvedValue(true);
+        expect(await discardTab(1, { settings: baseSettings, auto: true })).toBe(false);
+        expect(isTabSnoozed).toHaveBeenCalledWith(1, "https://a.com");
+        expect(chrome.tabs.discard).not.toHaveBeenCalled();
+      });
+
+      it("manual discard ignores pause and snooze", async () => {
+        isPaused.mockResolvedValue(true);
+        isTabSnoozed.mockResolvedValue(true);
+        expect(await discardTab(1, { settings: baseSettings })).toBe(true);
+        expect(isPaused).not.toHaveBeenCalled();
+        expect(chrome.tabs.discard).toHaveBeenCalledWith(1);
+      });
+
+      it("re-checks after the warning toast, not before it", async () => {
+        const toastSettings = { ...baseSettings, showSuspendWarning: true, suspendWarningDelayMs: 0 };
+        getSettings.mockResolvedValue(toastSettings);
+        isPaused.mockResolvedValue(true);
+        expect(await discardTab(1, { settings: toastSettings, auto: true })).toBe(false);
+        expect(chrome.scripting.executeScript).toHaveBeenCalled();
+        expect(chrome.tabs.discard).not.toHaveBeenCalled();
+      });
+
+      it("honors a whitelist edit made while the toast was showing", async () => {
+        const toastSettings = { ...baseSettings, showSuspendWarning: true, suspendWarningDelayMs: 0 };
+        getSettings.mockResolvedValue({ ...toastSettings, whitelist: ["a.com"] });
+        isPaused.mockResolvedValue(false);
+        expect(await discardTab(1, { settings: toastSettings, auto: true })).toBe(false);
+        expect(chrome.tabs.discard).not.toHaveBeenCalled();
+      });
+    });
+
     it("returns false when tab is active", async () => {
       chrome.tabs.get.mockResolvedValue({ id: 1, active: true });
       expect(await discardTab(1, { settings: baseSettings })).toBe(false);

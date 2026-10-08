@@ -8,6 +8,7 @@ import { getSettings } from "../shared/storage.js";
 import { delay, queryCurrentWindowTabs, unwrapHostname } from "../shared/utils.js";
 import { ensureFormCheckerInjected } from "./form-injector.js";
 import { isPaused } from "./pause-manager.js";
+import { isTabSnoozed } from "./snooze-manager.js";
 import { recordUnload } from "./stats-collector.js";
 
 // Pinned + whitelist gates only. Returns null if cleared, else { protected, reason }.
@@ -87,10 +88,20 @@ export async function discardTab(tabId, options = {}) {
       const refreshed = await chrome.tabs.get(tabId).catch(() => null);
       if (!refreshed || refreshed.active || refreshed.discarded) return false;
       if (refreshed.status === "loading") return false;
-      if (passesStaticGates(refreshed, settings)) return false;
+      // Fresh read: the caller's snapshot may predate a whitelist edit made
+      // while the toast was showing. getSettings() is cached, so this is cheap.
+      if (passesStaticGates(refreshed, await getSettings())) return false;
       const recheck = await shouldProtectTab(refreshed, settings);
       if (recheck.protected) return false;
       currentTab = refreshed;
+    }
+
+    // Sweeps snapshot pause/snooze once, then discard tabs one by one (each
+    // waiting out the warning toast). Re-read both so a pause or snooze issued
+    // mid-sweep is honored for the remaining tabs.
+    if (auto && !force) {
+      if (await isPaused()) return false;
+      if (await isTabSnoozed(tabId, currentTab.url)) return false;
     }
 
     // Save YouTube timestamp before discarding
