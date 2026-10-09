@@ -124,8 +124,10 @@ export async function checkMemoryAndUnload() {
 // Per-tab memory tracking map: tabId -> { heapMB, lastUpdate }
 const tabMemoryMap = new Map();
 
-// Handle memory report from content script
+// Handle memory report from content script. The page can influence the
+// value, so anything other than a finite, non-negative number is dropped.
 export function reportTabMemory(tabId, heapMB) {
+  if (!Number.isFinite(heapMB) || heapMB < 0) return;
   tabMemoryMap.set(tabId, {
     heapMB,
     lastUpdate: Date.now(),

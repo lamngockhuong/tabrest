@@ -118,6 +118,11 @@ export const SNOOZE_KEY = "tabrest_snooze";
 // Global pause storage - temporarily disables ALL auto-discard
 export const PAUSE_KEY = "tabrest_pause";
 
+// Form-modified flags per tab, keyed by tab ID with the browser's document ID
+// as the value, so a re-injected form-checker in the same document (after an
+// extension update or reload) can recover a flag set by the previous copy.
+export const FORM_MODIFIED_KEY = "tabrest_form_modified";
+
 // Timeout for form data check (content script message)
 export const FORM_CHECK_TIMEOUT_MS = 300;
 

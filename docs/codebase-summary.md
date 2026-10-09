@@ -45,12 +45,14 @@ tabrest/
 | `session-manager.js` | 209 | Save/restore tab sessions, import with merge & dedup                                                              |
 | `stats-collector.js` | 99  | Usage statistics tracking                                                                                         |
 | `form-injector.js`   | 24  | Form-checker injection (eager on page load + lazy on demand)                                                      |
+| `message-route.js`  | 57  | Sender gate for runtime messages: content scripts limited to own-tab reports and `captureError`                   |
+| `form-modified-store.js` | 62 | Per-tab form-modified flag keyed by document ID, survives extension update or reload                         |
 
 ### Content Scripts
 
 | File                 | LOC | Purpose                                                                                          |
 | -------------------- | --- | ------------------------------------------------------------------------------------------------ |
-| `form-checker.js`    | 201 | Detect unsaved forms (global flag on first input), report JS heap memory, error bridge to Sentry |
+| `form-checker.js`    | 248 | Detect unsaved forms (isolated-world flag on first trusted input), report JS heap memory, error bridge to Sentry |
 | `youtube-tracker.js` | 132 | Save/restore YouTube playback position, error bridge to Sentry                                   |
 
 ### UI Components

@@ -8,10 +8,22 @@ if (!window.__tabrestFormCheckLoaded) {
   const SCROLL_POSITIONS_KEY = "tabrest_scroll_positions";
   const SCROLL_MAX_ENTRIES = 100;
 
+  // Set by the trusted-input listener below. Kept in the isolated world, not
+  // the DOM, so the page cannot mark its own tab as having unsaved data.
+  // The background also remembers it per document, so a copy injected again
+  // after an extension update or reload starts from the previous copy's value.
+  let formModified = false;
+  const formModifiedRestored = chrome.runtime
+    .sendMessage({ action: "getFormModified" })
+    .then((response) => {
+      if (response?.modified) formModified = true;
+    })
+    .catch(() => {});
+
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message.action === "checkFormData") {
-      const hasFormData = checkForUnsavedData();
-      sendResponse({ hasFormData });
+      formModifiedRestored.then(() => sendResponse({ hasFormData: checkForUnsavedData() }));
+      return true; // Async response
     } else if (message.action === "saveScrollPosition") {
       saveScrollPosition(message.tabId).then((saved) => sendResponse({ saved }));
       return true; // Async response
@@ -96,9 +108,9 @@ if (!window.__tabrestFormCheckLoaded) {
    * @returns {boolean}
    */
   function checkForUnsavedData() {
-    // Global flag set by input listener - most reliable signal across SPA
+    // Flag set by input listener - most reliable signal across SPA
     // navigations, React re-renders, and rich editors (Lexical/ProseMirror).
-    if (document.body?.dataset.tabrestFormModified === "true") return true;
+    if (formModified) return true;
 
     // Check text inputs and textareas - only if MODIFIED from default
     const inputs = document.querySelectorAll(
@@ -153,14 +165,16 @@ if (!window.__tabrestFormCheckLoaded) {
 
   // Mark page as modified on any user input. value/defaultValue tracking is
   // unreliable for React-controlled inputs and rich editors, so a single
-  // global flag set on the first keystroke is the most robust signal.
-  // Guarded against redundant attribute writes that would re-fire MutationObservers.
+  // flag set on the first keystroke is the most robust signal.
+  // Script-dispatched events are ignored so the page cannot set the flag itself.
   document.addEventListener(
     "input",
-    () => {
-      if (document.body && document.body.dataset.tabrestFormModified !== "true") {
-        document.body.dataset.tabrestFormModified = "true";
-      }
+    (event) => {
+      if (!event.isTrusted || formModified) return;
+      formModified = true;
+      // An orphaned copy (extension reloaded) has no runtime; the new copy reports instead
+      if (!chrome.runtime?.id) return;
+      chrome.runtime.sendMessage({ action: "markFormModified" }).catch(() => {});
     },
     true,
   );

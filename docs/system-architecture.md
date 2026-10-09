@@ -343,7 +343,7 @@ service-worker.js
 3. Form checker injected via `chrome.scripting.executeScript()` from two paths:
    - **Eager** (`tabs.onUpdated` with `status="complete"`): so the input listener registers before the user types - required for React-controlled inputs and contenteditable editors (Lexical/ProseMirror) where `value`/`defaultValue` tracking is unreliable
    - **Lazy** (auto-unload timer / memory check): catches tabs already open before the extension loaded
-4. On any keystroke, form-checker sets a global `document.body.dataset.tabrestFormModified` flag - single robust signal that survives SPA navigation and React re-renders
+4. On any trusted (user-generated) `input` event, form-checker sets a `formModified` variable in its own isolated world - single robust signal that survives SPA navigation and React re-renders. The flag is not stored in the DOM, so the page can neither set it nor read it, and script-dispatched events (`isTrusted: false`) are ignored. The first trusted input also sends `markFormModified`; the background stores the sender's `documentId` per tab in `chrome.storage.local` (`form-modified-store.js`), and a copy injected again after an extension update or reload asks `getFormModified` to recover the flag. A new document has a new `documentId`, so navigation resets it; entries are cleared when the tab closes and on browser startup
 5. Permission recovery: if user revokes access, banner appears in options with "Grant permission" button
 6. `permissions.requestHostPermissions()` uses `chrome.permissions.request()` with silent fallback
 
@@ -441,7 +441,13 @@ service-worker.js
 
 // Tab ID request (for scroll position)
 { action: "getTabId" }
+
+// Form-modified flag for the sender's own tab and document
+{ action: "markFormModified" }
+{ action: "getFormModified" }  // -> { modified: boolean }
 ```
+
+**Sender routing:** the service worker passes every runtime message through `resolveMessageRoute` (`src/background/message-route.js`) before running it. Content scripts live inside web pages, so they may only send `reportTabMemory`, `getTabId`, `markFormModified`, `getFormModified` and `captureError`, and the first four act only on the sender's own tab. Every other command needs a sender whose `url` starts with `chrome.runtime.getURL("")` (popup, side panel, options, onboarding); anything else gets `{ ok: false, reason: "forbidden" }`.
 
 ### Background → Content Script
 
@@ -474,7 +480,8 @@ service-worker.js
 
 ### Data Security
 
-- No external network requests (except optional Sentry error reporting)
+- Sends data to only one external service: optional Sentry error reporting (off by default)
+- The popup and side panel load tab and saved-session favicons from the URL each site provides, so opening TabRest can request those images from the sites' servers
 - All data stored locally
 - No user tracking or analytics
 
