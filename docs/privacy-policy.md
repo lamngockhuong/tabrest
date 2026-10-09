@@ -81,7 +81,7 @@ Sentry is GDPR-compliant and stores data in the US. For details, visit: <https:/
 
 ## Third Parties
 
-This extension does not communicate with any external servers or third parties, except Sentry when you opt in to [error reporting](#error-reporting-v010). All other functionality runs entirely within your browser.
+This extension sends data to only one third party: Sentry, when you opt in to [error reporting](#error-reporting-v010). The popup and side panel also load tab and saved-session favicons from the URL each site provides, so opening them can request those images from the sites' servers. All other functionality runs entirely within your browser.
 
 ## Data Retention
 
