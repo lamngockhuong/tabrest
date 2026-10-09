@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.2](https://github.com/lamngockhuong/tabrest/compare/v0.9.1...v0.9.2) (2026-10-09)
+
+
+### Bug Fixes
+
+* keep extension storage from content scripts and load favicons locally ([#146](https://github.com/lamngockhuong/tabrest/issues/146)) ([895aa2d](https://github.com/lamngockhuong/tabrest/commit/895aa2d174c447c1bc14f5dbd48596c6298c107a))
+
 ## [0.9.1](https://github.com/lamngockhuong/tabrest/compare/v0.9.0...v0.9.1) (2026-10-09)
 
 
