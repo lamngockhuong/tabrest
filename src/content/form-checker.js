@@ -10,12 +10,20 @@ if (!window.__tabrestFormCheckLoaded) {
 
   // Set by the trusted-input listener below. Kept in the isolated world, not
   // the DOM, so the page cannot mark its own tab as having unsaved data.
+  // The background also remembers it per document, so a copy injected again
+  // after an extension update or reload starts from the previous copy's value.
   let formModified = false;
+  const formModifiedRestored = chrome.runtime
+    .sendMessage({ action: "getFormModified" })
+    .then((response) => {
+      if (response?.modified) formModified = true;
+    })
+    .catch(() => {});
 
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message.action === "checkFormData") {
-      const hasFormData = checkForUnsavedData();
-      sendResponse({ hasFormData });
+      formModifiedRestored.then(() => sendResponse({ hasFormData: checkForUnsavedData() }));
+      return true; // Async response
     } else if (message.action === "saveScrollPosition") {
       saveScrollPosition(message.tabId).then((saved) => sendResponse({ saved }));
       return true; // Async response
@@ -162,7 +170,11 @@ if (!window.__tabrestFormCheckLoaded) {
   document.addEventListener(
     "input",
     (event) => {
-      if (event.isTrusted) formModified = true;
+      if (!event.isTrusted || formModified) return;
+      formModified = true;
+      // An orphaned copy (extension reloaded) has no runtime; the new copy reports instead
+      if (!chrome.runtime?.id) return;
+      chrome.runtime.sendMessage({ action: "markFormModified" }).catch(() => {});
     },
     true,
   );

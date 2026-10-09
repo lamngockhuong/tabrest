@@ -633,6 +633,22 @@ describe("service-worker-contracts: message sender gate", () => {
     ).toBe(MESSAGE_ROUTES.TAB_ID);
   });
 
+  it("content scripts may mark and read their own tab's form-modified flag", () => {
+    expect(resolveMessageRoute({ action: "markFormModified" }, contentScript, ORIGIN)).toBe(
+      MESSAGE_ROUTES.MARK_FORM_MODIFIED,
+    );
+    expect(resolveMessageRoute({ action: "getFormModified" }, contentScript, ORIGIN)).toBe(
+      MESSAGE_ROUTES.GET_FORM_MODIFIED,
+    );
+  });
+
+  it("form-modified actions need a sender tab", () => {
+    const noTab = { url: "https://evil.example/" };
+    for (const action of ["markFormModified", "getFormModified"]) {
+      expect(resolveMessageRoute({ action }, noTab, ORIGIN)).toBe(MESSAGE_ROUTES.FORBIDDEN);
+    }
+  });
+
   it("content scripts keep reportTabMemory, getTabId and captureError", () => {
     expect(resolveMessageRoute({ action: "reportTabMemory" }, contentScript, ORIGIN)).toBe(
       MESSAGE_ROUTES.TAB_MEMORY,

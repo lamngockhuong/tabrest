@@ -1,7 +1,7 @@
 // Decides which runtime messages a sender may run.
 // Content scripts live inside web pages, so a compromised renderer can send
-// anything they can. They may only report about their own tab or forward
-// their own errors. Every other command belongs to the extension's own pages
+// anything they can. They may only report about their own tab (including its
+// form-modified flag) or forward their own errors. Every other command belongs to the extension's own pages
 // (popup, side panel, options, onboarding).
 
 import { REPORTER_COMMANDS } from "../shared/constants.js";
@@ -9,6 +9,8 @@ import { REPORTER_COMMANDS } from "../shared/constants.js";
 export const MESSAGE_ROUTES = Object.freeze({
   TAB_MEMORY: "tab-memory",
   TAB_ID: "tab-id",
+  MARK_FORM_MODIFIED: "mark-form-modified",
+  GET_FORM_MODIFIED: "get-form-modified",
   CAPTURE_ERROR: "capture-error",
   PRIVILEGED: "privileged",
   FORBIDDEN: "forbidden",
@@ -42,6 +44,12 @@ export function resolveMessageRoute(message, sender, extensionOrigin) {
   if (!message || typeof message !== "object") return MESSAGE_ROUTES.FORBIDDEN;
   if (message.action === "reportTabMemory" && sender?.tab?.id) return MESSAGE_ROUTES.TAB_MEMORY;
   if (message.action === "getTabId" && sender?.tab?.id) return MESSAGE_ROUTES.TAB_ID;
+  if (message.action === "markFormModified" && sender?.tab?.id) {
+    return MESSAGE_ROUTES.MARK_FORM_MODIFIED;
+  }
+  if (message.action === "getFormModified" && sender?.tab?.id) {
+    return MESSAGE_ROUTES.GET_FORM_MODIFIED;
+  }
   if (message.command === REPORTER_COMMANDS.CAPTURE_ERROR) return MESSAGE_ROUTES.CAPTURE_ERROR;
   return isExtensionPageSender(sender, extensionOrigin)
     ? MESSAGE_ROUTES.PRIVILEGED

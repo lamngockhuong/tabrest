@@ -368,9 +368,12 @@ const FORM_CHECKER_SOURCE = readFileSync(
   "utf8",
 );
 
-function loadFormChecker() {
+// `remembered` is what the background answers to getFormModified, standing in
+// for a flag stored by a previous copy of the script in the same document.
+function loadFormChecker({ remembered = false } = {}) {
   const docListeners = {};
   let onMessage;
+  const sent = [];
   const body = { dataset: {} };
   const document = {
     readyState: "complete",
@@ -383,7 +386,11 @@ function loadFormChecker() {
   const chrome = {
     runtime: {
       id: "test",
-      sendMessage: () => Promise.resolve({}),
+      sendMessage: (message) => {
+        sent.push(message);
+        if (message.action === "getFormModified") return Promise.resolve({ modified: remembered });
+        return Promise.resolve({});
+      },
       onMessage: {
         addListener: (fn) => {
           onMessage = fn;
@@ -404,42 +411,56 @@ function loadFormChecker() {
     setTimeout: () => 1,
   });
 
-  const hasFormData = () => {
-    let result;
-    onMessage({ action: "checkFormData" }, {}, (r) => {
-      result = r;
+  const hasFormData = () =>
+    new Promise((resolve) => {
+      onMessage({ action: "checkFormData" }, {}, (r) => resolve(r.hasFormData));
     });
-    return result.hasFormData;
-  };
-  return { body, hasFormData, fireInput: (event) => docListeners.input(event) };
+  const marks = () => sent.filter((m) => m.action === "markFormModified").length;
+  return { body, hasFormData, marks, fireInput: (event) => docListeners.input(event) };
 }
 
 describe("form-checker-contracts: form-modified flag cannot be set by the page", () => {
-  it("starts unmodified", () => {
-    expect(loadFormChecker().hasFormData()).toBe(false);
+  it("starts unmodified", async () => {
+    expect(await loadFormChecker().hasFormData()).toBe(false);
   });
 
-  it("ignores a script-dispatched input event", () => {
+  it("ignores a script-dispatched input event", async () => {
     const page = loadFormChecker();
     page.fireInput({ isTrusted: false });
-    expect(page.hasFormData()).toBe(false);
+    expect(await page.hasFormData()).toBe(false);
+    expect(page.marks()).toBe(0);
   });
 
-  it("ignores a DOM attribute the page sets on <body>", () => {
+  it("ignores a DOM attribute the page sets on <body>", async () => {
     const page = loadFormChecker();
     page.body.dataset.tabrestFormModified = "true";
-    expect(page.hasFormData()).toBe(false);
+    expect(await page.hasFormData()).toBe(false);
   });
 
-  it("a trusted input event marks the page as modified", () => {
+  it("a trusted input event marks the page as modified", async () => {
     const page = loadFormChecker();
     page.fireInput({ isTrusted: true });
-    expect(page.hasFormData()).toBe(true);
+    expect(await page.hasFormData()).toBe(true);
   });
 
   it("does not write the flag back to the DOM", () => {
     const page = loadFormChecker();
     page.fireInput({ isTrusted: true });
     expect(page.body.dataset.tabrestFormModified).toBeUndefined();
+  });
+});
+
+describe("form-checker-contracts: form-modified flag survives re-injection", () => {
+  it("reports the first trusted input to the background once", () => {
+    const page = loadFormChecker();
+    page.fireInput({ isTrusted: true });
+    page.fireInput({ isTrusted: true });
+    expect(page.marks()).toBe(1);
+  });
+
+  it("a copy injected again in the same document recovers the remembered flag", async () => {
+    // Extension updated or reloaded: the new copy starts with no input events
+    const reinjected = loadFormChecker({ remembered: true });
+    expect(await reinjected.hasFormData()).toBe(true);
   });
 });

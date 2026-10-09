@@ -23,6 +23,12 @@ import {
 } from "../shared/utils.js";
 import { clearInjectedTab, ensureFormCheckerInjected } from "./form-injector.js";
 import {
+  clearAllFormModified,
+  clearFormModified,
+  isFormModified,
+  markFormModified,
+} from "./form-modified-store.js";
+import {
   checkMemoryAndUnload,
   checkPerTabMemory,
   getMemoryInfo,
@@ -132,7 +138,11 @@ async function initCore() {
 // Browser startup - initialize trackers and auto-unload
 chrome.runtime.onStartup.addListener(async () => {
   const allTabs = await initCore();
-  await Promise.all([cleanupStaleActivity(allTabs), syncHostPermissionState(false)]);
+  await Promise.all([
+    cleanupStaleActivity(allTabs),
+    syncHostPermissionState(false),
+    clearAllFormModified(),
+  ]);
   // discardAllTabsOnStartup internally skips while globally paused.
   await discardAllTabsOnStartup();
   updateBadge();
@@ -408,6 +418,7 @@ chrome.tabs.onRemoved.addListener((tabId) => {
   removeTabActivity(tabId);
   removeTabMemory(tabId);
   clearInjectedTab(tabId);
+  clearFormModified(tabId).catch(() => {});
   updateBadge();
 });
 
@@ -525,7 +536,7 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const route = resolveMessageRoute(message, sender, chrome.runtime.getURL(""));
 
-  // Content scripts may only use the three routes below; the rest is for extension pages
+  // Content scripts may only use the routes below; the rest is for extension pages
   if (route === MESSAGE_ROUTES.FORBIDDEN) {
     sendResponse({ ok: false, reason: "forbidden" });
     return false;
@@ -541,6 +552,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Handle getTabId for scroll position restore
   if (route === MESSAGE_ROUTES.TAB_ID) {
     sendResponse({ tabId: sender.tab.id });
+    return true;
+  }
+
+  // Form-modified flag, scoped to the sender's own tab and document
+  if (route === MESSAGE_ROUTES.MARK_FORM_MODIFIED) {
+    markFormModified(sender.tab.id, sender.documentId)
+      .catch(() => {})
+      .then(() => sendResponse({ received: true }));
+    return true;
+  }
+  if (route === MESSAGE_ROUTES.GET_FORM_MODIFIED) {
+    isFormModified(sender.tab.id, sender.documentId)
+      .catch(() => false)
+      .then((modified) => sendResponse({ modified }));
     return true;
   }
 

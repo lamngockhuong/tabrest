@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
+import { FORM_MODIFIED_KEY } from "../../src/shared/constants.js";
 
 // Exception to the rule in service-worker-contracts.test.js: this file imports
 // the real service-worker.js, because the sender gate only protects anything if
@@ -72,6 +73,14 @@ describe("service-worker onMessage: sender gate", () => {
 
   it("still answers getTabId from a content script", async () => {
     await expect(send({ action: "getTabId" }, contentScript)).resolves.toEqual({ tabId: 7 });
+  });
+
+  it("stores the form-modified flag for the sender's own tab and document", async () => {
+    const sender = { ...contentScript, documentId: "doc-a" };
+    await send({ action: "markFormModified" }, sender);
+    expect(chrome.storage.local.set).toHaveBeenCalledWith({
+      [FORM_MODIFIED_KEY]: { 7: "doc-a" },
+    });
   });
 
   it("runs get-sessions from an extension page", async () => {
