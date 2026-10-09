@@ -1,6 +1,8 @@
 // Error reporting module with privacy-focused sanitization
 // Supports both automatic error capture and manual bug reports
-// Privacy-first: strips PII (URLs, emails, domains) before any reporting
+// Privacy-first: strips PII (http(s) URLs, emails, IPv4 and IPv6 addresses) before any reporting.
+// Bare hostnames are not redacted: a hostname pattern also matches file names
+// such as "service-worker.js" and would erase every stack trace.
 
 import {
   ERROR_DAILY_CAP,
@@ -34,7 +36,11 @@ let initGeneration = 0;
 const PII_PATTERNS = [
   /https?:\/\/[^\s"'<>]+/gi, // URLs
   /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/gi, // Emails
-  /\b(?:\d{1,3}\.){3}\d{1,3}\b/g, // IP addresses
+  /\b(?:\d{1,3}\.){3}\d{1,3}\b/g, // IPv4 addresses
+  // IPv6: full 8-group form, or compressed with "::". Runs after IPv4 so an
+  // IPv4-mapped address loses its IPv4 part first. Word and colon guards keep
+  // "file.js:10:5" stack positions and "Foo::bar" names intact.
+  /(?<![\w:])(?:(?:[0-9a-f]{1,4}:){7}[0-9a-f]{1,4}|[0-9a-f]{1,4}(?::[0-9a-f]{1,4}){0,6}::(?:[0-9a-f]{1,4}(?::[0-9a-f]{1,4}){0,6})?|::[0-9a-f]{1,4}(?::[0-9a-f]{1,4}){0,6})(?![\w:])/gi,
 ];
 
 /**

@@ -11,7 +11,9 @@ const { buildEventPayload, buildMessagePayload, buildManualReportPayload } = __t
 
 describe("error-reporter privacy invariants", () => {
   // Test data: PII strings covered by PII_PATTERNS
-  // Patterns: https?://, emails, IPv4 (note: file://, data:, IPv6 not in current patterns)
+  // Patterns: https?://, emails, IPv4, IPv6 (note: file://, data:, bare hostnames not in current patterns)
+  // IPv6 has its own tests below: the stack fuzz wraps each vector as "(vector:1:1)",
+  // which no real stack frame does with an IPv6 address.
   const piiVectors = [
     // URLs - http and https only (per PII_PATTERNS)
     "https://api.example.com/secret",
@@ -77,6 +79,39 @@ describe("error-reporter privacy invariants", () => {
       const json = JSON.stringify(payload);
       expect(json).not.toContain("192.168.1.100");
       expect(json).toContain("[REDACTED]");
+    });
+
+    it("redacts IPv6 addresses in message after sanitization", () => {
+      const vectors = [
+        "2001:db8:85a3:0:0:8a2e:370:7334",
+        "2001:db8::1",
+        "fe80::1",
+        "::1",
+        "2001:db8::",
+      ];
+      for (const ip of vectors) {
+        const error = sanitizeError(new Error(`Connected to ${ip} failed`));
+        const json = JSON.stringify(buildEventPayload(error, {}, "error"));
+        expect(json).not.toContain(ip);
+        expect(error.message).toBe("Connected to [REDACTED] failed");
+      }
+    });
+
+    it("keeps stack positions, scoped names, and times that look like IPv6", () => {
+      const kept = [
+        "at fn (chrome-extension://abcdefghijklmnop/src/popup/popup.js:10:5)",
+        "Foo::bar failed",
+        "cafe:12:30",
+        "at 04:47:59",
+      ];
+      for (const text of kept) {
+        expect(sanitizeString(text)).toBe(text);
+      }
+    });
+
+    it("keeps serialized context valid JSON after IPv6 redaction", () => {
+      const json = sanitizeString(JSON.stringify({ peer: "fe80::1", note: "a:b", n: 12 }));
+      expect(JSON.parse(json)).toEqual({ peer: "[REDACTED]", note: "a:b", n: 12 });
     });
 
     it("has user.ip_address as null (defense-in-depth)", () => {
