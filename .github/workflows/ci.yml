@@ -45,10 +45,10 @@ jobs:
           node-version: "24"
 
       - name: Audit extension dependencies
-        run: pnpm audit --prod --audit-level high
+        run: pnpm audit --audit-level high
 
       - name: Audit website dependencies
-        run: pnpm audit --prod --audit-level high
+        run: pnpm audit --audit-level high
         working-directory: website
 
   lint:
