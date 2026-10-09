@@ -17,10 +17,10 @@ import { requestHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
 import { initTheme, onThemeChange, toggleTheme, updateThemeIcon } from "../shared/theme.js";
 import {
+  faviconUrlFor,
   formatBytes,
   getBrowserInfo,
   getHostname,
-  isSafeFaviconUrl,
   isSafeHttpUrl,
 } from "../shared/utils.js";
 
@@ -151,8 +151,9 @@ function escapeHtml(text) {
 }
 
 // Render a safe favicon <img> tag, or "" if URL is missing/unsafe
-function safeFaviconImg(url, className = "") {
-  if (!url || !isSafeFaviconUrl(url)) return "";
+function safeFaviconImg(pageUrl, className = "") {
+  const url = faviconUrlFor(pageUrl);
+  if (!url) return "";
   const cls = className ? ` class="${className}"` : "";
   return `<img${cls} src="${escapeHtml(url)}" alt="">`;
 }
@@ -391,8 +392,9 @@ async function renderSiteWhitelistBar() {
   const isWhitelisted = settings.whitelist.includes(hostname);
 
   elements.siteWhitelistDomain.textContent = hostname;
-  if (tab.favIconUrl && isSafeFaviconUrl(tab.favIconUrl)) {
-    elements.siteWhitelistFavicon.src = tab.favIconUrl;
+  const faviconUrl = faviconUrlFor(tab.url);
+  if (faviconUrl) {
+    elements.siteWhitelistFavicon.src = faviconUrl;
     elements.siteWhitelistFavicon.style.display = "";
     attachFaviconErrorHandlers(elements.siteWhitelistBar, ".site-whitelist-favicon");
   } else {
@@ -540,7 +542,7 @@ function filterTabs(tabs) {
 function renderTabItem(tab) {
   const statusBadge = getStatusBadge(tab);
   const favicon =
-    safeFaviconImg(tab.favIconUrl, "tab-favicon") ||
+    safeFaviconImg(tab.url, "tab-favicon") ||
     `<span class="tab-favicon-placeholder">${icon("globe", 14)}</span>`;
   const title = escapeHtml(tab.title);
   const hostname = escapeHtml(getHostname(tab.url));
@@ -621,7 +623,7 @@ async function renderSessions() {
     .map((s) => {
       const favicons = s.tabs
         .slice(0, 4)
-        .map((tab) => safeFaviconImg(tab.favIconUrl))
+        .map((tab) => safeFaviconImg(tab.url))
         .join("");
 
       return `

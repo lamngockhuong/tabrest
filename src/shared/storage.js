@@ -34,6 +34,21 @@ export async function saveSettings(settings) {
   await chrome.storage.sync.set({ [STORAGE_KEYS.SETTINGS]: settings });
 }
 
+/**
+ * Restrict extension storage to the extension's own contexts, so content
+ * scripts (which share a renderer with the page) cannot read or write sessions
+ * and settings. An area that does not support it keeps its default access.
+ */
+export async function restrictStorageToTrustedContexts() {
+  for (const area of [chrome.storage.local, chrome.storage.sync]) {
+    try {
+      await area.setAccessLevel({ accessLevel: "TRUSTED_CONTEXTS" });
+    } catch (e) {
+      console.warn("[Storage] setAccessLevel failed:", e);
+    }
+  }
+}
+
 // Get tab activity timestamps from local storage
 export async function getTabActivity() {
   const result = await chrome.storage.local.get(STORAGE_KEYS.TAB_ACTIVITY);

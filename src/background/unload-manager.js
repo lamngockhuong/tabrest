@@ -7,6 +7,7 @@ import {
 import { getSettings } from "../shared/storage.js";
 import { delay, queryCurrentWindowTabs, unwrapHostname } from "../shared/utils.js";
 import { ensureFormCheckerInjected } from "./form-injector.js";
+import { saveScrollPosition, saveYouTubeTimestamp } from "./page-state-store.js";
 import { isPaused } from "./pause-manager.js";
 import { isTabSnoozed } from "./snooze-manager.js";
 import { recordUnload } from "./stats-collector.js";
@@ -112,7 +113,8 @@ export async function discardTab(tabId, options = {}) {
     // Save YouTube timestamp before discarding
     if (settings.saveYouTubeTimestamp && isYouTubeWatchUrl(currentTab.url)) {
       try {
-        await chrome.tabs.sendMessage(tabId, { action: "saveYouTubeTimestamp" });
+        const res = await chrome.tabs.sendMessage(tabId, { action: "saveYouTubeTimestamp" });
+        if (res?.playback) await saveYouTubeTimestamp(currentTab.url, res.playback);
       } catch {
         // Content script not loaded, proceed without saving
       }
@@ -121,7 +123,8 @@ export async function discardTab(tabId, options = {}) {
     // Save scroll position before discarding
     if (settings.restoreScrollPosition) {
       try {
-        await chrome.tabs.sendMessage(tabId, { action: "saveScrollPosition", tabId });
+        const res = await chrome.tabs.sendMessage(tabId, { action: "saveScrollPosition" });
+        if (res?.position) await saveScrollPosition(tabId, currentTab.url, res.position);
       } catch {
         // Content script not loaded, proceed without saving
       }

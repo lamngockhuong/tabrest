@@ -266,15 +266,15 @@ service-worker.js
     until: 1712350000000  // epoch ms deadline, or -1 for "until resumed"
   },
 
-  // Scroll positions
+  // Scroll positions, keyed by tab ID (written and read by page-state-store.js)
   tabrest_scroll_positions: {
-    "https://example.com/page": { x: 0, y: 500 },
+    "42": { x: 0, y: 500, url: "https://example.com/page", savedAt: 1712345678000 },
     // ... (max 100 entries)
   },
 
-  // YouTube timestamps
+  // YouTube timestamps, keyed by video ID (written and read by page-state-store.js)
   youtube_timestamps: {
-    "dQw4w9WgXcQ": { time: 123.5, savedAt: 1712345678000 },
+    "dQw4w9WgXcQ": { timestamp: 123, duration: 600, savedAt: 1712345678000 },
     // ... (max age: 7 days)
   },
 
@@ -439,15 +439,16 @@ service-worker.js
 // Memory report (from form-checker.js)
 { action: "reportTabMemory", heapMB: 150 }
 
-// Tab ID request (for scroll position)
-{ action: "getTabId" }
+// Saved state for the sender's own tab, removed once handed back
+{ action: "takeScrollPosition" }    // -> { position: {x, y} | null }, matched on sender.url
+{ action: "takeYouTubeTimestamp" }  // -> { playback: {timestamp, duration} | null }, video ID from sender.url
 
 // Form-modified flag for the sender's own tab and document
 { action: "markFormModified" }
 { action: "getFormModified" }  // -> { modified: boolean }
 ```
 
-**Sender routing:** the service worker passes every runtime message through `resolveMessageRoute` (`src/background/message-route.js`) before running it. Content scripts live inside web pages, so they may only send `reportTabMemory`, `getTabId`, `markFormModified`, `getFormModified` and `captureError`, and the first four act only on the sender's own tab. A content script's `captureError` is accepted only when the error's stack runs through extension code, and only within a budget of `CONTENT_ERROR_SESSION_CAP` reports per browser session, counted in `chrome.storage.session` where content scripts cannot reset it. Every other command needs a sender whose `url` starts with `chrome.runtime.getURL("")` (popup, side panel, options, onboarding); anything else gets `{ ok: false, reason: "forbidden" }`.
+**Sender routing:** the service worker passes every runtime message through `resolveMessageRoute` (`src/background/message-route.js`) before running it. Content scripts live inside web pages, so they may only send `reportTabMemory`, `takeScrollPosition`, `takeYouTubeTimestamp`, `markFormModified`, `getFormModified` and `captureError`, and the first five act only on the sender's own tab. Content scripts never touch extension storage themselves: before a discard the service worker asks them for the scroll position or playback time and stores it, and after the reload they ask for it back. A content script's `captureError` is accepted only when the error's stack runs through extension code, and only within a budget of `CONTENT_ERROR_SESSION_CAP` reports per browser session, counted in `chrome.storage.session` where content scripts cannot reset it. Every other command needs a sender whose `url` starts with `chrome.runtime.getURL("")` (popup, side panel, options, onboarding); anything else gets `{ ok: false, reason: "forbidden" }`.
 
 ### Background → Content Script
 
@@ -473,6 +474,7 @@ service-worker.js
 - `scripting`: Inject title prefix script
 - `idle`: Detect user activity state
 - `notifications`: Alert on auto-unload
+- `favicon`: Show site icons in the popup from Chrome's favicon cache
 
 ### Host Permissions
 
@@ -481,7 +483,8 @@ service-worker.js
 ### Data Security
 
 - Sends data to only one external service: optional Sentry error reporting (off by default)
-- The popup and side panel load tab and saved-session favicons from the URL each site provides, so opening TabRest can request those images from the sites' servers
+- The popup and side panel show tab and saved-session favicons from Chrome's favicon cache (`chrome-extension://<id>/_favicon/?pageUrl=…`, `favicon` permission), so opening TabRest sends no request to the sites
+- `chrome.storage.local` and `chrome.storage.sync` are restricted to trusted contexts (`setAccessLevel`, called on every service-worker start), so content scripts cannot read or write sessions and settings
 - All data stored locally
 - No user tracking or analytics
 

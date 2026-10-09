@@ -1,5 +1,9 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import { FORM_MODIFIED_KEY } from "../../src/shared/constants.js";
+import {
+  FORM_MODIFIED_KEY,
+  SCROLL_POSITIONS_KEY,
+  YOUTUBE_TIMESTAMPS_KEY,
+} from "../../src/shared/constants.js";
 
 // Exception to the rule in service-worker-contracts.test.js: this file imports
 // the real service-worker.js, because the sender gate only protects anything if
@@ -26,6 +30,8 @@ const contentScript = {
 const popup = { id: "test", url: `${EXTENSION_ORIGIN}src/popup/popup.html` };
 
 let onMessage;
+// setAccessLevel calls made while the module loaded, kept before beforeEach clears mocks
+let accessLevelCalls;
 
 beforeAll(async () => {
   const listener = () => ({ addListener: vi.fn() });
@@ -38,6 +44,10 @@ beforeAll(async () => {
   chrome.commands = { onCommand: listener() };
 
   await import("../../src/background/service-worker.js");
+  await Promise.resolve();
+  accessLevelCalls = [chrome.storage.local, chrome.storage.sync].map((area) =>
+    structuredClone(area.setAccessLevel.mock.calls),
+  );
   const calls = chrome.runtime.onMessage.addListener.mock.calls;
   onMessage = calls[calls.length - 1][0];
 });
@@ -71,8 +81,44 @@ describe("service-worker onMessage: sender gate", () => {
     expect(chrome.runtime.getURL).toHaveBeenCalledWith("");
   });
 
-  it("still answers getTabId from a content script", async () => {
-    await expect(send({ action: "getTabId" }, contentScript)).resolves.toEqual({ tabId: 7 });
+  it("restricts local and sync storage to trusted contexts on load", () => {
+    for (const calls of accessLevelCalls) {
+      expect(calls).toContainEqual([{ accessLevel: "TRUSTED_CONTEXTS" }]);
+    }
+  });
+
+  it("no longer answers getTabId", async () => {
+    await expect(send({ action: "getTabId" }, contentScript)).resolves.toEqual({
+      ok: false,
+      reason: "forbidden",
+    });
+  });
+
+  it("hands a content script only the scroll position saved for its own tab and URL", async () => {
+    chrome.storage.local.get.mockResolvedValueOnce({
+      [SCROLL_POSITIONS_KEY]: {
+        7: { x: 0, y: 420, url: contentScript.url, savedAt: 1 },
+        8: { x: 0, y: 99, url: "https://other.example/", savedAt: 1 },
+      },
+    });
+    await expect(send({ action: "takeScrollPosition", tabId: 8 }, contentScript)).resolves.toEqual(
+      { position: { x: 0, y: 420 } },
+    );
+    expect(chrome.storage.local.set).toHaveBeenCalledWith({
+      [SCROLL_POSITIONS_KEY]: { 8: { x: 0, y: 99, url: "https://other.example/", savedAt: 1 } },
+    });
+  });
+
+  it("hands a content script the playback time of the video in its own URL", async () => {
+    chrome.storage.local.get.mockResolvedValueOnce({
+      [YOUTUBE_TIMESTAMPS_KEY]: {
+        x: { timestamp: 120, duration: 600, savedAt: 1 },
+        y: { timestamp: 50, duration: 600, savedAt: 1 },
+      },
+    });
+    await expect(
+      send({ action: "takeYouTubeTimestamp", videoId: "y" }, contentScript),
+    ).resolves.toEqual({ playback: { timestamp: 120, duration: 600 } });
   });
 
   it("stores the form-modified flag for the sender's own tab and document", async () => {

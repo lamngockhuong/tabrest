@@ -14,7 +14,7 @@ import {
   takeContentErrorBudget,
 } from "../shared/error-reporter.js";
 import { HOST_PERM_DEPENDENT_FLAGS, hasHostPermission } from "../shared/permissions.js";
-import { getSettings, saveSettings } from "../shared/storage.js";
+import { getSettings, restrictStorageToTrustedContexts, saveSettings } from "../shared/storage.js";
 import {
   createTabSafe,
   isMinorOrMajorBump,
@@ -39,6 +39,7 @@ import {
   setupMemoryCheckAlarm,
 } from "./memory-monitor.js";
 import { isExtensionPageSender, MESSAGE_ROUTES, resolveMessageRoute } from "./message-route.js";
+import { takeScrollPosition, takeYouTubeTimestamp } from "./page-state-store.js";
 import {
   cleanupExpiredPause,
   clearPause,
@@ -91,6 +92,9 @@ import {
 // cold-wake message handler still has parsedDsn ready. initErrorReporter is
 // idempotent - subsequent calls return early.
 initErrorReporter().catch((e) => console.error("[ErrorReporter] eager init failed:", e));
+
+// Content scripts reach storage only through the routes below, never directly
+restrictStorageToTrustedContexts();
 
 // Side-panel mode takes precedence over toolbarClickAction.
 async function configureToolbarAction() {
@@ -550,9 +554,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 
-  // Handle getTabId for scroll position restore
-  if (route === MESSAGE_ROUTES.TAB_ID) {
-    sendResponse({ tabId: sender.tab.id });
+  // Scroll and playback state saved for this tab, matched against the URL the browser reports
+  if (route === MESSAGE_ROUTES.TAKE_SCROLL_POSITION) {
+    takeScrollPosition(sender.tab.id, sender.url)
+      .catch(() => null)
+      .then((position) => sendResponse({ position }));
+    return true;
+  }
+  if (route === MESSAGE_ROUTES.TAKE_YOUTUBE_TIMESTAMP) {
+    takeYouTubeTimestamp(sender.url)
+      .catch(() => null)
+      .then((playback) => sendResponse({ playback }));
     return true;
   }
 

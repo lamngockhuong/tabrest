@@ -13,6 +13,7 @@ const createStorageMock = () => ({
     if (cb) cb();
     return Promise.resolve();
   }),
+  setAccessLevel: vi.fn(() => Promise.resolve()),
 });
 
 // Mock chrome APIs

@@ -1,89 +1,15 @@
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { REPORTER_COMMANDS, SCROLL_MAX_ENTRIES } from "../../src/shared/constants.js";
+import { REPORTER_COMMANDS } from "../../src/shared/constants.js";
 
 // Most tests here re-implement fragments of form-checker.js (an IIFE content
-// script bound to live DOM/window) to pin the pure-logic contracts: storage
-// pruning, extension-frame error filtering, and the form-modified detection
+// script bound to live DOM/window) to pin the pure-logic contracts:
+// extension-frame error filtering, and the form-modified detection
 // algorithm. The flag-ownership block at the end runs the real file in node:vm.
 
-// Importing SCROLL_MAX_ENTRIES from shared/constants is deliberate even though
-// the source duplicates it locally (content scripts can't use ES imports).
-// This test then doubles as a drift detector for the source-side copy.
-
-// --- saveScrollPosition pruning (form-checker.js:26-54) -----------------------
-function pruneScrollPositions(positions, max = SCROLL_MAX_ENTRIES) {
-  const keys = Object.keys(positions);
-  if (keys.length <= max) return positions;
-  const sorted = keys.sort((a, b) => positions[a].savedAt - positions[b].savedAt);
-  const toRemove = sorted.slice(0, keys.length - max);
-  for (const k of toRemove) delete positions[k];
-  return positions;
-}
-
-describe("form-checker-contracts: scroll position pruning", () => {
-  // Use a small MAX so the contract is exercised without 300+ allocations
-  const MAX = 5;
-
-  it("noop when at or below limit", () => {
-    const positions = {};
-    for (let i = 0; i < MAX; i++) {
-      positions[i] = { savedAt: i, x: 0, y: 0, url: "u" };
-    }
-    pruneScrollPositions(positions, MAX);
-    expect(Object.keys(positions)).toHaveLength(MAX);
-  });
-
-  it("removes oldest entries (lowest savedAt) when over limit", () => {
-    const positions = {};
-    for (let i = 0; i < MAX + 3; i++) {
-      positions[String(i)] = { savedAt: i * 1000, x: 0, y: 0, url: "u" };
-    }
-    pruneScrollPositions(positions, MAX);
-    expect(Object.keys(positions)).toHaveLength(MAX);
-    for (let i = 0; i < 3; i++) {
-      expect(positions[String(i)]).toBeUndefined();
-    }
-    expect(positions[String(MAX + 2)]).toBeDefined();
-  });
-
-  it("always keeps exactly MAX entries when timestamps are tied", () => {
-    const positions = {};
-    for (let i = 0; i < MAX + 2; i++) {
-      positions[String(i)] = { savedAt: 1000, x: 0, y: 0, url: "u" };
-    }
-    pruneScrollPositions(positions, MAX);
-    expect(Object.keys(positions)).toHaveLength(MAX);
-  });
-});
-
-// --- restoreScrollPosition URL match guard (form-checker.js:72) ---------------
-// Saved entry only restored if its URL matches the current page URL - prevents
-// wrong-page jumps if the tab was reused for navigation.
-function shouldRestore(saved, currentUrl) {
-  if (!saved) return false;
-  return saved.url === currentUrl;
-}
-
-describe("form-checker-contracts: scroll restore URL match", () => {
-  it("matches exact URL", () => {
-    expect(shouldRestore({ url: "https://x.com/page" }, "https://x.com/page")).toBe(true);
-  });
-
-  it("rejects path-only divergence", () => {
-    expect(shouldRestore({ url: "https://x.com/page" }, "https://x.com/other")).toBe(false);
-  });
-
-  it("rejects query/hash divergence (intentional - different scroll context)", () => {
-    expect(shouldRestore({ url: "https://x.com/page" }, "https://x.com/page?q=1")).toBe(false);
-  });
-
-  it("rejects when no saved entry", () => {
-    expect(shouldRestore(null, "https://x.com/page")).toBe(false);
-    expect(shouldRestore(undefined, "https://x.com/page")).toBe(false);
-  });
-});
+// Scroll position storage and pruning moved to the service worker; see
+// tests/background/page-state-store.test.js.
 
 // --- isExtensionFrame (form-checker.js:216-218) -------------------------------
 function makeIsExtensionFrame(runtimeId) {

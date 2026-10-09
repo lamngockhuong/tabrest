@@ -1,14 +1,15 @@
 // Decides which runtime messages a sender may run.
 // Content scripts live inside web pages, so a compromised renderer can send
 // anything they can. They may only report about their own tab (including its
-// form-modified flag) or forward errors raised in extension code. Every other command belongs to the extension's own pages
+// form-modified flag and the scroll or playback state saved for it) or forward errors raised in extension code. Every other command belongs to the extension's own pages
 // (popup, side panel, options, onboarding).
 
 import { REPORTER_COMMANDS } from "../shared/constants.js";
 
 export const MESSAGE_ROUTES = Object.freeze({
   TAB_MEMORY: "tab-memory",
-  TAB_ID: "tab-id",
+  TAKE_SCROLL_POSITION: "take-scroll-position",
+  TAKE_YOUTUBE_TIMESTAMP: "take-youtube-timestamp",
   MARK_FORM_MODIFIED: "mark-form-modified",
   GET_FORM_MODIFIED: "get-form-modified",
   CAPTURE_ERROR: "capture-error",
@@ -43,7 +44,12 @@ export function isExtensionPageSender(sender, extensionOrigin) {
 export function resolveMessageRoute(message, sender, extensionOrigin) {
   if (!message || typeof message !== "object") return MESSAGE_ROUTES.FORBIDDEN;
   if (message.action === "reportTabMemory" && sender?.tab?.id) return MESSAGE_ROUTES.TAB_MEMORY;
-  if (message.action === "getTabId" && sender?.tab?.id) return MESSAGE_ROUTES.TAB_ID;
+  if (message.action === "takeScrollPosition" && sender?.tab?.id) {
+    return MESSAGE_ROUTES.TAKE_SCROLL_POSITION;
+  }
+  if (message.action === "takeYouTubeTimestamp" && sender?.tab?.id) {
+    return MESSAGE_ROUTES.TAKE_YOUTUBE_TIMESTAMP;
+  }
   if (message.action === "markFormModified" && sender?.tab?.id) {
     return MESSAGE_ROUTES.MARK_FORM_MODIFIED;
   }
