@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.1](https://github.com/lamngockhuong/tabrest/compare/v0.9.0...v0.9.1) (2026-10-09)
+
+
+### Bug Fixes
+
+* address remaining security audit findings ([#139](https://github.com/lamngockhuong/tabrest/issues/139)) ([a5cfa8c](https://github.com/lamngockhuong/tabrest/commit/a5cfa8cc7ad9d7e6d3093deb25cd9dbd78a041d8))
+* **privacy:** redact IPv6 addresses from error reports ([#145](https://github.com/lamngockhuong/tabrest/issues/145)) ([05d6027](https://github.com/lamngockhuong/tabrest/commit/05d6027699963d2f5521e946b2d9bce57740a72e))
+* restrict content-script messages and page-controlled form flag ([#142](https://github.com/lamngockhuong/tabrest/issues/142)) ([fad478c](https://github.com/lamngockhuong/tabrest/commit/fad478cf0f8cd7fe3f751b1496ccd8ee250a8a09))
+
 ## [0.9.0](https://github.com/lamngockhuong/tabrest/compare/v0.8.0...v0.9.0) (2026-10-08)
 
 
