@@ -656,10 +656,42 @@ describe("service-worker-contracts: message sender gate", () => {
     expect(resolveMessageRoute({ action: "getTabId" }, contentScript, ORIGIN)).toBe(
       MESSAGE_ROUTES.TAB_ID,
     );
-    expect(
-      resolveMessageRoute({ command: REPORTER_COMMANDS.CAPTURE_ERROR }, contentScript, ORIGIN),
-    ).toBe(MESSAGE_ROUTES.CAPTURE_ERROR);
+    const ownError = {
+      command: REPORTER_COMMANDS.CAPTURE_ERROR,
+      error: { stack: `TypeError: x\n    at f (${ORIGIN}src/content/form-checker.js:10:5)` },
+    };
+    expect(resolveMessageRoute(ownError, contentScript, ORIGIN)).toBe(
+      MESSAGE_ROUTES.CAPTURE_ERROR,
+    );
   });
+
+  it("content scripts may not forward an error raised outside extension code", () => {
+    for (const error of [
+      undefined,
+      { stack: "" },
+      { stack: "Error: x\n    at f (https://evil.example/app.js:1:1)" },
+      { stack: 42 },
+    ]) {
+      const message = { command: REPORTER_COMMANDS.CAPTURE_ERROR, error };
+      expect(resolveMessageRoute(message, contentScript, ORIGIN)).toBe(MESSAGE_ROUTES.FORBIDDEN);
+    }
+  });
+
+  it("captureError from a sender with no tab and no extension URL is forbidden", () => {
+    const message = {
+      command: REPORTER_COMMANDS.CAPTURE_ERROR,
+      error: { stack: `Error: x\n    at f (${ORIGIN}src/content/form-checker.js:1:1)` },
+    };
+    expect(resolveMessageRoute(message, { url: "https://evil.example/" }, ORIGIN)).toBe(
+      MESSAGE_ROUTES.FORBIDDEN,
+    );
+  });
+
+  it("extension pages may forward captureError whatever the stack", () => {
+    const message = { command: REPORTER_COMMANDS.CAPTURE_ERROR, error: { stack: "" } };
+    expect(resolveMessageRoute(message, popup, ORIGIN)).toBe(MESSAGE_ROUTES.CAPTURE_ERROR);
+  });
+
 
   it.each([
     ["popup", popup],

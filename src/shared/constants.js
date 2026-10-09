@@ -166,6 +166,12 @@ export const MANUAL_REPORT_STATE_KEY = "manual_report_throttle";
 export const MANUAL_REPORT_DAILY_CAP = 5;
 export const MANUAL_REPORT_COOLDOWN_MS = 60000; // 1 minute between submits
 
+// Content scripts share a renderer with the page, so a compromised page can
+// forward made-up errors. Their reports get a budget per browser session, kept in
+// storage.session (out of content-script reach), so they cannot use up the daily cap.
+export const CONTENT_ERROR_BUDGET_KEY = "content_error_budget";
+export const CONTENT_ERROR_SESSION_CAP = 20;
+
 // One-time flag: marks that consent was reset to opt-in default during the
 // v0.0.5 → v0.1.0 migration. Without this guard, every future extension update
 // would silently re-flip a user's enabled opt-in back to false.

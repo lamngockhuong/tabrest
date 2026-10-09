@@ -1,7 +1,7 @@
 // Decides which runtime messages a sender may run.
 // Content scripts live inside web pages, so a compromised renderer can send
 // anything they can. They may only report about their own tab (including its
-// form-modified flag) or forward their own errors. Every other command belongs to the extension's own pages
+// form-modified flag) or forward errors raised in extension code. Every other command belongs to the extension's own pages
 // (popup, side panel, options, onboarding).
 
 import { REPORTER_COMMANDS } from "../shared/constants.js";
@@ -50,7 +50,14 @@ export function resolveMessageRoute(message, sender, extensionOrigin) {
   if (message.action === "getFormModified" && sender?.tab?.id) {
     return MESSAGE_ROUTES.GET_FORM_MODIFIED;
   }
-  if (message.command === REPORTER_COMMANDS.CAPTURE_ERROR) return MESSAGE_ROUTES.CAPTURE_ERROR;
+  if (message.command === REPORTER_COMMANDS.CAPTURE_ERROR) {
+    if (isExtensionPageSender(sender, extensionOrigin)) return MESSAGE_ROUTES.CAPTURE_ERROR;
+    // A content script forwards only errors whose stack runs through extension code
+    const stack = message.error?.stack;
+    const ownError =
+      sender?.tab?.id && typeof stack === "string" && stack.includes(extensionOrigin);
+    return ownError ? MESSAGE_ROUTES.CAPTURE_ERROR : MESSAGE_ROUTES.FORBIDDEN;
+  }
   return isExtensionPageSender(sender, extensionOrigin)
     ? MESSAGE_ROUTES.PRIVILEGED
     : MESSAGE_ROUTES.FORBIDDEN;

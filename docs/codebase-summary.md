@@ -45,7 +45,7 @@ tabrest/
 | `session-manager.js` | 209 | Save/restore tab sessions, import with merge & dedup                                                              |
 | `stats-collector.js` | 99  | Usage statistics tracking                                                                                         |
 | `form-injector.js`   | 24  | Form-checker injection (eager on page load + lazy on demand)                                                      |
-| `message-route.js`  | 57  | Sender gate for runtime messages: content scripts limited to own-tab reports and `captureError`                   |
+| `message-route.js`  | 57  | Sender gate for runtime messages: content scripts limited to own-tab reports and `captureError` with an extension stack |
 | `form-modified-store.js` | 62 | Per-tab form-modified flag keyed by document ID, survives extension update or reload                         |
 
 ### Content Scripts

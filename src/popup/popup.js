@@ -625,17 +625,17 @@ async function renderSessions() {
         .join("");
 
       return `
-      <div class="session-card" data-session-id="${s.id}">
+      <div class="session-card" data-session-id="${escapeHtml(s.id)}">
         <div class="session-favicon-stack">${favicons}</div>
         <div class="session-info">
           <div class="session-name" title="${escapeHtml(s.name)}">${escapeHtml(s.name)}</div>
           <div class="session-meta">${s.tabs.length} tabs · ${relativeTime(s.createdAt)}</div>
         </div>
         <div class="session-actions">
-          <button class="btn btn-sm session-restore" data-id="${s.id}" title="Open tabs">
+          <button class="btn btn-sm session-restore" data-id="${escapeHtml(s.id)}" title="Open tabs">
             <span data-icon="play"></span>
           </button>
-          <button class="btn btn-sm session-delete" data-id="${s.id}" title="Delete">
+          <button class="btn btn-sm session-delete" data-id="${escapeHtml(s.id)}" title="Delete">
             <span data-icon="trash"></span>
           </button>
         </div>

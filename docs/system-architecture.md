@@ -447,7 +447,7 @@ service-worker.js
 { action: "getFormModified" }  // -> { modified: boolean }
 ```
 
-**Sender routing:** the service worker passes every runtime message through `resolveMessageRoute` (`src/background/message-route.js`) before running it. Content scripts live inside web pages, so they may only send `reportTabMemory`, `getTabId`, `markFormModified`, `getFormModified` and `captureError`, and the first four act only on the sender's own tab. Every other command needs a sender whose `url` starts with `chrome.runtime.getURL("")` (popup, side panel, options, onboarding); anything else gets `{ ok: false, reason: "forbidden" }`.
+**Sender routing:** the service worker passes every runtime message through `resolveMessageRoute` (`src/background/message-route.js`) before running it. Content scripts live inside web pages, so they may only send `reportTabMemory`, `getTabId`, `markFormModified`, `getFormModified` and `captureError`, and the first four act only on the sender's own tab. A content script's `captureError` is accepted only when the error's stack runs through extension code, and only within a budget of `CONTENT_ERROR_SESSION_CAP` reports per browser session, counted in `chrome.storage.session` where content scripts cannot reset it. Every other command needs a sender whose `url` starts with `chrome.runtime.getURL("")` (popup, side panel, options, onboarding); anything else gets `{ ok: false, reason: "forbidden" }`.
 
 ### Background → Content Script
 

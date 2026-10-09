@@ -20,6 +20,7 @@ global.chrome = {
   storage: {
     sync: createStorageMock(),
     local: createStorageMock(),
+    session: createStorageMock(),
     onChanged: {
       addListener: vi.fn(),
       removeListener: vi.fn(),

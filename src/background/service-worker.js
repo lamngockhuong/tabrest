@@ -11,6 +11,7 @@ import {
   isReporterConfigChange,
   reportBug,
   resetErrorReporter,
+  takeContentErrorBudget,
 } from "../shared/error-reporter.js";
 import { HOST_PERM_DEPENDENT_FLAGS, hasHostPermission } from "../shared/permissions.js";
 import { getSettings, saveSettings } from "../shared/storage.js";
@@ -37,7 +38,7 @@ import {
   reportTabMemory,
   setupMemoryCheckAlarm,
 } from "./memory-monitor.js";
-import { MESSAGE_ROUTES, resolveMessageRoute } from "./message-route.js";
+import { isExtensionPageSender, MESSAGE_ROUTES, resolveMessageRoute } from "./message-route.js";
 import {
   cleanupExpiredPause,
   clearPause,
@@ -575,9 +576,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const err = new Error(errPayload.message || "Unknown error");
     err.name = errPayload.name || "Error";
     err.stack = errPayload.stack || "";
-    captureError(err, message.context || {});
-    sendResponse({ ok: true });
-    return false;
+    const fromExtensionPage = isExtensionPageSender(sender, chrome.runtime.getURL(""));
+    const allowed = fromExtensionPage ? Promise.resolve(true) : takeContentErrorBudget();
+    allowed.then((ok) => {
+      if (ok) captureError(err, message.context || {});
+      sendResponse({ ok });
+    });
+    return true;
   }
   if (message.command === REPORTER_COMMANDS.CAPTURE_MESSAGE) {
     captureMessage(message.message || "", message.level || "info", message.context || {});
