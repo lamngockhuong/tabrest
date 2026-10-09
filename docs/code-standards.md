@@ -334,3 +334,13 @@ export function validateImportData(importedData) {
   pnpm run lint:fix   # Auto-fix
   pnpm run format     # Format
   ```
+
+## GitHub Actions
+
+- Reference every external action by its full commit SHA, with the tag in a trailing comment:
+  `uses: actions/checkout@<40-char sha> # v7`. Resolve annotated tags to the commit they point to.
+  Renovate (`helpers:pinGitHubActionDigests` in `renovate.json`) keeps the digests current.
+- Declare `permissions` at the workflow top level as read-only and grant write access only on the
+  job that needs it.
+- Set `persist-credentials: false` on `actions/checkout` in jobs that install dependencies or run
+  project code and do not push.
