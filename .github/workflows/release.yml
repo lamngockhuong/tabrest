@@ -24,6 +24,10 @@ on:
         required: true
         type: string
 
+# Read-only by default; only the release job below gets write access.
+permissions:
+  contents: read
+
 concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false
@@ -75,6 +79,8 @@ jobs:
     needs: [prepare]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
 
