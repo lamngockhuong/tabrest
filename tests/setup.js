@@ -13,6 +13,7 @@ const createStorageMock = () => ({
     if (cb) cb();
     return Promise.resolve();
   }),
+  setAccessLevel: vi.fn(() => Promise.resolve()),
 });
 
 // Mock chrome APIs
@@ -20,6 +21,7 @@ global.chrome = {
   storage: {
     sync: createStorageMock(),
     local: createStorageMock(),
+    session: createStorageMock(),
     onChanged: {
       addListener: vi.fn(),
       removeListener: vi.fn(),

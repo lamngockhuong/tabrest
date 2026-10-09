@@ -164,7 +164,7 @@ TabRest chỉ yêu cầu quyền truy cập máy chủ **tùy chọn** khi bạn
 | API bên ngoài | ❌ Không có | ❌ Không có |
 | Theo dõi lỗi (Sentry SaaS, khu vực Mỹ) | ❌ Tắt - không gửi yêu cầu nào | ✅ Chỉ bật sau khi bạn chọn công tắc đồng ý. Xem [Báo cáo lỗi](#error-reporting) để biết chính xác dữ liệu được gửi. |
 
-**Toàn bộ phần mã còn lại đều chạy trong trình duyệt của bạn.** Điểm tiếp nhận Sentry (`*.ingest.us.sentry.io`) là dịch vụ duy nhất TabRest gửi dữ liệu đến, và chỉ khi bạn bật báo cáo lỗi. Ngoài ra, popup và bảng điều khiển bên tải favicon của các tab và phiên đã lưu từ URL mà mỗi trang cung cấp, nên khi mở chúng, trình duyệt có thể yêu cầu các ảnh đó từ máy chủ của trang.
+**Toàn bộ phần mã còn lại đều chạy trong trình duyệt của bạn.** Điểm tiếp nhận Sentry (`*.ingest.us.sentry.io`) là dịch vụ duy nhất TabRest gửi dữ liệu đến, và chỉ khi bạn bật báo cáo lỗi. Popup và bảng điều khiển bên hiển thị favicon của các tab và phiên đã lưu từ bộ nhớ đệm favicon của chính Chrome, không tải từ các trang.
 
 ## Chia sẻ dữ liệu
 
@@ -305,11 +305,11 @@ TabRest được xây dựng theo hướng minh bạch:
 
 - **Mã nguồn mở**: Kho mã nguồn công khai theo giấy phép MIT
 - **Không phân tích hay ghi nhận hành vi**: Mã nguồn không chứa chức năng theo dõi lượt xem trang, lượt nhấp hay việc dùng tính năng
-- **Mặc định không gửi dữ liệu**: Nếu kiểm tra lưu lượng mạng khi báo cáo lỗi đang tắt, yêu cầu duy nhất từ TabRest là ảnh favicon mà popup và bảng điều khiển bên tải từ các trang trong tab và phiên đã lưu của bạn
+- **Mặc định không gửi dữ liệu**: Nếu kiểm tra lưu lượng mạng khi báo cáo lỗi đang tắt, bạn sẽ không thấy yêu cầu nào từ TabRest
 - **Một đích nhận dữ liệu duy nhất do người dùng chọn bật**: Chỉ điểm tiếp nhận tại Mỹ của Sentry, và chỉ khi bạn bật báo cáo lỗi
 - **Kiến trúc đơn giản**: JavaScript thuần, ít phần phụ thuộc, dễ kiểm tra
 
-**Hãy tự xác minh**: Sao chép kho mã nguồn và kiểm tra mã. Bạn sẽ không thấy chức năng phân tích, theo dõi hay yêu cầu mạng nào ngoài trình báo lỗi tự nguyện đã được mô tả ở đây và ảnh favicon hiển thị trong popup và bảng điều khiển bên.
+**Hãy tự xác minh**: Sao chép kho mã nguồn và kiểm tra mã. Bạn sẽ không thấy chức năng phân tích, theo dõi hay yêu cầu mạng nào ngoài trình báo lỗi tự nguyện đã được mô tả ở đây.
 
 ---
 

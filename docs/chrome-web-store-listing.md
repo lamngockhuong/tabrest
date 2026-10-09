@@ -203,6 +203,12 @@ Used to display optional system notifications when tabs are auto-unloaded (e.g.,
 Enables an optional Side Panel mode where the TabRest UI opens in Chrome's persistent sidebar instead of the popup, so the tab list and stats remain visible as the user switches tabs. Users can set the toolbar action to open the side panel by default via Settings, or open it on demand with a button in the popup header; the default toolbar behavior is the standard popup.
 ```
 
+### `favicon`
+
+```text
+Shows each tab's and each saved session's site icon in the popup and side panel by reading Chrome's own favicon cache (chrome-extension://<id>/_favicon/). This replaces loading the icon from the site's URL, so opening TabRest sends no request to any website.
+```
+
 ## Host Permissions & Remote Code
 
 ## Host permission justification

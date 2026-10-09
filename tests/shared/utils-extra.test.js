@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createTabSafe,
   getBrowserInfo,
-  isSafeFaviconUrl,
+  faviconUrlFor,
   isSafeHttpUrl,
   notifyAutoUnload,
   unwrapHostname,
@@ -109,20 +109,19 @@ describe("isSafeHttpUrl", () => {
   });
 });
 
-describe("isSafeFaviconUrl", () => {
-  it("accepts http(s) and data:image URLs", () => {
-    expect(isSafeFaviconUrl("https://example.com/favicon.ico")).toBe(true);
-    expect(isSafeFaviconUrl("http://example.com/favicon.ico")).toBe(true);
-    expect(isSafeFaviconUrl("data:image/png;base64,iVBORw0KGgo=")).toBe(true);
-    expect(isSafeFaviconUrl("DATA:IMAGE/SVG+XML,<svg/>")).toBe(true);
+describe("faviconUrlFor", () => {
+  it("points http(s) pages at Chrome's favicon store, never at the site", () => {
+    const url = faviconUrlFor("https://example.com/a?b=1&c=2");
+    expect(url.startsWith("chrome-extension://test/_favicon/?")).toBe(true);
+    const params = new URL(url).searchParams;
+    expect(params.get("pageUrl")).toBe("https://example.com/a?b=1&c=2");
+    expect(params.get("size")).toBe("32");
   });
 
-  it("rejects non-image data URLs and unsafe protocols", () => {
-    expect(isSafeFaviconUrl("data:text/html,<script>")).toBe(false);
-    expect(isSafeFaviconUrl("javascript:alert(1)")).toBe(false);
-    expect(isSafeFaviconUrl("chrome://extensions")).toBe(false);
-    expect(isSafeFaviconUrl("")).toBe(false);
-    expect(isSafeFaviconUrl(null)).toBe(false);
+  it("returns an empty string for anything but http(s)", () => {
+    for (const pageUrl of ["chrome://extensions", "javascript:alert(1)", "data:image/png,x", "", null]) {
+      expect(faviconUrlFor(pageUrl)).toBe("");
+    }
   });
 });
 

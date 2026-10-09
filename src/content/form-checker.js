@@ -4,10 +4,6 @@
 if (!window.__tabrestFormCheckLoaded) {
   window.__tabrestFormCheckLoaded = true;
 
-  // Note: Content scripts can't use ES imports, so constants defined locally
-  const SCROLL_POSITIONS_KEY = "tabrest_scroll_positions";
-  const SCROLL_MAX_ENTRIES = 100;
-
   // Set by the trusted-input listener below. Kept in the isolated world, not
   // the DOM, so the page cannot mark its own tab as having unsaved data.
   // The background also remembers it per document, so a copy injected again
@@ -25,72 +21,29 @@ if (!window.__tabrestFormCheckLoaded) {
       formModifiedRestored.then(() => sendResponse({ hasFormData: checkForUnsavedData() }));
       return true; // Async response
     } else if (message.action === "saveScrollPosition") {
-      saveScrollPosition(message.tabId).then((saved) => sendResponse({ saved }));
-      return true; // Async response
+      // The service worker stores it; this script cannot reach extension storage
+      sendResponse({ position: { x: window.scrollX, y: window.scrollY } });
+      return false;
     }
     // Unknown actions: return nothing so the channel closes instead of hanging the sender
   });
 
   /**
-   * Save current scroll position to storage
-   * @param {number} tabId - Tab ID for storage key
-   */
-  async function saveScrollPosition(tabId) {
-    try {
-      const position = {
-        x: window.scrollX,
-        y: window.scrollY,
-        url: location.href,
-        savedAt: Date.now(),
-      };
-
-      const data = await chrome.storage.local.get(SCROLL_POSITIONS_KEY);
-      const positions = data[SCROLL_POSITIONS_KEY] || {};
-      positions[tabId] = position;
-
-      // Cleanup old entries if over limit
-      const keys = Object.keys(positions);
-      if (keys.length > SCROLL_MAX_ENTRIES) {
-        const sorted = keys.sort((a, b) => positions[a].savedAt - positions[b].savedAt);
-        const toRemove = sorted.slice(0, keys.length - SCROLL_MAX_ENTRIES);
-        for (const k of toRemove) {
-          delete positions[k];
-        }
-      }
-
-      await chrome.storage.local.set({ [SCROLL_POSITIONS_KEY]: positions });
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
-  /**
-   * Restore scroll position if saved for this tab/URL
+   * Restore the scroll position saved for this tab before it was discarded
    */
   async function restoreScrollPosition() {
     // Check if extension context is valid
     if (!chrome.runtime?.id) return;
 
     try {
-      // Get current tab ID via background
-      const response = await chrome.runtime.sendMessage({ action: "getTabId" });
-      if (!response?.tabId) return;
-
-      const data = await chrome.storage.local.get(SCROLL_POSITIONS_KEY);
-      const positions = data[SCROLL_POSITIONS_KEY] || {};
-      const saved = positions[response.tabId];
-
-      if (saved && saved.url === location.href) {
-        // Small delay to ensure page is rendered
-        setTimeout(() => {
-          window.scrollTo(saved.x, saved.y);
-        }, 100);
-
-        // Clean up after restore
-        delete positions[response.tabId];
-        await chrome.storage.local.set({ [SCROLL_POSITIONS_KEY]: positions });
-      }
+      // The service worker matches the saved entry against this tab's URL
+      const response = await chrome.runtime.sendMessage({ action: "takeScrollPosition" });
+      const saved = response?.position;
+      if (!saved) return;
+      // Small delay to ensure page is rendered
+      setTimeout(() => {
+        window.scrollTo(saved.x, saved.y);
+      }, 100);
     } catch {
       // Ignore errors (extension context invalidated, etc.)
     }

@@ -92,3 +92,22 @@ describe("storage", () => {
     });
   });
 });
+
+describe("restrictStorageToTrustedContexts", () => {
+  it("restricts local and sync to the extension's own contexts", async () => {
+    const { restrictStorageToTrustedContexts } = await importStorage();
+    await restrictStorageToTrustedContexts();
+    for (const area of [chrome.storage.local, chrome.storage.sync]) {
+      expect(area.setAccessLevel).toHaveBeenCalledWith({ accessLevel: "TRUSTED_CONTEXTS" });
+    }
+  });
+
+  it("keeps going when an area refuses", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    chrome.storage.local.setAccessLevel.mockRejectedValueOnce(new Error("unsupported"));
+    const { restrictStorageToTrustedContexts } = await importStorage();
+    await expect(restrictStorageToTrustedContexts()).resolves.toBeUndefined();
+    expect(chrome.storage.sync.setAccessLevel).toHaveBeenCalled();
+    warn.mockRestore();
+  });
+});

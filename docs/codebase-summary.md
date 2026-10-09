@@ -45,8 +45,9 @@ tabrest/
 | `session-manager.js` | 209 | Save/restore tab sessions, import with merge & dedup                                                              |
 | `stats-collector.js` | 99  | Usage statistics tracking                                                                                         |
 | `form-injector.js`   | 24  | Form-checker injection (eager on page load + lazy on demand)                                                      |
-| `message-route.js`  | 57  | Sender gate for runtime messages: content scripts limited to own-tab reports and `captureError`                   |
+| `message-route.js`  | 57  | Sender gate for runtime messages: content scripts limited to own-tab reports and `captureError` with an extension stack |
 | `form-modified-store.js` | 62 | Per-tab form-modified flag keyed by document ID, survives extension update or reload                         |
+| `page-state-store.js` | 101 | Scroll positions and YouTube timestamps saved before a discard; content scripts get only their own tab's entry |
 
 ### Content Scripts
 
@@ -167,8 +168,8 @@ service-worker.js (orchestrator)
 - `tabrest_lastVersion` - Current version for changelog gating
 - `tabrest_snooze` - Active snooze timers
 - `tabrest_pause` - Global pause state (device-local, not synced)
-- `tabrest_scroll_positions` - Cached scroll positions (max 100)
-- `youtube_timestamps` - YouTube playback positions (7-day max age)
+- `tabrest_scroll_positions` - Cached scroll positions by tab ID (max 100), kept by `page-state-store.js`
+- `youtube_timestamps` - YouTube playback positions by video ID (7-day max age), kept by `page-state-store.js`
 
 ## External Dependencies
 

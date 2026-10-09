@@ -5,6 +5,8 @@
 // such as "service-worker.js" and would erase every stack trace.
 
 import {
+  CONTENT_ERROR_BUDGET_KEY,
+  CONTENT_ERROR_SESSION_CAP,
   ERROR_DAILY_CAP,
   ERROR_DEDUP_KEY,
   ERROR_DEDUP_MAX_ENTRIES,
@@ -364,6 +366,25 @@ async function checkAndIncrementQuota() {
   quota.count++;
   await chrome.storage.local.set({ [ERROR_QUOTA_KEY]: quota });
   return { allowed: true, count: quota.count, cap: ERROR_DAILY_CAP };
+}
+
+// Serialize read-modify-write so concurrent reports cannot both take the last unit
+let contentBudgetQueue = Promise.resolve(false);
+
+/**
+ * Take one unit of the content-script error budget.
+ * @returns {Promise<boolean>} false once the session's budget is spent or storage fails
+ */
+export function takeContentErrorBudget() {
+  const run = contentBudgetQueue.then(async () => {
+    const data = await chrome.storage.session.get(CONTENT_ERROR_BUDGET_KEY);
+    const used = data[CONTENT_ERROR_BUDGET_KEY] || 0;
+    if (used >= CONTENT_ERROR_SESSION_CAP) return false;
+    await chrome.storage.session.set({ [CONTENT_ERROR_BUDGET_KEY]: used + 1 });
+    return true;
+  });
+  contentBudgetQueue = run.catch(() => false);
+  return run.catch(() => false);
 }
 
 /**

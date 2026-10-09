@@ -125,13 +125,13 @@ export function isSafeHttpUrl(url) {
   }
 }
 
-// Favicon sources shown in the popup/side panel: http(s) plus the data:image
-// URLs TabRest sets on discarded tabs (the favicon ring). Safe as an <img> src;
-// data:image cannot execute script. Kept separate from isSafeHttpUrl, which
-// still gates navigation targets to http(s) only.
-export function isSafeFaviconUrl(url) {
-  if (typeof url !== "string" || !url) return false;
-  return isSafeHttpUrl(url) || /^data:image\//i.test(url);
+// Favicon of an http(s) page from Chrome's own favicon store (the "favicon"
+// permission), so showing it never requests the image from the site. Returns ""
+// for any other URL.
+export function faviconUrlFor(pageUrl, size = 32) {
+  if (!isSafeHttpUrl(pageUrl)) return "";
+  const params = new URLSearchParams({ pageUrl, size: String(size) });
+  return `${chrome.runtime.getURL("_favicon/")}?${params}`;
 }
 
 // Service worker has no "current window" when all windows are minimized/unfocused.

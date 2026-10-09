@@ -15,7 +15,8 @@
     "scripting",
     "idle",
     "notifications",
-    "sidePanel"
+    "sidePanel",
+    "favicon"
   ],
   "host_permissions": [
     "https://*.ingest.us.sentry.io/*"

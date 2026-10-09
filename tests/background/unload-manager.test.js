@@ -334,6 +334,37 @@ describe("unload-manager", () => {
       expect(chrome.tabs.sendMessage).toHaveBeenCalledWith(1, { action: "saveYouTubeTimestamp" });
     });
 
+    it("stores the playback time the YouTube tab reports, under the tab URL's video id", async () => {
+      chrome.tabs.get.mockResolvedValue({
+        id: 1,
+        url: "https://www.youtube.com/watch?v=abc",
+        active: false,
+      });
+      chrome.tabs.discard.mockResolvedValue();
+      chrome.tabs.sendMessage.mockResolvedValueOnce({ playback: { timestamp: 95, duration: 600 } });
+      const settings = { ...baseSettings, saveYouTubeTimestamp: true };
+
+      expect(await discardTab(1, { settings })).toBe(true);
+      expect(chrome.storage.local.set).toHaveBeenCalledWith({
+        youtube_timestamps: { abc: { timestamp: 95, duration: 600, savedAt: expect.any(Number) } },
+      });
+    });
+
+    it("stores the scroll position the tab reports, with the browser-reported URL", async () => {
+      chrome.tabs.get.mockResolvedValue({ id: 1, url: "https://a.com/p", active: false });
+      chrome.tabs.discard.mockResolvedValue();
+      chrome.tabs.sendMessage.mockResolvedValueOnce({ position: { x: 0, y: 300 } });
+      const settings = { ...baseSettings, restoreScrollPosition: true };
+
+      expect(await discardTab(1, { settings })).toBe(true);
+      expect(chrome.tabs.sendMessage).toHaveBeenCalledWith(1, { action: "saveScrollPosition" });
+      expect(chrome.storage.local.set).toHaveBeenCalledWith({
+        tabrest_scroll_positions: {
+          1: { x: 0, y: 300, url: "https://a.com/p", savedAt: expect.any(Number) },
+        },
+      });
+    });
+
     it("ignores pages whose URL merely contains youtube.com/watch", async () => {
       chrome.tabs.get.mockResolvedValue({
         id: 1,

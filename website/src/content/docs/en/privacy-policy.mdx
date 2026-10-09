@@ -164,7 +164,7 @@ TabRest requests **optional** host permissions only when you enable certain feat
 | External APIs | ❌ None | ❌ None |
 | Error tracking (Sentry SaaS, US region) | ❌ Disabled - no requests sent | ✅ Enabled only after you tick the opt-in toggle. See [Error Reporting](#error-reporting) for the exact payload. |
 
-**All other code runs locally in your browser.** The Sentry endpoint (`*.ingest.us.sentry.io`) is the only service TabRest ever sends data to, and only if you enable error reporting. The popup and side panel also load tab and saved-session favicons from the URL each site provides, so opening them can request those images from the sites' servers.
+**All other code runs locally in your browser.** The Sentry endpoint (`*.ingest.us.sentry.io`) is the only service TabRest ever sends data to, and only if you enable error reporting. The popup and side panel show tab and saved-session favicons from Chrome's own favicon cache, not from the sites.
 
 ## Data Sharing
 
@@ -305,11 +305,11 @@ TabRest is built with transparency:
 
 - **Open source**: MIT licensed, public repository
 - **No analytics or behavioral telemetry**: No page-view, click, or feature-use tracking code anywhere in the codebase
-- **No data sent by default**: Audit network traffic with reporting disabled and the only requests from TabRest are favicon images the popup and side panel load from the sites in your tabs and saved sessions
+- **No data sent by default**: Audit network traffic with reporting disabled and you will find no requests from TabRest
 - **One opt-in data destination**: Only Sentry's US ingest endpoint, only when you enable error reporting
 - **Simple architecture**: Vanilla JavaScript, minimal dependencies, easy to audit
 
-**Verify yourself**: Clone the repository and inspect the source code. You'll find no analytics, no tracking, and no network requests other than the documented opt-in error reporter and the favicon images shown in the popup and side panel.
+**Verify yourself**: Clone the repository and inspect the source code. You'll find no analytics, no tracking, and no network requests other than the documented opt-in error reporter.
 
 ---
 

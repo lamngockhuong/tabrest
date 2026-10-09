@@ -220,10 +220,22 @@ describe("content-bridge: message routing", () => {
     const contentScript = { url: "https://example.com/page", tab: { id: 1 } };
     const extensionPage = { url: `${ORIGIN}src/popup/popup.html` };
 
-    it("accepts captureError from a content script", () => {
-      expect(
-        resolveMessageRoute({ command: REPORTER_COMMANDS.CAPTURE_ERROR }, contentScript, ORIGIN),
-      ).toBe(MESSAGE_ROUTES.CAPTURE_ERROR);
+    it("accepts captureError from a content script when the stack runs through extension code", () => {
+      const message = {
+        command: REPORTER_COMMANDS.CAPTURE_ERROR,
+        error: { stack: `Error: x\n    at f (${ORIGIN}src/content/form-checker.js:1:1)` },
+      };
+      expect(resolveMessageRoute(message, contentScript, ORIGIN)).toBe(
+        MESSAGE_ROUTES.CAPTURE_ERROR,
+      );
+    });
+
+    it("rejects captureError from a content script with a page-only stack", () => {
+      const message = {
+        command: REPORTER_COMMANDS.CAPTURE_ERROR,
+        error: { stack: "Error: x\n    at f (https://example.com/app.js:1:1)" },
+      };
+      expect(resolveMessageRoute(message, contentScript, ORIGIN)).toBe(MESSAGE_ROUTES.FORBIDDEN);
     });
 
     it("rejects captureMessage from a content script", () => {
