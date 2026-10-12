@@ -11,7 +11,7 @@
     "@astrojs/mdx": "8.0.3",
     "@astrojs/sitemap": "3.7.4",
     "astro": "7.3.7",
-    "marked": "18.1.0",
+    "marked": "18.1.1",
     "sanitize-html": "2.18.0"
   },
   "devDependencies": {
